@@ -46,6 +46,12 @@
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
 
+    <script type="text/javascript">
+        $(function() {
+            $("#data").dataTable();
+        });
+    </script>
+
     <script>
          $(document).ready(function () {
             var table = $('#table').dataTable({

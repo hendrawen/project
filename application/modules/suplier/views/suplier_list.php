@@ -1,8 +1,7 @@
-
-        <!-- <h2 style="margin-top:0px">Profile List</h2>
+        <!-- <h2 style="margin-top:0px">Suplier List</h2>
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
-                <?php echo anchor(site_url('profile/create'),'Create', 'class="btn btn-primary"'); ?>
+                <?php echo anchor(site_url('suplier/create'),'Create', 'class="btn btn-primary"'); ?>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -12,7 +11,7 @@
             <div class="col-md-1 text-right">
             </div>
             <div class="col-md-3 text-right">
-                <form action="<?php echo site_url('profile/index'); ?>" class="form-inline" method="get">
+                <form action="<?php echo site_url('suplier/index'); ?>" class="form-inline" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                         <span class="input-group-btn">
@@ -20,7 +19,7 @@
                                 if ($q <> '')
                                 {
                                     ?>
-                                    <a href="<?php echo site_url('profile'); ?>" class="btn btn-default">Reset</a>
+                                    <a href="<?php echo site_url('suplier'); ?>" class="btn btn-default">Reset</a>
                                     <?php
                                 }
                             ?>
@@ -32,31 +31,27 @@
         </div>
         <table class="table table-bordered" style="margin-bottom: 10px">
             <tr>
-                <th>No</th>
-            		<th>Nama Perusahaan</th>
+                <th>#</th>
+            		<th>Id Suplier</th>
+            		<th>Nama Suplier</th>
             		<th>Alamat</th>
-            		<th>No Telp</th>
-            		<th>Email</th>
-            		<th>Website</th>
             		<th>Action</th>
             </tr><?php
-            foreach ($profile_data as $profile)
+            foreach ($suplier_data as $suplier)
             {
                 ?>
                 <tr>
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $profile->nama_perusahaan ?></td>
-			<td><?php echo $profile->alamat ?></td>
-			<td><?php echo $profile->no_telp ?></td>
-			<td><?php echo $profile->email ?></td>
-			<td><?php echo $profile->website ?></td>
+			<td><?php echo $suplier->id_suplier ?></td>
+			<td><?php echo $suplier->nama_suplier ?></td>
+			<td><?php echo $suplier->alamat ?></td>
 			<td style="text-align:center" width="200px">
 				<?php
-				echo anchor(site_url('profile/read/'.$profile->id),'Read');
+				echo anchor(site_url('suplier/read/'.$suplier->id),'Read');
 				echo ' | ';
-				echo anchor(site_url('profile/update/'.$profile->id),'Update');
+				echo anchor(site_url('suplier/update/'.$suplier->id),'Update');
 				echo ' | ';
-				echo anchor(site_url('profile/delete/'.$profile->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+				echo anchor(site_url('suplier/delete/'.$suplier->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
 				?>
 			</td>
 		</tr>
@@ -67,37 +62,37 @@
         <div class="row">
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-	      </div>
+		<?php echo anchor(site_url('suplier/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+		<?php echo anchor(site_url('suplier/word'), 'Word', 'class="btn btn-primary"'); ?>
+	    </div>
             <div class="col-md-6 text-right">
                 <?php echo $pagination ?>
             </div>
         </div> -->
 
-<div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-                      <div class="x_title">
-                        <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-                          <li><a class="close-link"><i class="fa fa-close"></i></a>
-                          </li>
-                        </ul>
-                        <h2>Profile List</small></h2><br><br>
-                        <div class="row">
-                        <div class="col-md-4">
-                            <?php echo anchor(site_url('profile/create'),'Create', 'class="btn btn-primary"'); ?>
-                        </div>
-
+              <div lass="x_title">
+                  <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <h2>Suplier List</small></h2><br>
+                  <div class="row">
+                    <div class="col-md-4">
+                        <?php echo anchor(site_url('suplier/create'),'Create', 'class="btn btn-primary"'); ?>
+                    </div>
+                  </div>
                         <div class="col-md-4 text-center">
                             <div style="margin-top: 8px" id="message">
                                 <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                             </div>
                         </div>
-
                         <!-- <div class="col-md-1 text-right">
                         </div> -->
-                        <div class="col-md-4 text-right">
-                            <form action="<?php echo site_url('profile/index'); ?>" class="form-inline" method="get">
+                        <!-- <div class="col-md-4 text-right">
+                            <form action="<?php echo site_url('suplier/index'); ?>" class="form-inline" method="get">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                                     <span class="input-group-btn">
@@ -105,7 +100,7 @@
                                             if ($q <> '')
                                             {
                                                 ?>
-                                                <a href="<?php echo site_url('profile'); ?>" class="btn btn-default">Reset</a>
+                                                <a href="<?php echo site_url('suplier'); ?>" class="btn btn-default">Reset</a>
                                                 <?php
                                             }
                                         ?>
@@ -113,48 +108,42 @@
                                     </span>
                                 </div>
                             </form>
-                        </div>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
+                        </div> -->
+
+                      <div class="clearfix"></div>
+                  </div>
                       <div class="x_content">
                         <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-hover" id="data">
                           <thead>
                             <tr>
                               <th>#</th>
-                          		<th>Nama Perusahaan</th>
+                          		<th>Id Suplier</th>
+                          		<th>Nama Suplier</th>
                           		<th>Alamat</th>
-                          		<th>No Telp</th>
-                          		<th>Email</th>
-                          		<th>Website</th>
                           		<th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
                             <?php
                             $no = 1;
-                            foreach ($profile_data as $profile)
+                            foreach ($suplier_data as $suplier)
                             {
                                 ?>
                             <tr>
-                              <td width="50px"><?php echo $no++ ?></td>
-                        			<td><?php echo $profile->nama_perusahaan ?></td>
-                        			<td><?php echo $profile->alamat ?></td>
-                        			<td><?php echo $profile->no_telp ?></td>
-                        			<td><?php echo $profile->email ?></td>
-                        			<td><?php echo $profile->website ?></td>
-                        			<td width="100px" style="text-align:center">
-                                <a href="<?=base_url()?>profile/read/<?=$profile->id?>" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></a>
-                                <a href="<?=base_url()?>profile/update/<?=$profile->id?>" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                              <td width="30px"><?php echo $no++ ?></td>
+                              <td><?php echo $suplier->id_suplier ?></td>
+                        			<td><?php echo $suplier->nama_suplier ?></td>
+                        			<td><?php echo $suplier->alamat ?></td>
+                        			<td style="text-align:center" width="200px">
                         				<?php
-                        				//echo anchor(site_url('profile/read/'.$profile->id),'Read');
-                        				//echo ' | ';
-                        				//echo anchor(site_url('profile/update/'.$profile->id),'Update');
-                        				//echo ' | ';
-                        				// echo anchor(site_url('profile/delete/'.$profile->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+                        				echo anchor(site_url('suplier/read/'.$suplier->id),'Read');
+                        				echo ' | ';
+                        				echo anchor(site_url('suplier/update/'.$suplier->id),'Update');
+                        				echo ' | ';
+                        				echo anchor(site_url('suplier/delete/'.$suplier->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
                         				?>
-                        			</td>
+                              </td>
                             </tr>
                             <?php
                                 }
@@ -162,14 +151,22 @@
                           </tbody>
                         </table>
                       </div>
-                        <div class="row">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <a></a>
+                          		<?php echo anchor(site_url('suplier/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+                          		<?php echo anchor(site_url('suplier/word'), 'Word', 'class="btn btn-primary"'); ?>
+                  	    </div>
+                      </div>
+
+
+                        <!-- <div class="row">
                             <div class="col-md-6">
                                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-                	      </div>
+                            </div>
                             <div class="col-md-6 text-right">
                                 <?php echo $pagination ?>
                             </div>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
-</div>

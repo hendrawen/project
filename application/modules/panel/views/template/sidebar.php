@@ -37,8 +37,8 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">Pelanggan</a></li>
-                      <li><a href="">Suplier</a></li>
+                      <li><a href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
+                      <li><a href="<?php echo base_url();?>suplier">Suplier</a></li>
                       <li><a href="">Karyawan</a></li>
                       <li><a href="">Barang</a></li>
                       <li><a href="">Stok</a></li>
