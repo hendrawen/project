@@ -19,7 +19,7 @@ class Pelanggan extends CI_Controller{
     $data['content']			= 'main';
     $kotas = $this->pelanggan->get_list_kota();
 
-    $opt = array('' => 'Semua Kota');
+    $opt = array('' => 'Kota');
         foreach ($kotas as $kota) {
             $opt[$kota] = $kota;
     }
@@ -27,7 +27,7 @@ class Pelanggan extends CI_Controller{
     $data['form_kota'] = form_dropdown('',$opt,'','id="kota" class="form-control"');
     $statuse = $this->pelanggan->get_list_status();
 
-    $opt1 = array('' => 'Semua Status');
+    $opt1 = array('' => 'Status');
         foreach ($statuse as $status) {
             $opt1[$status] = $status;
     }
@@ -36,7 +36,7 @@ class Pelanggan extends CI_Controller{
 
     $kecamatans = $this->pelanggan->get_list_kecamatan();
 
-    $opt2 = array('' => 'Semua Kecamatan');
+    $opt2 = array('' => 'Kecamatan');
         foreach ($kecamatans as $kecamatan) {
             $opt2[$kecamatan] = $kecamatan;
     }
@@ -45,7 +45,7 @@ class Pelanggan extends CI_Controller{
 
     $kelurahans = $this->pelanggan->get_list_kelurahan();
 
-    $opt3 = array('' => 'Semua Kelurahan');
+    $opt3 = array('' => 'Kelurahan');
         foreach ($kelurahans as $kelurahan) {
             $opt3[$kelurahan] = $kelurahan;
     }
@@ -54,7 +54,7 @@ class Pelanggan extends CI_Controller{
 
     $surveyors = $this->pelanggan->get_list_surveyor();
 
-    $opt4 = array('' => 'Semua Surveyor');
+    $opt4 = array('' => 'Surveyor');
         foreach ($surveyors as $surveyor) {
             $opt4[$surveyor] = $surveyor;
     }
@@ -113,24 +113,26 @@ class Pelanggan extends CI_Controller{
   		$data['judul']			='Mapping Pelanggan';
   		$data['sub_judul']		='';
       $data['content']			= 'maps';
-      $config['center'] = '37.4419, -122.1419';
+      $config['center'] = '-6.241586
+      $marker = array();
+, 106.992416';
       $config['zoom'] = 'auto';
       $this->googlemap->initialize($config);
 
       $marker = array();
-      $marker['position'] = '37.429, -122.1519';
+      $marker['position'] = '-7.025253, 107.519760';
       $marker['infowindow_content'] = '1 - Hello World!';
       $marker['icon'] = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|9999FF|000000';
       $this->googlemap->add_marker($marker);
 
       $marker = array();
-      $marker['position'] = '37.409, -122.1319';
+      $marker['position'] = '-6.241586, 106.992416';
       $marker['draggable'] = TRUE;
       $marker['animation'] = 'DROP';
       $this->googlemap->add_marker($marker);
 
       $marker = array();
-      $marker['position'] = '37.449, -122.1419';
+      $marker['position'] = '-7.866688, 111.466614';
       $marker['onclick'] = 'alert("You just clicked me!!")';
       $this->googlemap->add_marker($marker);
       $data['map'] = $this->googlemap->create_map();
@@ -214,6 +216,13 @@ class Pelanggan extends CI_Controller{
             echo json_encode($data);
             exit();
         }
+    }
+
+    public function get_csrf()
+    {
+        $error['csrf_token'] = $this->security->get_csrf_hash();
+        echo json_encode($error);
+        die();
     }
 
 }

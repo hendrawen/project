@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                          <?php echo $form_status; ?>
+                          <?php echo $form_kelurahan; ?>
                         </div>
 
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                          <?php echo $form_kelurahan; ?>
+                          <?php echo $form_status; ?>
                         </div>
 
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
@@ -45,8 +45,11 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                          <button type="button" id="btn-filter" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
-                          <button type="button" id="btn-reset" class="btn btn-warning"><i class="fa fa-refresh"></i> Reset</button>
+                          <div class="text-right">
+                            <button type="button" id="btn-filter" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
+                            <button type="button" id="btn-reset" class="btn btn-warning"><i class="fa fa-refresh"></i> All</button>
+                          </div>
+
                         </div>
                       </form>
                       </div>
@@ -94,7 +97,6 @@
                   </table>
                   </div>
                 </div>
-
                   <!-- modals -->
                   <!-- Large modal -->
                   <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-hidden="true">
