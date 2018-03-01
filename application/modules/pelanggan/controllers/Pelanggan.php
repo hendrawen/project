@@ -54,7 +54,7 @@ class Pelanggan extends CI_Controller{
 
     $surveyors = $this->pelanggan->get_list_surveyor();
 
-    $opt4 = array('' => 'Semua Serveyor');
+    $opt4 = array('' => 'Semua Surveyor');
         foreach ($surveyors as $surveyor) {
             $opt4[$surveyor] = $surveyor;
     }
@@ -75,17 +75,20 @@ class Pelanggan extends CI_Controller{
             $row[] = $pelanggans->no_telp;
             $row[] = $pelanggans->nama_dagang;
             $row[] = $pelanggans->alamat;
-            $row[] = $pelanggans->photo_toko;
             $row[] = $pelanggans->kota;
             $row[] = $pelanggans->kelurahan;
             $row[] = $pelanggans->kecamatan;
             $row[] = $pelanggans->lat;
             $row[] = $pelanggans->long;
             $row[] = $pelanggans->status;
+            if($pelanggans->photo_toko)
+                $row[] = '<a href="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" target="_blank"><img src="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" class="img-responsive" height="42" width="42"/></a>';
+            else
+                $row[] = '(tidak ada photo)';
             $row[] = $pelanggans->nama;
             $row[] = '<button type="button" class="btn btn-success btn-xs"><i class="fa fa-external-link"></i></button>
             <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
-            <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+            <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_pelanggan('."'".$pelanggans->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 
             $data[] = $row;
@@ -104,12 +107,113 @@ class Pelanggan extends CI_Controller{
     public function test()
     {
       # code...
+      $this->load->library('Googlemap');
       $data['aktif']			='Pelanggan';
   		$data['title']			='Data Pelanggan';
-  		$data['judul']			='Data Pelanggan';
+  		$data['judul']			='Mapping Pelanggan';
   		$data['sub_judul']		='';
-      $data['content']			= 'form';
+      $data['content']			= 'maps';
+      $config['center'] = '37.4419, -122.1419';
+      $config['zoom'] = 'auto';
+      $this->googlemap->initialize($config);
+
+      $marker = array();
+      $marker['position'] = '37.429, -122.1519';
+      $marker['infowindow_content'] = '1 - Hello World!';
+      $marker['icon'] = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|9999FF|000000';
+      $this->googlemap->add_marker($marker);
+
+      $marker = array();
+      $marker['position'] = '37.409, -122.1319';
+      $marker['draggable'] = TRUE;
+      $marker['animation'] = 'DROP';
+      $this->googlemap->add_marker($marker);
+
+      $marker = array();
+      $marker['position'] = '37.449, -122.1419';
+      $marker['onclick'] = 'alert("You just clicked me!!")';
+      $this->googlemap->add_marker($marker);
+      $data['map'] = $this->googlemap->create_map();
+
       $this->load->view('panel/dashboard', $data);
+    }
+
+    public function ajax_add()
+    {
+        //$this->_validate();
+        $data = array(
+                'nama_pelanggan' => $this->input->post('nama_pelanggan'),
+                'no_telp' => $this->input->post('no_telp'),
+                'nama_dagang' => $this->input->post('nama_dagang'),
+                'alamat' => $this->input->post('alamat'),
+                'photo' => $this->input->post('photo'),
+                'photo_toko' => $this->input->post('photo_toko'),
+                'kota' => $this->input->post('kota'),
+                'kelurahan' => $this->input->post('kelurahan'),
+                'kecamatan' => $this->input->post('kecamatan'),
+                'lat' => $this->input->post('lat'),
+                'long' => $this->input->post('long'),
+                'keterangan' => $this->input->post('keterangan'),
+                'status' => $this->input->post('status'),
+                'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan'),
+            );
+        $insert = $this->pelanggan->save($data);
+        echo json_encode(array("status" => TRUE));
+    }
+
+    public function ajax_delete($id)
+    {
+        $this->pelanggan->delete_by_id($id);
+        echo json_encode(array("status" => TRUE));
+    }
+
+    private function _validate()
+    {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        if($this->input->post('firstName') == '')
+        {
+            $data['inputerror'][] = 'firstName';
+            $data['error_string'][] = 'First name is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('lastName') == '')
+        {
+            $data['inputerror'][] = 'lastName';
+            $data['error_string'][] = 'Last name is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('dob') == '')
+        {
+            $data['inputerror'][] = 'dob';
+            $data['error_string'][] = 'Date of Birth is required';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('gender') == '')
+        {
+            $data['inputerror'][] = 'gender';
+            $data['error_string'][] = 'Please select gender';
+            $data['status'] = FALSE;
+        }
+
+        if($this->input->post('address') == '')
+        {
+            $data['inputerror'][] = 'address';
+            $data['error_string'][] = 'Addess is required';
+            $data['status'] = FALSE;
+        }
+
+        if($data['status'] === FALSE)
+        {
+            echo json_encode($data);
+            exit();
+        }
     }
 
 }

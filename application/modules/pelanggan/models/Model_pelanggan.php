@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Model_pelanggan extends CI_Model{
 
      var $table = 'vpelanggan';
+     var $table2 = 'pelanggan';
      var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama', null); //set column field database for datatable orderable
      var $column_search = array('id_pelanggan','nama_pelanggan','nama_dagang','alamat','kota','kelurahan','kecamatan','status','nama'); //set column field database for datatable searchable
      var $order = array('id_pelanggan' => 'asc'); // default order
@@ -92,6 +93,33 @@ class Model_pelanggan extends CI_Model{
     {
         $this->db->from($this->table);
         return $this->db->count_all_results();
+    }
+
+    public function get_by_id($id)
+    {
+        $this->db->from($this->table);
+        $this->db->where('id',$id);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function save($data)
+    {
+        $this->db->insert($this->table2, $data);
+        return $this->db->insert_id();
+    }
+
+    public function update($where, $data)
+    {
+        $this->db->update($this->table2, $data, $where);
+        return $this->db->affected_rows();
+    }
+
+    public function delete_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete($this->table2);
     }
 
     public function get_list_kota()

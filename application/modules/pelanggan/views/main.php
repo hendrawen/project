@@ -1,4 +1,5 @@
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-user"></i> Tambah</button>
+                <button type="button" class="btn btn-success" onclick="add_pelanggan()"><i class="fa fa-user"></i> Tambah</button>
+                <a href="<?php echo base_url('pelanggan/test'); ?>" type="button" class="btn btn-info" ><i class="fa fa-map-marker"></i> Map</a>
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-group"></i> Data Pelanggan</h2>
@@ -59,13 +60,13 @@
                               <th>Telp</th>
                               <th>Nama Dagang</th>
                               <th>Alamat</th>
-                              <th>Photo</th>
                               <th>Kota</th>
                               <th>Kelurahan</th>
                               <th>Kecamatan</th>
                               <th>Lat</th>
                               <th>Long</th>
                               <th>status</th>
+                              <th>Photo</th>
                               <th>Surveyor</th>
                               <th>Aksi</th>
                           </tr>
@@ -79,13 +80,13 @@
                           <th>Telp</th>
                           <th>Nama Dagang</th>
                           <th>Alamat</th>
-                          <th>Photo</th>
                           <th>Kota</th>
                           <th>Kelurahan</th>
                           <th>Kecamatan</th>
                           <th>Lat</th>
                           <th>Long</th>
                           <th>status</th>
+                          <th>Photo</th>
                           <th>Surveyor</th>
                           <th>Aksi</th>
                         </tr>
@@ -96,7 +97,7 @@
 
                   <!-- modals -->
                   <!-- Large modal -->
-                  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
 
@@ -106,7 +107,7 @@
                           <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> Tambah Pelanggan</h4>
                         </div>
                         <div class="modal-body">
-                          <form class="form-horizontal form-label-left">
+                          <form action="#" id="form" class="form-horizontal form-label-left">
                             <div class="class-row">
                               <div class="col-md-6 form-group">
                                 <div class="form-group">
@@ -140,12 +141,36 @@
                               </div>
                               <div class="col-md-6 form-group">
                                 <div class="form-group">
-                                  <label>Email address</label>
-                                  <input type="text" class="form-control" placeholder="Enter email">
+                                  <label>Latitude</label>
+                                  <input type="text" name="lat" class="form-control" placeholder="masukkan latitude">
                                 </div>
                                 <div class="form-group">
-                                  <label>Password</label>
-                                  <input type="text" class="form-control" placeholder="Password">
+                                  <label>Longlatitude</label>
+                                  <input type="text" name="long" class="form-control" placeholder="masukkan longlatitude">
+                                </div>
+                                <div class="form-group">
+                                  <label>Status</label>
+                                  <select class="form-control" name="status">
+                                    <option>Choose option</option>
+                                    <option value="Responden">Responden</option>
+                                    <option value="pelanggan">Pelanggan</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Photo</label>
+                                  <input type="file" name="photo" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                  <label>Photo Toko</label>
+                                  <input type="file" name="photo_toko" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                  <label>Keterangan</label>
+                                  <textarea name="keterangan" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Surveyor</label>
+                                  <input type="text" name="wp_karyawan_id_karyawan" class="form-control">
                                 </div>
                               </div>
                             </div>
@@ -153,7 +178,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-success">Save changes</button>
+                          <button id="btnSave" onclick="save()" type="button" class="btn btn-success">Simpan</button>
                         </div>
 
                       </div>
