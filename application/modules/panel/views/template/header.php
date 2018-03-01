@@ -15,8 +15,6 @@
     <link href="<?php echo base_url()?>assets/template/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="<?php echo base_url()?>assets/template/vendors/nprogress/nprogress.css" rel="stylesheet">
-
-    <link href="<?php echo base_url()?>assets/template/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/vendors/iCheck/skins/flat/green.css" rel="stylesheet">

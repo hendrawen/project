@@ -113,7 +113,7 @@
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
-
+                        <div class="table-responsive">
                         <table class="table table-bordered">
                           <thead>
                             <tr>
@@ -154,6 +154,7 @@
                             ?>
                           </tbody>
                         </table>
+                      </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
