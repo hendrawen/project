@@ -15,6 +15,7 @@
     <link href="<?php echo base_url()?>assets/template/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="<?php echo base_url()?>assets/template/vendors/nprogress/nprogress.css" rel="stylesheet">
+<<<<<<< HEAD
     <!-- iCheck -->
     <link href="<?php echo base_url()?>assets/template/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
@@ -25,6 +26,8 @@
     <link href="<?php echo base_url()?>assets/template/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <!-- starrr -->
     <link href="<?php echo base_url()?>assets/template/vendors/starrr/dist/starrr.css" rel="stylesheet">
+=======
+>>>>>>> 7ce623f0d50f5c703de71010372f06731fed9b52
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
