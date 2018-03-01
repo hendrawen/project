@@ -75,17 +75,21 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-                      <div class="x_title">
-                        <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
-                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                          </li>
-                          <li><a class="close-link"><i class="fa fa-close"></i></a>
-                          </li>
-                        </ul>
-                        <h2>Profile List</small></h2><br><br>
-                        <div class="row">
+          <div class="x_title">
+                <h2>Profile List</h2>
+                <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
+                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                  </li>
+                  <li class="dropdown">
+                  </li>
+                  <li><a class="close-link"><i class="fa fa-close"></i></a>
+                  </li>
+                </ul>
+                <div class="clearfix"></div>
+              </div><br>
+                        <div class="row" style="margin-left:-5px">
                         <div class="col-md-4">
-                            <?php echo anchor(site_url('profile/create'),'Create', 'class="btn btn-primary"'); ?>
+                            <?php echo anchor(site_url('profile/create'),'Tambah', 'class="btn btn-primary"'); ?>
                         </div>
 
                         <div class="col-md-4 text-center">
@@ -94,8 +98,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="col-md-1 text-right">
-                        </div> -->
+
                         <div class="col-md-4 text-right">
                             <form action="<?php echo site_url('profile/index'); ?>" class="form-inline" method="get">
                                 <div class="input-group">
@@ -115,8 +118,7 @@
                             </form>
                         </div>
                         </div>
-                        <div class="clearfix"></div>
-                      </div>
+
                       <div class="x_content">
                         <div class="table-responsive">
                         <table class="table table-bordered">
@@ -138,15 +140,16 @@
                             {
                                 ?>
                             <tr>
-                              <td width="50px"><?php echo $no++ ?></td>
+                              <td width="20px"><?php echo $no++ ?></td>
                         			<td><?php echo $profile->nama_perusahaan ?></td>
                         			<td><?php echo $profile->alamat ?></td>
                         			<td><?php echo $profile->no_telp ?></td>
                         			<td><?php echo $profile->email ?></td>
                         			<td><?php echo $profile->website ?></td>
-                        			<td width="100px" style="text-align:center">
-                                <a href="<?=base_url()?>profile/read/<?=$profile->id?>" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-search"></i></a>
-                                <a href="<?=base_url()?>profile/update/<?=$profile->id?>" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                        			<td width="150px" style="text-align:center">
+                                <a href="<?=base_url()?>profile/read/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
+                                <a href="<?=base_url()?>profile/update/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                                <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>profile/delete/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
                         				<?php
                         				//echo anchor(site_url('profile/read/'.$profile->id),'Read');
                         				//echo ' | ';

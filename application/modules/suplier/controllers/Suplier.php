@@ -73,14 +73,19 @@ class Suplier extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Create',
+            'button' => 'Tambah',
             'action' => site_url('suplier/create_action'),
 	    'id' => set_value('id'),
 	    'id_suplier' => set_value('id_suplier'),
 	    'nama_suplier' => set_value('nama_suplier'),
 	    'alamat' => set_value('alamat'),
 	);
-        $this->load->view('suplier/suplier_form', $data);
+        $data['aktif']			='Master';
+        $data['title']			='Brajamarketindo';
+        $data['judul']			='Dashboard';
+        $data['sub_judul']	='Tambah Suplier';
+        $data['content']		='suplier_form';
+        $this->load->view('panel/dashboard', $data);
     }
 
     public function create_action()
@@ -91,7 +96,7 @@ class Suplier extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_suplier' => $this->input->post('id_suplier',TRUE),
+		'id_suplier' => $this->suplier_model->buat_kode(),
 		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
 		'alamat' => $this->input->post('alamat',TRUE),
 	    );
@@ -157,7 +162,7 @@ class Suplier extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('id_suplier', 'id suplier', 'trim|required');
+	//$this->form_validation->set_rules('id_suplier', 'id suplier', 'trim|required');
 	$this->form_validation->set_rules('nama_suplier', 'nama suplier', 'trim|required');
 	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
 

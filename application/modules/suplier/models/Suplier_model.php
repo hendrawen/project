@@ -70,6 +70,25 @@ class Suplier_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    public function buat_kode()   {
+        $this->db->select('RIGHT(wp_suplier.id_suplier, 2) as kode', FALSE);
+        $this->db->order_by($this->id, $this->order);
+        $this->db->limit(1);
+        $query = $this->db->get($this->table, $this->id);      //cek dulu apakah ada sudah ada kode di tabel.
+        if($query->num_rows() <> 0){
+         //jika kode ternyata sudah ada.
+         $data = $query->row();
+         $kode = intval($data->kode) + $this->id;
+        }
+        else {
+         //jika kode belum ada
+         $kode = 0;
+        }
+        $kodemax = str_pad($kode, 2, "0", STR_PAD_LEFT); // angka 2 menunjukkan jumlah digit angka 0
+        $kodejadi = "SP00".$kodemax;    // hasilnya ODJ-9921-0001 dst.
+        return $kodejadi;
+    }
+
 }
 
 /* End of file Wp_suplier_model.php */

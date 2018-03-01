@@ -75,7 +75,7 @@ class Profile extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Create',
+            'button' => 'Tambah',
             'action' => site_url('profile/create_action'),
 	    'id' => set_value('id'),
 	    'nama_perusahaan' => set_value('nama_perusahaan'),
