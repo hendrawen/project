@@ -101,4 +101,15 @@ class Pelanggan extends CI_Controller{
         echo json_encode($output);
     }
 
+    public function test()
+    {
+      # code...
+      $data['aktif']			='Pelanggan';
+  		$data['title']			='Data Pelanggan';
+  		$data['judul']			='Data Pelanggan';
+  		$data['sub_judul']		='';
+      $data['content']			= 'form';
+      $this->load->view('panel/dashboard', $data);
+    }
+
 }

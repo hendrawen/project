@@ -72,36 +72,30 @@
                       </thead>
                       <tbody>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>ID Pelanggan</th>
+                          <th>Nama</th>
+                          <th>Telp</th>
+                          <th>Nama Dagang</th>
+                          <th>Alamat</th>
+                          <th>Photo</th>
+                          <th>Kota</th>
+                          <th>Kelurahan</th>
+                          <th>Kecamatan</th>
+                          <th>Lat</th>
+                          <th>Long</th>
+                          <th>status</th>
+                          <th>Surveyor</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </tfoot>
                   </table>
                   </div>
                 </div>
 
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2><i class="fa fa-square-o"></i> Modals</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
                   <!-- modals -->
                   <!-- Large modal -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
-
                   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
@@ -109,47 +103,59 @@
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                           </button>
-                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                          <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> Tambah Pelanggan</h4>
                         </div>
                         <div class="modal-body">
-                          <h4>Text in a modal</h4>
-                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                          <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                          <form class="form-horizontal form-label-left">
+                            <div class="class-row">
+                              <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                  <label>Nama Pelanggan</label>
+                                  <input type="text" class="form-control" name="nama_pelanggan" placeholder="Masukkan nama pelanggan">
+                                </div>
+                                <div class="form-group">
+                                  <label>No Telp.</label>
+                                  <input type="text" class="form-control" name="no_telp" placeholder="Masukkan nomer telp.">
+                                </div>
+                                <div class="form-group">
+                                  <label>Nama Dagang</label>
+                                  <input type="text" class="form-control" name="nama_dagang" placeholder="Masukkan nomer telp.">
+                                </div>
+                                <div class="form-group">
+                                  <label>Kota</label>
+                                  <input type="text" class="form-control" name="kota" placeholder="kota">
+                                </div>
+                                <div class="form-group">
+                                  <label>Kelurahan</label>
+                                  <input type="text" class="form-control" name="kelurahan" placeholder="Kelurahan">
+                                </div>
+                                <div class="form-group">
+                                  <label>Kecamatan</label>
+                                  <input type="text" class="form-control" name="kecamatan" placeholder="kecamatan">
+                                </div>
+                                <div class="form-group">
+                                  <label>Alamat</label>
+                                  <textarea name="alamat" class="form-control" placeholder="masukkan alamat lengkap"></textarea>
+                                </div>
+                              </div>
+                              <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                  <label>Email address</label>
+                                  <input type="text" class="form-control" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                  <label>Password</label>
+                                  <input type="text" class="form-control" placeholder="Password">
+                                </div>
+                              </div>
+                            </div>
+                            </form>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
+                          <button type="button" class="btn btn-success">Save changes</button>
                         </div>
 
                       </div>
                     </div>
                   </div>
-
-                  <!-- Small modal -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
-
-                  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                      <div class="modal-content">
-
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                          </button>
-                          <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
-                        </div>
-                        <div class="modal-body">
-                          <h4>Text in a modal</h4>
-                          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                          <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /modals -->
-                </div>
-              </div>
