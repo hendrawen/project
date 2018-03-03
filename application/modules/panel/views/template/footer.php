@@ -73,7 +73,10 @@
                                     '<td>'+data[i].id_suplier+'</td>'+
                                     '<td>'+data[i].nama_suplier+'</td>'+
                                     '<td>'+data[i].alamat+'</td>'+
-                                    '<td>'+data[i].alamat+'</td>'+
+                                    '<td style="text-align:right;">'+
+                                      '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Edit</a>'+' '+
+                                      '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
+                                    '</td>'+
                                     '</tr>';
                         }
                         $('#show_data').html(html);
