@@ -19,7 +19,7 @@ class Pelanggan extends CI_Controller{
     $data['content']			= 'main';
     $kotas = $this->pelanggan->get_list_kota();
 
-    $opt = array('' => 'Kota');
+    $opt = array('' => 'Semua Kota');
         foreach ($kotas as $kota) {
             $opt[$kota] = $kota;
     }
@@ -27,7 +27,7 @@ class Pelanggan extends CI_Controller{
     $data['form_kota'] = form_dropdown('',$opt,'','id="kota" class="form-control"');
     $statuse = $this->pelanggan->get_list_status();
 
-    $opt1 = array('' => 'Status');
+    $opt1 = array('' => 'Semua Status');
         foreach ($statuse as $status) {
             $opt1[$status] = $status;
     }
@@ -36,7 +36,7 @@ class Pelanggan extends CI_Controller{
 
     $kecamatans = $this->pelanggan->get_list_kecamatan();
 
-    $opt2 = array('' => 'Kecamatan');
+    $opt2 = array('' => 'Semua Kecamatan');
         foreach ($kecamatans as $kecamatan) {
             $opt2[$kecamatan] = $kecamatan;
     }
@@ -45,7 +45,7 @@ class Pelanggan extends CI_Controller{
 
     $kelurahans = $this->pelanggan->get_list_kelurahan();
 
-    $opt3 = array('' => 'Kelurahan');
+    $opt3 = array('' => 'Semua Kelurahan');
         foreach ($kelurahans as $kelurahan) {
             $opt3[$kelurahan] = $kelurahan;
     }
@@ -54,7 +54,7 @@ class Pelanggan extends CI_Controller{
 
     $surveyors = $this->pelanggan->get_list_surveyor();
 
-    $opt4 = array('' => 'Surveyor');
+    $opt4 = array('' => 'Semua Surveyor');
         foreach ($surveyors as $surveyor) {
             $opt4[$surveyor] = $surveyor;
     }

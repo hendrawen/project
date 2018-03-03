@@ -112,6 +112,7 @@
                           <form action="#" id="form" class="form-horizontal form-label-left">
                             <div class="class-row">
                               <div class="col-md-6 form-group">
+                                <input type="hidden" value="" name="id"/>
                                 <div class="form-group">
                                   <label>Nama Pelanggan</label>
                                   <input type="text" class="form-control" name="nama_pelanggan" placeholder="Masukkan nama pelanggan">
@@ -159,7 +160,7 @@
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                  <label>Photo</label>
+                                  <label id="label-photo">Photo</label>
                                   <input type="file" name="photo" class="form-control">
                                 </div>
                                 <div class="form-group">
@@ -174,6 +175,7 @@
                                   <label>Surveyor</label>
                                   <input type="text" name="wp_karyawan_id_karyawan" class="form-control">
                                 </div>
+
                               </div>
                             </div>
                             </form>

@@ -106,8 +106,13 @@ var table;
           if(confirm('Are you sure delete this data?'))
           {
               // ajax delete data to database
+              $.ajaxSetup({
+                  data: {
+                      csrf_test_name: $.cookie('csrf_cookie_name')
+                  }
+              });
               $.ajax({
-                  url : "pelanggan/ajax_delete"+id,
+                  url : "pelanggan/ajax_delete/"+id,
                   type: "POST",
                   dataType: "JSON",
                   success: function(data)
