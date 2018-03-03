@@ -163,66 +163,163 @@ class Pelanggan extends CI_Controller{
         echo json_encode(array("status" => TRUE));
     }
 
+    public function tambah()
+    {
+      # code...
+      $data = array(
+          'button' => 'Tambah',
+          'action' => site_url('pelanggan/aksi_tambah'),
+          'id' => set_value('id'),
+    	    'id_pelanggan' => set_value('id_pelanggan'),
+    	    'nama_pelanggan' => set_value('nama_pelanggan'),
+    	    'no_telp' => set_value('no_telp'),
+    	    'nama_dagang' => set_value('nama_dagang'),
+    	    'alamat' => set_value('alamat'),
+    	    'photo' => set_value('photo'),
+    	    'photo_toko' => set_value('photo_toko'),
+    	    'kota' => set_value('kota'),
+    	    'kelurahan' => set_value('kelurahan'),
+    	    'kecamatan' => set_value('kecamatan'),
+    	    'lat' => set_value('lat'),
+    	    'long' => set_value('long'),
+    	    'keterangan' => set_value('keterangan'),
+    	    'status' => set_value('status'),
+    	    'created_at' => set_value('created_at'),
+    	    'updated_at' => set_value('updated_at'),
+    	    'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
+      );
+      $data['aktif']			='Pelanggan';
+  		$data['title']			='Data Pelanggan';
+  		$data['judul']			='Pelanggan';
+  		$data['sub_judul']		='';
+      $data['content']			= 'form';
+      $this->load->view('panel/dashboard', $data);
+    }
+
+    public function aksi_tambah()
+    {
+      # code...
+      $this->_rules();
+
+      if ($this->form_validation->run() == FALSE) {
+          $this->tambah();
+      } else {
+          $data = array(
+            'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+            'no_telp' => $this->input->post('no_telp', true),
+            'nama_dagang' => $this->input->post('nama_dagang', true),
+            'alamat' => $this->input->post('alamat', true),
+            'photo' => $this->input->post('photo', true),
+            'photo_toko' => $this->input->post('photo_toko', true),
+            'kota' => $this->input->post('kota', true),
+            'kelurahan' => $this->input->post('kelurahan', true),
+            'kecamatan' => $this->input->post('kecamatan', true),
+            'lat' => $this->input->post('lat', true),
+            'long' => $this->input->post('long', true),
+            'keterangan' => $this->input->post('keterangan', true),
+            'status' => $this->input->post('status', true),
+            'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+          );
+          $this->pelanggan->insert($data);
+          $this->session->set_flashdata('message', 'tambah data pelanggan berhasil');
+          redirect(site_url('pelanggan'));
+      }
+    }
+
+    public function update($id)
+    {
+        $row = $this->Wp_pelanggan_model->get_by_id($id);
+
+        if ($row) {
+            $data = array(
+                'button' => 'Update',
+                'action' => site_url('wp_pelanggan/update_action'),
+		'id' => set_value('id', $row->id),
+		'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
+		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
+		'no_telp' => set_value('no_telp', $row->no_telp),
+		'nama_dagang' => set_value('nama_dagang', $row->nama_dagang),
+		'alamat' => set_value('alamat', $row->alamat),
+		'photo' => set_value('photo', $row->photo),
+		'photo_toko' => set_value('photo_toko', $row->photo_toko),
+		'kota' => set_value('kota', $row->kota),
+		'kelurahan' => set_value('kelurahan', $row->kelurahan),
+		'kecamatan' => set_value('kecamatan', $row->kecamatan),
+		'lat' => set_value('lat', $row->lat),
+		'long' => set_value('long', $row->long),
+		'keterangan' => set_value('keterangan', $row->keterangan),
+		'status' => set_value('status', $row->status),
+		'created_at' => set_value('created_at', $row->created_at),
+		'updated_at' => set_value('updated_at', $row->updated_at),
+		'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
+	    );
+            $this->load->view('wp_pelanggan/wp_pelanggan_form', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('wp_pelanggan'));
+        }
+    }
+
+    public function update_action()
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id', TRUE));
+        } else {
+            $data = array(
+		'id_pelanggan' => $this->input->post('id_pelanggan',TRUE),
+		'nama_pelanggan' => $this->input->post('nama_pelanggan',TRUE),
+		'no_telp' => $this->input->post('no_telp',TRUE),
+		'nama_dagang' => $this->input->post('nama_dagang',TRUE),
+		'alamat' => $this->input->post('alamat',TRUE),
+		'photo' => $this->input->post('photo',TRUE),
+		'photo_toko' => $this->input->post('photo_toko',TRUE),
+		'kota' => $this->input->post('kota',TRUE),
+		'kelurahan' => $this->input->post('kelurahan',TRUE),
+		'kecamatan' => $this->input->post('kecamatan',TRUE),
+		'lat' => $this->input->post('lat',TRUE),
+		'long' => $this->input->post('long',TRUE),
+		'keterangan' => $this->input->post('keterangan',TRUE),
+		'status' => $this->input->post('status',TRUE),
+		'created_at' => $this->input->post('created_at',TRUE),
+		'updated_at' => $this->input->post('updated_at',TRUE),
+		'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan',TRUE),
+	    );
+
+            $this->Wp_pelanggan_model->update($this->input->post('id', TRUE), $data);
+            $this->session->set_flashdata('message', 'Update Record Success');
+            redirect(site_url('wp_pelanggan'));
+        }
+    }
+
     public function ajax_delete($id)
     {
         $this->pelanggan->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }
 
-    private function _validate()
+    public function _rules()
     {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
+      # code...
+    	$this->form_validation->set_rules('nama_pelanggan', 'nama pelanggan', 'trim|required');
+    	$this->form_validation->set_rules('no_telp', 'no telp', 'trim|required');
+    	$this->form_validation->set_rules('nama_dagang', 'nama dagang', 'trim|required');
+    	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+    	$this->form_validation->set_rules('photo', 'photo', 'trim|required');
+    	$this->form_validation->set_rules('photo_toko', 'photo toko', 'trim|required');
+    	$this->form_validation->set_rules('kota', 'kota', 'trim|required');
+    	$this->form_validation->set_rules('kelurahan', 'kelurahan', 'trim|required');
+    	$this->form_validation->set_rules('kecamatan', 'kecamatan', 'trim|required');
+    	$this->form_validation->set_rules('lat', 'lat', 'trim|required');
+    	$this->form_validation->set_rules('long', 'long', 'trim|required');
+    	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+    	$this->form_validation->set_rules('status', 'status', 'trim|required');
+    	$this->form_validation->set_rules('wp_karyawan_id_karyawan', 'wp karyawan id karyawan', 'trim|required');
 
-        if($this->input->post('firstName') == '')
-        {
-            $data['inputerror'][] = 'firstName';
-            $data['error_string'][] = 'First name is required';
-            $data['status'] = FALSE;
-        }
-
-        if($this->input->post('lastName') == '')
-        {
-            $data['inputerror'][] = 'lastName';
-            $data['error_string'][] = 'Last name is required';
-            $data['status'] = FALSE;
-        }
-
-        if($this->input->post('dob') == '')
-        {
-            $data['inputerror'][] = 'dob';
-            $data['error_string'][] = 'Date of Birth is required';
-            $data['status'] = FALSE;
-        }
-
-        if($this->input->post('gender') == '')
-        {
-            $data['inputerror'][] = 'gender';
-            $data['error_string'][] = 'Please select gender';
-            $data['status'] = FALSE;
-        }
-
-        if($this->input->post('address') == '')
-        {
-            $data['inputerror'][] = 'address';
-            $data['error_string'][] = 'Addess is required';
-            $data['status'] = FALSE;
-        }
-
-        if($data['status'] === FALSE)
-        {
-            echo json_encode($data);
-            exit();
-        }
+    	$this->form_validation->set_rules('id', 'id', 'trim');
+    	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
-    public function get_csrf()
-    {
-        $error['csrf_token'] = $this->security->get_csrf_hash();
-        echo json_encode($error);
-        die();
-    }
 
 }
