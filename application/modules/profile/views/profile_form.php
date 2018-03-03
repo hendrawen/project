@@ -42,6 +42,7 @@
                   <label for="varchar">Website <?php echo form_error('website') ?></label>
                   <input type="text" class="form-control" name="website" id="website" placeholder="Website" value="<?php echo $website; ?>" />
               </div>
+            <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
             <input type="hidden" name="id" value="<?php echo $id; ?>" />
             <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
             <a href="<?php echo site_url('profile') ?>" class="btn btn-danger">Batal</a>

@@ -1,21 +1,19 @@
 var save_method; //for save method string
 var table;
      $(document).ready(function () {
-          table = $('#table').dataTable({
+          table = $('#datasuplier').dataTable({
            "processing": true, //Feature control the processing indicator.
            "serverSide": true, //Feature control DataTables' server-side processing mode.
            "order": [], //Initial no order.
 
            // Load data for the table's content from an Ajax source
            "ajax": {
-               "url": "pelanggan/ajax_list",
+               "url": "suplier/ajax_list",
                "type": "POST",
                "data": function ( data ) {
-                    data.kota = $('#kota').val();
-                    data.status = $('#status').val();
-                    data.kelurahan = $('#kelurahan').val();
-                    data.kecamatan = $('#kecamatan').val();
-                    data.nama = $('#nama').val();
+                    data.id_suplier = $('#id_suplier').val();
+                    data.nama_suplier = $('#nama_suplier').val();
+                    data.alamat = $('#alamat').val();
                 }
            },
 

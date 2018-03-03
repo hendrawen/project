@@ -32,5 +32,4 @@
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url()?>assets/template/build/css/custom.min.css" rel="stylesheet">
 
-
   </head>

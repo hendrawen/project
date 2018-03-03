@@ -14,32 +14,6 @@ class Suplier extends CI_Controller
 
     public function index()
     {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'suplier/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'suplier/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'suplier/index.html';
-            $config['first_url'] = base_url() . 'suplier/index.html';
-        }
-
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->suplier_model->total_rows($q);
-        $suplier = $this->suplier_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
-        $data = array(
-            'suplier_data' => $suplier,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
           $data['aktif']			='Master';
           $data['title']			='Brajamarketindo';
           $data['judul']			='Dashboard';
@@ -48,6 +22,12 @@ class Suplier extends CI_Controller
           $this->load->view('panel/dashboard', $data);
     }
 
+    function data_suplier(){
+        $data = $this->suplier_model->suplier_list();
+        echo json_encode($data);
+    }
+
+    //************************************************************//
     public function read($id)
     {
         $row = $this->suplier_model->get_by_id($id);
@@ -95,11 +75,11 @@ class Suplier extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-		'id_suplier' => $this->suplier_model->buat_kode(),
-		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-	    );
+                $data = array(
+              		'id_suplier' => $this->suplier_model->buat_kode(),
+              		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
+              		'alamat' => $this->input->post('alamat',TRUE),
+	             );
 
             $this->suplier_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
