@@ -120,7 +120,7 @@
                         </div>
 
                       <div class="x_content">
-                        <div class="table-responsive">
+                       <div class="table-responsive">
                         <table class="table table-bordered">
                           <thead>
                             <tr>
