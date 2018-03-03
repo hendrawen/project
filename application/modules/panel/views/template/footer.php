@@ -43,14 +43,21 @@
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
 
     <script type="text/javascript">
+    var table;
         $(function() {
-            $("#data").dataTable();
+            table = $('#data').dataTable();
         });
     </script>
+    <script type="text/javascript">
+
+
+    </script>
+
   </body>
 </html>
