@@ -45,49 +45,9 @@
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
 
-    <!-- <script type="text/javascript" src="<?php echo base_url().'assets/jquery.js'?>"></script>
-    <script type="text/javascript" src="<?php echo base_url().'assets/bootstrap.js'?>"></script>
-    <script type="text/javascript" src="<?php echo base_url().'assets/jquery.dataTables.js'?>"></script> -->
-    <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            tampil_data_suplier();   //pemanggilan fungsi tampil barang.
-
-            $('#mydata').dataTable();
-
-            //fungsi tampil barang
-            function tampil_data_suplier(){
-                $.ajax({
-                    type  : 'ajax',
-                    url   : '<?php echo base_url()?>suplier/data_suplier',
-                    async : false,
-                    dataType : 'json',
-                    success : function(data){
-                        var html = '';
-                        var i;
-                        for(i=0; i<data.length; i++){
-                            html += '<tr>'+
-                                    '<td>'+data[i].id_suplier+'</td>'+
-                                    '<td>'+data[i].nama_suplier+'</td>'+
-                                    '<td>'+data[i].alamat+'</td>'+
-                                    '<td style="text-align:right;">'+
-                                      '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Edit</a>'+' '+
-                                      '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
-                                    '</td>'+
-                                    '</tr>';
-                        }
-                        $('#show_data').html(html);
-                    }
-
-                });
-            }
-
-        });
-
-    </script>
 
   </body>
 </html>

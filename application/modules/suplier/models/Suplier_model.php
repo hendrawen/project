@@ -75,7 +75,7 @@ class Suplier_model extends CI_Model
     function delete($id)
     {
         $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
+        return $this->db->delete($this->table);
     }
 
     public function buat_kode()   {

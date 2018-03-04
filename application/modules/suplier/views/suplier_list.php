@@ -12,61 +12,25 @@
                     <div class="clearfix"></div>
               </div>
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <?php echo anchor(site_url('suplier/create'),'Tambah', 'class="btn btn-primary"'); ?>
                     </div>
                   </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-6 text-center">
                         <div style="margin-top: 8px" id="message">
                             <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                         </div>
                     </div>
 
                       <div class="x_content">
-
-                        <!-- <table id="datasuplier" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                          		<th>Id Suplier</th>
-                          		<th>Nama Suplier</th>
-                          		<th>Alamat</th>
-                          		<th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($suplier_data as $suplier)
-                            {
-                                ?>
-                            <tr>
-                              <td width="30px"><?php echo $no++ ?></td>
-                              <td><?php echo $suplier->id_suplier ?></td>
-                        			<td><?php echo $suplier->nama_suplier ?></td>
-                        			<td><?php echo $suplier->alamat ?></td>
-                        			<td style="text-align:center" width="200px">
-                        				<?php
-                        				echo anchor(site_url('suplier/read/'.$suplier->id),'Read');
-                        				echo ' | ';
-                        				echo anchor(site_url('suplier/update/'.$suplier->id),'Update');
-                        				echo ' | ';
-                        				echo anchor(site_url('suplier/delete/'.$suplier->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
-                        				?>
-                              </td>
-                            </tr>
-                            <?php
-                                }
-                            ?>
-                          </tbody>
-                        </table> -->
                           <table class="table table-striped table-bordered dt-responsive nowrap" id="mydata">
                               <thead>
                                   <tr>
+                                      <th>#</th>
                                       <th>Id Suplier</th>
                                       <th>Nama Suplier</th>
                                       <th>Alamat</th>
-                                      <th>Aksi</th>
+                                      <th style="text-align:center">Aksi</th>
                                   </tr>
                               </thead>
                               <tbody id="show_data">
@@ -83,3 +47,28 @@
                   	    </div>
                       </div>
                     </div>
+
+  <!--MODAL HAPUS-->
+          <div class="modal fade" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                          <h4 class="modal-title" id="myModalLabel">Hapus Data Suplier</h4>
+                      </div>
+                      <form class="form-horizontal">
+                      <div class="modal-body">
+
+                              <input type="hidden" name="kode" id="textkode" value="">
+                              <div class="alert alert-warning"><p>Apakah Anda yakin mau memhapus Data Ini?</p></div>
+
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                          <button class="btn_hapus btn btn-danger" id="btn_hapus">Hapus</button>
+                      </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <!--END MODAL HAPUS-->

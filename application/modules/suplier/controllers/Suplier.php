@@ -140,6 +140,12 @@ class Suplier extends CI_Controller
         }
     }
 
+    public function hapus(){
+        $kobar=$this->input->post('kode');
+        $data=$this->suplier_model->delete($kobar);
+        echo json_encode($data);
+    }
+
     public function _rules()
     {
 	//$this->form_validation->set_rules('id_suplier', 'id suplier', 'trim|required');
