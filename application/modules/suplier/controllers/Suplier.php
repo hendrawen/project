@@ -25,10 +25,9 @@ class Suplier extends CI_Controller
 
     public function simpan()
     {
-      $kode =$this->suplier_model->buat_kode();
-
+      $kode = set_value('id_suplier');
       $data = array(
-        'id_suplier' => $this->input->get($kode, TRUE),
+        'id_suplier' => $this->suplier_model->buat_kode(),
         'nama_suplier' => $this->input->post('nama_suplier',TRUE),
         'alamat' => $this->input->post('alamat',TRUE),
         );
