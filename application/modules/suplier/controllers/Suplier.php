@@ -19,23 +19,21 @@ class Suplier extends CI_Controller
           $data['judul']			='Dashboard';
           $data['sub_judul']	='Suplier';
           $data['content']		='suplier_list';
+          $data['suplier']    =$this->suplier_model->get_all();
           $this->load->view('panel/dashboard', $data);
     }
 
-    function data_suplier(){
-        $data = $this->suplier_model->suplier_list();
-        echo json_encode($data);
-    }
-
-    function simpan()
+    public function simpan()
     {
-      $dataku = array(
-        'id_suplier' => $this->suplier_model->buat_kode(),
+      $kode =$this->suplier_model->buat_kode();
+
+      $data = array(
+        'id_suplier' => $this->input->get($kode, TRUE),
         'nama_suplier' => $this->input->post('nama_suplier',TRUE),
         'alamat' => $this->input->post('alamat',TRUE),
         );
-        $data=$this->suplier_model->insert($dataku);
-        echo json_encode($data);
+        $insert = $this->suplier_model->insert($data);
+			  echo json_encode(array("status" => TRUE));
     }
 
     //edit data

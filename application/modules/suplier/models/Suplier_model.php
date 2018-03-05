@@ -15,12 +15,6 @@ class Suplier_model extends CI_Model
         parent::__construct();
     }
 
-    function suplier_list(){
-        $this->db->select("*");
-        $this->db->from("wp_suplier");
-        $hasil=$this->db->get();
-        return $hasil->result();
-    }
 
     // get all
     function get_all()
@@ -61,6 +55,7 @@ class Suplier_model extends CI_Model
     function insert($data)
     {
         $this->db->insert($this->table, $data);
+        return $this->db->insert_id();
     }
 
     // update data
@@ -77,21 +72,19 @@ class Suplier_model extends CI_Model
         return $this->db->delete($this->table);
     }
 
-    public function buat_kode()   {
-
-          $this->db->select('RIGHT(wp_suplier.id_suplier, 2) as kode', 'LAST_INSERT_ID()', FALSE);
+    function buat_kode(){
+          $this->db->select('RIGHT(wp_suplier.id_suplier, 2) as kode', FALSE);
           $this->db->order_by($this->id, $this->order);
           $this->db->limit(1);
           $query = $this->db->get($this->table, $this->id);      //cek dulu apakah ada sudah ada kode di tabel.
           if($query->num_rows() <> 0){
            //jika kode ternyata sudah ada.
-           $data = $query->row_array();
-           $coba = $data['LAST_INSERT_ID()'];
-           $kode = intval($data->kode) + $coba;
+           $data = $query->row();
+           $kode = intval($data->kode) + 1;
           }
           else {
            //jika kode belum ada
-           $kode = $coba;
+           $kode = 1;
           }
           $kodemax = str_pad($kode, 2, "0", STR_PAD_LEFT); // angka 2 menunjukkan jumlah digit angka 0
           $kodejadi = "SP0".$kodemax;    // hasilnya ODJ-9921-0001 dst.
