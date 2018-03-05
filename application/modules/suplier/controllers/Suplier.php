@@ -27,6 +27,41 @@ class Suplier extends CI_Controller
         echo json_encode($data);
     }
 
+    function simpan()
+    {
+      $dataku = array(
+        'id_suplier' => $this->suplier_model->buat_kode(),
+        'nama_suplier' => $this->input->post('nama_suplier',TRUE),
+        'alamat' => $this->input->post('alamat',TRUE),
+        );
+        $data=$this->suplier_model->insert($dataku);
+        echo json_encode($data);
+    }
+
+    //edit data
+    function get_suplier(){
+        $id=$this->input->get('id');
+        $data=$this->suplier_model->get_by_id($id);
+        echo json_encode($data);
+    }
+
+    function update_suplier(){
+      $id = $this->input->post('id',TRUE);
+      $dataku = array(
+        'nama_suplier' => $this->input->post('nama_suplier',TRUE),
+        'alamat' => $this->input->post('alamat',TRUE),
+        );
+        $data=$this->suplier_model->update($id, $dataku);
+        echo json_encode($data);
+    }
+
+    function hapus(){
+        $idku=$this->input->post('id');
+        $data=$this->suplier_model->delete($idku);
+        echo json_encode($data);
+    }
+
+
     //************************************************************//
     public function read($id)
     {
@@ -138,12 +173,6 @@ class Suplier extends CI_Controller
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('suplier'));
         }
-    }
-
-    public function hapus(){
-        $kobar=$this->input->post('kode');
-        $data=$this->suplier_model->delete($kobar);
-        echo json_encode($data);
     }
 
     public function _rules()
