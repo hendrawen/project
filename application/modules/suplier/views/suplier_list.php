@@ -120,7 +120,7 @@
                         <label class="control-label col-xs-3" >Alamat</label>
                         <div class="col-xs-9">
                             <!-- <input name="alamat" id="harga2" class="form-control" type="text" placeholder="Alamat" style="width:335px;" required> -->
-                            <textarea class="form-control" rows="3" name="alamat" id="alamat2" placeholder="Alamat" style="width:335px;" required></textarea>
+                            <textarea name="alamat" id="alamat2" placeholder="Alamat" class="form-control" rows="3" style="width:335px;" required></textarea>
                         </div>
                     </div>
                 </div>

@@ -34,27 +34,29 @@
             });
         }
 
-        //Simpan Data Suplier
-        $('#btn_simpan').on('click',function(){
-            //var id_suplier=$('#id_suplier').val();
-            var nama_suplier=$('#nama_suplier2').val();
-            var alamat=$('#alamat2').val();
-            $.ajax({
-                type : "POST",
-                url  : "suplier/simpan",
-                dataType : "JSON",
-                data : {nama_suplier: nama_suplier, alamat: alamat, csrf_test_name: $.cookie('csrf_cookie_name')},
-                success: function(data){
-                    location.reload(true);
-                    //$('[name="id_suplier"]').val("");
-                    $('[name="nama_suplier"]').val("");
-                    $('[name="alamat"]').val("");
-                    $('#ModalaAdd').modal('hide');
-                    tampil_data_suplier();
-                }
+        //GET HAPUS
+            $('#show_data').on('click','.item_hapus',function(){
+                var id=$(this).attr('data');
+                $('#ModalHapus').modal('show');
+                $('[name="id"]').val(id);
             });
-            return false;
-        });
+
+        //Hapus Barang
+            $('#btn_hapus').on('click',function(){
+                var id=$('#id2').val();
+                $.ajax({
+                type : "POST",
+                url  : "suplier/hapus",
+                dataType : "JSON",
+                        data : {id: id, csrf_test_name: $.cookie('csrf_cookie_name')},
+                        success: function(data){
+                                location.reload(true);
+                                $('#ModalHapus').modal('hide');
+                                tampil_data_suplier();
+                        }
+                    });
+                    return false;
+                });
 
         //GET UPDATE
         $('#show_data').on('click','.item_edit',function(){
@@ -62,10 +64,10 @@
             $.ajax({
                 type : "GET",
                 url  : "suplier/get_suplier",
-                dataType : "JSON",
+                dataType : "json",
                 data : {id:id},
                 success: function(data){
-                    $.each(data,function(id_suplier, nama_suplier, alamat){
+                    $.each(data,function(id, id_suplier, nama_suplier, alamat){
                         $('#ModalaEdit').modal('show');
                         $('[name="id"]').val(data.id);
                         $('[name="id_suplier"]').val(data.id_suplier);
@@ -86,7 +88,7 @@
             $.ajax({
                 type : "POST",
                 url  : "suplier/update_suplier",
-                dataType : "JSON",
+                dataType : "json",
                 data : {id:id, nama_suplier:nama_suplier, alamat:alamat, csrf_test_name:$.cookie('csrf_cookie_name')},
                 success: function(data){
                     location.reload(true);
@@ -101,25 +103,23 @@
             return false;
         });
 
-        //GET HAPUS
-            $('#show_data').on('click','.item_hapus',function(){
-                var id=$(this).attr('data');
-                $('#ModalHapus').modal('show');
-                $('[name="id"]').val(id);
-            });
-
-        //Hapus Barang
-            $('#btn_hapus').on('click',function(){
-                var id=$('#id2').val();
-                $.ajax({
-                type : "POST",
-                url  : "suplier/hapus",
-                dataType : "JSON",
-                        data : {id: id, csrf_test_name: $.cookie('csrf_cookie_name')},
+            //Simpan Data Suplier
+                $('#btn_simpan').on('click',function(){
+                    //var id_suplier=$('#id_suplier').val();
+                    var nama_suplier=$('#nama_suplier2').val();
+                    var alamat=$('#alamat2').val();
+                    $.ajax({
+                        type : "POST",
+                        url  : "suplier/simpan",
+                        dataType : "json",
+                        data : {nama_suplier: nama_suplier, alamat: alamat, csrf_test_name: $.cookie('csrf_cookie_name')},
                         success: function(data){
-                                location.reload(true);
-                                $('#ModalHapus').modal('hide');
-                                tampil_data_suplier();
+                            location.reload(true);
+                            //$('[name="id_suplier"]').val("");
+                            $('[name="nama_suplier"]').val("");
+                            $('[name="alamat"]').val("");
+                            $('#ModalaAdd').modal('hide');
+                            tampil_data_suplier();
                         }
                     });
                     return false;

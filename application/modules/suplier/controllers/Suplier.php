@@ -51,7 +51,7 @@ class Suplier extends CI_Controller
         'nama_suplier' => $this->input->post('nama_suplier',TRUE),
         'alamat' => $this->input->post('alamat',TRUE),
         );
-        $data=$this->suplier_model->update($id, $dataku);
+        $data = $this->suplier_model->update($id, $dataku);
         echo json_encode($data);
     }
 
