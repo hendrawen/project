@@ -36,26 +36,25 @@ class Suplier extends CI_Controller
     }
 
     //edit data
-    function get_suplier(){
-        $id=$this->input->get('id');
+    public function get_suplier($id){
         $data=$this->suplier_model->get_by_id($id);
         echo json_encode($data);
     }
 
-    function update_suplier(){
-      $id = $this->input->post('id',TRUE);
-      $dataku = array(
-        'nama_suplier' => $this->input->post('nama_suplier',TRUE),
-        'alamat' => $this->input->post('alamat',TRUE),
-        );
-        $data = $this->suplier_model->update($id, $dataku);
-        echo json_encode($data);
+    public function update_suplier(){
+        $data = array(
+          'nama_suplier' => $this->input->post('nama_suplier',TRUE),
+          'alamat' => $this->input->post('alamat',TRUE),
+			);
+    		$this->suplier_model->update(array('id' => $this->input->post('id',TRUE)), $data);
+    		echo json_encode(array("status" => TRUE));
+
     }
 
-    function hapus(){
-        $idku=$this->input->post('id');
-        $data=$this->suplier_model->delete($idku);
-        echo json_encode($data);
+    public function hapus($id){
+        $this->suplier_model->delete($id);
+        echo json_encode(array("status" => TRUE));
+
     }
 
 

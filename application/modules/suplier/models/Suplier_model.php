@@ -63,6 +63,7 @@ class Suplier_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         return $this->db->update($this->table, $data);
+
     }
 
     // delete data
