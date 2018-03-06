@@ -25,7 +25,7 @@
                     </div>
 
                       <div class="x_content">
-                          <table class="table table-striped table-bordered dt-responsive nowrap" id="table_id">
+                          <table class="table table-striped table-bordered" id="datatable">
                               <thead>
                                   <tr>
                                       <th>#</th>
@@ -33,9 +33,9 @@
                                   		<th>Nama Barang</th>
                                   		<th>Harga Beli</th>
                                   		<th>Harga Jual</th>
-                                  		<th>Wp Suplier Id</th>
-                                  		<th>Created At</th>
-                                  		<th>Updated At</th>
+                                  		<th>Nama Suplier</th>
+                                  		<th>Tanggal Input</th>
+                                  		<th>Tanggal Update</th>
                                       <th style="text-align:center">Aksi</th>
                                   </tr>
                               </thead>
@@ -49,13 +49,13 @@
                                			<td><?php echo $key->nama_barang ?></td>
                                			<td><?php echo $key->harga_beli ?></td>
                                			<td><?php echo $key->harga_jual ?></td>
-                               			<td><?php echo $key->wp_suplier_id ?></td>
+                               			<td><?php echo $key->wp_suplier_id ?> - <?php echo $key->nama_suplier ?></td>
                                			<td><?php echo $key->created_at ?></td>
                                			<td><?php echo $key->updated_at ?></td>
                                    <td style="text-align:center">
-                                      <a href="<?=base_url()?>barang/read/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
-                                      <a href="<?=base_url()?>barang/update/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
-                                      <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+                                      <a href="<?=base_url()?>barang/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
+                                      <a href="<?=base_url()?>barang/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                                      <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
                                    </td>
                               </tr>
                               <?php } ?>
@@ -67,9 +67,9 @@
                                 <th>Nama Barang</th>
                                 <th>Harga Beli</th>
                                 <th>Harga Jual</th>
-                                <th>Wp Suplier Id</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>Nama Suplier</th>
+                                <th>Tanggal Input</th>
+                                <th>Tanggal Update</th>
                                 <th style="text-align:center">Aksi</th>
                               </tr>
                             </tfoot>

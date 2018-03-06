@@ -97,6 +97,30 @@ class Barang_model extends CI_Model
           return $kodejadi;
     }
 
+    function get_coba(){
+        $this->db->select("*");
+        $this->db->from("wp_suplier");
+        $this->db->order_by('id', $this->order);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+           return $query->result();
+        } else {
+          return FALSE;
+        }
+    }
+
+    function get_data(){
+        $this->db->select("wp_barang.id, wp_barang.id_barang, wp_barang.nama_barang, wp_barang.harga_beli, wp_barang.harga_jual, wp_barang.wp_suplier_id, wp_barang.created_at, wp_barang.updated_at, wp_suplier.nama_suplier");
+        $this->db->from($this->table);
+        $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id');
+        $this->db->order_by('id_barang', $this->order);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+          return FALSE;
+        }
+    }
 }
 
 /* End of file Wp_barang_model.php */

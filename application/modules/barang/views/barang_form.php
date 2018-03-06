@@ -19,27 +19,36 @@
                     <label for="varchar">Id Barang <?php echo form_error('id_barang') ?></label>
                     <input type="text" class="form-control" name="id_barang" id="id_barang" placeholder="Id Barang" value="<?php echo $id_barang; ?>" />
               </div> -->
+              <?php
+                    if ($button == 'Create') {
+                ?>
+                    <input type="hidden" class="form-control" name="id_barang" id="id_barang" placeholder="Id Barang" />
+                <?php } elseif ($button == 'Update') {
+                ?>
+                <label for="varchar">Id Barang <?php echo form_error('id_barang') ?></label>
+                    <input type="text" class="form-control" name="id_barang" id="id_barang" value="<?php echo $id_barang; ?>" readonly />
+                <?php } ?>
         	    <div class="form-group">
                     <label for="varchar">Nama Barang <?php echo form_error('nama_barang') ?></label>
                     <input type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="Nama Barang" value="<?php echo $nama_barang; ?>" />
                 </div>
         	    <div class="form-group">
                     <label for="varchar">Harga Beli <?php echo form_error('harga_beli') ?></label>
-                    <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
+                    <input type="number" class="form-control" name="harga_beli" id="harga_beli" min="0" placeholder="Harga Beli" value="<?php echo $harga_beli; ?>" />
                 </div>
         	    <div class="form-group">
                     <label for="varchar">Harga Jual <?php echo form_error('harga_jual') ?></label>
-                    <input type="text" class="form-control" name="harga_jual" id="harga_jual" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
+                    <input type="number" class="form-control" name="harga_jual" id="harga_jual" min="0" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
                 </div>
         	    <div class="form-group">
                     <label for="int">Nama Suplier <?php echo form_error('wp_suplier_id') ?></label>
-                    <select name="wp_suplier_id" id="wp_suplier_id" class="form-control">
+                    <select name="wp_suplier_id" id="wp_suplier_id" class="form-control" required>
                     <option disabled selected>--Pilih Suplier--</option>
                         <?php
-                            $query = $this->db->query("SELECT * FROM wp_suplier");
-                             foreach ($query->result() as $rows) {
+                            $coba = $this->db->query("SELECT * FROM wp_suplier");
+                             foreach ($coba->result() as $rows) {
                         ?>
-                            <option <?php echo ($wp_suplier_id==$rows->id_suplier) ? 'selected=""':""; ?> value="<?php echo $rows->wp_suplier_id; ?>"><?php echo $rows->nama_suplier; ?></option>
+                            <option <?php echo ($id == $rows->id) ? 'selected=""':"";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_suplier; ?></option>
                         <?php } ?>
                     </select>
                </div>
@@ -54,7 +63,7 @@
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
         	    <input type="hidden" name="id" value="<?php echo $id; ?>" />
         	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
-        	    <a href="<?php echo site_url('barang') ?>" class="btn btn-default">Cancel</a>
+        	    <a href="<?php echo site_url('barang') ?>" class="btn btn-danger">Kembali</a>
         	</form>
       </div>
     </div>

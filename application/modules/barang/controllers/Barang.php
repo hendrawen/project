@@ -45,7 +45,7 @@ class Barang extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Barang';
         $data['content']		='barang_list';
-        $data['barang']    =$this->barang_model->get_all();
+        $data['barang']    =$this->barang_model->get_data();
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -94,6 +94,7 @@ class Barang extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Tambah Barang';
         $data['content']		='barang_form';
+        //$data['query']      =$this->barang_model->get_coba();
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -113,7 +114,7 @@ class Barang extends CI_Controller
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
           		//'created_at' => $this->input->post('created_at',TRUE),
           		//'updated_at' => $this->input->post('updated_at',TRUE),
-              'tanggal' => mdate($datestring, $time),
+              'created_at' => mdate($datestring, $time),
 	           );
 
             $this->barang_model->insert($data);
@@ -139,7 +140,12 @@ class Barang extends CI_Controller
         		'created_at' => set_value('created_at', $row->created_at),
         		'updated_at' => set_value('updated_at', $row->updated_at),
         	  );
-            $this->load->view('barang/barang_form', $data);
+            $data['aktif']			='Master';
+            $data['title']			='Brajamarketindo';
+            $data['judul']			='Dashboard';
+            $data['sub_judul']	='Edit Barang';
+            $data['content']		='barang_form';
+            $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('barang'));
@@ -149,18 +155,19 @@ class Barang extends CI_Controller
     public function update_action()
     {
         $this->_rules();
-
+        $datestring = '%Y-%m-%d %h:%i:%s';
+        $time = time();
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-          		'id_barang' => $this->input->post('id_barang',TRUE),
+          		//'id_barang' => $this->input->post('id_barang',TRUE),
           		'nama_barang' => $this->input->post('nama_barang',TRUE),
           		'harga_beli' => $this->input->post('harga_beli',TRUE),
           		'harga_jual' => $this->input->post('harga_jual',TRUE),
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
-          		'created_at' => $this->input->post('created_at',TRUE),
-          		'updated_at' => $this->input->post('updated_at',TRUE),
+          		//'created_at' => $this->input->post('created_at',TRUE),
+          		'updated_at' => mdate($datestring, $time),
       	    );
 
             $this->barang_model->update($this->input->post('id', TRUE), $data);
@@ -185,7 +192,7 @@ class Barang extends CI_Controller
 
     public function _rules()
     {
-    	$this->form_validation->set_rules('id_barang', 'id barang', 'trim|required');
+    	//$this->form_validation->set_rules('id_barang', 'id barang', 'trim|required');
     	$this->form_validation->set_rules('nama_barang', 'nama barang', 'trim|required');
     	$this->form_validation->set_rules('harga_beli', 'harga beli', 'trim|required');
     	$this->form_validation->set_rules('harga_jual', 'harga jual', 'trim|required');
@@ -193,7 +200,7 @@ class Barang extends CI_Controller
     	//$this->form_validation->set_rules('created_at', 'created at', 'trim|required');
     	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
 
-    	$this->form_validation->set_rules('id', 'id', 'trim');
+    	//$this->form_validation->set_rules('id', 'id', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 

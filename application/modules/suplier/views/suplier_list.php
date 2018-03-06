@@ -23,9 +23,9 @@
                             <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                         </div>
                     </div>
-
+                    <!-- table table-striped table-bordered dt-responsive nowrap -->
                       <div class="x_content">
-                          <table class="table table-striped table-bordered dt-responsive nowrap" id="table_id">
+                          <table class="table table-striped table-bordered" id="datatable">
                               <thead>
                                   <tr>
                                       <th>#</th>
