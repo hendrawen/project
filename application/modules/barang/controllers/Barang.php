@@ -113,6 +113,7 @@ class Barang extends CI_Controller
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
           		//'created_at' => $this->input->post('created_at',TRUE),
           		//'updated_at' => $this->input->post('updated_at',TRUE),
+              'tanggal' => mdate($datestring, $time),
 	           );
 
             $this->barang_model->insert($data);
