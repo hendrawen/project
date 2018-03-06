@@ -1,6 +1,6 @@
                 <a href="<?php echo base_url('pelanggan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
                 <a href="<?php echo base_url('pelanggan/test'); ?>" type="button" class="btn btn-info" ><i class="fa fa-map-marker"></i> Map</a>
-                <a href="#" type="button" class="btn btn-warning" ><i class="fa fa-bar-chart"></i> Kebutuhan Pelanggan</a>
+                <a href="<?php echo base_url('kebutuhan') ?>" type="button" class="btn btn-warning" ><i class="fa fa-bar-chart"></i> Kebutuhan Pelanggan</a>
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-group"></i> Data Pelanggan</h2>
