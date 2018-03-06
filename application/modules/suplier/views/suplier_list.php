@@ -84,6 +84,7 @@
                   <div class="modal-body form">
                     <form action="#" id="form" class="form-horizontal">
                       <input type="hidden" value="" name="id"/>
+                      <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                       <div class="form-body">
                         <div class="form-group">
                           <label class="control-label col-md-3">Nama Suplier</label>
