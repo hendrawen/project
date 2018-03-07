@@ -1,0 +1,238 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Stok extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('stok_model');
+        $this->load->library('form_validation');
+    }
+
+    public function index()
+    {
+        $q = urldecode($this->input->get('q', TRUE));
+        $start = intval($this->input->get('start'));
+
+        if ($q <> '') {
+            $config['base_url'] = base_url() . 'stok/index.html?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'stok/index.html?q=' . urlencode($q);
+        } else {
+            $config['base_url'] = base_url() . 'stok/index.html';
+            $config['first_url'] = base_url() . 'stok/index.html';
+        }
+
+        $config['per_page'] = 10;
+        $config['page_query_string'] = TRUE;
+        $config['total_rows'] = $this->stok_model->total_rows($q);
+        $stok = $this->stok_model->get_limit_data($config['per_page'], $start, $q);
+
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'stok_data' => $stok,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+        );
+				$data['aktif']			='Master';
+        $data['title']			='Brajamarketindo';
+        $data['judul']			='Dashboard';
+        $data['sub_judul']	='Stok Barang';
+        $data['content']		='stok_list';
+        $data['stok']    		=$this->stok_model->get_data();
+        $this->load->view('panel/dashboard', $data);
+    }
+
+    public function read($id)
+    {
+        $row = $this->stok_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+		'id' => $row->id,
+		'wp_barang_id' => $row->wp_barang_id,
+		'stok' => $row->stok,
+		'updated_at' => $row->updated_at,
+	    );
+            $this->load->view('stok/stok_read', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('stok'));
+        }
+    }
+
+    public function create()
+    {
+        $data = array(
+            'button' => 'Tambah',
+            'action' => site_url('barang/stok/create_action'),
+	    'id' => set_value('id'),
+	    'wp_barang_id' => set_value('wp_barang_id'),
+	    'stok' => set_value('stok'),
+	    'updated_at' => set_value('updated_at'),
+	);
+				$data['aktif']			='Master';
+				$data['title']			='Brajamarketindo';
+				$data['judul']			='Dashboard';
+				$data['sub_judul']	='Stok Barang';
+				$data['content']		='stok_form';
+				$this->load->view('panel/dashboard', $data);
+    }
+
+    public function create_action()
+    {
+        $this->_rules();
+				$datestring = '%Y-%m-%d %h:%i:%s';
+        $time = time();
+        if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
+            $data = array(
+							'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
+							'stok' => $this->input->post('stok',TRUE),
+							//'updated_at' => mdate($datestring, $time),
+	    			);
+
+            $this->stok_model->insert($data);
+            $this->session->set_flashdata('message', 'Create Record Success');
+            redirect(site_url('barang/stok'));
+        }
+    }
+
+    public function update($id)
+    {
+        $row = $this->stok_model->get_by_id($id);
+
+        if ($row) {
+            $data = array(
+                'button' => 'Update',
+                'action' => site_url('barang/stok/update_action'),
+		'id' => set_value('id', $row->id),
+		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
+		'stok' => set_value('stok', $row->stok),
+		'updated_at' => set_value('updated_at', $row->updated_at),
+	    );
+						$data['aktif']			='Master';
+						$data['title']			='Brajamarketindo';
+						$data['judul']			='Dashboard';
+						$data['sub_judul']	='Edit Stok Barang';
+						$data['content']		='stok_form';
+						$this->load->view('panel/dashboard', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('barang/stok'));
+        }
+    }
+
+    public function update_action()
+    {
+        $this->_rules();
+				$datestring = '%Y-%m-%d %h:%i:%s';
+        $time = time();
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id', TRUE));
+        } else {
+            $data = array(
+		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
+		'stok' => $this->input->post('stok',TRUE),
+		'updated_at' => mdate($datestring, $time),
+	    );
+
+            $this->stok_model->update($this->input->post('id', TRUE), $data);
+            $this->session->set_flashdata('message', 'Update Record Success');
+            redirect(site_url('barang/stok'));
+        }
+    }
+
+    public function delete($id)
+    {
+        $row = $this->stok_model->get_by_id($id);
+
+        if ($row) {
+            $this->stok_model->delete($id);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect(site_url('barang/stok'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('barang/stok'));
+        }
+    }
+
+    public function _rules()
+    {
+	$this->form_validation->set_rules('wp_barang_id', 'wp barang id', 'trim|required');
+	$this->form_validation->set_rules('stok', 'stok', 'trim|required');
+	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
+
+	//$this->form_validation->set_rules('id', 'id', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+    public function excel()
+    {
+        $this->load->helper('exportexcel');
+        $namaFile = "stok.xls";
+        $judul = "stok";
+        $tablehead = 0;
+        $tablebody = 1;
+        $nourut = 1;
+        //penulisan header
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment;filename=" . $namaFile . "");
+        header("Content-Transfer-Encoding: binary ");
+
+        xlsBOF();
+
+        $kolomhead = 0;
+        xlsWriteLabel($tablehead, $kolomhead++, "No");
+	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
+	xlsWriteLabel($tablehead, $kolomhead++, "Stok");
+	xlsWriteLabel($tablehead, $kolomhead++, "Updated At");
+
+	foreach ($this->stok_model->get_all() as $data) {
+            $kolombody = 0;
+
+            //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
+            xlsWriteNumber($tablebody, $kolombody++, $nourut);
+	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_barang_id);
+	    xlsWriteNumber($tablebody, $kolombody++, $data->stok);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_at);
+
+	    $tablebody++;
+            $nourut++;
+        }
+
+        xlsEOF();
+        exit();
+    }
+		public function word()
+		{
+				header("Content-type: application/vnd.ms-word");
+				header("Content-Disposition: attachment;Filename=barang.doc");
+
+				$data = array(
+						'stok_data' => $this->stok_model->get_all(),
+						'start' => 0
+				);
+
+				$this->load->view('barang/stok/stok_doc',$data);
+		}
+
+
+}
+
+/* End of file stok.php */
+/* Location: ./application/controllers/stok.php */
+/* Please DO NOT modify this information : */
+/* Generated by Harviacode Codeigniter CRUD Generator 2018-03-07 08:36:35 */
+/* http://harviacode.com */

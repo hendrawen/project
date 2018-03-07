@@ -13,11 +13,11 @@
               <div class="clearfix"></div>
         </div><br>
       <div class="x_content">
-        <table class="table table-hover">
+        <table class="table table-hover dt-responsive nowrap">
             <tr><td>Id Suplier</td><td>:</td><td><?php echo $id_suplier; ?></td></tr>
             <tr><td>Nama Suplier</td><td>:</td><td><?php echo $nama_suplier; ?></td></tr>
             <tr><td>Alamat</td><td>:</td><td><?php echo $alamat; ?></td></tr>
-            <tr><td></td><td></td><td><a href="<?php echo site_url('suplier') ?>" class="btn btn-danger">Kembali</a></td></tr>
+            <tr><td colspan="3" align="center"><a href="<?php echo site_url('suplier') ?>" class="btn btn-danger">Kembali</a></td></tr>
         </table>
       </div>
   </div>

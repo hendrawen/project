@@ -4,7 +4,6 @@
     var save_method; //for save method string
     var table;
 
-
     function add_suplier()
     {
       save_method = 'add';
@@ -13,28 +12,24 @@
     //$('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
     }
 
-    function edit_book(id)
+    function edit_suplier(id)
     {
       save_method = 'update';
       $('#form')[0].reset(); // reset form on modals
 
       //Ajax Load data from ajax
       $.ajax({
-        url : "book/ajax_edit/" + id,
+        url : "suplier/get_suplier/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
-
-            $('[name="book_id"]').val(data.book_id);
-            $('[name="book_isbn"]').val(data.book_isbn);
-            $('[name="book_title"]').val(data.book_title);
-            $('[name="book_author"]').val(data.book_author);
-            $('[name="book_category"]').val(data.book_category);
-
+            $('[name="id"]').val(data.id);
+            $('[name="nama_suplier"]').val(data.nama_suplier);
+            $('[name="alamat"]').val(data.alamat);
 
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Book'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Edit Suplier'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -53,7 +48,7 @@
       }
       else
       {
-        url = "book/book_update";
+        url = "suplier/update_suplier";
       }
 
        // ajax adding data to database
@@ -75,15 +70,16 @@
         });
     }
 
-    function delete_book(id)
+    function delete_suplier(id)
     {
       if(confirm('Are you sure delete this data?'))
       {
         // ajax delete data from database
           $.ajax({
-            url : "book/book_delete/"+id,
+            url : "suplier/hapus/" + id,
             type: "POST",
             dataType: "JSON",
+            data: {csrf_test_name: $.cookie('csrf_cookie_name')},
             success: function(data)
             {
 

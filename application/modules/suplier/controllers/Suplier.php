@@ -23,43 +23,6 @@ class Suplier extends CI_Controller
           $this->load->view('panel/dashboard', $data);
     }
 
-    public function simpan()
-    {
-      $kode = set_value('id_suplier');
-      $data = array(
-        'id_suplier' => $this->suplier_model->buat_kode(),
-        'nama_suplier' => $this->input->post('nama_suplier',TRUE),
-        'alamat' => $this->input->post('alamat',TRUE),
-        );
-        $insert = $this->suplier_model->insert($data);
-			  echo json_encode(array("status" => TRUE));
-    }
-
-    //edit data
-    function get_suplier(){
-        $id=$this->input->get('id');
-        $data=$this->suplier_model->get_by_id($id);
-        echo json_encode($data);
-    }
-
-    function update_suplier(){
-      $id = $this->input->post('id',TRUE);
-      $dataku = array(
-        'nama_suplier' => $this->input->post('nama_suplier',TRUE),
-        'alamat' => $this->input->post('alamat',TRUE),
-        );
-        $data = $this->suplier_model->update($id, $dataku);
-        echo json_encode($data);
-    }
-
-    function hapus(){
-        $idku=$this->input->post('id');
-        $data=$this->suplier_model->delete($idku);
-        echo json_encode($data);
-    }
-
-
-    //************************************************************//
     public function read($id)
     {
         $row = $this->suplier_model->get_by_id($id);
@@ -73,9 +36,9 @@ class Suplier extends CI_Controller
             $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
-            $data['sub_judul']	='Suplier';
-            $data['content']		='suplier_list';
-            $this->load->view('suplier/suplier_read', $data);
+            $data['sub_judul']	='Detail Suplier';
+            $data['content']		='suplier_read';
+            $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('suplier'));
@@ -132,7 +95,12 @@ class Suplier extends CI_Controller
 		'nama_suplier' => set_value('nama_suplier', $row->nama_suplier),
 		'alamat' => set_value('alamat', $row->alamat),
 	    );
-            $this->load->view('suplier/suplier_form', $data);
+            $data['aktif']			='Master';
+            $data['title']			='Brajamarketindo';
+            $data['judul']			='Dashboard';
+            $data['sub_judul']	='Edit Suplier';
+            $data['content']		='suplier_form';
+            $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('suplier'));
@@ -147,10 +115,10 @@ class Suplier extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'id_suplier' => $this->input->post('id_suplier',TRUE),
-		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-	    );
+          		// 'id_suplier' => $this->input->post('id_suplier',TRUE),
+          		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
+          		'alamat' => $this->input->post('alamat',TRUE),
+        	    );
 
             $this->suplier_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
