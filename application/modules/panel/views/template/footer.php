@@ -44,6 +44,7 @@
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
 

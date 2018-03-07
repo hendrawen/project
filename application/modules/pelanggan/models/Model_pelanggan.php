@@ -202,4 +202,17 @@ class Model_pelanggan extends CI_Model{
         return $surveyor;
     }
 
+    //BUAT MODEL MAX_KODE_MAHASISWA
+   public function get_kode_pelanggan() {
+    $tahun = date("Y");
+    $kode = 'PL';
+    $query = $this->db->query("SELECT MAX(id_pelanggan) as max_id FROM wp_pelanggan");
+    $row = $query->row_array();
+    $max_id = $row['max_id'];
+    $max_id1 =(int) substr($max_id,9,5);
+    $kode_pelanggan = $max_id1 +1;
+    $maxkode_pelanggan = $kode.'-'.$tahun.'-'.sprintf("%04s",$kode_pelanggan);
+    return $maxkode_pelanggan;
+   }
+
 }

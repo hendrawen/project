@@ -1,4 +1,4 @@
-                <a href="<?php echo base_url('pelanggan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
+                <a href="<?php echo base_url('pelanggan/tambah'); ?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
                 <a href="<?php echo base_url('pelanggan/test'); ?>" type="button" class="btn btn-info" ><i class="fa fa-map-marker"></i> Map</a>
                 <a href="<?php echo base_url('kebutuhan') ?>" type="button" class="btn btn-warning" ><i class="fa fa-bar-chart"></i> Kebutuhan Pelanggan</a>
                 <div class="x_panel">
