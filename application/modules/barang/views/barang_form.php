@@ -47,9 +47,12 @@
                         <?php
                             $coba = $this->db->query("SELECT * FROM wp_suplier");
                              foreach ($coba->result() as $rows) {
+                               if ($button == 'Tambah') {
                         ?>
-                            <option <?php echo ($id == $rows->id) ? 'selected=""':"";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_suplier; ?></option>
-                        <?php } ?>
+                    <option <?php echo ($id==$rows->id) ? 'selected=""':"";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_suplier; ?></option>
+                  <?php } elseif ($button == 'Update') { ?>
+                    <option <?php echo ($id==$rows->id) ? 'selected=""':"selected";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_suplier; ?></option>
+                  <?php } }?>
                     </select>
                </div>
         	    <!-- <div class="form-group">

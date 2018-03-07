@@ -94,7 +94,6 @@ class Barang extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Tambah Barang';
         $data['content']		='barang_form';
-        //$data['query']      =$this->barang_model->get_coba();
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -112,9 +111,9 @@ class Barang extends CI_Controller
           		'harga_beli' => $this->input->post('harga_beli',TRUE),
           		'harga_jual' => $this->input->post('harga_jual',TRUE),
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
-          		//'created_at' => $this->input->post('created_at',TRUE),
+          		'created_at' => date('Y-m-d H:i:s'),
           		//'updated_at' => $this->input->post('updated_at',TRUE),
-              'created_at' => mdate($datestring, $time),
+              //'created_at' => mdate($datestring, $time),
 	           );
 
             $this->barang_model->insert($data);
@@ -145,6 +144,7 @@ class Barang extends CI_Controller
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit Barang';
             $data['content']		='barang_form';
+            //$data['query']      =$this->barang_model->get_coba();
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -166,8 +166,9 @@ class Barang extends CI_Controller
           		'harga_beli' => $this->input->post('harga_beli',TRUE),
           		'harga_jual' => $this->input->post('harga_jual',TRUE),
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
+              'updated_at' => date('Y-m-d H:i:s'),
           		//'created_at' => $this->input->post('created_at',TRUE),
-          		'updated_at' => mdate($datestring, $time),
+          		//'updated_at' => mdate($datestring, $time),
       	    );
 
             $this->barang_model->update($this->input->post('id', TRUE), $data);
