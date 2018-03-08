@@ -44,13 +44,20 @@
                     <label for="int">Nama Suplier <?php echo form_error('wp_suplier_id') ?></label>
                     <select name="wp_suplier_id" id="wp_suplier_id" class="form-control" required>
                     <option disabled selected>--Pilih Suplier--</option>
+
                         <?php
-                            $coba = $this->db->query("SELECT * FROM wp_suplier");
-                                  foreach ( $coba->result() as $rows ) {
-                        ?>
-                        <option <?php echo ($id==$rows->id) ? 'selected=""':"";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_suplier; ?></option>
-                      <?php } ?>
-                    </select>
+                          $users = $this->db->query("SELECT * FROM wp_suplier");
+                          foreach($users->result() as $value){
+                          $selected= '';
+                          if($wp_suplier_id == $value->id){
+                            $selected = 'selected="selected"';
+                          }
+                          ?>
+                          <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+                          <?php echo $value->id_suplier; ?> <?php echo $value->nama_suplier; ?>
+                          </option>
+                          <?php }?>
+                            </select>
                </div>
         	    <!-- <div class="form-group">
                     <label for="timestamp">Created At <?php echo form_error('created_at') ?></label>
