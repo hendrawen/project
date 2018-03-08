@@ -104,13 +104,13 @@
                   </table>
 
           </div>
-              <!-- <div class="row">
+              <div class="row">
                   <div class="col-md-6">
-                      <a></a>
+                      <!-- <a></a>
                       <?php echo anchor(site_url('barang/stok/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                      <?php echo anchor(site_url('barang/stok/word'), 'Word', 'class="btn btn-primary"'); ?>
+                      <?php echo anchor(site_url('barang/stok/word'), 'Word', 'class="btn btn-primary"'); ?> -->
                 </div>
-              </div> -->
+              </div>
             </div>
 
             <!-- Gagal -->

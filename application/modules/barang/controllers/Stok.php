@@ -221,11 +221,11 @@ class Stok extends CI_Controller
         header("Content-Disposition: attachment;Filename=wp_stok.doc");
 
         $data = array(
-            'wp_stok_data' => $this->Wp_stok_model->get_all(),
+            'wp_stok_data' => $this->stok_model->get_all(),
             'start' => 0
         );
 
-        $this->load->view('stok/stok_doc',$data);
+        $this->load->view('barang/stok/stok_doc',$data);
     }
 
 
