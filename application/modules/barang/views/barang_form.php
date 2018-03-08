@@ -54,7 +54,7 @@
                           }
                           ?>
                           <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
-                          <?php echo $value->id_suplier; ?> <?php echo $value->nama_suplier; ?>
+                          <?php echo $value->id_suplier; ?> - <?php echo $value->nama_suplier; ?>
                           </option>
                           <?php }?>
                             </select>

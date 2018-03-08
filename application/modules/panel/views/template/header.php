@@ -35,6 +35,11 @@
     <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/alert/sweetalert.css')?>">
+    <script src="<?php echo base_url('assets/alert/sweetalert.min.js')?>"></script>
+    <script src="<?php echo base_url('assets/alert/qunit-1.18.0.js')?>"></script>
+
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url()?>assets/template/build/css/custom.min.css" rel="stylesheet">
 

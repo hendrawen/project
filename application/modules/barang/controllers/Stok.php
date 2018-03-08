@@ -61,7 +61,7 @@ class Stok extends CI_Controller
 	    );
             $this->load->view('stok/stok_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('stok'));
         }
     }
@@ -99,7 +99,7 @@ class Stok extends CI_Controller
 	    			);
 
             $this->stok_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', 'Data Success Disimpan');
             redirect(site_url('barang/stok'));
         }
     }
@@ -124,7 +124,7 @@ class Stok extends CI_Controller
 						$data['content']		='stok_form';
 						$this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('barang/stok'));
         }
     }
@@ -144,7 +144,7 @@ class Stok extends CI_Controller
 	    );
 
             $this->stok_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', 'Update Data Success');
             redirect(site_url('barang/stok'));
         }
     }
@@ -155,10 +155,10 @@ class Stok extends CI_Controller
 
         if ($row) {
             $this->stok_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', 'Delete Data Success');
             redirect(site_url('barang/stok'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('barang/stok'));
         }
     }

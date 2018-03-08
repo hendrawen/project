@@ -70,7 +70,7 @@ class Barang extends CI_Controller
             $data['content']		='barang_read';
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('barang'));
         }
     }
@@ -117,7 +117,7 @@ class Barang extends CI_Controller
 	           );
 
             $this->barang_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', 'Simpan Data Success');
             redirect(site_url('barang'));
         }
     }
@@ -147,7 +147,7 @@ class Barang extends CI_Controller
             //$data['query']      =$this->barang_model->get_coba();
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('barang'));
         }
     }
@@ -172,22 +172,22 @@ class Barang extends CI_Controller
       	    );
 
             $this->barang_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', 'Update Data Success');
             redirect(site_url('barang'));
         }
     }
 
     public function delete($id)
     {
-        $row = $this->barang_model->get_by_id($id);
-
+        //$row = $this->barang_model->get_by_id($id);
+        $row = $this->barang_model->cek_kode_stok($id);
         if ($row) {
-            $this->barang_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('msg', 'Maaf, Data Barang Ini Masih Ada Stok, Mohon Hapus Stoknya Dulu!!!');
             redirect(site_url('barang'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('barang'));
+          $this->barang_model->delete($id);
+          $this->session->set_flashdata('message', 'Delete Data Success');
+          redirect(site_url('barang'));
         }
     }
 

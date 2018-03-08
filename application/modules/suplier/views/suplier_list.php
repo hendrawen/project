@@ -25,7 +25,7 @@
                     </div>
                     <!-- table table-striped table-bordered dt-responsive nowrap -->
                       <div class="x_content">
-                          <table class="table table-striped table-bordered" id="datatable">
+                          <table class="table table-striped table-bordered dt-responsive nowrap" id="datatable">
                               <thead>
                                   <tr>
                                       <th>#</th>

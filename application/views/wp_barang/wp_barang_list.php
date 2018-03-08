@@ -27,7 +27,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                         <span class="input-group-btn">
-                            <?php 
+                            <?php
                                 if ($q <> '')
                                 {
                                     ?>
@@ -66,12 +66,12 @@
 			<td><?php echo $wp_barang->created_at ?></td>
 			<td><?php echo $wp_barang->updated_at ?></td>
 			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('wp_barang/read/'.$wp_barang->id),'Read'); 
-				echo ' | '; 
-				echo anchor(site_url('wp_barang/update/'.$wp_barang->id),'Update'); 
-				echo ' | '; 
-				echo anchor(site_url('wp_barang/delete/'.$wp_barang->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				<?php
+				echo anchor(site_url('wp_barang/read/'.$wp_barang->id),'Read');
+				echo ' | ';
+				echo anchor(site_url('wp_barang/update/'.$wp_barang->id),'Update');
+				echo ' | ';
+				echo anchor(site_url('wp_barang/delete/'.$wp_barang->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
 				?>
 			</td>
 		</tr>
@@ -89,5 +89,35 @@
                 <?php echo $pagination ?>
             </div>
         </div>
+
+        <?php if ($this->session->flashdata('msg')): ?>
+                 <small>
+                   <script type="text/javascript">
+                      swal({
+                           title: "Maaf",
+                           text: "<?php echo $this->session->flashdata('msg'); ?>",
+                            timer: 3000,
+                           showConfirmButton: true,
+                           type: 'error'
+                       });
+                   </script>
+                 </small>
+            <?php endif; ?>
+
+        <!-- sukses -->
+        <?php if ($this->session->flashdata('message')): ?>
+                 <small>
+                   <script type="text/javascript">
+                      swal({
+                           title: "Done",
+                           text: "<?php echo $this->session->flashdata('message'); ?>",
+                            timer: 3000,
+                           showConfirmButton: true,
+                           type: 'success'
+                       });
+                   </script>
+                 </small>
+            <?php endif; ?>
+            
     </body>
 </html>

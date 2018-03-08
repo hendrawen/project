@@ -19,11 +19,18 @@
             <!-- <input type="text" class="form-control" name="wp_barang_id" id="wp_barang_id" placeholder="Wp Barang Id" value="<?php echo $wp_barang_id; ?>" /> -->
             <select name="wp_barang_id" id="wp_barang_id" class="form-control" required>
             <option disabled selected>--Pilih Nama Barang--</option>
+
                 <?php
-                    $coba = $this->db->query("SELECT * FROM wp_barang");
-                     foreach ($coba->result() as $rows) {
-                ?>
-            <option <?php echo ($id==$rows->id) ? 'selected=""':"";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_barang; ?></option>
+                  $users = $this->db->query("SELECT * FROM wp_barang");
+                  foreach($users->result() as $value){
+                  $selected= '';
+                  if($wp_barang_id == $value->id){
+                    $selected = 'selected="selected"';
+                  }
+                  ?>
+                  <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+                  <?php echo $value->id_barang; ?> - <?php echo $value->nama_barang; ?>
+                  </option>
             <?php } ?>
             </select>
         </div>

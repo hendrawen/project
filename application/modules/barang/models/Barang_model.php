@@ -117,6 +117,14 @@ class Barang_model extends CI_Model
         $this->db->order_by('id_barang', $this->order);
         return $query = $this->db->get()->result();
     }
+
+    function cek_kode_stok($id){
+      $this->db->where('wp_barang_id', $id);
+      $cek = $this->db->get('wp_stok');
+      if ($cek->num_rows() > 0) {
+          return TRUE;
+      } else return FALSE;
+    }
 }
 
 /* End of file Wp_barang_model.php */
