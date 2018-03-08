@@ -20,10 +20,10 @@
                   </div>
                   <div class="x_content">
                     <br>
-                    <form action="<?php echo $action; ?>" class="form-horizontal form-label-left">
+                    <form action="<?php echo $action; ?>" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
                       <div class="class-row">
                         <div class="col-md-6 form-group">
-                          <input type="hidden" value="" name="id"/>
+                          <input name="id_pelanggan" type="hidden" value="<?php echo $kode_pelanggan; ?>">
                           <div class="form-group">
                             <label>Nama Pelanggan</label>
                             <input type="text" class="form-control" name="nama_pelanggan" placeholder="Masukkan nama pelanggan">
@@ -86,7 +86,8 @@
                             <label>Surveyor</label>
                             <input type="text" name="wp_karyawan_id_karyawan" class="form-control">
                           </div>
-                          <input type="hidden" name="id" value="">
+                          <input type="hidden" value="" name="id"/>
+                          <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                           <div class="text-right">
                             <a href="<?php echo base_url('pelanggan')?>" type="button" class="btn btn-default" >Kembali</a>
                             <button type="submit" class="btn btn-success"><?php echo $button ?></button>

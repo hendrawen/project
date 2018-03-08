@@ -140,60 +140,37 @@ class Pelanggan extends CI_Controller{
       $this->load->view('panel/dashboard', $data);
     }
 
-    public function ajax_add()
-    {
-        //$this->_validate();
-        $data = array(
-                'nama_pelanggan' => $this->input->post('nama_pelanggan'),
-                'no_telp' => $this->input->post('no_telp'),
-                'nama_dagang' => $this->input->post('nama_dagang'),
-                'alamat' => $this->input->post('alamat'),
-                'photo' => $this->input->post('photo'),
-                'photo_toko' => $this->input->post('photo_toko'),
-                'kota' => $this->input->post('kota'),
-                'kelurahan' => $this->input->post('kelurahan'),
-                'kecamatan' => $this->input->post('kecamatan'),
-                'lat' => $this->input->post('lat'),
-                'long' => $this->input->post('long'),
-                'keterangan' => $this->input->post('keterangan'),
-                'status' => $this->input->post('status'),
-                'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan'),
-            );
-        $insert = $this->pelanggan->save($data);
-        echo json_encode(array("status" => TRUE));
-    }
-
     public function tambah()
     {
-      # code...
-      $data = array(
-          'button' => 'Tambah',
-          'action' => site_url('pelanggan/aksi_tambah'),
-          'id' => set_value('id'),
-    	    'id_pelanggan' => set_value('id_pelanggan'),
-    	    'nama_pelanggan' => set_value('nama_pelanggan'),
-    	    'no_telp' => set_value('no_telp'),
-    	    'nama_dagang' => set_value('nama_dagang'),
-    	    'alamat' => set_value('alamat'),
-    	    'photo' => set_value('photo'),
-    	    'photo_toko' => set_value('photo_toko'),
-    	    'kota' => set_value('kota'),
-    	    'kelurahan' => set_value('kelurahan'),
-    	    'kecamatan' => set_value('kecamatan'),
-    	    'lat' => set_value('lat'),
-    	    'long' => set_value('long'),
-    	    'keterangan' => set_value('keterangan'),
-    	    'status' => set_value('status'),
-    	    'created_at' => set_value('created_at'),
-    	    'updated_at' => set_value('updated_at'),
-    	    'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
-      );
-      $data['aktif']			='Pelanggan';
-  		$data['title']			='Data Pelanggan';
-  		$data['judul']			='Pelanggan';
-  		$data['sub_judul']		='';
-      $data['content']			= 'form';
-      $this->load->view('panel/dashboard', $data);
+        $data = array(
+              'button' => 'Tambah',
+              'action' => site_url('pelanggan/aksi_tambah'),
+              'id' => set_value('id'),
+        	    'id_pelanggan' => set_value('id_pelanggan'),
+        	    'nama_pelanggan' => set_value('nama_pelanggan'),
+        	    'no_telp' => set_value('no_telp'),
+        	    'nama_dagang' => set_value('nama_dagang'),
+        	    'alamat' => set_value('alamat'),
+        	    'photo' => set_value('photo'),
+        	    'photo_toko' => set_value('photo_toko'),
+        	    'kota' => set_value('kota'),
+        	    'kelurahan' => set_value('kelurahan'),
+        	    'kecamatan' => set_value('kecamatan'),
+        	    'lat' => set_value('lat'),
+        	    'long' => set_value('long'),
+        	    'keterangan' => set_value('keterangan'),
+        	    'status' => set_value('status'),
+        	    'created_at' => set_value('created_at'),
+        	    'updated_at' => set_value('updated_at'),
+            	'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
+          );
+          $data['aktif']			='Pelanggan';
+      		$data['title']			='Data Pelanggan';
+      		$data['judul']			='Pelanggan';
+      		$data['sub_judul']		='';
+          $data['content']			= 'form';
+          $data['kode_pelanggan'] = $this->pelanggan->get_kode_pelanggan();
+          $this->load->view('panel/dashboard', $data);
     }
 
     public function aksi_tambah()
@@ -204,23 +181,53 @@ class Pelanggan extends CI_Controller{
       if ($this->form_validation->run() == FALSE) {
           $this->tambah();
       } else {
-          $data = array(
-            'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
-            'no_telp' => $this->input->post('no_telp', true),
-            'nama_dagang' => $this->input->post('nama_dagang', true),
-            'alamat' => $this->input->post('alamat', true),
-            'photo' => $this->input->post('photo', true),
-            'photo_toko' => $this->input->post('photo_toko', true),
-            'kota' => $this->input->post('kota', true),
-            'kelurahan' => $this->input->post('kelurahan', true),
-            'kecamatan' => $this->input->post('kecamatan', true),
-            'lat' => $this->input->post('lat', true),
-            'long' => $this->input->post('long', true),
-            'keterangan' => $this->input->post('keterangan', true),
-            'status' => $this->input->post('status', true),
-            'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
-          );
-          $this->pelanggan->insert($data);
+          $config['upload_path'] = 'assets/uploads';
+          $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+          $config['max_size'] = '3000'; // kb
+          $this->load->library('upload', $config);
+          $this->upload->initialize($config);
+          $this->upload->do_upload('photo');
+          $hasil1 = $this->upload->data();
+          // upload gambar 2
+          $this->upload->do_upload('photo_toko');
+          $hasil2 = $this->upload->data();
+          if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
+                    $data = array(
+                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                      'no_telp' => $this->input->post('no_telp', true),
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'alamat' => $this->input->post('alamat', true),
+                      'kota' => $this->input->post('kota', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
+                      'kecamatan' => $this->input->post('kecamatan', true),
+                      'lat' => $this->input->post('lat', true),
+                      'long' => $this->input->post('long', true),
+                      'keterangan' => $this->input->post('keterangan', true),
+                      'status' => $this->input->post('status', true),
+                      'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    );
+            }else {
+                    $data = array(
+                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                      'no_telp' => $this->input->post('no_telp', true),
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'alamat' => $this->input->post('alamat', true),
+                      'photo' => $hasil1['file_name'],
+                      'photo_toko' => $hasil2['file_name'],
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'kota' => $this->input->post('kota', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
+                      'kecamatan' => $this->input->post('kecamatan', true),
+                      'lat' => $this->input->post('lat', true),
+                      'long' => $this->input->post('long', true),
+                      'keterangan' => $this->input->post('keterangan', true),
+                      'status' => $this->input->post('status', true),
+                      'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    );
+            }
+          $this->pelanggan->save($data);
           $this->session->set_flashdata('message', 'tambah data pelanggan berhasil');
           redirect(site_url('pelanggan'));
       }
@@ -234,25 +241,25 @@ class Pelanggan extends CI_Controller{
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('wp_pelanggan/update_action'),
-		'id' => set_value('id', $row->id),
-		'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
-		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
-		'no_telp' => set_value('no_telp', $row->no_telp),
-		'nama_dagang' => set_value('nama_dagang', $row->nama_dagang),
-		'alamat' => set_value('alamat', $row->alamat),
-		'photo' => set_value('photo', $row->photo),
-		'photo_toko' => set_value('photo_toko', $row->photo_toko),
-		'kota' => set_value('kota', $row->kota),
-		'kelurahan' => set_value('kelurahan', $row->kelurahan),
-		'kecamatan' => set_value('kecamatan', $row->kecamatan),
-		'lat' => set_value('lat', $row->lat),
-		'long' => set_value('long', $row->long),
-		'keterangan' => set_value('keterangan', $row->keterangan),
-		'status' => set_value('status', $row->status),
-		'created_at' => set_value('created_at', $row->created_at),
-		'updated_at' => set_value('updated_at', $row->updated_at),
-		'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
-	    );
+            		'id' => set_value('id', $row->id),
+            		'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
+            		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
+            		'no_telp' => set_value('no_telp', $row->no_telp),
+            		'nama_dagang' => set_value('nama_dagang', $row->nama_dagang),
+            		'alamat' => set_value('alamat', $row->alamat),
+            		'photo' => set_value('photo', $row->photo),
+            		'photo_toko' => set_value('photo_toko', $row->photo_toko),
+            		'kota' => set_value('kota', $row->kota),
+            		'kelurahan' => set_value('kelurahan', $row->kelurahan),
+            		'kecamatan' => set_value('kecamatan', $row->kecamatan),
+            		'lat' => set_value('lat', $row->lat),
+            		'long' => set_value('long', $row->long),
+            		'keterangan' => set_value('keterangan', $row->keterangan),
+            		'status' => set_value('status', $row->status),
+            		'created_at' => set_value('created_at', $row->created_at),
+            		'updated_at' => set_value('updated_at', $row->updated_at),
+            		'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
+	          );
             $this->load->view('wp_pelanggan/wp_pelanggan_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -267,27 +274,53 @@ class Pelanggan extends CI_Controller{
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id', TRUE));
         } else {
-            $data = array(
-		'id_pelanggan' => $this->input->post('id_pelanggan',TRUE),
-		'nama_pelanggan' => $this->input->post('nama_pelanggan',TRUE),
-		'no_telp' => $this->input->post('no_telp',TRUE),
-		'nama_dagang' => $this->input->post('nama_dagang',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-		'photo' => $this->input->post('photo',TRUE),
-		'photo_toko' => $this->input->post('photo_toko',TRUE),
-		'kota' => $this->input->post('kota',TRUE),
-		'kelurahan' => $this->input->post('kelurahan',TRUE),
-		'kecamatan' => $this->input->post('kecamatan',TRUE),
-		'lat' => $this->input->post('lat',TRUE),
-		'long' => $this->input->post('long',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
-		'status' => $this->input->post('status',TRUE),
-		'created_at' => $this->input->post('created_at',TRUE),
-		'updated_at' => $this->input->post('updated_at',TRUE),
-		'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan',TRUE),
-	    );
-
-            $this->Wp_pelanggan_model->update($this->input->post('id', TRUE), $data);
+          $config['upload_path'] = 'assets/uploads';
+          $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+          $config['max_size'] = '3000'; // kb
+          $this->load->library('upload', $config);
+          $this->upload->initialize($config);
+          $this->upload->do_upload('photo');
+          $hasil1 = $this->upload->data();
+          // upload gambar 2
+          $this->upload->do_upload('photo_toko');
+          $hasil2 = $this->upload->data();
+          if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
+                    $data = array(
+                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                      'no_telp' => $this->input->post('no_telp', true),
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'alamat' => $this->input->post('alamat', true),
+                      'kota' => $this->input->post('kota', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
+                      'kecamatan' => $this->input->post('kecamatan', true),
+                      'lat' => $this->input->post('lat', true),
+                      'long' => $this->input->post('long', true),
+                      'keterangan' => $this->input->post('keterangan', true),
+                      'status' => $this->input->post('status', true),
+                      'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    );
+            }else {
+                    $data = array(
+                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                      'no_telp' => $this->input->post('no_telp', true),
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'alamat' => $this->input->post('alamat', true),
+                      'photo' => $hasil1['file_name'],
+                      'photo_toko' => $hasil2['file_name'],
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'kota' => $this->input->post('kota', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
+                      'kecamatan' => $this->input->post('kecamatan', true),
+                      'lat' => $this->input->post('lat', true),
+                      'long' => $this->input->post('long', true),
+                      'keterangan' => $this->input->post('keterangan', true),
+                      'status' => $this->input->post('status', true),
+                      'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    );
+            }
+            $this->pelanggan->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('wp_pelanggan'));
         }
@@ -306,8 +339,6 @@ class Pelanggan extends CI_Controller{
     	$this->form_validation->set_rules('no_telp', 'no telp', 'trim|required');
     	$this->form_validation->set_rules('nama_dagang', 'nama dagang', 'trim|required');
     	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
-    	$this->form_validation->set_rules('photo', 'photo', 'trim|required');
-    	$this->form_validation->set_rules('photo_toko', 'photo toko', 'trim|required');
     	$this->form_validation->set_rules('kota', 'kota', 'trim|required');
     	$this->form_validation->set_rules('kelurahan', 'kelurahan', 'trim|required');
     	$this->form_validation->set_rules('kecamatan', 'kecamatan', 'trim|required');
