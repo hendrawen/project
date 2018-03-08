@@ -104,8 +104,10 @@
                                        text: "<?php echo $this->session->flashdata('msg'); ?>",
                                         timer: 3500,
                                        showConfirmButton: true,
-                                       type: 'error'
-                                   });
+                                       type: 'error' },
+                                       function(){
+                                         location.reload();
+                                     });
                                </script>
                              </small>
                         <?php endif; ?>
@@ -119,8 +121,11 @@
                                        text: "<?php echo $this->session->flashdata('message'); ?>",
                                         timer: 3500,
                                        showConfirmButton: true,
-                                       type: 'success'
-                                   });
+                                       type: 'success' },
+                                       function(){
+                                         location.reload();
+                                       }
+                                     );
                                </script>
                              </small>
                         <?php endif; ?>

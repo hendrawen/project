@@ -92,6 +92,13 @@ class Suplier_model extends CI_Model
           return $kodejadi;
     }
 
+    function cek_kode_suplier($id){
+        $this->db->where('wp_suplier_id', $id);
+        $cek = $this->db->get('wp_barang');
+        if ($cek->num_rows() > 0 ) {
+            return TRUE;
+        } else return FALSE;
+    }
 }
 
 /* End of file Wp_suplier_model.php */

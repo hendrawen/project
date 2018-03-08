@@ -47,7 +47,16 @@
                                    <td style="text-align:center">
                                       <a href="<?=base_url()?>suplier/read/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
                                       <a href="<?=base_url()?>suplier/update/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
-                                      <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>suplier/delete/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+                                      <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>suplier/delete/<?=$key->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
+                                      <a class="btn btn-default btn-sm" onclick="return swal({
+                                                              title: 'Yakin akan hapus data ini?',
+                                                              text: 'Anda tidak akan melihat data ini lagi!',
+                                                              type: 'warning',
+                                                              showCancelButton: true,
+                                                              confirmButtonColor: '#d9534f',
+                                                                 }, function(){
+                                                                    window.location.href ='<?=base_url()?>suplier/delete/<?=$key->id ?>';
+                                                                               });"><i class="glyphicon glyphicon-trash"></i></a>
                                    </td>
                               </tr>
                               <?php } ?>
@@ -72,3 +81,38 @@
                   	    </div>
                       </div>
                     </div>
+
+                    <!-- Gagal -->
+                    <?php if ($this->session->flashdata('msg')): ?>
+                             <small>
+                               <script type="text/javascript">
+                                  swal({
+                                       title: "Maaf",
+                                       text: "<?php echo $this->session->flashdata('msg'); ?>",
+                                        timer: 3500,
+                                       showConfirmButton: true,
+                                       type: 'error' },
+                                       function(){
+                                         location.reload();
+                                     });
+                               </script>
+                             </small>
+                        <?php endif; ?>
+
+                    <!-- sukses -->
+                    <?php if ($this->session->flashdata('message')): ?>
+                             <small>
+                               <script type="text/javascript">
+                                  swal({
+                                       title: "Done",
+                                       text: "<?php echo $this->session->flashdata('message'); ?>",
+                                        timer: 3500,
+                                       showConfirmButton: true,
+                                       type: 'success' },
+                                       function(){
+                                         location.reload();
+                                       }
+                                     );
+                               </script>
+                             </small>
+                        <?php endif; ?>

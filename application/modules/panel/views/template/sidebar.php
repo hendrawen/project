@@ -39,9 +39,9 @@
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
                       <li><a href="<?php echo base_url();?>suplier">Suplier</a></li>
-                      <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
                       <li><a href="<?php echo base_url();?>barang">Barang</a></li>
                       <li><a href="<?php echo base_url();?>barang/stok">Stok</a></li>
+                      <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
