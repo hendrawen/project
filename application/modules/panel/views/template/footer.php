@@ -14,11 +14,15 @@
     <!-- Bootstrap -->
     <script src="<?php echo base_url()?>assets/template/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-
+    
     <script src="<?php echo base_url()?>assets/template/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="<?php echo base_url()?>assets/template/vendors/nprogress/nprogress.js"></script>
     <!-- Chart.js -->
+    <script src="<?php echo base_url()?>assets/template/vendors/moment/min/moment.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datetimepicker -->
+    <script src="<?php echo base_url()?>assets/template/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/iCheck/icheck.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- jQuery Sparklines -->

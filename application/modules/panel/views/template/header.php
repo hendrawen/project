@@ -16,6 +16,12 @@
     <!-- NProgress -->
     <link href="<?php echo base_url()?>assets/template/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+
+    <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
     <link href="<?php echo base_url()?>assets/template/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
     <link href="<?php echo base_url()?>assets/template/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
