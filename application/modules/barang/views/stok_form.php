@@ -22,12 +22,9 @@
                 <?php
                     $coba = $this->db->query("SELECT * FROM wp_barang");
                      foreach ($coba->result() as $rows) {
-                       if ($button == 'Tambah') {
                 ?>
             <option <?php echo ($id==$rows->id) ? 'selected=""':"";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_barang; ?></option>
-          <?php } elseif ($button == 'Update') { ?>
-            <option <?php echo ($id==$rows->id) ? 'selected=""':"selected";?> value="<?php echo $rows->id; ?>"><?php echo $rows->id; ?> - <?php echo $rows->nama_barang; ?></option>
-          <?php } }?>
+            <?php } ?>
             </select>
         </div>
         <div class="form-group">

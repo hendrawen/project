@@ -115,12 +115,7 @@ class Barang_model extends CI_Model
         $this->db->from($this->table);
         $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id');
         $this->db->order_by('id_barang', $this->order);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-          return FALSE;
-        }
+        return $query = $this->db->get()->result();
     }
 }
 

@@ -75,12 +75,7 @@ class Stok_model extends CI_Model
         $this->db->from($this->table);
         $this->db->join('wp_barang', 'wp_barang.id = wp_stok.wp_barang_id');
         $this->db->order_by('id', $this->order);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-          return FALSE;
-        }
+        return $query = $this->db->get()->result();
     }
 
 }

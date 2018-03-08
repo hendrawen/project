@@ -39,7 +39,7 @@
                       <tbody>
                         <?php
                         $no = 1;
-                        foreach($stok as $key){ ?>
+                        foreach ($stok as $key) { ?>
                        <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->wp_barang_id ?> - <?php echo $key->nama_barang ?></td>
@@ -65,11 +65,11 @@
                   </table>
 
           </div>
-              <div class="row">
+              <!-- <div class="row">
                   <div class="col-md-6">
                       <a></a>
                       <?php echo anchor(site_url('barang/stok/excel'), 'Excel', 'class="btn btn-primary"'); ?>
                       <?php echo anchor(site_url('barang/stok/word'), 'Word', 'class="btn btn-primary"'); ?>
                 </div>
-              </div>
+              </div> -->
             </div>

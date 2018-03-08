@@ -45,7 +45,7 @@ class Stok extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Stok Barang';
         $data['content']		='stok_list';
-        $data['stok']    		=$this->stok_model->get_data();
+        $data['stok']    		= $this->stok_model->get_data();
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -215,18 +215,18 @@ class Stok extends CI_Controller
         xlsEOF();
         exit();
     }
-		public function word()
-		{
-				header("Content-type: application/vnd.ms-word");
-				header("Content-Disposition: attachment;Filename=barang.doc");
+    public function word()
+    {
+        header("Content-type: application/vnd.ms-word");
+        header("Content-Disposition: attachment;Filename=wp_stok.doc");
 
-				$data = array(
-						'stok_data' => $this->stok_model->get_all(),
-						'start' => 0
-				);
+        $data = array(
+            'wp_stok_data' => $this->Wp_stok_model->get_all(),
+            'start' => 0
+        );
 
-				$this->load->view('barang/stok/stok_doc',$data);
-		}
+        $this->load->view('stok/stok_doc',$data);
+    }
 
 
 }
