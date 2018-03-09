@@ -153,7 +153,7 @@
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>Telepon</th>
-                                <th>Photo</th>
+                                <th style="text-align:center">Photo</th>
                                 <th>Status</th>
                                 <th>Jabatan</th>
                                 <th style="text-align:center">Aksi</th>

@@ -14,7 +14,7 @@
         </div><br>
       <div class="x_content">
         <table class="table table-hover dt-responsive nowrap">
-          <tr><td>Photo</td><td><img src="<?php echo base_url();?>assets/uploads/<?php echo $photo; ?>" width="250" height="250"></td></tr>
+          <tr><td>Photo</td><td>:</td><td><img src="<?php echo base_url();?>assets/uploads/<?php echo $photo; ?>" width="250" height="250"></td></tr>
           <tr><td>Format</td><td>:</td><td><?php echo $photo; ?></td></tr>
           <tr><td>Nama</td><td>:</td><td><?php echo $nama; ?></td></tr>
     	    <tr><td>Alamat</td><td>:</td><td><?php echo $alamat; ?></td></tr>

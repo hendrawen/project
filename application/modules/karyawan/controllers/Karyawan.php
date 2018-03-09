@@ -156,9 +156,14 @@ class Karyawan extends CI_Controller
 		'status' => set_value('status', $row->status),
 		'wp_jabatan_id' => set_value('wp_jabatan_id', $row->wp_jabatan_id),
 	    );
-            $this->load->view('karyawan/karyawan_form', $data);
+            $data['aktif']			='Master';
+            $data['title']			='Brajamarketindo';
+            $data['judul']			='Dashboard';
+            $data['sub_judul']	='Edit Karyawan';
+            $data['content']		='karyawan_form';
+            $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('karyawan'));
         }
     }
