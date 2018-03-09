@@ -36,7 +36,8 @@
         </div>
         <div class="form-group">
             <label for="int">Stok <?php echo form_error('stok') ?></label>
-            <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" />
+            <!-- <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" /> -->
+            <input type="number" class="form-control" name="stok" id="stok" placeholder="Stok Barang" value="<?php echo $stok; ?>" min="0"/>
         </div>
         <!-- <div class="form-group">
             <label for="timestamp">Tanggal Update <?php echo form_error('updated_at') ?></label>
