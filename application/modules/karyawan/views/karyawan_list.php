@@ -105,14 +105,14 @@
                     </div>
 
                       <div class="x_content">
-                          <table class="table table-striped table-bordered dt-responsive" id="datatable">
+                          <table class="table table-striped table-bordered dt-responsive nowrap" id="datatable">
                               <thead>
                                   <tr>
                                       <th>#</th>
-                                      <th>Photo</th>
                                       <th>Nama</th>
                                   		<th>Alamat</th>
                                   		<th>Telepon</th>
+                                      <th style="text-align:center">Photo</th>
                                   		<th>Status</th>
                                   		<th>Jabatan</th>
                                       <th style="text-align:center">Aksi</th>
@@ -121,18 +121,18 @@
                               <tbody>
                                 <?php
                                 $no = 1;
-                                foreach($karyawan as $key){ ?>
+                                foreach($karya as $key){ ?>
                                <tr>
                                     <td><?php echo $no++ ?></td>
-                                    <td><img src="<?php echo base_url();?>assets/uploads/<?php echo $key->photo; ?>" width="50" height="50"></td>
                                     <td><?php echo $key->nama ?></td>
                               			<td><?php echo $key->alamat ?></td>
                               			<td><?php echo $key->no_telp ?></td>
+                                    <td style="text-align:center"><img src="<?php echo base_url();?>assets/uploads/<?php echo $key->photo; ?>"width="200" height="100"></td>
                               			<td><?php echo $key->status ?></td>
                               			<td><?php echo $key->nama_jabatan ?></td>
                                     <td style="text-align:center">
-                                      <a href="<?=base_url()?>karyawan/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
-                                      <a href="<?=base_url()?>karyawan/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                                      <a href="<?=base_url()?>karyawan/read/<?=$key->id_karyawan ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
+                                      <a href="<?=base_url()?>karyawan/update/<?=$key->id_karyawan ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                                       <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
                                       <a class="btn btn-default btn-sm" onclick="return swal({
                                                               title: 'Yakin akan hapus data ini?',
@@ -141,7 +141,7 @@
                                                               showCancelButton: true,
                                                               confirmButtonColor: '#d9534f',
                                                                  }, function(){
-                                                                    window.location.href ='<?=base_url()?>karyawan/delete/<?=$key->id ?>';
+                                                                    window.location.href ='<?=base_url()?>karyawan/delete/<?=$key->id_karyawan ?>';
                                                                                });"><i class="glyphicon glyphicon-trash"></i></a>
                                    </td>
                               </tr>
@@ -150,10 +150,10 @@
                             <tfoot>
                               <tr>
                                 <th>#</th>
-                                <th>Photo</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>Telepon</th>
+                                <th>Photo</th>
                                 <th>Status</th>
                                 <th>Jabatan</th>
                                 <th style="text-align:center">Aksi</th>

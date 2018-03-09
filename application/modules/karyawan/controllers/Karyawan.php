@@ -45,7 +45,7 @@ class Karyawan extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Karyawan';
         $data['content']		='karyawan_list';
-        $data['karyawan']   = $this->karyawan_model->get_data();
+        $data['karya']   = $this->karyawan_model->get_data();
         $this->load->view('panel/dashboard', $data);
     }
 
