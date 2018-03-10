@@ -13,9 +13,9 @@ class Pelanggan extends CI_Controller{
   function index()
   {
     $data['aktif']			='Pelanggan';
-		$data['title']			='Data Pelanggan';
-		$data['judul']			='Data Pelanggan';
-		$data['sub_judul']		='';
+		$data['title']			='Brajamarketindo';
+		$data['judul']			='Dashboard';
+		$data['sub_judul']		='Data Pelanggan';
     $data['content']			= 'main';
     $kotas = $this->pelanggan->get_list_kota();
 
@@ -109,9 +109,9 @@ class Pelanggan extends CI_Controller{
       # code...
       $this->load->library('Googlemap');
       $data['aktif']			='Pelanggan';
-  		$data['title']			='Data Pelanggan';
-  		$data['judul']			='Mapping Pelanggan';
-  		$data['sub_judul']		='';
+  		$data['title']			='Brajamarketindo';
+  		$data['judul']			='Dashboard';
+  		$data['sub_judul']		='Mapping Pelanggan';
       $data['content']			= 'maps';
       $config['center'] = '-6.241586
       $marker = array();
@@ -165,9 +165,9 @@ class Pelanggan extends CI_Controller{
             	'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
           );
           $data['aktif']			='Pelanggan';
-      		$data['title']			='Data Pelanggan';
-      		$data['judul']			='Pelanggan';
-      		$data['sub_judul']		='';
+      		$data['title']			='Brajamarketindo';
+      		$data['judul']			='Dashboard';
+      		$data['sub_judul']		='Pelanggan';
           $data['content']			= 'form';
           $data['kode_pelanggan'] = $this->pelanggan->get_kode_pelanggan();
           $this->load->view('panel/dashboard', $data);

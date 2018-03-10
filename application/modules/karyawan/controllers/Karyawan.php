@@ -175,14 +175,55 @@ class Karyawan extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_karyawan', TRUE));
         } else {
+          // setting konfigurasi upload
+        $config['upload_path']   = './assets/uploads/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg|bmp';
+        $config['max_size']      = 50000;
+        // load library upload
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        $this->upload->do_upload('photo');
+
+        $result = $this->upload->data();
+        //compress image
+        $config['image_library']    ='gd2';
+        $config['source_image']     ='./assets/uploads/'.$result['file_name'];
+        $config['create_thumb']     = false;
+        $config['maintain_ratio']   = false;
+        $config['width']            = 100;
+        $config['height']           = 100;
+        $config['new_image']        = './assets/uploads/'.$result['file_name'];
+        $this->load->library('image_lib', $config);
+        $this->image_lib->resize();
+        $photo = $result['file_name'];
+
+        if ($photo != '') {
+               $id_karyawan = $this->input->post('id_karyawan',TRUE);
+
+               $query = $this->db->query("SELECT * FROM wp_karyawan WHERE id_karyawan= '{$id_karyawan}'");
+                   foreach ($query->result() as $key) {
+                   unlink('./assets/uploads/'.$key->photo);
+               }
+
             $data = array(
-		'nama' => $this->input->post('nama',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-		'no_telp' => $this->input->post('no_telp',TRUE),
-		'photo' => $this->input->post('photo',TRUE),
-		'status' => $this->input->post('status',TRUE),
-		'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
-	    );
+        		'nama' => $this->input->post('nama',TRUE),
+        		'alamat' => $this->input->post('alamat',TRUE),
+        		'no_telp' => $this->input->post('no_telp',TRUE),
+        		'photo' => $photo,
+        		'status' => $this->input->post('status',TRUE),
+        		'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+        	    );
+
+            } elseif ($photo == '') {
+              $data = array(
+                'nama' => $this->input->post('nama',TRUE),
+                'alamat' => $this->input->post('alamat',TRUE),
+                'no_telp' => $this->input->post('no_telp',TRUE),
+                //'photo' => $photo,
+                'status' => $this->input->post('status',TRUE),
+                'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+                    );
+            }
 
             $this->karyawan_model->update($this->input->post('id_karyawan', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
@@ -196,10 +237,10 @@ class Karyawan extends CI_Controller
 
         if ($row) {
             $this->karyawan_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', 'Hapus Data Success');
             redirect(site_url('karyawan'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('karyawan'));
         }
     }
