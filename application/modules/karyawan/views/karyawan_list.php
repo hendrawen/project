@@ -94,9 +94,7 @@
                   <div class="row">
                     <div class="col-md-6">
                         <?php echo anchor(site_url('karyawan/create'),'Tambah', 'class="btn btn-primary"'); ?>
-                        <!-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah</a>-->
-                        <!-- <button class="btn btn-primary" onclick="add_suplier()"><i class="glyphicon glyphicon-plus"></i> Tambah</button> -->
-                    </div>
+                        </div>
                   </div>
                     <div class="col-md-6 text-right">
                         <!-- <div style="margin-top: 8px" id="message">
