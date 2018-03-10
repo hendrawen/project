@@ -22,7 +22,7 @@
                   <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan" placeholder="Isi Jabatan Karyawan Disini...!!!" required/>
               </div>
         </div>
-        <button style="margin-top:24px;" type="submit" class="btn btn-primary"><?php echo $button; ?></button>
+        <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <?php echo $button; ?></button>
 
         <?php } elseif ($button == 'Update') { ?>
           <div class="col-md-6">
@@ -31,7 +31,7 @@
                   <input type="text" class="form-control" name="nama_jabatan" id="nama_jabatan" placeholder="Isi Jabatan Karyawan Disini...!!!" value="<?php echo $nama_jabatan; ?>" required/>
                 </div>
           </div>
-          <button style="margin-top:24px;" type="submit" class="btn btn-primary"><?php echo $button; ?></button>
+          <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button; ?></button>
           <a style="margin-top:24px;" href="<?php echo site_url('karyawan/jabatan') ?>" class="btn btn-danger">Batal</a>
         <?php } ?>
     	</form>
@@ -68,7 +68,7 @@
                             <td><?php echo $key->id ?></td>
                             <td><?php echo $key->nama_jabatan ?></td>
                             <td style="text-align:center">
-                              <a href="<?=base_url()?>karyawan/jabatan/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
+                              <!-- <a href="<?=base_url()?>karyawan/jabatan/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
                               <a href="<?=base_url()?>karyawan/jabatan/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
                               <a class="btn btn-default btn-sm" onclick="return swal({

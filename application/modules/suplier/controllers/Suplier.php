@@ -48,7 +48,7 @@ class Suplier extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Tambah',
+            'button' => 'Simpan',
             'action' => site_url('suplier/create_action'),
 	    'id' => set_value('id'),
 	    'id_suplier' => set_value('id_suplier'),

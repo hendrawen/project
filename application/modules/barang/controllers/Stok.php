@@ -69,7 +69,7 @@ class Stok extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Tambah',
+            'button' => 'Simpan',
             'action' => site_url('barang/stok/create_action'),
 	    'id' => set_value('id'),
 	    'wp_barang_id' => set_value('wp_barang_id'),

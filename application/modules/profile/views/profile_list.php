@@ -89,7 +89,8 @@
               </div><br>
                         <div class="row" style="margin-left:-5px">
                         <div class="col-md-4">
-                            <?php echo anchor(site_url('profile/create'),'Tambah', 'class="btn btn-primary"'); ?>
+                            <!-- <?php echo anchor(site_url('profile/create'),'Tambah', 'class="btn btn-primary"'); ?> -->
+                            <a href="<?php echo base_url('profile/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
                         </div>
 
                         <div class="col-md-4 text-center">

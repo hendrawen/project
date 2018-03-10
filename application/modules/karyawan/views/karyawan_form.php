@@ -33,7 +33,7 @@
                 <label for="varchar">Photo <?php echo form_error('photo') ?></label>
                 <!-- <input type="text" class="form-control" name="photo" id="photo" placeholder="Photo" value="<?php echo $photo; ?>" /> -->
                 <?php
-                    if ($button == 'Tambah') {
+                    if ($button == 'Simpan') {
                 ?>
                     <input type="file" class="form-control" name="photo" id="photo" required />
                 <?php } elseif ($button == 'Update') {
@@ -69,7 +69,7 @@
                 </select>
             </div>
     	    <input type="hidden" name="id_karyawan" value="<?php echo $id_karyawan; ?>" />
-    	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
+    	    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>
     	    <a href="<?php echo site_url('karyawan') ?>" class="btn btn-danger">Kembali</a>
     	</form>
       <!-- <?php echo form_close();?> -->

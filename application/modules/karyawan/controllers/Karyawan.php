@@ -77,7 +77,7 @@ class Karyawan extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Tambah',
+            'button' => 'Simpan',
             'action' => site_url('karyawan/create_action'),
 	    'id_karyawan' => set_value('id_karyawan'),
 	    'nama' => set_value('nama'),

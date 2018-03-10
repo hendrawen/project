@@ -13,9 +13,8 @@
               </div>
                   <div class="row">
                     <div class="col-md-6">
-                        <?php echo anchor(site_url('barang/create'),'Tambah', 'class="btn btn-primary"'); ?>
-                        <!-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah</a>-->
-                        <!-- <button class="btn btn-primary" onclick="add_suplier()"><i class="glyphicon glyphicon-plus"></i> Tambah</button> -->
+                        <!-- <?php echo anchor(site_url('barang/create'),'Tambah', 'class="btn btn-primary"'); ?> -->
+                        <a href="<?php echo base_url('barang/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
                     </div>
                   </div>
                     <div class="col-md-6 text-right">
