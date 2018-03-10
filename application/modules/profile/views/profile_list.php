@@ -95,7 +95,7 @@
 
                         <div class="col-md-4 text-center">
                             <div style="margin-top: 8px" id="message">
-                                <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                                <!-- <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?> -->
                             </div>
                         </div>
 
@@ -150,8 +150,17 @@
                         			<td width="150px" style="text-align:center">
                                 <a href="<?=base_url()?>profile/read/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
                                 <a href="<?=base_url()?>profile/update/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
-                                <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>profile/delete/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
-                        				<?php
+                                <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>profile/delete/<?=$profile->id?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
+                                <a class="btn btn-default btn-sm" onclick="return swal({
+                                                        title: 'Yakin akan hapus data ini?',
+                                                        text: 'Anda tidak akan melihat data ini lagi!',
+                                                        type: 'warning',
+                                                        showCancelButton: true,
+                                                        confirmButtonColor: '#d9534f',
+                                                           }, function(){
+                                                              window.location.href ='<?=base_url()?>profile/delete/<?=$profile->id ?>';
+                                                                         });"><i class="glyphicon glyphicon-trash"></i></a>
+                                <?php
                         				//echo anchor(site_url('profile/read/'.$profile->id),'Read');
                         				//echo ' | ';
                         				//echo anchor(site_url('profile/update/'.$profile->id),'Update');
@@ -176,4 +185,39 @@
                         </div>
                       </div>
                     </div>
-</div>
+        </div>
+
+
+  <!-- Gagal -->
+  <?php if ($this->session->flashdata('msg')): ?>
+           <small>
+             <script type="text/javascript">
+                swal({
+                     title: "Maaf",
+                     text: "<?php echo $this->session->flashdata('msg'); ?>",
+                      timer: 3500,
+                     showConfirmButton: true,
+                     type: 'error' },
+                     function(){
+                       location.reload();
+                 });
+             </script>
+           </small>
+      <?php endif; ?>
+
+  <!-- sukses -->
+  <?php if ($this->session->flashdata('message')): ?>
+           <small>
+             <script type="text/javascript">
+                swal({
+                     title: "Done",
+                     text: "<?php echo $this->session->flashdata('message'); ?>",
+                      timer: 3500,
+                     showConfirmButton: true,
+                     type: 'success' },
+                     function(){
+                       location.reload();
+                 });
+             </script>
+           </small>
+      <?php endif; ?>
