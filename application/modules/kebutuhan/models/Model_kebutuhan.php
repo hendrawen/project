@@ -5,6 +5,7 @@ class Model_kebutuhan extends CI_Model{
 
   var $table = 'vkebutuhan';
   var $table2 = 'kebutuhan';
+  public $id = 'id';
   var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','jenis','jumlah','tgl'); //set column field database for datatable orderable
   var $column_search = array('id_pelanggan','nama_pelanggan','jenis'); //set column field database for datatable searchable
   var $order = array('tgl' => 'asc'); // default order
@@ -86,7 +87,7 @@ class Model_kebutuhan extends CI_Model{
 
  public function get_by_id($id)
  {
-     $this->db->from($this->table);
+     $this->db->from($this->table2);
      $this->db->where('id',$id);
      $query = $this->db->get();
 
@@ -99,10 +100,53 @@ class Model_kebutuhan extends CI_Model{
      return $this->db->insert_id();
  }
 
- public function update($where, $data)
+ function update($id, $data)
  {
-     $this->db->update($this->table2, $data, $where);
-     return $this->db->affected_rows();
+     $this->db->where($this->id, $id);
+     return $this->db->update($this->table2, $data);
+
+ }
+
+ public function show_all_data() {
+        $this->db->select('*');
+        $this->db->from('wp_vkebutuhan');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+        return $query->result();
+        } else {
+        return false;
+        }
+ }
+
+ public function show_data_by_date($data) {
+        $condition = "MONTH(tgl) BETWEEN " . "'" . $data['date1'] . "'" . " AND " . "'" . $data['date2'] . "'";
+        $this->db->select('id_pelanggan, nama_pelanggan, jenis , sum(jumlah) as total, tgl');
+        $this->db->from('wp_vkebutuhan');
+        $this->db->where('year(tgl)', $data['date3']);
+        $this->db->where($condition);
+        $this->db->group_by('id_pelanggan, nama_pelanggan, jenis, tgl');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+        return $query->result();
+        } else {
+        return false;
+        }
+ }
+
+ public function show_progres($data) {
+        $condition = "MONTH(b.tgl) BETWEEN " . "'" . $data['date1'] . "'" . " AND " . "'" . $data['date2'] . "'";
+        $this->db->select('a.jenis, SUM(b.jumlah) AS total');
+        $this->db->from('wp_jkebutuhan AS a');
+        $this->db->join('wp_kebutuhan AS b', 'a.id = b.wp_jkebutuhan_id');
+        $this->db->where('year(b.tgl)', $data['date3']);
+        $this->db->where($condition);
+        $this->db->group_by('a.id, b.wp_jkebutuhan_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+        return $query->result();
+        } else {
+        return false;
+        }
  }
 
  public function delete_by_id($id)

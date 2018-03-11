@@ -56,7 +56,7 @@
                       </div>
                     </p>
 
-                    <table id="table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="table" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead>
                           <tr>
                               <th>ID Pelanggan</th>

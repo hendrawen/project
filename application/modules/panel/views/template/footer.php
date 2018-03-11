@@ -20,6 +20,7 @@
     <script src="<?php echo base_url()?>assets/template/vendors/nprogress/nprogress.js"></script>
     <!-- Chart.js -->
     <script src="<?php echo base_url()?>assets/template/vendors/moment/min/moment.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap-datetimepicker -->
     <script src="<?php echo base_url()?>assets/template/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>

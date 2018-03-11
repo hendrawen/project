@@ -86,8 +86,8 @@ class Pelanggan extends CI_Controller{
             else
                 $row[] = '(tidak ada photo)';
             $row[] = $pelanggans->nama;
-            $row[] = '<button type="button" class="btn btn-success btn-xs"><i class="fa fa-external-link"></i></button>
-            <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+            $row[] = '<a  type="button" class="btn btn-success btn-xs"><i class="fa fa-external-link"></i></a>
+            <a href="'.base_url('pelanggan/update/'.$pelanggans->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_pelanggan('."'".$pelanggans->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 
@@ -113,28 +113,26 @@ class Pelanggan extends CI_Controller{
   		$data['judul']			='Mapping Pelanggan';
   		$data['sub_judul']		='';
       $data['content']			= 'maps';
-      $config['center'] = '-6.241586
-      $marker = array();
-, 106.992416';
       $config['zoom'] = 'auto';
+      $config['places'] = TRUE;
+      $config['placesLocation'] = '-6.241586, 106.992416';
+      $config['placesRadius'] = 200;
       $this->googlemap->initialize($config);
-
-      $marker = array();
-      $marker['position'] = '-7.025253, 107.519760';
-      $marker['infowindow_content'] = '1 - Hello World!';
-      $marker['icon'] = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|9999FF|000000';
-      $this->googlemap->add_marker($marker);
-
-      $marker = array();
-      $marker['position'] = '-6.241586, 106.992416';
-      $marker['draggable'] = TRUE;
-      $marker['animation'] = 'DROP';
-      $this->googlemap->add_marker($marker);
-
-      $marker = array();
-      $marker['position'] = '-7.866688, 111.466614';
-      $marker['onclick'] = 'alert("You just clicked me!!")';
-      $this->googlemap->add_marker($marker);
+      $mapp = $this->db->query('select * from wp_pelanggan');
+      foreach ($mapp->result_array() as $value) {
+        # code...
+        $lat = $value['lat'];
+        $long = $value['long'];
+        $info = $value['nama_dagang'];
+        $alamat = $value['alamat'];
+        $kota = $value['kota'];
+        $kecamatan = $value['kecamatan'];
+        $kelurahan = $value['kelurahan'];
+        $marker = array();
+        $marker['position'] = $lat.','.$long;
+        $marker['infowindow_content'] = $info. '<br>Kota : ' . $kota. '<br>Kecamatan : ' . $kecamatan.  '<br>Kelurahan : ' . $kelurahan. '<br>alamat lengkap : ' .$alamat;
+        $this->googlemap->add_marker($marker);
+      }
       $data['map'] = $this->googlemap->create_map();
 
       $this->load->view('panel/dashboard', $data);
@@ -169,7 +167,7 @@ class Pelanggan extends CI_Controller{
       		$data['judul']			='Pelanggan';
       		$data['sub_judul']		='';
           $data['content']			= 'form';
-          $data['kode_pelanggan'] = $this->pelanggan->get_kode_pelanggan();
+          $data['id_pelanggan'] = $this->pelanggan->get_kode_pelanggan();
           $this->load->view('panel/dashboard', $data);
     }
 
@@ -235,12 +233,12 @@ class Pelanggan extends CI_Controller{
 
     public function update($id)
     {
-        $row = $this->Wp_pelanggan_model->get_by_id($id);
+        $row = $this->pelanggan->get_by_id($id);
 
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('wp_pelanggan/update_action'),
+                'action' => site_url('pelanggan/update_action'),
             		'id' => set_value('id', $row->id),
             		'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
             		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
@@ -256,14 +254,17 @@ class Pelanggan extends CI_Controller{
             		'long' => set_value('long', $row->long),
             		'keterangan' => set_value('keterangan', $row->keterangan),
             		'status' => set_value('status', $row->status),
-            		'created_at' => set_value('created_at', $row->created_at),
-            		'updated_at' => set_value('updated_at', $row->updated_at),
             		'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
 	          );
-            $this->load->view('wp_pelanggan/wp_pelanggan_form', $data);
+            $data['aktif']			='Pelanggan';
+        		$data['title']			='Edit Data Pelanggan';
+        		$data['judul']			='Edit Data Pelanggan';
+        		$data['sub_judul']		='';
+            $data['content']			= 'form';
+            $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('wp_pelanggan'));
+            redirect(site_url('pelanggan'));
         }
     }
 
@@ -322,7 +323,7 @@ class Pelanggan extends CI_Controller{
             }
             $this->pelanggan->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('wp_pelanggan'));
+            redirect(site_url('pelanggan'));
         }
     }
 

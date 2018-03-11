@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_pelanggan extends CI_Model{
 
+     public $id = 'id';
      var $table = 'vpelanggan';
      var $table2 = 'pelanggan';
      var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama', null); //set column field database for datatable orderable
@@ -97,7 +98,7 @@ class Model_pelanggan extends CI_Model{
 
     public function get_by_id($id)
     {
-        $this->db->from($this->table);
+        $this->db->from($this->table2);
         $this->db->where('id',$id);
         $query = $this->db->get();
 
@@ -110,10 +111,11 @@ class Model_pelanggan extends CI_Model{
         return $this->db->insert_id();
     }
 
-    public function update($where, $data)
+    function update($id, $data)
     {
-        $this->db->update($this->table2, $data, $where);
-        return $this->db->affected_rows();
+        $this->db->where($this->id, $id);
+        return $this->db->update($this->table2, $data);
+
     }
 
     public function delete_by_id($id)

@@ -1,4 +1,5 @@
-<a href="<?php echo base_url('pelanggan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
+<a href="<?php echo base_url('kebutuhan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
+<a href="<?php echo base_url('kebutuhan/presentasi')?>" type="button" class="btn btn-info" ><i class="fa fa-bar-chart"></i> Presentasi Kebutuhan</a>
 <div class="x_panel">
   <div class="x_title">
     <h2><i class="fa fa-group"></i> Data Kebutuhan Pelanggan</h2>
@@ -20,13 +21,13 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-    <table id="kebutuhan" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+    <table id="kebutuhan" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
           <tr>
               <th>ID Pelanggan</th>
               <th>Nama</th>
               <th>Telp</th>
-              <th>Jenis</th>
+              <th>Jenis Kebutuhan</th>
               <th>Jumlah</th>
               <th>Tanggal</th>
           </tr>
