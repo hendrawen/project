@@ -40,7 +40,7 @@ class Suplier extends CI_Controller
             $data['content']		='suplier_read';
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('suplier'));
         }
     }
@@ -48,7 +48,7 @@ class Suplier extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Tambah',
+            'button' => 'Simpan',
             'action' => site_url('suplier/create_action'),
 	    'id' => set_value('id'),
 	    'id_suplier' => set_value('id_suplier'),
@@ -77,7 +77,7 @@ class Suplier extends CI_Controller
 	             );
 
             $this->suplier_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', 'Data Success Disimpan');
             redirect(site_url('suplier'));
         }
     }
@@ -102,7 +102,7 @@ class Suplier extends CI_Controller
             $data['content']		='suplier_form';
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Tidak Ada Data');
             redirect(site_url('suplier'));
         }
     }
@@ -121,22 +121,22 @@ class Suplier extends CI_Controller
         	    );
 
             $this->suplier_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', 'Update Data Success');
             redirect(site_url('suplier'));
         }
     }
 
     public function delete($id)
     {
-        $row = $this->suplier_model->get_by_id($id);
-
+        //$row = $this->suplier_model->get_by_id($id);
+        $row = $this->suplier_model->cek_kode_suplier($id);
         if ($row) {
-            $this->suplier_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('suplier'));
+          $this->session->set_flashdata('msg', 'Maaf, Suplier Masih Didata Barang, Hapus Didata Barang Dahulu!!');
+          redirect(site_url('suplier'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('suplier'));
+          $this->suplier_model->delete($id);
+          $this->session->set_flashdata('message', 'Delete Data Success');
+          redirect(site_url('suplier'));
         }
     }
 

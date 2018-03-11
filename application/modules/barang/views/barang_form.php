@@ -69,7 +69,7 @@
                 </div> -->
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
         	    <input type="hidden" name="id" value="<?php echo $id; ?>" />
-        	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
+        	    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>
         	    <a href="<?php echo site_url('barang') ?>" class="btn btn-danger">Kembali</a>
         	</form>
       </div>

@@ -10,7 +10,7 @@
         <div class="right_col" role="main">
           <div class="">
 	          <div class="title_left">
-	            <h3><i class="fa fa-angle-right"></i> <?php echo $judul; ?> <i class="fa fa-angle-right"></i> <?php echo $sub_judul; ?></h3>
+	            <h3><i class="fa fa-angle-right"></i> <a href="<?php echo base_url();?>"><?php echo $judul; ?></a> <i class="fa fa-angle-right"></i> <?php echo $sub_judul; ?></h3>
 	          </div>
 
       		  <?php $this->load->view($content);?>

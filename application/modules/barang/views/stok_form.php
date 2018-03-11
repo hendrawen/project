@@ -36,7 +36,8 @@
         </div>
         <div class="form-group">
             <label for="int">Stok <?php echo form_error('stok') ?></label>
-            <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" />
+            <!-- <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" /> -->
+            <input type="number" class="form-control" name="stok" id="stok" placeholder="Stok Barang" value="<?php echo $stok; ?>" min="0"/>
         </div>
         <!-- <div class="form-group">
             <label for="timestamp">Tanggal Update <?php echo form_error('updated_at') ?></label>
@@ -44,7 +45,7 @@
         </div> -->
         <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
-        <button type="submit" class="btn btn-primary"><?php echo $button ?></button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>
         <a href="<?php echo site_url('barang/stok') ?>" class="btn btn-danger">Kembali</a>
         </form>
       </div>

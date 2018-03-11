@@ -67,7 +67,7 @@ class Profile extends CI_Controller
             $data['content']		='profile_read';;
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('profile'));
         }
     }
@@ -75,7 +75,7 @@ class Profile extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Tambah',
+            'button' => 'Simpan',
             'action' => site_url('profile/create_action'),
 	    'id' => set_value('id'),
 	    'nama_perusahaan' => set_value('nama_perusahaan'),
@@ -108,7 +108,7 @@ class Profile extends CI_Controller
 	    );
 
             $this->profile_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', 'Simpan Data Success');
             redirect(site_url('profile'));
         }
     }
@@ -135,7 +135,7 @@ class Profile extends CI_Controller
             $data['content']		='profile_form';
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('profile'));
         }
     }
@@ -156,7 +156,7 @@ class Profile extends CI_Controller
 	    );
 
             $this->profile_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', 'Update Data Success');
             redirect(site_url('profile'));
         }
     }
@@ -167,10 +167,10 @@ class Profile extends CI_Controller
 
         if ($row) {
             $this->profile_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
+            $this->session->set_flashdata('message', 'Hapus Data Success');
             redirect(site_url('profile'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('profile'));
         }
     }

@@ -78,7 +78,7 @@ class Barang extends CI_Controller
     public function create()
     {
         $data = array(
-            'button' => 'Tambah',
+            'button' => 'Simpan',
             'action' => site_url('barang/create_action'),
 	    'id' => set_value('id'),
 	    'id_barang' => set_value('id_barang'),
