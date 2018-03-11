@@ -45,21 +45,10 @@
                       </li>
                     </ul>
                   </li>
-<<<<<<< HEAD
                   <li><a><i class="fa fa-newspaper-o"></i> Kebutuhan<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>kebutuhan">Kebutuhan</a></li>
                       <li><a href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
-=======
-                  <li><a <?php //echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php //echo base_url();?>profile"><i class="fa fa-table"></i> Transaksi </a></li>
-                  <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="">Laporan 1</a></li>
-                      <li><a href="">Laporan 2</a></li>
-                      <li><a href="">Laporan 3</a></li>
-                      <li><a href="">Laporan 4</a></li>
-                      <li><a href="">Laporan 5</a></li>
->>>>>>> 9d934f6adf34b37b2f36e7272a130b36fec4d85f
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
