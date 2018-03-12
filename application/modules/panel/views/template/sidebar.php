@@ -51,6 +51,8 @@
                       <li><a href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
                     </ul>
                   </li>
+                  <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Transaksi</a>
+                  </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
