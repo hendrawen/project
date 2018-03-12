@@ -122,7 +122,7 @@
 
                       <div class="x_content">
                        <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered jambo_table">
                           <thead>
                             <tr>
                               <th>#</th>
