@@ -149,6 +149,19 @@ class Model_kebutuhan extends CI_Model{
         }
  }
 
+ public function show_kebutuhan() {
+        $this->db->select('a.jenis, SUM(b.jumlah) AS total');
+        $this->db->from('wp_jkebutuhan AS a');
+        $this->db->join('wp_kebutuhan AS b', 'a.id = b.wp_jkebutuhan_id');
+        $this->db->group_by('a.id, b.wp_jkebutuhan_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+        return $query->result();
+        } else {
+        return false;
+        }
+ }
+
  public function delete_by_id($id)
  {
      $this->db->where('id', $id);

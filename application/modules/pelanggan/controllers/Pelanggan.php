@@ -60,6 +60,15 @@ class Pelanggan extends CI_Controller{
     }
 
     $data['form_surveyor'] = form_dropdown('',$opt4,'','id="nama" class="form-control"');
+
+    $bulans = $this->pelanggan->get_list_bulan();
+
+    $opt5 = array('' => 'Bulan');
+        foreach ($bulans as $bulan) {
+            $opt5[$bulan] = $bulan;
+    }
+
+    $data['form_bulan'] = form_dropdown('',$opt5,'','id="bulan" class="form-control"');
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -86,7 +95,8 @@ class Pelanggan extends CI_Controller{
             else
                 $row[] = '(tidak ada photo)';
             $row[] = $pelanggans->nama;
-            $row[] = '<a  type="button" class="btn btn-success btn-xs"><i class="fa fa-external-link"></i></a>
+            $row[] = tgl_indo($pelanggans->created_at);
+            $row[] = '
             <a href="'.base_url('pelanggan/update/'.$pelanggans->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_pelanggan('."'".$pelanggans->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
@@ -204,6 +214,7 @@ class Pelanggan extends CI_Controller{
                       'keterangan' => $this->input->post('keterangan', true),
                       'status' => $this->input->post('status', true),
                       'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                      'created_at' => date('Y-m-d H:i:s'),
                     );
             }else {
                     $data = array(
@@ -223,6 +234,7 @@ class Pelanggan extends CI_Controller{
                       'keterangan' => $this->input->post('keterangan', true),
                       'status' => $this->input->post('status', true),
                       'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                      'created_at' => date('Y-m-d H:i:s'),
                     );
             }
           $this->pelanggan->save($data);
@@ -300,6 +312,7 @@ class Pelanggan extends CI_Controller{
                       'keterangan' => $this->input->post('keterangan', true),
                       'status' => $this->input->post('status', true),
                       'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                      'updated_at' => date('Y-m-d H:i:s'),
                     );
             }else {
                     $data = array(
@@ -319,6 +332,7 @@ class Pelanggan extends CI_Controller{
                       'keterangan' => $this->input->post('keterangan', true),
                       'status' => $this->input->post('status', true),
                       'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                      'updated_at' => date('Y-m-d H:i:s'),
                     );
             }
             $this->pelanggan->update($this->input->post('id', TRUE), $data);

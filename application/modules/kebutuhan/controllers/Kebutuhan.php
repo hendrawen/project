@@ -17,6 +17,7 @@ class Kebutuhan extends CI_Controller{
 		$data['judul']			='Data Kebutuhan Pelanggan';
 		$data['sub_judul']		='';
     $data['content']			= 'kebutuhan';
+    $data['kebutuhan'] = $this->kebutuhan->show_kebutuhan();
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -32,7 +33,7 @@ class Kebutuhan extends CI_Controller{
             $row[] = $kebutuhans->no_telp;
             $row[] = $kebutuhans->jenis;
             $row[] = $kebutuhans->jumlah;
-            $row[] = $kebutuhans->tgl;
+            $row[] = tgl_indo($kebutuhans->tgl);
 
             $data[] = $row;
         }

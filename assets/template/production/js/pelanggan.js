@@ -16,6 +16,8 @@ var table;
                     data.kelurahan = $('#kelurahan').val();
                     data.kecamatan = $('#kecamatan').val();
                     data.nama = $('#nama').val();
+                    data.created_at = $('#created_at').val();
+                    data.tahun = $('#tahun').val();
                 }
            },
 
