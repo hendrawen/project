@@ -106,7 +106,7 @@ class Status extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-          		'status' => $this->input->post('status',TRUE),
+          		'nama_status' => $this->input->post('nama_status',TRUE),
             );
 
             $cek = $this->status_model->cek_status($data['status']);
@@ -137,7 +137,7 @@ class Status extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('status', 'status', 'trim|required');
+	$this->form_validation->set_rules('nama_status', 'nama_status', 'trim|required');
 	//$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

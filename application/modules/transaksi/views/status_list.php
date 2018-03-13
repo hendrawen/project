@@ -19,7 +19,7 @@
         <div class="col-md-6">
       	    <div class="form-group">
                   <label for="varchar">Status <?php echo form_error('status') ?></label>
-                  <input type="text" class="form-control" name="status" id="status" placeholder="Isi Status Karyawan Disini...!!!" required/>
+                  <input type="text" class="form-control" name="nama_status" id="nama_status" placeholder="Isi Status Karyawan Disini...!!!" required/>
               </div>
         </div>
         <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <?php echo $button; ?></button>
