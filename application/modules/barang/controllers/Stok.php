@@ -59,7 +59,12 @@ class Stok extends CI_Controller
 		'stok' => $row->stok,
 		'updated_at' => $row->updated_at,
 	    );
-            $this->load->view('stok/stok_read', $data);
+            $data['aktif']			='Master';
+            $data['title']			='Brajamarketindo';
+            $data['judul']			='Dashboard';
+            $data['sub_judul']	='Detail Stok Barang';
+            $data['content']		='stok_read';
+            $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('stok'));
