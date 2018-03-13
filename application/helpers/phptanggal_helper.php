@@ -156,3 +156,8 @@ function cek_terakhir($datetime, $full = false) {
      }
      return $difftext;
     }
+
+function jumlah($harga, $qty) {
+      $hasil = $harga * $qty;
+      return $hasil;
+}
