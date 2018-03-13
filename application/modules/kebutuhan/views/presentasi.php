@@ -68,8 +68,8 @@
                     <div class="col-sm-12">
                     Periode Tahun
                     <div class="form-group">
-                        <select name="tahun" class="form-control">
-                          <option selected="selected">--Tahun--</option>
+                        <select name="tahun" class="form-control" required>
+                          <option selected="selected" value="">--Tahun--</option>
                           <?php
                           for($i=date('Y'); $i>=date('Y')-15; $i-=1){
                           echo"<option value='$i'> $i </option>";

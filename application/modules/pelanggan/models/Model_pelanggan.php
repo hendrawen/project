@@ -6,7 +6,7 @@ class Model_pelanggan extends CI_Model{
      public $id = 'id';
      var $table = 'vpelanggan';
      var $table2 = 'pelanggan';
-     var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama', null); //set column field database for datatable orderable
+     var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama','created_at', null); //set column field database for datatable orderable
      var $column_search = array('id_pelanggan','nama_pelanggan','nama_dagang','alamat','kota','kelurahan','kecamatan','status','nama'); //set column field database for datatable searchable
      var $order = array('id_pelanggan' => 'asc'); // default order
 
@@ -38,6 +38,14 @@ class Model_pelanggan extends CI_Model{
         if($this->input->post('nama'))
         {
             $this->db->like('nama', $this->input->post('nama'));
+        }
+        if($this->input->post('created_at'))
+        {
+            $this->db->like('month(created_at)', $this->input->post('created_at'));
+        }
+        if($this->input->post('tahun'))
+        {
+            $this->db->like('year(created_at)', $this->input->post('tahun'));
         }
         $this->db->from($this->table);
         $i = 0;
@@ -202,6 +210,32 @@ class Model_pelanggan extends CI_Model{
             $surveyor[] = $row->nama;
         }
         return $surveyor;
+    }
+
+    public function get_list_bulan()
+    {
+        $this->db->select('Month(created_at) as bulan');
+        $this->db->from($this->table);
+        $query = $this->db->get();
+        $result = $query->result();
+
+        $bulan = array();
+        foreach ($result as $row)
+        {
+            $bulan[] = getBulan('1');
+            $bulan[] = getBulan('2');
+            $bulan[] = getBulan('3');
+            $bulan[] = getBulan('4');
+            $bulan[] = getBulan('5');
+            $bulan[] = getBulan('6');
+            $bulan[] = getBulan('7');
+            $bulan[] = getBulan('8');
+            $bulan[] = getBulan('9');
+            $bulan[] = getBulan('10');
+            $bulan[] = getBulan('11');
+            $bulan[] = getBulan('12');
+        }
+        return $bulan;
     }
 
     //BUAT MODEL MAX_KODE_MAHASISWA
