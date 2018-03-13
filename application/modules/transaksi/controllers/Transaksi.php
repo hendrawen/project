@@ -68,7 +68,7 @@ class Transaksi extends CI_Controller
 	    );
             $this->load->view('transaksi/transaksi_read', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('transaksi'));
         }
     }
@@ -106,13 +106,13 @@ class Transaksi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_transaksi' => $this->input->post('id_transaksi',TRUE),
+		'id_transaksi' => $this->transaksi_model->buat_kode(),
 		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
 		'qty' => $this->input->post('qty',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
-		'tgl_transaksi' => $this->input->post('tgl_transaksi',TRUE),
-		'updated_at' => $this->input->post('updated_at',TRUE),
+		'tgl_transaksi' => date('Y-m-d H:i:s'),
+		//'updated_at' => $this->input->post('updated_at',TRUE),
 		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
 		'username' => $this->input->post('username',TRUE),
 		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
@@ -203,7 +203,7 @@ class Transaksi extends CI_Controller
 	$this->form_validation->set_rules('harga', 'harga', 'trim|required');
 	$this->form_validation->set_rules('qty', 'qty', 'trim|required');
 	$this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
-	$this->form_validation->set_rules('tgl_transaksi', 'tgl transaksi', 'trim|required');
+	//$this->form_validation->set_rules('tgl_transaksi', 'tgl transaksi', 'trim|required');
 	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
 	$this->form_validation->set_rules('wp_pelanggan_id', 'wp pelanggan id', 'trim|required');
 	$this->form_validation->set_rules('username', 'username', 'trim|required');

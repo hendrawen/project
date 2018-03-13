@@ -57,11 +57,11 @@
                       <option value="Botol" <?php if ($satuan=='Botol'){echo "selected";} ?>>Botol</option>
               </select>
           </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
               <label for="date">Tgl Transaksi <?php echo form_error('tgl_transaksi') ?></label>
               <input type="text" class="form-control" name="tgl_transaksi" id="tgl_transaksi" placeholder="Tgl Transaksi" value="<?php echo $tgl_transaksi; ?>" />
           </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
               <label for="timestamp">Updated At <?php echo form_error('updated_at') ?></label>
               <input type="text" class="form-control" name="updated_at" id="updated_at" placeholder="Updated At" value="<?php echo $updated_at; ?>" />
           </div> -->

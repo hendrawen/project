@@ -67,7 +67,15 @@ class Transaksi_model extends CI_Model
     // insert data
     function insert($data)
     {
+        $this->db->trans_begin();
+
         $this->db->insert($this->table, $data);
+
+        if ($this->db->trans_status() == FALSE) {
+            $this->db->trans_rollback();
+        } else {
+            $this->db->trans_commit();
+        }
     }
 
     // update data
@@ -91,10 +99,29 @@ class Transaksi_model extends CI_Model
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        $this->db->order_by($this->id_transaksi, $this->order);
+        $this->db->order_by($this->id, $this->order);
         //$this->db->where('username');
         $data = $this->db->get();
         return $data->result();
+    }
+
+    function buat_kode(){
+          $this->db->select('RIGHT(wp_transaksi.id_transaksi, 2) as kode', FALSE);
+          $this->db->order_by($this->id, $this->order);
+          $this->db->limit(1);
+          $query = $this->db->get($this->table, $this->id);      //cek dulu apakah ada sudah ada kode di tabel.
+          if($query->num_rows() <> 0){
+           //jika kode ternyata sudah ada.
+           $data = $query->row();
+           $kode = intval($data->kode) + 1;
+          }
+          else {
+           //jika kode belum ada
+           $kode = 1;
+          }
+          $kodemax = str_pad($kode, 2, "0", STR_PAD_LEFT); // angka 2 menunjukkan jumlah digit angka 0
+          $kodejadi = "TR0".$kodemax;    // hasilnya ODJ-9921-0001 dst.
+          return $kodejadi;
     }
 
 }

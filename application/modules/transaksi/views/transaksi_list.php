@@ -121,6 +121,7 @@
                           		<th>Nama Barang</th>
                           		<th>Harga</th>
                           		<th>Qty</th>
+                              <th>Total</th>
                           		<th>Satuan</th>
                           		<th>Tgl Transaksi</th>
                           		<th>Tanggal Update</th>
@@ -140,13 +141,23 @@
                       			<td><?php echo $key->nama_barang ?></td>
                       			<td><?php echo $key->harga ?></td>
                       			<td><?php echo $key->qty ?></td>
+                            <td><?php
+                                    $harga1 = $key->harga;
+                                    $qty1   = $key->qty;
+                                    $hitung = jumlah($harga1, $qty1);
+                                    echo $hitung;
+                            ?>
+                            </td>
                       			<td><?php echo $key->satuan ?></td>
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                             <td><?php echo tgl_indo($key->updated_at) ?></td>
                       			<td><?php echo $key->nama_pelanggan ?></td>
                       			<td><?php echo $key->username ?></td>
                       			<td><?php echo $key->status ?></td>
-                           <td style="text-align:center">
+
+
+
+                            <td style="text-align:center">
                               <a href="<?=base_url()?>transaksi/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
                               <a href="<?=base_url()?>transaksi/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
@@ -170,6 +181,7 @@
                         <th>Nama Barang</th>
                         <th>Harga</th>
                         <th>Qty</th>
+                        <th>Total</th>
                         <th>Satuan</th>
                         <th>Tgl Transaksi</th>
                         <th>Tanggal Update</th>
