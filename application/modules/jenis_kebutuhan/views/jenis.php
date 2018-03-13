@@ -20,7 +20,7 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-<table class="table table-striped jambo_table table-bordered bulk_action" style="margin-bottom: 10px">
+<table id="datatable" class="table table-striped jambo_table table-bordered bulk_action" style="margin-bottom: 10px">
   <thead>
     <tr>
         <th>No</th>
@@ -35,29 +35,26 @@
     {
         ?>
         <tr>
-<td width="80px"><?php echo ++$start ?></td>
-<td><?php echo $jenis_kebutuhan->jenis ?></td>
-<td><?php echo $jenis_kebutuhan->created_at ?></td>
-<td><?php echo $jenis_kebutuhan->updated_at ?></td>
-<td style="text-align:center" width="200px">
-<?php
-echo anchor(site_url('jenis_kebutuhan/update/'.$jenis_kebutuhan->id),'Update');
-echo ' | ';
-echo anchor(site_url('jenis_kebutuhan/delete/'.$jenis_kebutuhan->id),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
-?>
-</td>
-</tr>
+            <td width="80px"><?php echo ++$start ?></td>
+            <td><?php echo $jenis_kebutuhan->jenis ?></td>
+            <td><?php echo $jenis_kebutuhan->created_at ?></td>
+            <td><?php echo $jenis_kebutuhan->updated_at ?></td>
+            <td style="text-align:center" width="200px">
+              <a href="<?php echo base_url('jenis_kebutuhan/update/'.$jenis_kebutuhan->id) ?>" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+              <a type="button" href="<?php echo base_url('jenis_kebutuhan/delete/'.$jenis_kebutuhan->id) ?>" title="Hapus" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
         <?php
     }
     ?>
 </table>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-6">
         <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
 </div>
     <div class="col-md-6 text-right">
         <?php echo $pagination ?>
     </div>
-</div>
+</div> -->
 </div>
 </div>
