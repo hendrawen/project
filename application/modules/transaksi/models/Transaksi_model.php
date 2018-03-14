@@ -94,7 +94,7 @@ class Transaksi_model extends CI_Model
 
     function get_data()
     {
-        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.satuan, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at, wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_status.status');
+        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.satuan, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at, wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_status.nama_status');
         $this->db->from($this->table);
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');

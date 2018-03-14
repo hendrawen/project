@@ -75,7 +75,7 @@
                             <td><?php echo $key->stok ?></td>
                             <td><?php echo tgl_indo($key->updated_at) ?></td>
                            <td style="text-align:center">
-                              <a href="<?=base_url()?>barang/stok/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
+                              <!-- <a href="<?=base_url()?>barang/stok/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
                               <a href="<?=base_url()?>barang/stok/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/stok/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
                               <a class="btn btn-default btn-sm" onclick="return swal({

@@ -1,4 +1,4 @@
-
+<div class="col-md-6 col-xs-12" style="border: 1px solid #ccc">
   <div class="x_panel">
         <div class="x_title">
               <h2>Detail Suplier</h2>
@@ -21,3 +21,4 @@
         </table>
       </div>
   </div>
+</div>

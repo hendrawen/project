@@ -66,7 +66,12 @@ class Transaksi extends CI_Controller
 		'username' => $row->username,
 		'wp_status_id' => $row->wp_status_id,
 	    );
-            $this->load->view('transaksi/transaksi_read', $data);
+            $data['aktif']			='Master';
+            $data['title']			='Brajamarketindo';
+            $data['judul']			='Dashboard';
+            $data['sub_judul']	='Detail Transaksi';
+            $data['content']		='transaksi_read';
+            $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('transaksi'));
@@ -119,7 +124,7 @@ class Transaksi extends CI_Controller
 	    );
 
             $this->transaksi_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
+            $this->session->set_flashdata('message', 'Simpan Data Success');
             redirect(site_url('transaksi'));
         }
     }
@@ -151,7 +156,7 @@ class Transaksi extends CI_Controller
             $data['content']		='transaksi_form';
             $this->load->view('panel/dashboard', $data);
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('transaksi'));
         }
     }
@@ -164,20 +169,20 @@ class Transaksi extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'id_transaksi' => $this->input->post('id_transaksi',TRUE),
+		//'id_transaksi' => $this->input->post('id_transaksi',TRUE),
 		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
 		'qty' => $this->input->post('qty',TRUE),
 		'satuan' => $this->input->post('satuan',TRUE),
-		'tgl_transaksi' => $this->input->post('tgl_transaksi',TRUE),
-		'updated_at' => $this->input->post('updated_at',TRUE),
+		//'tgl_transaksi' => $this->input->post('tgl_transaksi',TRUE),
+		'updated_at' => date('Y-m-d H:i:s'),
 		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
 		'username' => $this->input->post('username',TRUE),
 		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
 	    );
 
             $this->transaksi_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
+            $this->session->set_flashdata('message', 'Update Data Success');
             redirect(site_url('transaksi'));
         }
     }
@@ -191,7 +196,7 @@ class Transaksi extends CI_Controller
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect(site_url('transaksi'));
         } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
+            $this->session->set_flashdata('msg', 'Data Tidak Ada');
             redirect(site_url('transaksi'));
         }
     }

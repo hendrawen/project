@@ -1,8 +1,6 @@
-
-<!--Batas-->
 <div class="x_panel">
       <div class="x_title">
-            <h2>Transaksi List</h2>
+            <h2>Status List</h2>
             <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -13,11 +11,37 @@
             </ul>
             <div class="clearfix"></div>
       </div>
+
+<!--Tambah Jabatan-->
+      <?php echo form_open_multipart($action);?>
+        <input type="hidden" name="id" value="<?php echo $id; ?>" />
+        <?php if ($button == 'Tambah') { ?>
+        <div class="col-md-6">
+      	    <div class="form-group">
+                  <label for="varchar">Status <?php echo form_error('status') ?></label>
+                  <input type="text" class="form-control" name="nama_status" id="nama_status" placeholder="Isi Status Karyawan Disini...!!!" required/>
+              </div>
+        </div>
+        <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <?php echo $button; ?></button>
+
+        <?php } elseif ($button == 'Update') { ?>
+          <div class="col-md-6">
+        	    <div class="form-group">
+                  <label for="varchar">Status <?php echo form_error('status') ?></label>
+                  <input type="text" class="form-control" name="nama_status" id="nama_status" placeholder="Isi Status Karyawan Disini...!!!" value="<?php echo $nama_status; ?>" required/>
+                </div>
+          </div>
+          <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button; ?></button>
+          <a style="margin-top:24px;" href="<?php echo site_url('transaksi/status') ?>" class="btn btn-danger">Batal</a>
+        <?php } ?>
+    	</form>
+<!--akhir-->
+  <br><hr>
+
           <div class="row">
             <div class="col-md-6">
-                <a href="<?php echo base_url('transaksi/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
-                <a href="<?php echo base_url('transaksi/status')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Status Karyawan</a>
-            </div>
+                <!-- <?php echo anchor(site_url('karyawan/jabatan/create'),'Tambah Jabatan', 'class="btn btn-primary"'); ?> -->
+                </div>
           </div>
             <div class="col-md-6 text-right">
                 <!-- <div style="margin-top: 8px" id="message">
@@ -30,46 +54,23 @@
                       <thead>
                           <tr>
                               <th>#</th>
-                              <th>Id Transaksi</th>
-                          		<th>Nama Barang</th>
-                              <th>Satuan</th>
-                          		<th>Harga</th>
-                          		<th>Qty</th>
-                              <th>Total</th>
-                              <th>Tgl Transaksi</th>
-                          		<th>Tanggal Update</th>
-                          		<th>Nama Pelanggan</th>
-                          		<th>Username</th>
-                          		<th>Status</th>
+                              <th>Id Status</th>
+                              <th>Status Karyawan</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
                       </thead>
                       <tbody>
                         <?php
                         $no = 1;
-                        foreach($transaksi as $key){ ?>
+                          foreach ($status as $value => $key) {
+                          ?>
                        <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $key->id_transaksi ?></td>
-                      			<td><?php echo $key->nama_barang ?></td>
-                            <td><?php echo $key->satuan ?></td>
-                      			<td><?php echo $key->harga ?></td>
-                      			<td><?php echo $key->qty ?></td>
-                            <td><?php
-                                    $harga1 = $key->harga;
-                                    $qty1   = $key->qty;
-                                    $hitung = jumlah($harga1, $qty1);
-                                    echo $hitung;
-                                ?>
-                            </td>
-                            <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
-                            <td><?php echo tgl_indo($key->updated_at) ?></td>
-                      			<td><?php echo $key->nama_pelanggan ?></td>
-                      			<td><?php echo $key->username ?></td>
-                      			<td><?php echo $key->nama_status ?></td>
+                            <td><?php echo $key->id ?></td>
+                            <td><?php echo $key->nama_status ?></td>
                             <td style="text-align:center">
-                              <a href="<?=base_url()?>transaksi/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a>
-                              <a href="<?=base_url()?>transaksi/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                              <!-- <a href="<?=base_url()?>karyawan/jabatan/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
+                              <a href="<?=base_url()?>transaksi/status/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
                               <a class="btn btn-default btn-sm" onclick="return swal({
                                                       title: 'Yakin akan hapus data ini?',
@@ -78,7 +79,7 @@
                                                       showCancelButton: true,
                                                       confirmButtonColor: '#d9534f',
                                                          }, function(){
-                                                            window.location.href ='<?=base_url()?>transaksi/delete/<?=$key->id ?>';
+                                                            window.location.href ='<?=base_url()?>transaksi/status/delete/<?=$key->id ?>';
                                                                        });"><i class="glyphicon glyphicon-trash"></i></a>
                            </td>
                       </tr>
@@ -87,17 +88,8 @@
                     <tfoot>
                       <tr>
                         <th>#</th>
-                        <th>Id Transaksi</th>
-                        <th>Nama Barang</th>
-                        <th>Satuan</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Tgl Transaksi</th>
-                        <th>Tanggal Update</th>
-                        <th>Nama Pelanggan</th>
-                        <th>Username</th>
-                        <th>Status</th>
+                        <th>Id Jabatan</th>
+                        <th>Jabatan</th>
                         <th style="text-align:center">Aksi</th>
                       </tr>
                     </tfoot>
@@ -107,9 +99,9 @@
               <div class="row">
                   <div class="col-md-6">
                       <a></a>
-                      <?php echo anchor(site_url('transaksi/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                      <?php echo anchor(site_url('transaksi/word'), 'Word', 'class="btn btn-primary"'); ?>
-                </div>
+                      <!-- <?php echo anchor(site_url('karyawan/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+                      <?php echo anchor(site_url('karyawan/word'), 'Word', 'class="btn btn-primary"'); ?> -->
+                  </div>
               </div>
             </div>
 
