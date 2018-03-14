@@ -123,14 +123,14 @@ class Status extends CI_Controller
 
     public function delete($id)
     {
-        $row = $this->status_model->get_by_id($id);
-
+        //$row = $this->status_model->get_by_id($id);
+        $row = $this->status_model->cek_id_status($id);
         if ($row) {
-            $this->status_model->delete($id);
-            $this->session->set_flashdata('message', 'Hapus Data Success');
+            $this->session->set_flashdata('msg', 'Maff, Status Karyawan Masih Melakukan Transaksi');
             redirect(site_url('transaksi/status'));
         } else {
-            $this->session->set_flashdata('msg', 'Data Tidak Ada');
+            $this->status_model->delete($id);
+            $this->session->set_flashdata('message', 'Hapus Data Success');
             redirect(site_url('transaksi/status'));
         }
     }

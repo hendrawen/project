@@ -67,15 +67,15 @@ class Transaksi_model extends CI_Model
     // insert data
     function insert($data)
     {
-        $this->db->trans_begin();
+        //$this->db->trans_begin();
 
         $this->db->insert($this->table, $data);
 
-        if ($this->db->trans_status() == FALSE) {
-            $this->db->trans_rollback();
-        } else {
-            $this->db->trans_commit();
-        }
+        // if ($this->db->trans_status() == FALSE) {
+        //     $this->db->trans_rollback();
+        // } else {
+        //     $this->db->trans_commit();
+        // }
     }
 
     // update data

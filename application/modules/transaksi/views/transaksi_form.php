@@ -54,7 +54,7 @@
                       <option disabled selected>--Pilih Satuan--</option>
                       <option value="Krat" <?php if ($satuan=='Krat'){echo "selected";} ?>>Krat</option>
                       <option value="Dus" <?php if ($satuan=='Dus'){echo "selected";} ?>>Dus</option>
-                      <option value="Botol" <?php if ($satuan=='Botol'){echo "selected";} ?>>Botol</option>
+                      <option value="Botol" <?php if ($satuan=='Botolan'){echo "selected";} ?>>Botolan</option>
               </select>
           </div>
         <!-- <div class="form-group">
@@ -103,7 +103,7 @@
                       $selected = 'selected="selected"';
                     }
                     ?>
-                    <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> > <?php echo $value->status; ?>
+                    <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> > <?php echo $value->nama_status; ?>
                     </option>
                     <?php }?>
                       </select>

@@ -94,13 +94,14 @@ class Status_model extends CI_Model
         } else return FALSE;
     }
 
-    function cek_id_jabatan($id){
-      $this->db->where('wp_jabatan_id', $id);
-      $cek = $this->db->get('wp_karyawan');
+    function cek_id_status($id){
+      $this->db->where('wp_status_id', $id);
+      $cek = $this->db->get('wp_transaksi');
       if ($cek->num_rows() > 0) {
           return TRUE;
       } else return FALSE;
     }
+
 }
 
 /* End of file Wp_jabatan_model.php */
