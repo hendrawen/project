@@ -1,7 +1,7 @@
 var save_method; //for save method string
 var table;
      $(document).ready(function () {
-          table = $('#kebutuhan').dataTable({
+          table = $('#kebutuhanku').dataTable({
            "processing": true, //Feature control the processing indicator.
            "serverSide": true, //Feature control DataTables' server-side processing mode.
            "order": [], //Initial no order.

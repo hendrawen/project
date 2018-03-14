@@ -65,7 +65,7 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-    <table id="kebutuhan" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+    <table id="kebutuhanku" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
           <tr>
               <th>ID Pelanggan</th>
