@@ -8,7 +8,7 @@ var table;
 
            // Load data for the table's content from an Ajax source
            "ajax": {
-               "url": "kebutuhan/ajax_list",
+               "url": (base_url+"kebutuhan/ajax_list"),
                "type": "POST",
                "data": function ( data ) {
                 }
@@ -24,11 +24,11 @@ var table;
          });
 
          $('#btn-filter').click(function(){ //button filter event click
-             $('#kebutuhan').DataTable().ajax.reload();//reload datatable ajax   //just reload table
+             $('#kebutuhanku').DataTable().ajax.reload();//reload datatable ajax   //just reload table
          });
          $('#btn-reset').click(function(){ //button reset event click
              $('#form-filter')[0].reset();
-             $('#kebutuhan').DataTable().ajax.reload();//reload datatable ajax
+             $('#kebutuhanku').DataTable().ajax.reload();//reload datatable ajax
          });
      });
 

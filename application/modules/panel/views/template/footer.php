@@ -1,7 +1,8 @@
 <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            Page rendered in :
+            <?php echo $this->benchmark->elapsed_time();?> seconds
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -52,8 +53,11 @@
     <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
+
+
 
   </body>
 </html>
