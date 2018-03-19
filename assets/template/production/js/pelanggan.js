@@ -8,7 +8,7 @@ var table;
 
            // Load data for the table's content from an Ajax source
            "ajax": {
-               "url": "pelanggan/ajax_list",
+               "url": (base_url+"pelanggan/ajax_list"),
                "type": "POST",
                "data": function ( data ) {
                     data.kota = $('#kota').val();
@@ -57,7 +57,7 @@ var table;
                   }
               });
               $.ajax({
-                  url : "pelanggan/ajax_delete/"+id,
+                  url : (base_url+"pelanggan/ajax_delete/"+id),
                   type: "POST",
                   dataType: "JSON",
                   success: function(data)
