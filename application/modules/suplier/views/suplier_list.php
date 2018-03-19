@@ -19,7 +19,7 @@
                   </div>
                     <div class="col-md-6 text-right">
                         <div style="margin-top: 8px" id="message">
-                            <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                            <!-- <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?> -->
                         </div>
                     </div>
                     <!-- table table-striped table-bordered dt-responsive nowrap -->
