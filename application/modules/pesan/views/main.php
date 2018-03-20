@@ -80,7 +80,7 @@
                 <div class="row no-print">
                   <div class="col-xs-12">
                     <a href="<?php echo base_url('pesan/checkout') ?>" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Checkout</a>
-                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Batal</button>
+                    <button type="button" class="hapus_cart btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
                   </div>
                 </div>
               </section>

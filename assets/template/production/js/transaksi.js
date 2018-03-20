@@ -94,4 +94,19 @@
         }
       });
     });
+    $(document).on('click','.hapus_cart',function(){
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url : (base_url+"pesan/hapus_cart"),
+        method : "POST",
+        success :function(data){
+          $('#detail_cart').html(data);
+        }
+      });
+    });
+
   });

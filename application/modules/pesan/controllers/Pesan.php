@@ -72,8 +72,13 @@ class Pesan extends CI_Controller{
   			$this->form_validation->set_rules('wp_status_id', 'wp_status_id', 'required|trim');
 
   			if ($this->form_validation->run() == FALSE){
-  				echo validation_errors(); // tampilkan apabila ada error
+          $this->session->set_flashdata('message','Data belum lengkap !');
+  				$this->checkout(); // tampilkan apabila ada error
   			}else{
+          $status = $this->input->post('wp_status_id');
+          //status lunas
+          if ($status=="1")
+          {
           $kp = $this->input->post('idpesan', true);
   				$wp_pelanggan_id = $this->input->post('id', true);
   				$wp_status_id = $this->input->post('wp_status_id', true);
@@ -91,18 +96,54 @@ class Pesan extends CI_Controller{
   						"tgl_transaksi" 				=> $tg,
   						"wp_status_id"				=> $wp_status_id
   					);
-  				}
-
+          }
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
-
   				if($res){$this->cart->destroy();
   					$this->session->set_flashdata('message','sukses !');
   					redirect('transaksi');
   				}else{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
   				}
+        }
+        //status hutang
+        else {
+          $kp = $this->input->post('idpesan', true);
+  				$wp_pelanggan_id = $this->input->post('id', true);
+  				$wp_status_id = $this->input->post('wp_status_id', true);
+  				$tg = date('Y-m-d H-i-s');
+  				$tg2 = date('Y-m-d');
+  				$result = array();
+  				foreach($kp AS $key => $val){
+  					$result[] = array(
+  						"id_transaksi" 		=> $_POST['id_transaksi'][$key],
+  						"qty"          		=> $_POST['qty'][$key],
+  						"wp_barang_id"    => $_POST['wp_barang_id'][$key],
+  						"harga"       		=> $_POST['harga'][$key],
+  						"subtotal"       	=> $_POST['subtotal'][$key],
+              "wp_pelanggan_id" => $wp_pelanggan_id,
+  						"tgl_transaksi" 				=> $tg,
+  						"wp_status_id"				=> $wp_status_id
+  					);
+          }
+          $data = array(
+            'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
+            'utang' => $this->input->post('hutang',TRUE),
+            'created_at' => date('Y-m-d'),
+            //'updated_at' => $this->input->post('updated_at',TRUE),
+            //'created_at' => mdate($datestring, $time),
+           );
+          $this->db->insert('wp_detail_transaksi', $data);
+  				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
+  				if($res){$this->cart->destroy();
+  					$this->session->set_flashdata('message','sukses !');
+  					redirect('transaksi');
+  				}else{
+  					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+  				}
+        }
+
   			}
-  		}
+  }
 
   public function cek()
   {
@@ -167,5 +208,10 @@ class Pesan extends CI_Controller{
 		$this->cart->update($data);
 		echo $this->show_cart();
 	}
+
+  function hapus_cart(){
+    $this->cart->destroy();
+    echo $this->show_cart();
+  }
 
 }

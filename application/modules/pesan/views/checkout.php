@@ -19,6 +19,11 @@
     </div>
 </form>
 </div>
+<div class="col-md-4 text-center">
+    <div style="margin-top: 8px" id="message">
+        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+    </div>
+</div>
   <div class="row">
         <div class="col-md-12">
           <div class="x_panel">
@@ -117,7 +122,8 @@
                         <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                         <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
                         <tr <?php if($i&1){ echo 'class="alt"'; }?>>
-
+                          <input type="hidden" name="hutang" value="<?php echo $this->cart->total() ?>">
+                          <input type="hidden" name="id_transaksi_hutang" id="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>">
                           <input type="hidden" name="id" id="id" class="form-control">
                           <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>" style="border:0px;background:none;">
                           <input type="hidden" name="harga[]" readonly value="<?php echo $items['price'];?>" style="border:0px;background:none;">
@@ -184,7 +190,7 @@
                 <div class="row no-print">
                   <div class="col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                    <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</button>
+                    <a href="<?php echo base_url('pesan')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
                   </div>
                 </div>
               </section>
