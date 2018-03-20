@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_kebutuhan extends CI_Model{
 
-  var $table = 'vkebutuhan';
-  var $table2 = 'kebutuhan';
+  var $table = 'wp_vkebutuhan';
+  var $table2 = 'wp_kebutuhan';
   public $id = 'id';
   var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','jenis','jumlah','tgl'); //set column field database for datatable orderable
   var $column_search = array('id_pelanggan','nama_pelanggan','jenis'); //set column field database for datatable searchable

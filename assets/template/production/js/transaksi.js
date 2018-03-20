@@ -33,7 +33,8 @@
                  data : {id_barang: id_barang},
                  cache:false,
                  success: function(data){
-                     $.each(data,function(nama_barang, harga_jual){
+                     $.each(data,function(id, nama_barang, harga_jual){
+                         $('[name="id"]').val(data.id);
                          $('[name="nama_barang"]').val(data.nama_barang);
                          $('[name="harga_jual"]').val(data.harga_jual);
 
@@ -59,11 +60,13 @@
                    data : {id_pelanggan: id_pelanggan},
                    cache:false,
                    success: function(data){
-                       $.each(data,function(nama_pelanggan, alamat, no_telp, nama_dagang){
+                       $.each(data,function(id, nama_pelanggan, alamat, no_telp, nama_dagang, kota){
                            // $('[name="nama_pelanggan"]').val(data.nama_pelanggan);
                            // $('[name="alamat"]').innerText(data.alamat);
                            // $('[name="no_telp"]').val(data.no_telp);
-                           $('[name="nama_dagang"]').val(data.nama_dagang);
+                           // $('[name="nama_dagang"]').val(data.nama_dagang);
+                           $('[name="id"]').val(data.id);
+                           document.getElementById('id').innerHTML = data.id;
                            document.getElementById('nama_pelanggan').innerHTML = data.nama_pelanggan;
                            document.getElementById('alamat').innerHTML = data.alamat;
                            document.getElementById('no_telp').innerHTML = data.no_telp;

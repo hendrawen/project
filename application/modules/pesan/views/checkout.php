@@ -42,7 +42,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
+              <form method="POST" action="<?php echo site_url('pesan/checkout_action');?>">
               <section class="content invoice">
                 <!-- title row -->
                 <div class="row">
@@ -103,13 +103,43 @@
                       <thead>
                         <tr>
                           <th>ID Produk</th>
-                          <th>Product</th>
+                          <th>Nama Barang</th>
+                          <th>Harga</th>
                           <th>QTY</th>
                           <th>Subtotal</th>
-                          <th></th>
                         </tr>
                       </thead>
-                      <tbody id="detail_cart">
+                      <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach($this->cart->contents() as $items): ?>
+
+                        <?php echo form_hidden('rowid[]', $items['rowid']); ?>
+                        <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
+                        <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
+                        <tr <?php if($i&1){ echo 'class="alt"'; }?>>
+
+                          <input type="hidden" name="id" id="id" class="form-control">
+                          <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>" style="border:0px;background:none;">
+                          <input type="hidden" name="harga[]" readonly value="<?php echo $items['price'];?>" style="border:0px;background:none;">
+                          <td><input type="text" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>" style="border:0px;background:none;"></td>
+
+                          <td><input type="text" readonly value="<?php echo $items['name'];?>" style="border:0px;background:none;"></td>
+
+                          <td>Rp. <?php echo $this->cart->format_number($items['price']); ?>
+                          <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
+                          <td>
+                            <input type="text" name="qty[]" readonly size="1" value="<?php echo $items['qty']; ?>" style="border:0px;background:none;">
+                          </td>
+                          <td>Rp. <?php echo $this->cart->format_number($items['subtotal']); ?>
+                          <input type="hidden" name="subtotal[]" value="<?php echo $items['subtotal'];?>"></td>
+                        </tr>
+
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                        <tr>
+                          <td colspan="4"><strong>Total</strong></td>
+                          <td>Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -122,13 +152,16 @@
                   <div class="col-md-6 col-sm-12">
                     <p class="lead">Jenis Pembayaran:</p>
                     <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                      <label>
-                        <input type="radio" class="flat" checked name="iCheck"> Lunas
-                      </label>
-                      <br>
-                      <label>
-                          <input type="radio" class="flat" name="iCheck"> Utang
-                      </label>
+                      <?php
+                        foreach ($jenis_pembayaran as $value) {
+                        ?>
+                          <?php echo '<label>
+                                          <input type="radio" class="flat" name="wp_status_id" id="wp_status_id" required value="'.$value->id.'"> '.$value->nama_status.'
+                                      </label>
+                                      <br>
+                          '; ?>
+                        <?php
+                        } ?>
                     </p>
                   </div>
                   <!-- /.col -->
@@ -150,12 +183,13 @@
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                   <div class="col-xs-12">
-                    <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
                     <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</button>
                   </div>
                 </div>
               </section>
             </div>
+            </form>
           </div>
         </div>
       </div>

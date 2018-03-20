@@ -19,6 +19,13 @@ class Pesan_model extends CI_Model{
 		return $result;
 	}
 
+  public function get_jenis_pembayaran()
+  {
+    # code...
+    $result = $this->db->get('wp_status')->result();
+    return $result;
+  }
+
   function get_data_barang_bykode($kode){
 		$hsl=$this->db->query("SELECT * FROM wp_barang WHERE id_barang='$kode'");
 		if($hsl->num_rows()>0){
@@ -45,6 +52,7 @@ class Pesan_model extends CI_Model{
           'nama_dagang' => $data->nama_dagang,
 					'alamat' => $data->alamat,
           'no_telp' => $data->no_telp,
+          'kota'    => $data->kota,
 					);
 			}
 		}

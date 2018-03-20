@@ -32,6 +32,7 @@ class Pesan extends CI_Controller{
     $data['content']			= 'checkout';
     $data['data']=$this->Pesan_model->get_all_product();
     $data['profile']=$this->Pesan_model->get_profile();
+    $data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
     $data['generate_invoice'] = $this->Pesan_model->generatekode_invoice();
     $this->load->view('panel/dashboard', $data);
   }
@@ -54,10 +55,61 @@ class Pesan extends CI_Controller{
 			'name' => $this->input->post('nama_barang'),
 			'price' => $this->input->post('harga_jual'),
 			'qty' => $this->input->post('qty'),
+      'wp_barang_id' => $this->input->post('id'),
+      'id_transaksi' => $this->input->post('id_transaksi'),
 		);
 		$this->cart->insert($data);
 		echo $this->show_cart();
 	}
+
+
+    function checkout_action() {
+  			$this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
+  			$this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
+  			$this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
+  			$this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
+  			$this->form_validation->set_rules('id', '	wp_pelanggan_id', 'required|trim');
+  			$this->form_validation->set_rules('wp_status_id', 'wp_status_id', 'required|trim');
+
+  			if ($this->form_validation->run() == FALSE){
+  				echo validation_errors(); // tampilkan apabila ada error
+  			}else{
+          $kp = $this->input->post('idpesan', true);
+  				$wp_pelanggan_id = $this->input->post('id', true);
+  				$wp_status_id = $this->input->post('wp_status_id', true);
+  				$tg = date('Y-m-d H-i-s');
+  				$tg2 = date('Y-m-d');
+  				$result = array();
+  				foreach($kp AS $key => $val){
+  					$result[] = array(
+  						"id_transaksi" 		=> $_POST['id_transaksi'][$key],
+  						"qty"          		=> $_POST['qty'][$key],
+  						"wp_barang_id"    => $_POST['wp_barang_id'][$key],
+  						"harga"       		=> $_POST['harga'][$key],
+  						"subtotal"       	=> $_POST['subtotal'][$key],
+              "wp_pelanggan_id" => $wp_pelanggan_id,
+  						"tgl_transaksi" 				=> $tg,
+  						"wp_status_id"				=> $wp_status_id
+  					);
+  				}
+
+  				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
+
+  				if($res){$this->cart->destroy();
+  					$this->session->set_flashdata('message','sukses !');
+  					redirect('transaksi');
+  				}else{
+  					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+  				}
+  			}
+  		}
+
+  public function cek()
+  {
+    # code...
+    $cart = $this->cart->contents();
+    print_r($cart);
+  }
 
 	function show_cart(){
 		$output = '';

@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Model_pelanggan extends CI_Model{
 
      public $id = 'id';
-     var $table = 'vpelanggan';
-     var $table2 = 'pelanggan';
+     var $table = 'wp_vpelanggan';
+     var $table2 = 'wp_pelanggan';
      var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama','created_at', null); //set column field database for datatable orderable
      var $column_search = array('id_pelanggan','nama_pelanggan','nama_dagang','alamat','kota','kelurahan','kecamatan','status','nama'); //set column field database for datatable searchable
      var $order = array('id_pelanggan' => 'asc'); // default order

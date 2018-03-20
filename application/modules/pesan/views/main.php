@@ -14,6 +14,8 @@
     <?php } ?>
     </select>
   </div>
+  <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $generate_invoice; ?>">
+  <input type="hidden" name="id" id="id" class="form-control">
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
       <input type="text" name="nama_barang" id="nama_barang" placeholder="Nama Barang" readonly class="form-control">
   </div>
