@@ -47,9 +47,9 @@
               <label for="varchar">Jumlah/Qty <?php echo form_error('harga_jual') ?></label>
               <input type="number" class="form-control" name="qty" id="qty" min="0" placeholder="Qty" value="<?php echo $qty; ?>" />
           </div>
-        <div class="form-group">
+      <!-- <div class="form-group">
               <label for="varchar">Satuan <?php echo form_error('satuan') ?></label>
-              <!-- <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" /> -->
+               <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
               <select class="form-control" name="satuan" id="satuan">
                       <option disabled selected>--Pilih Satuan--</option>
                       <option value="Krat" <?php if ($satuan=='Krat'){echo "selected";} ?>>Krat</option>
@@ -57,7 +57,7 @@
                       <option value="Botol" <?php if ($satuan=='Botolan'){echo "selected";} ?>>Botolan</option>
               </select>
           </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
               <label for="date">Tgl Transaksi <?php echo form_error('tgl_transaksi') ?></label>
               <input type="text" class="form-control" name="tgl_transaksi" id="tgl_transaksi" placeholder="Tgl Transaksi" value="<?php echo $tgl_transaksi; ?>" />
           </div>

@@ -36,7 +36,7 @@ class Transaksi_model extends CI_Model
 	$this->db->or_like('wp_barang_id', $q);
 	$this->db->or_like('harga', $q);
 	$this->db->or_like('qty', $q);
-	$this->db->or_like('satuan', $q);
+	//$this->db->or_like('satuan', $q);
 	$this->db->or_like('tgl_transaksi', $q);
 	$this->db->or_like('updated_at', $q);
 	$this->db->or_like('wp_pelanggan_id', $q);
@@ -54,7 +54,7 @@ class Transaksi_model extends CI_Model
 	$this->db->or_like('wp_barang_id', $q);
 	$this->db->or_like('harga', $q);
 	$this->db->or_like('qty', $q);
-	$this->db->or_like('satuan', $q);
+	//$this->db->or_like('satuan', $q);
 	$this->db->or_like('tgl_transaksi', $q);
 	$this->db->or_like('updated_at', $q);
 	$this->db->or_like('wp_pelanggan_id', $q);
@@ -94,7 +94,7 @@ class Transaksi_model extends CI_Model
 
     function get_data()
     {
-        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.satuan, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at, wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at, wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_status.nama_status');
         $this->db->from($this->table);
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');

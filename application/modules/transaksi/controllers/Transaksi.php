@@ -59,7 +59,7 @@ class Transaksi extends CI_Controller
 		'wp_barang_id' => $row->wp_barang_id,
 		'harga' => $row->harga,
 		'qty' => $row->qty,
-		'satuan' => $row->satuan,
+		//'satuan' => $row->satuan,
 		'tgl_transaksi' => $row->tgl_transaksi,
 		'updated_at' => $row->updated_at,
 		'wp_pelanggan_id' => $row->wp_pelanggan_id,
@@ -88,7 +88,7 @@ class Transaksi extends CI_Controller
 	    'wp_barang_id' => set_value('wp_barang_id'),
 	    'harga' => set_value('harga'),
 	    'qty' => set_value('qty'),
-	    'satuan' => set_value('satuan'),
+	    //'satuan' => set_value('satuan'),
 	    'tgl_transaksi' => set_value('tgl_transaksi'),
 	    'updated_at' => set_value('updated_at'),
 	    'wp_pelanggan_id' => set_value('wp_pelanggan_id'),
@@ -115,7 +115,7 @@ class Transaksi extends CI_Controller
 		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
 		'qty' => $this->input->post('qty',TRUE),
-		'satuan' => $this->input->post('satuan',TRUE),
+		//'satuan' => $this->input->post('satuan',TRUE),
 		'tgl_transaksi' => date('Y-m-d H:i:s'),
 		//'updated_at' => $this->input->post('updated_at',TRUE),
 		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
@@ -142,7 +142,7 @@ class Transaksi extends CI_Controller
 		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
 		'harga' => set_value('harga', $row->harga),
 		'qty' => set_value('qty', $row->qty),
-		'satuan' => set_value('satuan', $row->satuan),
+		//'satuan' => set_value('satuan', $row->satuan),
 		'tgl_transaksi' => set_value('tgl_transaksi', $row->tgl_transaksi),
 		'updated_at' => set_value('updated_at', $row->updated_at),
 		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
@@ -173,7 +173,7 @@ class Transaksi extends CI_Controller
 		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
 		'harga' => $this->input->post('harga',TRUE),
 		'qty' => $this->input->post('qty',TRUE),
-		'satuan' => $this->input->post('satuan',TRUE),
+		//'satuan' => $this->input->post('satuan',TRUE),
 		//'tgl_transaksi' => $this->input->post('tgl_transaksi',TRUE),
 		'updated_at' => date('Y-m-d H:i:s'),
 		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
@@ -207,7 +207,7 @@ class Transaksi extends CI_Controller
 	$this->form_validation->set_rules('wp_barang_id', 'wp barang id', 'trim|required');
 	$this->form_validation->set_rules('harga', 'harga', 'trim|required');
 	$this->form_validation->set_rules('qty', 'qty', 'trim|required');
-	$this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
+	//$this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
 	//$this->form_validation->set_rules('tgl_transaksi', 'tgl transaksi', 'trim|required');
 	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
 	$this->form_validation->set_rules('wp_pelanggan_id', 'wp pelanggan id', 'trim|required');
@@ -244,7 +244,7 @@ class Transaksi extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
 	xlsWriteLabel($tablehead, $kolomhead++, "Harga");
 	xlsWriteLabel($tablehead, $kolomhead++, "Qty");
-	xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+	//xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
 	xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
 	xlsWriteLabel($tablehead, $kolomhead++, "Updated At");
 	xlsWriteLabel($tablehead, $kolomhead++, "Wp Pelanggan Id");
@@ -260,7 +260,7 @@ class Transaksi extends CI_Controller
 	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_barang_id);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->harga);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->qty);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+	    //xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_at);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_pelanggan_id);

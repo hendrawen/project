@@ -32,8 +32,7 @@
                               <th>#</th>
                               <th>Id Transaksi</th>
                           		<th>Nama Barang</th>
-                              <th>Satuan</th>
-                          		<th>Harga</th>
+                              <th>Harga</th>
                           		<th>Qty</th>
                               <th>Total</th>
                               <th>Tgl Transaksi</th>
@@ -52,8 +51,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
                       			<td><?php echo $key->nama_barang ?></td>
-                            <td><?php echo $key->satuan ?></td>
-                      			<td><?php echo $key->harga ?></td>
+                            <td><?php echo $key->harga ?></td>
                       			<td><?php echo $key->qty ?></td>
                             <td><?php
                                     $harga1 = $key->harga;
@@ -89,7 +87,6 @@
                         <th>#</th>
                         <th>Id Transaksi</th>
                         <th>Nama Barang</th>
-                        <th>Satuan</th>
                         <th>Harga</th>
                         <th>Qty</th>
                         <th>Total</th>
@@ -107,8 +104,8 @@
               <div class="row">
                   <div class="col-md-6">
                       <a></a>
-                      <?php echo anchor(site_url('transaksi/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                      <?php echo anchor(site_url('transaksi/word'), 'Word', 'class="btn btn-primary"'); ?>
+                      <?php //echo anchor(site_url('transaksi/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+                      <?php //echo anchor(site_url('transaksi/word'), 'Word', 'class="btn btn-primary"'); ?>
                 </div>
               </div>
             </div>
