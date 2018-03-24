@@ -32,17 +32,17 @@ class Transaksi_model extends CI_Model
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id', $q);
-	$this->db->or_like('id_transaksi', $q);
-	$this->db->or_like('wp_barang_id', $q);
-	$this->db->or_like('harga', $q);
-	$this->db->or_like('qty', $q);
-	//$this->db->or_like('satuan', $q);
-	$this->db->or_like('tgl_transaksi', $q);
-	$this->db->or_like('updated_at', $q);
-	$this->db->or_like('wp_pelanggan_id', $q);
-	$this->db->or_like('username', $q);
-	$this->db->or_like('wp_status_id', $q);
-	$this->db->from($this->table);
+      	$this->db->or_like('id_transaksi', $q);
+      	$this->db->or_like('wp_barang_id', $q);
+      	$this->db->or_like('harga', $q);
+      	$this->db->or_like('qty', $q);
+      	//$this->db->or_like('satuan', $q);
+      	$this->db->or_like('tgl_transaksi', $q);
+      	$this->db->or_like('updated_at', $q);
+      	$this->db->or_like('wp_pelanggan_id', $q);
+      	$this->db->or_like('username', $q);
+      	$this->db->or_like('wp_status_id', $q);
+      	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
@@ -50,17 +50,17 @@ class Transaksi_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL) {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id', $q);
-	$this->db->or_like('id_transaksi', $q);
-	$this->db->or_like('wp_barang_id', $q);
-	$this->db->or_like('harga', $q);
-	$this->db->or_like('qty', $q);
-	//$this->db->or_like('satuan', $q);
-	$this->db->or_like('tgl_transaksi', $q);
-	$this->db->or_like('updated_at', $q);
-	$this->db->or_like('wp_pelanggan_id', $q);
-	$this->db->or_like('username', $q);
-	$this->db->or_like('wp_status_id', $q);
-	$this->db->limit($limit, $start);
+      	$this->db->or_like('id_transaksi', $q);
+      	$this->db->or_like('wp_barang_id', $q);
+      	$this->db->or_like('harga', $q);
+      	$this->db->or_like('qty', $q);
+      	//$this->db->or_like('satuan', $q);
+      	$this->db->or_like('tgl_transaksi', $q);
+      	$this->db->or_like('updated_at', $q);
+      	$this->db->or_like('wp_pelanggan_id', $q);
+      	$this->db->or_like('username', $q);
+      	$this->db->or_like('wp_status_id', $q);
+      	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 

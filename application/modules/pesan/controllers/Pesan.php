@@ -128,6 +128,7 @@ class Pesan extends CI_Controller{
           $data = array(
             'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
             'utang' => $this->input->post('hutang',TRUE),
+            'bayar' => $this->input->post('bayar', TRUE),
             'created_at' => date('Y-m-d'),
             //'updated_at' => $this->input->post('updated_at',TRUE),
             //'created_at' => mdate($datestring, $time),
@@ -161,9 +162,9 @@ class Pesan extends CI_Controller{
 				<tr>
 					<td>'.$items['id'].'</td>
 					<td>'.$items['name'].'</td>
-					<td>'.$items['qty'].'</td>
+					<td><input type="text" name="qty[]" size="1" value="'.$items['qty'].'" style="border:0px;background:none;"></td>
 					<td>'.number_format($items['subtotal'],2,",",".").'</td>
-					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs">Cancel</button></td>
+					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
 				</tr>
 			';
 		}

@@ -15,8 +15,8 @@
       </div>
           <div class="row">
             <div class="col-md-6">
-                <a href="<?php echo base_url('transaksi/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
-                <a href="<?php echo base_url('transaksi/status')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Status Karyawan</a>
+                <a href="<?php echo base_url('pesan'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo base_url('transaksi/status')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Status</a>
             </div>
           </div>
             <div class="col-md-6 text-right">
@@ -26,7 +26,7 @@
             </div>
 
               <div class="x_content">
-                  <table class="table jambo_table table-striped table-bordered dt-responsive nowrap" id="datatable">
+                  <table class="table jambo_table table-bordered dt-responsive nowrap" id="transaksilist">
                       <thead>
                           <tr>
                               <th>#</th>
@@ -46,6 +46,7 @@
                       <tbody>
                         <?php
                         $no = 1;
+                        $jum = 1;
                         foreach($transaksi as $key){ ?>
                        <tr>
                             <td><?php echo $no++ ?></td>

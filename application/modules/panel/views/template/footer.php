@@ -49,15 +49,16 @@
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/dataTables.rowsGroup.js"></script>
+
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
-
-
 
   </body>
 </html>

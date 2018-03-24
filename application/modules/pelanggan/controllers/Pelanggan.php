@@ -126,7 +126,6 @@ class Pelanggan extends CI_Controller{
       $config['zoom'] = 'auto';
       $config['places'] = TRUE;
       $config['placesLocation'] = '-6.241586, 106.992416';
-      $config['placesRadius'] = 200;
       $this->googlemap->initialize($config);
       $mapp = $this->db->query('select * from wp_pelanggan');
       foreach ($mapp->result_array() as $value) {
@@ -198,10 +197,17 @@ class Pelanggan extends CI_Controller{
           $hasil1 = $this->upload->data();
           // upload gambar 2
           $this->upload->do_upload('photo_toko');
+          $stat = $this->input->post('status');
+          if ($stat!="Responden"){
+          $test = $this->input->post('id_pelanggan', true);
+          }else{
+          $test = '';
+          }
           $hasil2 = $this->upload->data();
           if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
                     $data = array(
-                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      //status lunas
+                      'id_pelanggan' => $test,
                       'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
                       'no_telp' => $this->input->post('no_telp', true),
                       'nama_dagang' => $this->input->post('nama_dagang', true),
@@ -218,7 +224,8 @@ class Pelanggan extends CI_Controller{
                     );
             }else {
                     $data = array(
-                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      //status lunas
+                      'id_pelanggan' => $test,
                       'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
                       'no_telp' => $this->input->post('no_telp', true),
                       'nama_dagang' => $this->input->post('nama_dagang', true),
@@ -246,7 +253,6 @@ class Pelanggan extends CI_Controller{
     public function update($id)
     {
         $row = $this->pelanggan->get_by_id($id);
-
         if ($row) {
             $data = array(
                 'button' => 'Update',
@@ -296,10 +302,17 @@ class Pelanggan extends CI_Controller{
           $hasil1 = $this->upload->data();
           // upload gambar 2
           $this->upload->do_upload('photo_toko');
+          $stat = $this->input->post('status');
+          $stat2 = $this->input->post('id_pelanggan');
+          if (($stat != "Responden" && $stat2 == "")){
+          $test = $this->pelanggan->get_kode_pelanggan();
+          }else{
+          $test = '';
+          }
           $hasil2 = $this->upload->data();
           if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
                     $data = array(
-                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      'id_pelanggan' => $test,
                       'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
                       'no_telp' => $this->input->post('no_telp', true),
                       'nama_dagang' => $this->input->post('nama_dagang', true),
@@ -316,7 +329,7 @@ class Pelanggan extends CI_Controller{
                     );
             }else {
                     $data = array(
-                      'id_pelanggan' => $this->input->post('id_pelanggan', true),
+                      'id_pelanggan' => $test,
                       'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
                       'no_telp' => $this->input->post('no_telp', true),
                       'nama_dagang' => $this->input->post('nama_dagang', true),

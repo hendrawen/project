@@ -20,6 +20,16 @@ class Piutang extends CI_Controller{
     $this->load->view('panel/dashboard', $data);
   }
 
+  function pembayaran()
+  {
+    $data['aktif']			='Piutang';
+		$data['title']			='Piutang Pelanggan';
+		$data['judul']			='Data Piutang Pelanggan';
+		$data['sub_judul']		='';
+    $data['content']			= 'form';
+    $this->load->view('panel/dashboard', $data);
+  }
+
   public function ajax_list()
     {
         $list = $this->piutang->get_datatables();
