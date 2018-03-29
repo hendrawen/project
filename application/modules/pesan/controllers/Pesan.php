@@ -162,6 +162,7 @@ class Pesan extends CI_Controller{
 				<tr>
 					<td>'.$items['id'].'</td>
 					<td>'.$items['name'].'</td>
+          <td>'.$items['price'].'</td>
 					<td><input type="text" name="qty[]" size="1" value="'.$items['qty'].'" style="border:0px;background:none;"></td>
 					<td>'.number_format($items['subtotal'],2,",",".").'</td>
 					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
@@ -170,7 +171,7 @@ class Pesan extends CI_Controller{
 		}
 		$output .= '
 			<tr>
-          <th colspan="3">Total</th>
+          <th colspan="4">Total</th>
           <th colspan="2">'.'Rp '.number_format($this->cart->total(),2,",",".").'</th>
 			</tr>
 		';

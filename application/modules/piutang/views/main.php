@@ -25,9 +25,9 @@
               <th>ID Transaksi</th>
               <th>ID Pelanggan</th>
               <th>Nama</th>
-              <th>Utang</th>
-              <th>Bayar</th>
-              <th>Sisa Utang</th>
+              <th>Utang (Rp.)</th>
+              <th>Bayar (Rp.)</th>
+              <th>Sisa Utang (Rp.)</th>
               <th>Tanggal Transaksi</th>
               <th>Jatuh Tempo</th>
               <th>Hari</th>

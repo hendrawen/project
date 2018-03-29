@@ -25,10 +25,10 @@
                         <div class="col-md-12 form-group">
                           <div class="form-group">
                             <label>Pelanggan</label>
-                            <select name="wp_pelanggan_id" id="e1" class="form-control select2" required>
+                            <select name="wp_pelanggan_id" id="e1" class="form-control js-example-basic-single" required>
                             <option disabled selected>--Pilih--</option>
                                 <?php
-                                  $users = $this->db->query("SELECT * FROM wp_pelanggan");
+                                  $users = $this->db->query("SELECT * FROM wp_pelanggan where status='Pelanggan'");
                                   foreach($users->result() as $value){
                                   $selected= '';
                                   if($wp_pelanggan_id == $value->id){

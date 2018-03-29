@@ -32,9 +32,9 @@
                               <th>#</th>
                               <th>Id Transaksi</th>
                           		<th>Nama Barang</th>
-                              <th>Harga</th>
+                              <th>Harga (Rp.)</th>
                           		<th>Qty</th>
-                              <th>Total</th>
+                              <th>Total (Rp.)</th>
                               <th>Tgl Transaksi</th>
                           		<th>Tanggal Update</th>
                           		<th>Nama Pelanggan</th>
@@ -52,13 +52,13 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
                       			<td><?php echo $key->nama_barang ?></td>
-                            <td><?php echo $key->harga ?></td>
+                            <td><?php echo number_format($key->harga,2,",",".") ?></td>
                       			<td><?php echo $key->qty ?></td>
                             <td><?php
                                     $harga1 = $key->harga;
                                     $qty1   = $key->qty;
                                     $hitung = jumlah($harga1, $qty1);
-                                    echo $hitung;
+                                    echo number_format($hitung,2,",",".");
                                 ?>
                             </td>
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>

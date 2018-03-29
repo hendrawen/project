@@ -14,7 +14,7 @@
   <form action="#" id="form_checkout" class="form-horizontal">
     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
       <select name="id_pelanggan" id="id_pelanggan" class="e1 form-control" required>
-      <option disabled selected>--Pilih Pelanggan--</option>
+      <option value="" selected>--Pilih Pelanggan--</option>
           <?php
             $users = $this->db->query("SELECT * FROM wp_pelanggan WHERE status='pelanggan'");
             foreach ($users->result() as $value) {
@@ -146,9 +146,9 @@
                         <tr>
                           <th>ID Produk</th>
                           <th>Nama Barang</th>
-                          <th>Harga</th>
+                          <th>Harga (Rp.)</th>
                           <th>QTY</th>
-                          <th>Subtotal</th>
+                          <th>Subtotal (Rp.)</th>
                         </tr>
                       </thead>
                       <tbody>

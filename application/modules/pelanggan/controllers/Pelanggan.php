@@ -370,9 +370,6 @@ class Pelanggan extends CI_Controller{
     	$this->form_validation->set_rules('kota', 'kota', 'trim|required');
     	$this->form_validation->set_rules('kelurahan', 'kelurahan', 'trim|required');
     	$this->form_validation->set_rules('kecamatan', 'kecamatan', 'trim|required');
-    	$this->form_validation->set_rules('lat', 'lat', 'trim|required');
-    	$this->form_validation->set_rules('long', 'long', 'trim|required');
-    	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
     	$this->form_validation->set_rules('status', 'status', 'trim|required');
     	$this->form_validation->set_rules('wp_karyawan_id_karyawan', 'wp karyawan id karyawan', 'trim|required');
 

@@ -64,8 +64,9 @@
                         <tr>
                           <th>ID Produk</th>
                           <th>Product</th>
+                          <th>Harga (Rp.)</th>
                           <th>QTY</th>
-                          <th>Subtotal</th>
+                          <th>Subtotal (Rp.)</th>
                           <th></th>
                         </tr>
                       </thead>

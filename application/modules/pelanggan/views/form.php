@@ -32,15 +32,15 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                           <input name="id_pelanggan" type="hidden" value="<?php echo $id_pelanggan; ?>">
                           <div class="form-group">
                             <label>Nama Pelanggan</label>
-                            <input type="text" class="form-control" name="nama_pelanggan" placeholder="Masukkan nama pelanggan" value="<?php echo $nama_pelanggan; ?>">
+                            <input type="text" class="form-control" name="nama_pelanggan" placeholder="Masukkan nama pelanggan" value="<?php echo $nama_pelanggan; ?>" required="required">
                           </div>
                           <div class="form-group">
                             <label>No Telp.</label>
-                            <input type="text" class="form-control" name="no_telp" placeholder="Masukkan nomer telp." value="<?php echo $no_telp; ?>">
+                            <input type="text" class="form-control" name="no_telp" placeholder="Masukkan nomer telp." value="<?php echo $no_telp; ?>" required="required">
                           </div>
                           <div class="form-group">
                             <label>Nama Dagang</label>
-                            <input type="text" class="form-control" name="nama_dagang" placeholder="Masukkan nomer telp." value="<?php echo $nama_dagang; ?>">
+                            <input type="text" class="form-control" name="nama_dagang" placeholder="Masukkan nomer telp." value="<?php echo $nama_dagang; ?>" required="required">
                           </div>
                           <div class="form-group">
                             <label>Kota</label>
@@ -73,8 +73,8 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                           <div id="button-layer"><button id="btnAction" onClick="locate()">Get Curent Location</button></div>
                           <div class="form-group">
                             <label>Status</label>
-                            <select class="form-control" name="status">
-                              <option>Choose option</option>
+                            <select class="form-control" name="status" required="required">
+                              <option value="">--Status--</option>
                               <option <?php if( $status=='Responden'){echo "selected"; } ?> value="Responden">Responden</option>
                               <option <?php if( $status=='Pelanggan'){echo "selected"; } ?> value="pelanggan">Pelanggan</option>
                             </select>
@@ -106,8 +106,23 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                             <textarea name="keterangan" class="form-control"><?php echo $keterangan; ?></textarea>
                           </div>
                           <div class="form-group">
-                            <label>Surveyor</label>
-                            <input type="text" name="wp_karyawan_id_karyawan" class="form-control" <?php echo $wp_karyawan_id_karyawan; ?>>
+                            <label>Surveyor</label> <span class="required">*</span>
+                            <select name="wp_karyawan_id_karyawan" id="wp_karyawan_id_karyawan" class="form-control" required="required">
+                            <option value="" disabled selected>--Pilih Surveyor--</option>
+
+                                <?php
+                                  $users = $this->db->query("SELECT * FROM wp_karyawan");
+                                  foreach($users->result() as $value){
+                                  $selected= '';
+                                  if($wp_karyawan_id_karyawan == $value->id_karyawan){
+                                    $selected = 'selected="selected"';
+                                  }
+                                  ?>
+                                  <option  value="<?php echo $value->id_karyawan; ?>"  <?php echo $selected;?> >
+                                  <?php echo $value->id_karyawan; ?> - <?php echo $value->nama; ?>
+                                  </option>
+                                  <?php }?>
+                                    </select>
                           </div>
                           <input type="hidden" value="<?php echo $id; ?>" name="id"/>
                           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">

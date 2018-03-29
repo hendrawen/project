@@ -17,3 +17,7 @@ $(document).ready(function () {
       $(".text").hide();
   });
 });
+
+$(document).ready(function() {
+  $('.js-example-basic-single').select2();
+});
