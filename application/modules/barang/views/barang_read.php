@@ -18,7 +18,8 @@
 	    <tr><td>Nama Barang</td><td>:</td><td><?php echo $nama_barang; ?></td></tr>
 	    <tr><td>Harga Beli</td><td>:</td><td><?php echo $harga_beli; ?></td></tr>
 	    <tr><td>Harga Jual</td><td>:</td><td><?php echo $harga_jual; ?></td></tr>
-	    <tr><td>Wp Suplier Id</td><td>:</td><td><?php echo $wp_suplier_id; ?></td></tr>
+      <tr><td>Satuan</td><td>:</td><td><?php echo $satuan; ?></td></tr>
+      <tr><td>Id Suplier</td><td>:</td><td><?php echo $wp_suplier_id; ?></td></tr>
 	    <tr><td>Tanggal Input</td><td>:</td><td><?php echo $created_at; ?></td></tr>
 	    <tr><td>Tanggal Update</td><td>:</td><td><?php echo $updated_at; ?></td></tr>
 	    <tr><td colspan="3" align="center"><a href="<?php echo site_url('barang') ?>" class="btn btn-danger">Kembali</a></td></tr>

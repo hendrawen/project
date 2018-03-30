@@ -36,6 +36,7 @@ class Barang_model extends CI_Model
 	$this->db->or_like('nama_barang', $q);
 	$this->db->or_like('harga_beli', $q);
 	$this->db->or_like('harga_jual', $q);
+  $this->db->or_like('satuan', $q);
 	$this->db->or_like('wp_suplier_id', $q);
 	$this->db->or_like('created_at', $q);
 	$this->db->or_like('updated_at', $q);
@@ -51,6 +52,7 @@ class Barang_model extends CI_Model
 	$this->db->or_like('nama_barang', $q);
 	$this->db->or_like('harga_beli', $q);
 	$this->db->or_like('harga_jual', $q);
+  $this->db->or_like('satuan', $q);
 	$this->db->or_like('wp_suplier_id', $q);
 	$this->db->or_like('created_at', $q);
 	$this->db->or_like('updated_at', $q);
@@ -111,7 +113,7 @@ class Barang_model extends CI_Model
     }
 
     function get_data(){
-        $this->db->select("wp_barang.id, wp_barang.id_barang, wp_barang.nama_barang, wp_barang.harga_beli, wp_barang.harga_jual, wp_barang.wp_suplier_id, wp_barang.created_at, wp_barang.updated_at, wp_suplier.nama_suplier, wp_suplier.id_suplier");
+        $this->db->select("wp_barang.id, wp_barang.id_barang, wp_barang.nama_barang, wp_barang.harga_beli, wp_barang.harga_jual, wp_barang.satuan, wp_barang.wp_suplier_id, wp_barang.created_at, wp_barang.updated_at, wp_suplier.nama_suplier, wp_suplier.id_suplier");
         $this->db->from($this->table);
         $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id');
         $this->db->order_by('id_barang', $this->order);

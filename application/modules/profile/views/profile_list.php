@@ -101,7 +101,7 @@
 
 
                         <div class="col-md-4 text-right">
-                            <form action="<?php echo site_url('profile/index'); ?>" class="form-inline" method="get">
+                            <!-- <form action="<?php echo site_url('profile/index'); ?>" class="form-inline" method="get">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                                     <span class="input-group-btn">
@@ -116,13 +116,13 @@
                                       <button class="btn btn-primary" type="submit">Search</button>
                                     </span>
                                 </div>
-                            </form>
+                            </form> -->
                         </div>
                         </div>
 
                       <div class="x_content">
                        <div class="table-responsive">
-                        <table class="table table-bordered jambo_table">
+                        <table class="table table-striped jambo_table table-bordered dt-responsive nowrap" id="datatable">
                           <thead>
                             <tr>
                               <th>#</th>

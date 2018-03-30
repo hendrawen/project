@@ -177,9 +177,9 @@ class Auth extends CI_Controller {
                 'first_name' 		=> $this->input->post('first_name'),
                 'last_name'  		=> $this->input->post('last_name'),
                 'company'    		=> $this->input->post('company'),
-                'alamat'      		=> $this->input->post('alamat'),
+                //'alamat'      		=> $this->input->post('alamat'),
                 'phone'      		=> $this->input->post('phone'),
-                'jatuh_tempo'      => $this->input->post('jatuh_tempo'),
+                //'jatuh_tempo'      => $this->input->post('jatuh_tempo'),
             );
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data))
@@ -408,7 +408,7 @@ class Auth extends CI_Controller {
 		$this->data['aktif']		  ='User';
 		$this->data['judul']      ='Dashboard';
 		$this->data['sub_judul']	='User';
-		$this->data['content']    = 'user/table_edit_form';
+		$this->data['content']    ='user/table_edit_form';
 		$this->_render_page('administrator/dashboard', $this->data);
 	}
 
@@ -489,10 +489,9 @@ class Auth extends CI_Controller {
 				$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('description'));
 				if ($new_group_id)
 				{
-					// check to see if we are creating the group
-					// redirect them back to the admin page
+
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
-					redirect("auth", 'refresh');
+					redirect("users", 'refresh');
 				}
 			}
 			else

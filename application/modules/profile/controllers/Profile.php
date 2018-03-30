@@ -8,6 +8,13 @@ class Profile extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('members')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
         $this->load->model('profile_model');
         $this->load->library('form_validation');
     }

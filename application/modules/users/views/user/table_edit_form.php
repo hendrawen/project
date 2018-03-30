@@ -47,11 +47,11 @@
         </div> -->
 	    <div class="form-group">
             <label for="varchar">Password <?php echo form_error('password') ?></label>
-            <input type="text" class="form-control" name="password" id="password" placeholder="Password"  <?php echo form_input($password);?>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password"  <?php echo form_input($password);?>
         </div>
          <div class="form-group">
             <label for="varchar">Password Confirm <?php echo form_error('password_confirm') ?></label>
-            <input type="text" class="form-control" name="password_confirm" id="password_confirm" placeholder="password_confirm" <?php echo form_input($password_confirm);?>
+            <input type="password" class="form-control" name="password_confirm" id="password_confirm" placeholder="password_confirm" <?php echo form_input($password_confirm);?>
         </div>
 
         <?php if ($this->ion_auth->is_admin()): ?>

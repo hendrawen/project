@@ -1,4 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Model
 *
@@ -26,6 +28,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @var array
 	 **/
+
 	public $tables = array();
 
 	/**
@@ -857,7 +860,7 @@ class Ion_auth_model extends CI_Model
 			$data = array(
 			    'password'                => $this->hash_password($password, $salt),
 			    'forgotten_password_code' => NULL,
-			    'active'                  => 'Active',
+			    'active'                  => 1,
 			 );
 
 			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
@@ -916,8 +919,8 @@ class Ion_auth_model extends CI_Model
 		    'password'   => $password,
 		    'email'      => $email,
 		    'ip_address' => $ip_address,
-		    'created_on' => date('Y-m-d'),
-		    'active'     => ($manual_activation === false ? 'Active' : 'Suspend')
+		    'created_on' => date('Y-m-d H:i:s'),
+		    'active'     => ($manual_activation === FALSE ? Active : Suspend),
 		);
 
 		if ($this->store_salt)
@@ -1840,7 +1843,7 @@ class Ion_auth_model extends CI_Model
 		    'identity'             => $user->{$this->identity_column},
 		    $this->identity_column             => $user->{$this->identity_column},
 		    'email'                => $user->email,
-		    //'alamat'               => $user->alamat,
+		    /*'alamat'               => $user->alamat,*/
 		    'company'              => $user->company,
 		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'       => $user->last_login,

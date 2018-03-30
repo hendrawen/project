@@ -32,6 +32,7 @@
                                   		<th>Nama Barang</th>
                                   		<th>Harga Beli</th>
                                   		<th>Harga Jual</th>
+                                      <th>Satuan</th>
                                   		<th>Nama Suplier</th>
                                   		<th>Tanggal Input</th>
                                   		<th>Tanggal Update</th>
@@ -48,6 +49,7 @@
                                			<td><?php echo $key->nama_barang ?></td>
                                			<td><?php echo $key->harga_beli ?></td>
                                			<td><?php echo $key->harga_jual ?></td>
+                                    <td><?php echo $key->satuan ?></td>
                                			<td><?php echo $key->id_suplier ?> - <?php echo $key->nama_suplier ?></td>
                                			<td><?php echo tgl_indo($key->created_at) ?></td>
                                			<td><?php echo tgl_indo($key->updated_at) ?></td>

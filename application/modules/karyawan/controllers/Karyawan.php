@@ -8,6 +8,13 @@ class Karyawan extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('members')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
         $this->load->model('karyawan_model');
         $this->load->library('form_validation');
     }
@@ -40,7 +47,7 @@ class Karyawan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['aktif']			='Master';
+        $data['aktif']			='Karyawan';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Karyawan';
@@ -62,7 +69,7 @@ class Karyawan extends CI_Controller
 		'status' => $row->status,
 		'wp_jabatan_id' => $row->wp_jabatan_id,
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='Karyawan';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Detail Karyawan';
@@ -87,7 +94,7 @@ class Karyawan extends CI_Controller
 	    'status' => set_value('status'),
 	    'wp_jabatan_id' => set_value('wp_jabatan_id'),
 	);
-        $data['aktif']			='Master';
+        $data['aktif']			='Karyawan';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Tambah Karyawan';
@@ -156,7 +163,7 @@ class Karyawan extends CI_Controller
 		'status' => set_value('status', $row->status),
 		'wp_jabatan_id' => set_value('wp_jabatan_id', $row->wp_jabatan_id),
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='Karyawan';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit Karyawan';

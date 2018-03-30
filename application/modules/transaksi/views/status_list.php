@@ -55,7 +55,7 @@
                           <tr>
                               <th>#</th>
                               <th>Id Status</th>
-                              <th>Status Karyawan</th>
+                              <th>Status Transaksi</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
                       </thead>

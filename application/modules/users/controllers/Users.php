@@ -34,7 +34,7 @@ class Users extends CI_Controller
         $data['aktif']		  ='User';
     		$data['judul']      ='Dashboard';
     		$data['sub_judul']	='User';
-        $data['content']    = 'user/table_user_form';
+        $data['content']    ='user/table_user_form';
         $this->load->view('administrator/dashboard',$data);
     }
 

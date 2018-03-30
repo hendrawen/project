@@ -8,6 +8,13 @@ class Barang extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('members')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
         $this->load->model('barang_model');
         $this->load->library('form_validation');
     }
@@ -59,6 +66,7 @@ class Barang extends CI_Controller
 		'nama_barang' => $row->nama_barang,
 		'harga_beli' => $row->harga_beli,
 		'harga_jual' => $row->harga_jual,
+    'satuan' => $row->satuan,
 		'wp_suplier_id' => $row->wp_suplier_id,
 		'created_at' => $row->created_at,
 		'updated_at' => $row->updated_at,
@@ -85,6 +93,7 @@ class Barang extends CI_Controller
 	    'nama_barang' => set_value('nama_barang'),
 	    'harga_beli' => set_value('harga_beli'),
 	    'harga_jual' => set_value('harga_jual'),
+      'satuan' => set_value('satuan'),
 	    'wp_suplier_id' => set_value('wp_suplier_id'),
 	    'created_at' => set_value('created_at'),
 	    'updated_at' => set_value('updated_at'),
@@ -110,6 +119,7 @@ class Barang extends CI_Controller
           		'nama_barang' => $this->input->post('nama_barang',TRUE),
           		'harga_beli' => $this->input->post('harga_beli',TRUE),
           		'harga_jual' => $this->input->post('harga_jual',TRUE),
+              'satuan' => $this->input->post('satuan',TRUE),
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
           		'created_at' => date('Y-m-d H:i:s'),
           		//'updated_at' => $this->input->post('updated_at',TRUE),
@@ -135,6 +145,7 @@ class Barang extends CI_Controller
         		'nama_barang' => set_value('nama_barang', $row->nama_barang),
         		'harga_beli' => set_value('harga_beli', $row->harga_beli),
         		'harga_jual' => set_value('harga_jual', $row->harga_jual),
+            'satuan' => set_value('satuan', $row->satuan),
         		'wp_suplier_id' => set_value('wp_suplier_id', $row->wp_suplier_id),
         		'created_at' => set_value('created_at', $row->created_at),
         		'updated_at' => set_value('updated_at', $row->updated_at),
@@ -165,6 +176,7 @@ class Barang extends CI_Controller
           		'nama_barang' => $this->input->post('nama_barang',TRUE),
           		'harga_beli' => $this->input->post('harga_beli',TRUE),
           		'harga_jual' => $this->input->post('harga_jual',TRUE),
+              'satuan' => $this->input->post('satuan',TRUE),
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
               'updated_at' => date('Y-m-d H:i:s'),
           		//'created_at' => $this->input->post('created_at',TRUE),
@@ -197,6 +209,7 @@ class Barang extends CI_Controller
     	$this->form_validation->set_rules('nama_barang', 'nama barang', 'trim|required');
     	$this->form_validation->set_rules('harga_beli', 'harga beli', 'trim|required');
     	$this->form_validation->set_rules('harga_jual', 'harga jual', 'trim|required');
+      $this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
     	$this->form_validation->set_rules('wp_suplier_id', 'wp suplier id', 'trim|required');
     	//$this->form_validation->set_rules('created_at', 'created at', 'trim|required');
     	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
@@ -231,6 +244,7 @@ class Barang extends CI_Controller
       	xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
       	xlsWriteLabel($tablehead, $kolomhead++, "Harga Beli");
       	xlsWriteLabel($tablehead, $kolomhead++, "Harga Jual");
+        xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
       	xlsWriteLabel($tablehead, $kolomhead++, "Wp Suplier Id");
       	xlsWriteLabel($tablehead, $kolomhead++, "Created At");
       	xlsWriteLabel($tablehead, $kolomhead++, "Updated At");
@@ -244,6 +258,7 @@ class Barang extends CI_Controller
       	    xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
       	    xlsWriteLabel($tablebody, $kolombody++, $data->harga_beli);
       	    xlsWriteLabel($tablebody, $kolombody++, $data->harga_jual);
+            xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
       	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_suplier_id);
       	    xlsWriteLabel($tablebody, $kolombody++, $data->created_at);
       	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_at);

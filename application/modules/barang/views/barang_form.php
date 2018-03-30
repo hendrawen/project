@@ -40,6 +40,19 @@
                     <label for="varchar">Harga Jual <?php echo form_error('harga_jual') ?></label>
                     <input type="number" class="form-control" name="harga_jual" id="harga_jual" min="0" placeholder="Harga Jual" value="<?php echo $harga_jual; ?>" />
                 </div>
+              <div class="form-group">
+                      <label for="varchar">Satuan <?php echo form_error('satuan') ?></label>
+                       <!-- <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" /> -->
+                       <select class="form-control" name="satuan" id="satuan">
+                              <option disabled selected>--Pilih Satuan--</option>
+                              <?php
+                                    $query = $this->db->query("SELECT * FROM wp_barang");
+                                     foreach ($query->result() as $rows) {
+                                ?>
+                                <option <?php echo ($satuan==$rows->satuan) ? 'selected=""':""; ?> value="<?php echo $rows->satuan; ?>"><?php echo $rows->satuan; ?></option>
+                            <?php } ?>
+                      </select>
+                  </div>
         	    <div class="form-group">
                     <label for="int">Nama Suplier <?php echo form_error('wp_suplier_id') ?></label>
                     <select name="wp_suplier_id" id="wp_suplier_id" class="form-control" required>

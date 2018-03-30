@@ -28,10 +28,10 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
+                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>administrator"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
                   <li><a <?php echo ($aktif == 'User')?'class="active"':"";?> href="<?php echo base_url();?>users"><i class="fa fa-table"></i> Users </a></li>
-
+                  <li><a <?php echo ($aktif == 'Group')?'class="active"':"";?> href="<?php echo base_url();?>users/groups"><i class="fa fa-clone"></i> User Groups </a></li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>

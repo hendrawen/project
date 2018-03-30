@@ -1,9 +1,9 @@
-<!-- <?php if ($this->session->flashdata('message')): ?>
+<?php if ($this->session->flashdata('activate_unsuccessful')): ?>
         <div class="alert bg-primary alert-right">
             <button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
-            <span class="text-semibold"><?php echo $this->session->flashdata('message');?></span>
+            <span class="text-semibold"><?php echo $this->session->flashdata('activate_unsuccessful');?></span>
         </div>
-        <?php endif; ?> -->
+        <?php endif; ?>
 
 <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
 

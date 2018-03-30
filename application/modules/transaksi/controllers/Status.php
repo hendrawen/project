@@ -109,7 +109,7 @@ class Status extends CI_Controller
           		'nama_status' => $this->input->post('nama_status',TRUE),
             );
 
-            $cek = $this->status_model->cek_status($data['status']);
+            $cek = $this->status_model->cek_status($data['nama_status']);
             if ($cek) {
               $this->session->set_flashdata('msg', 'Nama Status ini Sudah Ada');
               redirect(site_url('transaksi/status'));
