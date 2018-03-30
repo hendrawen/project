@@ -41,9 +41,12 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/alert/sweetalert.css')?>">
     <script src="<?php echo base_url('assets/alert/sweetalert.min.js')?>"></script>
     <script src="<?php echo base_url('assets/alert/qunit-1.18.0.js')?>"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.3/select2.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.3/select2.min.css"></script>
     <!-- Custom Theme Style -->
+
+    <link href="<?php echo base_url()?>assets/template/vendors/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+
     <link href="<?php echo base_url()?>assets/template/build/css/custom.min.css" rel="stylesheet">
 
     <script>var base_url = '<?php echo base_url() ?>';</script>

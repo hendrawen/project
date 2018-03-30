@@ -20,6 +20,16 @@ class Piutang extends CI_Controller{
     $this->load->view('panel/dashboard', $data);
   }
 
+  function pembayaran()
+  {
+    $data['aktif']			='Piutang';
+		$data['title']			='Piutang Pelanggan';
+		$data['judul']			='Data Piutang Pelanggan';
+		$data['sub_judul']		='';
+    $data['content']			= 'form';
+    $this->load->view('panel/dashboard', $data);
+  }
+
   public function ajax_list()
     {
         $list = $this->piutang->get_datatables();
@@ -30,9 +40,9 @@ class Piutang extends CI_Controller{
             $row[] = $piutangs->id_transaksi;
             $row[] = $piutangs->id_pelanggan;
             $row[] = $piutangs->nama_pelanggan;
-            $row[] = $piutangs->utang;
-            $row[] = $piutangs->bayar;
-            $row[] = $piutangs->sisa;
+            $row[] = number_format($piutangs->utang,2,",",".");
+            $row[] = number_format($piutangs->bayar,2,",",".");
+            $row[] = number_format($piutangs->sisa,2,",",".");
             $row[] = tgl_indo($piutangs->tgl_transaksi);
             $row[] = tgl_indo($piutangs->jatuh_tempo);
             $row[] = $piutangs->selisih;

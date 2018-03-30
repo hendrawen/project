@@ -49,14 +49,24 @@
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/dataTables.rowsGroup.js"></script>
+
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
-    <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/effectifcall.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
 
+    <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
 
 
   </body>

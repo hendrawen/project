@@ -32,7 +32,7 @@
 </form>
 </div>
   <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
               <h2>Transaksi <small>Braja Marketindo</small></h2>
@@ -58,14 +58,15 @@
                 <!-- title row -->
                 <!-- Table row -->
                 <div class="row">
-                  <div class="col-xs-12 table">
+                  <div class="col-md-12 col-xs-12">
                     <table class="table table-striped jambo_table dt-responsive nowrap">
                       <thead>
                         <tr>
                           <th>ID Produk</th>
                           <th>Product</th>
+                          <th>Harga (Rp.)</th>
                           <th>QTY</th>
-                          <th>Subtotal</th>
+                          <th>Subtotal (Rp.)</th>
                           <th></th>
                         </tr>
                       </thead>

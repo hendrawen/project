@@ -15,8 +15,8 @@
       </div>
           <div class="row">
             <div class="col-md-6">
-                <a href="<?php echo base_url('transaksi/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
-                <a href="<?php echo base_url('transaksi/status')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Status Karyawan</a>
+                <a href="<?php echo base_url('pesan'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo base_url('transaksi/status')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Status</a>
             </div>
           </div>
             <div class="col-md-6 text-right">
@@ -26,15 +26,15 @@
             </div>
 
               <div class="x_content">
-                  <table class="table jambo_table table-striped table-bordered dt-responsive nowrap" id="datatable">
+                  <table class="table jambo_table table-bordered dt-responsive nowrap" id="transaksilist">
                       <thead>
                           <tr>
                               <th>#</th>
                               <th>Id Transaksi</th>
                           		<th>Nama Barang</th>
-                              <th>Harga</th>
+                              <th>Harga (Rp.)</th>
                           		<th>Qty</th>
-                              <th>Total</th>
+                              <th>Total (Rp.)</th>
                               <th>Tgl Transaksi</th>
                           		<th>Tanggal Update</th>
                           		<th>Nama Pelanggan</th>
@@ -46,18 +46,19 @@
                       <tbody>
                         <?php
                         $no = 1;
+                        $jum = 1;
                         foreach($transaksi as $key){ ?>
                        <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
                       			<td><?php echo $key->nama_barang ?></td>
-                            <td><?php echo $key->harga ?></td>
+                            <td><?php echo number_format($key->harga,2,",",".") ?></td>
                       			<td><?php echo $key->qty ?></td>
                             <td><?php
                                     $harga1 = $key->harga;
                                     $qty1   = $key->qty;
                                     $hitung = jumlah($harga1, $qty1);
-                                    echo $hitung;
+                                    echo number_format($hitung,2,",",".");
                                 ?>
                             </td>
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
