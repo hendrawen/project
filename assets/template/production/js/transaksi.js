@@ -15,7 +15,6 @@
       });
     });
 
-
   $('#detail_cart').load(base_url+"pesan/load_cart");
 
   $('#id_barang').on('input',function(){

@@ -1,95 +1,122 @@
-  $(document).ready( function () {
-      $('#table_id').DataTable();
-  } );
-    var save_method; //for save method string
-    var table;
+$(document).ready(function(){
+  $('.add_faktur').click(function(){
+    var id    = $(this).data("id");
+    var nama_barang  = $(this).data("nama_barang");
+    var harga = $(this).data("harga");
+    var bayar = $(this).data("bayar");
+    var utang = $(this).data("utang");
+    var qty   = $(this).data("qty");
+    $.ajax({
+      url : (base_url+"faktur/add_to_cart"),
+      method : "POST",
+      data: $('#form_faktur').serialize(),
+      success: function(data){
+        $('#form_faktur')[0].reset();
+        $('#detail_faktur').html(data);
+      }
+    });
+  });
 
-    function add_suplier()
-    {
-      save_method = 'add';
-      $('#form')[0].reset(); // reset form on modals
-      $('#modal_form').modal('show'); // show bootstrap modal
-    //$('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
-    }
 
-    function edit_suplier(id)
-    {
-      save_method = 'update';
-      $('#form')[0].reset(); // reset form on modals
+$('#detail_faktur').load(base_url+"faktur/load_cart");
 
-      //Ajax Load data from ajax
-      $.ajax({
-        url : "suplier/get_suplier/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="id"]').val(data.id);
-            $('[name="nama_suplier"]').val(data.nama_suplier);
-            $('[name="alamat"]').val(data.alamat);
+$('#id_transaksi').on('input',function(){
 
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Suplier'); // Set title to Bootstrap modal title
+           var id_transaksi=$(this).val();
+           $.ajaxSetup({
+               data: {
+                   csrf_test_name: $.cookie('csrf_cookie_name')
+               }
+           });
+           $.ajax({
+               type : "POST",
+               url  : (base_url+"faktur/get_detail_transaksi"),
+               dataType : "JSON",
+               data : {id_transaksi: id_transaksi},
+               cache:false,
+               success: function(data){
+                   $.each(data,function(id, nama_barang, harga, utang, bayar, tgl_transaksi, nama_pelanggan, nama_dagang, no_telp, alamat, id_pelanggan ){
+                       $('[name="id"]').val(data.id);
+                       //$('[name="nama_barang"]').val(data.nama_barang);
+                       $('[name="harga"]').val(data.harga);
+                       $('[name="utang"]').val(data.utang);
+                       $('[name="bayar"]').val(data.bayar);
+                       document.getElementById('nama_barang').innerHTML = data.nama_barang;
+                       document.getElementById('nama_pelanggan').innerHTML = data.nama_pelanggan;
+                       document.getElementById('alamat').innerHTML = data.alamat;
+                       document.getElementById('no_telp').innerHTML = data.no_telp;
+                       document.getElementById('nama_dagang').innerHTML = data.nama_dagang;
+                       document.getElementById('id_pelanggan').innerHTML = data.id_pelanggan;
+                   });
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
+               }
+           });
+           return false;
+  });
+
+  // $('#id_pelanggan').on('input',function(){
+  //
+  //            var id_pelanggan=$(this).val();
+  //            $.ajaxSetup({
+  //                data: {
+  //                    csrf_test_name: $.cookie('csrf_cookie_name')
+  //                }
+  //            });
+  //            $.ajax({
+  //                type : "POST",
+  //                url  : (base_url+"checkout/get_pelanggan"),
+  //                dataType : "JSON",
+  //                data : {id_pelanggan: id_pelanggan},
+  //                cache:false,
+  //                success: function(data){
+  //                    $.each(data,function(id, id_pelanggan, nama_pelanggan, alamat, no_telp, nama_dagang, kota){
+  //                        // $('[name="nama_pelanggan"]').val(data.nama_pelanggan);
+  //                        // $('[name="alamat"]').innerText(data.alamat);
+  //                        // $('[name="no_telp"]').val(data.no_telp);
+  //                        // $('[name="nama_dagang"]').val(data.nama_dagang);
+  //                        $('[name="id"]').val(data.id);
+  //                        document.getElementById('id').innerHTML = data.id;
+  //                        document.getElementById('idpelanggan').innerHTML = data.id_pelanggan;
+  //                        document.getElementById('nama_pelanggan').innerHTML = data.nama_pelanggan;
+  //                        document.getElementById('alamat').innerHTML = data.alamat;
+  //                        document.getElementById('no_telp').innerHTML = data.no_telp;
+  //                        document.getElementById('nama_dagang').innerHTML = data.nama_dagang;
+  //                    });
+  //
+  //                }
+  //            });
+  //            return false;
+  //   });
+
+  $(document).on('click','.romove_cart',function(){
+    var row_id=$(this).attr("id");
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
         }
     });
-    }
-
-    function save()
-    {
-      var url;
-      if(save_method == 'add')
-      {
-          url = "suplier/simpan";
+    $.ajax({
+      url : (base_url+"faktur/delete_cart"),
+      method : "POST",
+      data : {row_id : row_id},
+      success :function(data){
+        $('#detail_faktur').html(data);
       }
-      else
-      {
-        url = "suplier/update_suplier";
+    });
+  });
+  $(document).on('click','.hapus_cart',function(){
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url : (base_url+"faktur/hapus_cart"),
+      method : "POST",
+      success :function(data){
+        $('#detail_faktur').html(data);
       }
+    });
+  });
 
-       // ajax adding data to database
-          $.ajax({
-            url : url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function(data)
-            {
-               //if success close modal and reload ajax table
-               $('#modal_form').modal('hide');
-              location.reload();// for reload a page
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-            }
-        });
-    }
-
-    function delete_suplier(id)
-    {
-      if(confirm('Are you sure delete this data?'))
-      {
-        // ajax delete data from database
-          $.ajax({
-            url : "suplier/hapus/" + id,
-            type: "POST",
-            dataType: "JSON",
-            data: {csrf_test_name: $.cookie('csrf_cookie_name')},
-            success: function(data)
-            {
-
-               location.reload();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            }
-        });
-
-      }
-    }
+});

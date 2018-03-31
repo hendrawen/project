@@ -1,5 +1,5 @@
 <div class="row">
-  <form action="#" id="form_faktur" class="form-horizontal">
+  <form action="#" id="form_faktur" method="POST" class="form-horizontal">
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
     <select name="id_transaksi" id="id_transaksi" class="e1 form-control" required>
     <option disabled selected>--Pilih Id Transaksi--</option>
@@ -52,28 +52,18 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-             <form action="<?php echo base_url('faktur/simpan_faktur');?>" method="post">
+             <!-- <form action="<?php echo base_url('faktur/simpan_faktur');?>" method="post">
                <?php $i = 1; ?>
                <?php foreach($this->cart->contents() as $items): ?>
                <?php echo form_hidden('rowid[]', $items['rowid']); ?>
                <?php if($i&1){ echo 'class="alt"'; }?>
-               <input type="hidden" name="no_faktur[]" id="no_faktur[]" readonly value="<?php echo $generate_faktur; ?>" style="border:0px;background:none;">
+               <input type="hidden" name="no_faktur[]" readonly value="<?php echo $generate_faktur; ?>" style="border:0px;background:none;">
                <input type="hidden" name="wp_detail_transaksi_id[]" readonly value="<?php echo $items['wp_detail_transaksi_id'];?>" style="border:0px;background:none;">
                <input type="hidden" name="id" id="id" class="form-control">
-               <!--<div class="col-md-3 col-sm-12 col-xs-12 form-group">
-                   <input type="text" name="nama_pelanggan" placeholder="Nama Pelanggan" readonly class="form-control">
-               </div>
-                <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                   <input type="text" name="bayar" id="bayar" placeholder="Bayar" readonly class="form-control">
-               </div>
-               <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                   <input type="text" name="utang" id="utang" placeholder="Hutang" readonly class="form-control">
-               </div>-->
                <input type="hidden" name="idfaktur[]" value="<?php echo rand(1,10000);?>">
                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                <?php $i++; ?>
-               <?php endforeach; ?>
+               <?php endforeach; ?> -->
               <div class="row">
                 <div class="col-xs-12 invoice-header">
                   <h1>
@@ -160,7 +150,7 @@
                   </div>
                 </div>
               </section>
-              </form>
+              <!-- </form> -->
             </div>
           </div>
         </div>
