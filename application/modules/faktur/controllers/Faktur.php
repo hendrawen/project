@@ -29,8 +29,8 @@ class Faktur extends CI_Controller{
     $data['aktif']			='Kebutuhan';
     $data['title']			='Transaksi';
     $data['judul']			='Form Transaksi';
-    $data['sub_judul']		='';
-    $data['content']			= 'checkout';
+    $data['sub_judul']	='';
+    $data['content']		= 'checkout';
     $data['data']=$this->Faktur_model->get_all_product();
     $data['profile']=$this->Faktur_model->get_profile();
     $data['jenis_pembayaran']=$this->Faktur_model->get_jenis_pembayaran();
@@ -51,9 +51,14 @@ class Faktur extends CI_Controller{
 	}
 
   function add_to_cart(){
+    $this->form_validation->set_rules('id_transaksi', 'id_transaksi', 'required|trim');
+    if ($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('message','Pilih Id Transaksi Dulu !');
+      redirect('faktur'); // tampilkan apabila ada error
+    }else{
     $input_utang = $this->input->post('utang');
     $input_bayar = $this->input->post('bayar');
-    $hasil = ($input_utang-$input_bayar);
+    $hasil = $input_utang-$input_bayar;
 		$data = array(
       'id'  => $this->input->post('id_transaksi'),
       'name' => $this->input->post('nama_barang'),
@@ -67,29 +72,29 @@ class Faktur extends CI_Controller{
 		);
 		  $this->cart->insert($data);
 		  echo $this->show_cart();
-
+    }
   }
 
    function simpan_faktur()
     {
-      $kp = $this->input->post('idfaktur', true);
-      $tg = date('Y-m-d H-i-s');
-      $tg2 = date('Y-m-d');
-      $result = array();
-      foreach($kp AS $key => $val){
-        $result[] = array(
-          "wp_detail_transaksi_id" 	=> $_POST['wp_detail_transaksi_id'][$key],
-          "no_faktur" 				=> $_POST['no_faktur'][$key],
-          "tgl_faktur"			=> $tg
-        );
-        $res = $this->db->insert_batch('wp_faktur', $result); // fungsi dari codeigniter untuk menyimpan multi array
-        if($res){
-          $this->session->set_flashdata('message','sukses !');
-          redirect('faktur');
-        }else{
-          $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+
+        $kp = $this->input->post('idfaktur', TRUE);
+        $tg = date('Y-m-d H-i-s');
+        $result = array();
+        foreach($kp AS $key => $val){
+          $result[] = array(
+            "wp_detail_transaksi_id" 	=> $_POST['wp_detail_transaksi_id'][$key],
+            "no_faktur" 				=> $_POST['no_faktur'][$key],
+            "tgl_faktur"			=> $tg
+          );
+          $res = $this->db->insert_batch('wp_faktur', $result); // fungsi dari codeigniter untuk menyimpan multi array
+          if($res){
+            $this->session->set_flashdata('message','sukses !');
+            redirect('faktur');
+          }else{
+            $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+          }
         }
-      }
     }
       function checkout_action() {
   			$this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
@@ -127,10 +132,10 @@ class Faktur extends CI_Controller{
           }
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){$this->cart->destroy();
-  					$this->session->set_flashdata('message','sukses !');
+  					$this->session->set_flashdata('msg','sukses !');
   					redirect('transaksi');
   				}else{
-  					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+  					$this->session->set_flashdata('msg','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
   				}
         }
         //status hutang
@@ -163,10 +168,10 @@ class Faktur extends CI_Controller{
           $this->db->insert('wp_detail_transaksi', $data);
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){$this->cart->destroy();
-  					$this->session->set_flashdata('message','sukses !');
+  					$this->session->set_flashdata('msg','sukses !');
   					redirect('transaksi');
   				}else{
-  					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+  					$this->session->set_flashdata('msg','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
   				}
         }
       }
@@ -186,15 +191,13 @@ class Faktur extends CI_Controller{
 			$no++;
 			$output .='
 				<tr>
-
           <td>'.$items['name'].'</td>
           <td>'.number_format($items['harga'],2,",",".").'</td>
           <td>'.$items['qty'].'</td>
           <td>'.number_format($items['utang'],2,",",".").'</td>
 					<td>'.number_format($items['price'],2,",",".").'</td>
           <td>'.number_format($items['selisih'],2,",",".").'</td>
-					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs">Batal</button>&nbsp;
-          <button type="button" id="'.$items['rowid'].'" class="print_cart btn btn-primary btn-xs">Cetak</button></td>
+					<td class="action"><a href="#" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></a></td>
 				</tr>
 			';
 		}

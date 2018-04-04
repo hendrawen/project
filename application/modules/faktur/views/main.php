@@ -1,7 +1,24 @@
+<?php if ($this->session->flashdata('message')): ?>
+         <small>
+           <script type="text/javascript">
+              swal({
+                   title: "Maaf",
+                   text: "<?php echo $this->session->flashdata('message'); ?>",
+                    timer: 3500,
+                   showConfirmButton: true,
+                   type: 'error' },
+                   function(){
+                     location.reload();
+                   }
+                 );
+           </script>
+         </small>
+    <?php endif; ?>
+
 <div class="row">
   <form action="#" id="form_faktur" method="POST" class="form-horizontal">
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-    <select name="id_transaksi" id="id_transaksi" class="e1 form-control" required>
+    <select name="id_transaksi" id="id_transaksi" class="e1 form-control"><?php echo form_error('id_transaksi') ?>
     <option disabled selected>--Pilih Id Transaksi--</option>
         <?php
           //$users = $this->db->query("SELECT * FROM wp_detail_transaksi");
@@ -24,11 +41,11 @@
   <input type="hidden" name="bayar" id="bayar" class="form-control">
   <input type="hidden" name="utang" id="utang" class="form-control">
   <div class="col-md-2 col-sm-12 col-xs-12 form-group text-leftt">
-      <button type="button"  class="add_faktur btn btn-success"><i class="fa fa-shopping-cart"></i> Tambah</button>
+      <button type="button" class="add_faktur btn btn-success"><i class="fa fa-shopping-cart"></i> Tambah</button>
   </div>
 </form>
-
 </div>
+
   <div class="row">
         <div class="col-md-12">
           <div class="x_panel" style="border: 1px solid #ccc">
@@ -52,18 +69,17 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-             <!-- <form action="<?php echo base_url('faktur/simpan_faktur');?>" method="post">
+              <form action="#" id="form_simpan">
                <?php $i = 1; ?>
                <?php foreach($this->cart->contents() as $items): ?>
                <?php echo form_hidden('rowid[]', $items['rowid']); ?>
-               <?php if($i&1){ echo 'class="alt"'; }?>
+               <input type="hidden" name="idfaktur[]" value="<?php echo rand(1,10000);?>">
                <input type="hidden" name="no_faktur[]" readonly value="<?php echo $generate_faktur; ?>" style="border:0px;background:none;">
                <input type="hidden" name="wp_detail_transaksi_id[]" readonly value="<?php echo $items['wp_detail_transaksi_id'];?>" style="border:0px;background:none;">
                <input type="hidden" name="id" id="id" class="form-control">
-               <input type="hidden" name="idfaktur[]" value="<?php echo rand(1,10000);?>">
                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                <?php $i++; ?>
-               <?php endforeach; ?> -->
+               <?php endforeach; ?>
               <div class="row">
                 <div class="col-xs-12 invoice-header">
                   <h1>
@@ -125,7 +141,7 @@
                           <th>Total</th>
                           <th>Bayar</th>
                           <th>Hutang</th>
-                          <th></th>
+                          <th class="action"></th>
                         </tr>
                       </thead>
                       <tbody id="detail_faktur">
@@ -135,13 +151,7 @@
                   <!-- /.col -->
                 </div>
                 <!-- /.row -->
-                <!-- this row will not appear when printing -->
                 <br><br>
-                <div class="row no-print">
-                  <div class="col-xs-12">
-                    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-print"></i> Simpan</button>
-                  </div>
-                </div>
                 <div class="row no-print">
                   <div class="col-xs-12">
                       <strong><span style="margin-left:40px;">Diterima,</span></strong><br><br><br><br>
@@ -150,8 +160,14 @@
                   </div>
                 </div>
               </section>
-              <!-- </form> -->
             </div>
+            <div class="row no-print">
+              <div class="col-xs-12">
+                <!--<button type="submit" class="btn btn-primary pull-right" id="printButton" onclick="javascript:void(0);"><i class="fa fa-print"></i> Simpan & Cetak</button> -->
+                <a href="javascript:void(0)" id="printButton" class="save_faktur btn btn-primary pull-right">Save & Print</a>
+              </div>
+            </div>
+          <!-- </form> -->
           </div>
         </div>
       </div>

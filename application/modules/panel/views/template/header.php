@@ -48,6 +48,7 @@
     <link href="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
 
     <link href="<?php echo base_url()?>assets/template/build/css/custom.min.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>assets/template/production/css/styleprintarea.css" media="print" rel="stylesheet">
 
     <script>var base_url = '<?php echo base_url() ?>';</script>
 
