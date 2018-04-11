@@ -42,7 +42,7 @@
                 </div>
               <div class="form-group">
                       <label for="varchar">Satuan <?php echo form_error('satuan') ?></label>
-                       <!-- <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" /> -->
+                       <!-- <input type="text" class="form-control" name="satuan" id="satuan" placeholder="Satuan" value="<?php echo $satuan; ?>" />
                        <select class="form-control" name="satuan" id="satuan">
                               <option disabled selected>--Pilih Satuan--</option>
                               <?php
@@ -51,6 +51,11 @@
                                 ?>
                                 <option <?php echo ($satuan==$rows->satuan) ? 'selected=""':""; ?> value="<?php echo $rows->satuan; ?>"><?php echo $rows->satuan; ?></option>
                             <?php } ?>
+                      </select> -->
+                      <select class="form-control" name="satuan" id="satuan">
+                            <option disabled selected>--Pilih Satuan--</option>
+                            <option value="Krat" <?php if ($satuan=='Krat') {echo "selected";}?>>Krat</option>
+                            <option value="Dus" <?php if ($satuan=='Dus') {echo "selected";}?>>Dus</option>
                       </select>
                   </div>
         	    <div class="form-group">
@@ -75,11 +80,26 @@
         	    <!-- <div class="form-group">
                     <label for="timestamp">Created At <?php echo form_error('created_at') ?></label>
                     <input type="text" class="form-control" name="created_at" id="created_at" placeholder="Created At" value="<?php echo $created_at; ?>" />
-                </div>
+                </div>-->
         	    <div class="form-group">
-                    <label for="timestamp">Updated At <?php echo form_error('updated_at') ?></label>
-                    <input type="text" class="form-control" name="updated_at" id="updated_at" placeholder="Updated At" value="<?php echo $updated_at; ?>" />
-                </div> -->
+                    <label for="int">Dari Gudang <?php echo form_error('gudang') ?></label>
+                    <select name="wp_gudang_id" id="wp_gudang_id" class="form-control" required>
+                    <option disabled selected>--Pilih Gudang--</option>
+
+                        <?php
+                          $users = $this->db->query("SELECT * FROM wp_gudang");
+                          foreach($users->result() as $value){
+                          $selected= '';
+                          if($wp_gudang_id == $value->id){
+                            $selected = 'selected="selected"';
+                          }
+                          ?>
+                          <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+                          <?php echo $value->nama_gudang; ?>
+                          </option>
+                          <?php }?>
+                            </select>
+                </div>
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
         	    <input type="hidden" name="id" value="<?php echo $id; ?>" />
         	    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>
