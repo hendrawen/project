@@ -11,7 +11,12 @@ class Aset extends CI_Controller{
 
   function index()
   {
-
+    $data['aktif']			='aset';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Dashboard';
+    $data['sub_judul']	='Aset';
+    $data['content']		='main';
+    $this->load->view('panel/dashboard', $data);
   }
 
 }
