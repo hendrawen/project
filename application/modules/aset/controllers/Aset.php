@@ -75,12 +75,7 @@ class Aset extends CI_Controller
       	);
         $this->load->view('panel/dashboard', $data);
     }
-    public function tes()
-    {
-      echo date('y-m-d');
-      echo '<br />';
-      echo date('h:i:s');
-    }
+
     public function create_action()
     {
         $this->_rules();
@@ -89,19 +84,19 @@ class Aset extends CI_Controller
             $this->create();
         } else {
             $data = array(
-    		'tanggal' => date('y-m-d'),
-    		'jam' => $this->input->post('jam',TRUE),
-    		'turun_krat' => $this->input->post('turun_krat',TRUE),
-    		'turun_btl' => $this->input->post('turun_btl',TRUE),
-    		'naik_krat' => $this->input->post('naik_krat',TRUE),
-    		'naik_btl' => $this->input->post('naik_btl',TRUE),
-    		'aset_krat' => $this->input->post('aset_krat',TRUE),
-    		'aset_btl' => $this->input->post('aset_btl',TRUE),
-    		'bayar' => $this->input->post('bayar',TRUE),
-    		'keterangan' => $this->input->post('keterangan',TRUE),
-    		'username' => $this->session->identity,
-    		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
-	    );
+          		'tanggal' => date('y-m-d'),
+          		'jam' => date('h:i:s'),
+          		'turun_krat' => $this->input->post('turun_krat',TRUE),
+          		'turun_btl' => $this->input->post('turun_btl',TRUE),
+          		'naik_krat' => $this->input->post('naik_krat',TRUE),
+          		'naik_btl' => $this->input->post('naik_btl',TRUE),
+          		'aset_krat' => $this->input->post('aset_krat',TRUE),
+          		'aset_btl' => $this->input->post('aset_btl',TRUE),
+          		'bayar' => $this->input->post('bayar',TRUE),
+          		'keterangan' => $this->input->post('keterangan',TRUE),
+          		'username' => $this->session->identity,
+          		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
+      	    );
 
             $this->Aset_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
@@ -117,25 +112,26 @@ class Aset extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('aset/update_action'),
-		'id' => set_value('id', $row->id),
-		'tanggal' => set_value('tanggal', $row->tanggal),
-		'jam' => set_value('jam', $row->jam),
-		'turun_krat' => set_value('turun_krat', $row->turun_krat),
-		'turun_btl' => set_value('turun_btl', $row->turun_btl),
-		'naik_krat' => set_value('naik_krat', $row->naik_krat),
-		'naik_btl' => set_value('naik_btl', $row->naik_btl),
-		'aset_krat' => set_value('aset_krat', $row->aset_krat),
-		'aset_btl' => set_value('aset_btl', $row->aset_btl),
-		'bayar' => set_value('bayar', $row->bayar),
-		'keterangan' => set_value('keterangan', $row->keterangan),
-		'username' => set_value('username', $row->username),
-		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
-    'aktif'			=>'aset',
-    'title'			=>'Brajamarketindo',
-    'judul'			=>'Dashboard',
-    'sub_judul'	=>'Aset',
-    'content'		=>'form',
-	    );
+            		'id' => set_value('id', $row->id),
+                'tanggal' => set_value('id', 'tanggal'),
+            		'jam' => set_value('id', 'jam'),
+            		'turun_krat' => set_value('turun_krat', $row->turun_krat),
+            		'turun_btl' => set_value('turun_btl', $row->turun_btl),
+            		'naik_krat' => set_value('naik_krat', $row->naik_krat),
+            		'naik_btl' => set_value('naik_btl', $row->naik_btl),
+            		'aset_krat' => set_value('aset_krat', $row->aset_krat),
+            		'aset_btl' => set_value('aset_btl', $row->aset_btl),
+            		'bayar' => set_value('bayar', $row->bayar),
+            		'keterangan' => set_value('keterangan', $row->keterangan),
+            		'username' => set_value('username', $row->username),
+            		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
+                'aktif'			=>'aset',
+                'title'			=>'Brajamarketindo',
+                'judul'			=>'Dashboard',
+                'sub_judul'	=>'Aset',
+                'content'		=>'form',
+                'pelanggan_list' => $this->Aset_model->get_pelanggan(),
+        	    );
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -151,19 +147,19 @@ class Aset extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'jam' => $this->input->post('jam',TRUE),
-		'turun_krat' => $this->input->post('turun_krat',TRUE),
-		'turun_btl' => $this->input->post('turun_btl',TRUE),
-		'naik_krat' => $this->input->post('naik_krat',TRUE),
-		'naik_btl' => $this->input->post('naik_btl',TRUE),
-		'aset_krat' => $this->input->post('aset_krat',TRUE),
-		'aset_btl' => $this->input->post('aset_btl',TRUE),
-		'bayar' => $this->input->post('bayar',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
-		'username' => $this->input->post('username',TRUE),
-		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
-	    );
+              'tanggal' => date('y-m-d'),
+              'jam' => date('h:i:s'),
+          		'turun_krat' => $this->input->post('turun_krat',TRUE),
+          		'turun_btl' => $this->input->post('turun_btl',TRUE),
+          		'naik_krat' => $this->input->post('naik_krat',TRUE),
+          		'naik_btl' => $this->input->post('naik_btl',TRUE),
+          		'aset_krat' => $this->input->post('aset_krat',TRUE),
+          		'aset_btl' => $this->input->post('aset_btl',TRUE),
+          		'bayar' => $this->input->post('bayar',TRUE),
+          		'keterangan' => $this->input->post('keterangan',TRUE),
+          		'username' => $this->input->post('username',TRUE),
+          		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
+      	    );
 
             $this->Aset_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
