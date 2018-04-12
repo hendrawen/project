@@ -36,6 +36,16 @@
                          $('[name="id"]').val(data.id);
                          $('[name="nama_barang"]').val(data.nama_barang);
                          $('[name="harga_jual"]').val(data.harga_jual);
+                         cek = data.nama_barang.search('Setengah');
+                         if (cek > 0) {
+                           $('[name="qty"]').val(0.5);
+                           $('[name="qty"]').attr('readonly',true);
+
+                         } else {
+                           $('[name="qty"]').val(1);
+                           $('[name="qty"]').attr('readonly',false);
+                           $('[name="qty"]').focus();
+                         }
 
                      });
 
