@@ -16,7 +16,7 @@ class Aset extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-
+        
         if ($q <> '') {
             $config['base_url'] = base_url() . 'aset/index.html?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'aset/index.html?q=' . urlencode($q);
@@ -39,49 +39,59 @@ class Aset extends CI_Controller
             'pagination' => $this->pagination->create_links(),
             'total_rows' => $config['total_rows'],
             'start' => $start,
-            'aktif'			=>'aset',
-            'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
-            'sub_judul'	=>'Aset',
-            'content'		=>'list',
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('aset/wp_asis_debt_list', $data);
     }
 
-    public function create()
+    public function read($id) 
+    {
+        $row = $this->Aset_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+		'id' => $row->id,
+		'tanggal' => $row->tanggal,
+		'jam' => $row->jam,
+		'turun_krat' => $row->turun_krat,
+		'turun_btl' => $row->turun_btl,
+		'naik_krat' => $row->naik_krat,
+		'naik_btl' => $row->naik_btl,
+		'aset_krat' => $row->aset_krat,
+		'aset_btl' => $row->aset_btl,
+		'bayar' => $row->bayar,
+		'keterangan' => $row->keterangan,
+		'username' => $row->username,
+		'wp_pelanggan_id' => $row->wp_pelanggan_id,
+	    );
+            $this->load->view('aset/wp_asis_debt_read', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('aset'));
+        }
+    }
+
+    public function create() 
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('aset/create_action'),
-      	    'id' => set_value('id'),
-      	    'tanggal' => set_value('tanggal'),
-      	    'jam' => set_value('jam'),
-      	    'turun_krat' => set_value('turun_krat'),
-      	    'turun_btl' => set_value('turun_btl'),
-      	    'naik_krat' => set_value('naik_krat'),
-      	    'naik_btl' => set_value('naik_btl'),
-      	    'aset_krat' => set_value('aset_krat'),
-      	    'aset_btl' => set_value('aset_btl'),
-      	    'bayar' => set_value('bayar'),
-      	    'keterangan' => set_value('keterangan'),
-      	    'username' => set_value('username'),
-      	    'wp_pelanggan_id' => set_value('wp_pelanggan_id'),
-            'aktif'			=>'aset',
-            'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
-            'sub_judul'	=>'Aset',
-            'content'		=>'form',
-            'pelanggan_list' => $this->Aset_model->get_pelanggan(),
-      	);
-        $this->load->view('panel/dashboard', $data);
+	    'id' => set_value('id'),
+	    'tanggal' => set_value('tanggal'),
+	    'jam' => set_value('jam'),
+	    'turun_krat' => set_value('turun_krat'),
+	    'turun_btl' => set_value('turun_btl'),
+	    'naik_krat' => set_value('naik_krat'),
+	    'naik_btl' => set_value('naik_btl'),
+	    'aset_krat' => set_value('aset_krat'),
+	    'aset_btl' => set_value('aset_btl'),
+	    'bayar' => set_value('bayar'),
+	    'keterangan' => set_value('keterangan'),
+	    'username' => set_value('username'),
+	    'wp_pelanggan_id' => set_value('wp_pelanggan_id'),
+	);
+        $this->load->view('aset/wp_asis_debt_form', $data);
     }
-    public function tes()
-    {
-      echo date('y-m-d');
-      echo '<br />';
-      echo date('h:i:s');
-    }
-    public function create_action()
+    
+    public function create_action() 
     {
         $this->_rules();
 
@@ -89,18 +99,18 @@ class Aset extends CI_Controller
             $this->create();
         } else {
             $data = array(
-    		'tanggal' => date('y-m-d'),
-    		'jam' => $this->input->post('jam',TRUE),
-    		'turun_krat' => $this->input->post('turun_krat',TRUE),
-    		'turun_btl' => $this->input->post('turun_btl',TRUE),
-    		'naik_krat' => $this->input->post('naik_krat',TRUE),
-    		'naik_btl' => $this->input->post('naik_btl',TRUE),
-    		'aset_krat' => $this->input->post('aset_krat',TRUE),
-    		'aset_btl' => $this->input->post('aset_btl',TRUE),
-    		'bayar' => $this->input->post('bayar',TRUE),
-    		'keterangan' => $this->input->post('keterangan',TRUE),
-    		'username' => $this->session->identity,
-    		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
+		'tanggal' => $this->input->post('tanggal',TRUE),
+		'jam' => $this->input->post('jam',TRUE),
+		'turun_krat' => $this->input->post('turun_krat',TRUE),
+		'turun_btl' => $this->input->post('turun_btl',TRUE),
+		'naik_krat' => $this->input->post('naik_krat',TRUE),
+		'naik_btl' => $this->input->post('naik_btl',TRUE),
+		'aset_krat' => $this->input->post('aset_krat',TRUE),
+		'aset_btl' => $this->input->post('aset_btl',TRUE),
+		'bayar' => $this->input->post('bayar',TRUE),
+		'keterangan' => $this->input->post('keterangan',TRUE),
+		'username' => $this->input->post('username',TRUE),
+		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
 	    );
 
             $this->Aset_model->insert($data);
@@ -108,8 +118,8 @@ class Aset extends CI_Controller
             redirect(site_url('aset'));
         }
     }
-
-    public function update($id)
+    
+    public function update($id) 
     {
         $row = $this->Aset_model->get_by_id($id);
 
@@ -130,20 +140,15 @@ class Aset extends CI_Controller
 		'keterangan' => set_value('keterangan', $row->keterangan),
 		'username' => set_value('username', $row->username),
 		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
-    'aktif'			=>'aset',
-    'title'			=>'Brajamarketindo',
-    'judul'			=>'Dashboard',
-    'sub_judul'	=>'Aset',
-    'content'		=>'form',
 	    );
-            $this->load->view('panel/dashboard', $data);
+            $this->load->view('aset/wp_asis_debt_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('aset'));
         }
     }
-
-    public function update_action()
+    
+    public function update_action() 
     {
         $this->_rules();
 
@@ -170,8 +175,8 @@ class Aset extends CI_Controller
             redirect(site_url('aset'));
         }
     }
-
-    public function delete($id)
+    
+    public function delete($id) 
     {
         $row = $this->Aset_model->get_by_id($id);
 
@@ -185,19 +190,23 @@ class Aset extends CI_Controller
         }
     }
 
-    public function _rules()
+    public function _rules() 
     {
-    	$this->form_validation->set_rules('turun_krat', 'turun krat', 'trim|required');
-    	$this->form_validation->set_rules('turun_btl', 'turun btl', 'trim|required');
-    	$this->form_validation->set_rules('naik_krat', 'naik krat', 'trim|required');
-    	$this->form_validation->set_rules('naik_btl', 'naik btl', 'trim|required');
-    	$this->form_validation->set_rules('aset_krat', 'aset krat', 'trim|required');
-    	$this->form_validation->set_rules('aset_btl', 'aset btl', 'trim|required');
-    	$this->form_validation->set_rules('bayar', 'bayar', 'trim|required');
-    	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
-    	$this->form_validation->set_rules('wp_pelanggan_id', 'wp pelanggan id', 'trim|required');
-    	$this->form_validation->set_rules('id', 'id', 'trim');
-    	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+	$this->form_validation->set_rules('jam', 'jam', 'trim|required');
+	$this->form_validation->set_rules('turun_krat', 'turun krat', 'trim|required');
+	$this->form_validation->set_rules('turun_btl', 'turun btl', 'trim|required');
+	$this->form_validation->set_rules('naik_krat', 'naik krat', 'trim|required');
+	$this->form_validation->set_rules('naik_btl', 'naik btl', 'trim|required');
+	$this->form_validation->set_rules('aset_krat', 'aset krat', 'trim|required');
+	$this->form_validation->set_rules('aset_btl', 'aset btl', 'trim|required');
+	$this->form_validation->set_rules('bayar', 'bayar', 'trim|required');
+	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
+	$this->form_validation->set_rules('username', 'username', 'trim|required');
+	$this->form_validation->set_rules('wp_pelanggan_id', 'wp pelanggan id', 'trim|required');
+
+	$this->form_validation->set_rules('id', 'id', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()

@@ -28,7 +28,7 @@ class Aset_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-
+    
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id', $q);
@@ -86,12 +86,6 @@ class Aset_model extends CI_Model
     {
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
-    }
-
-    // get data Pelanggan
-    function get_pelanggan()
-    {
-      return $this->db->get('wp_pelanggan')->result();
     }
 
 }

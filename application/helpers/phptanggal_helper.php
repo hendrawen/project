@@ -1,5 +1,6 @@
 <?php
-
+  date_default_timezone_set("Asia/Makassar");
+  
     function getSearchTermToBold($text, $words){
         preg_match_all('~[A-Za-z0-9_äöüÄÖÜ]+~', $words, $m);
         if (!$m)
