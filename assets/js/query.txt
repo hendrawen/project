@@ -1,0 +1,3 @@
+select * from wp_transaksi where exists
+(select * from wp_pelanggan where wp_pelanggan.id = wp_transaksi.wp_pelanggan_id)
+and (month(curdate()) - month(wp_transaksi.tgl_transaksi)) >= 2
