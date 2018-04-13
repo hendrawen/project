@@ -61,6 +61,7 @@
                               <th>#</th>
                               <th>Nama Barang</th>
                               <th>Stok</th>
+                              <th>Dari Gudang</th>
                               <th>Tanggal Update</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
@@ -73,6 +74,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_barang ?> - <?php echo $key->nama_barang ?></td>
                             <td><?php echo $key->stok ?></td>
+                            <td><?php echo $key->nama_gudang ?></td>
                             <td><?php echo tgl_indo($key->updated_at) ?></td>
                            <td style="text-align:center">
                               <!-- <a href="<?=base_url()?>barang/stok/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
@@ -96,6 +98,7 @@
                         <th>#</th>
                         <th>Nama Barang</th>
                         <th>Stok</th>
+                        <th>Dari Gudang</th>
                         <th>Tanggal Update</th>
                         <th style="text-align:center">Aksi</th>
                       </tr>

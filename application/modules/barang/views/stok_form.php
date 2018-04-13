@@ -36,13 +36,27 @@
         </div>
         <div class="form-group">
             <label for="int">Stok <?php echo form_error('stok') ?></label>
-            <!-- <input type="text" class="form-control" name="stok" id="stok" placeholder="Stok" value="<?php echo $stok; ?>" /> -->
             <input type="number" class="form-control" name="stok" id="stok" placeholder="Stok Barang" value="<?php echo $stok; ?>" min="0"/>
         </div>
-        <!-- <div class="form-group">
-            <label for="timestamp">Tanggal Update <?php echo form_error('updated_at') ?></label>
-            <input type="text" class="form-control" name="updated_at" id="updated_at" placeholder="Updated At" value="<?php echo $updated_at; ?>" />
-        </div> -->
+        <div class="form-group">
+              <label for="int">Dari Gudang <?php echo form_error('gudang') ?></label>
+              <select name="wp_gudang_id" id="wp_gudang_id" class="form-control" required>
+              <option disabled selected>--Pilih Gudang--</option>
+
+                  <?php
+                    $users = $this->db->query("SELECT * FROM wp_gudang");
+                    foreach($users->result() as $value){
+                    $selected= '';
+                    if($wp_gudang_id == $value->id){
+                      $selected = 'selected="selected"';
+                    }
+                    ?>
+                    <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+                    <?php echo $value->nama_gudang; ?>
+                    </option>
+                    <?php }?>
+                      </select>
+          </div>
         <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>

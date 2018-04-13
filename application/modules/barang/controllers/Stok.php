@@ -56,6 +56,7 @@ class Stok extends CI_Controller
             $data = array(
 		'id' => $row->id,
 		'wp_barang_id' => $row->wp_barang_id,
+    'wp_gudang_id' => $row->wp_gudang_id,
 		'stok' => $row->stok,
 		'updated_at' => $row->updated_at,
 	    );
@@ -78,6 +79,7 @@ class Stok extends CI_Controller
             'action' => site_url('barang/stok/create_action'),
 	    'id' => set_value('id'),
 	    'wp_barang_id' => set_value('wp_barang_id'),
+      'wp_gudang_id' => set_value('wp_gudang_id'),
 	    'stok' => set_value('stok'),
 	    'updated_at' => set_value('updated_at'),
 	);
@@ -99,6 +101,7 @@ class Stok extends CI_Controller
         } else {
             $data = array(
 							'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
+              'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
 							'stok' => $this->input->post('stok',TRUE),
 							//'updated_at' => mdate($datestring, $time),
 	    			);
@@ -119,6 +122,7 @@ class Stok extends CI_Controller
                 'action' => site_url('barang/stok/update_action'),
 		'id' => set_value('id', $row->id),
 		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
+    'wp_gudang_id' => set_value('wp_gudang_id', $row->wp_gudang_id),
 		'stok' => set_value('stok', $row->stok),
 		'updated_at' => set_value('updated_at', $row->updated_at),
 	    );
@@ -144,6 +148,7 @@ class Stok extends CI_Controller
         } else {
             $data = array(
 		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
+    'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
 		'stok' => $this->input->post('stok',TRUE),
 		'updated_at' => mdate($datestring, $time),
 	    );
@@ -172,7 +177,7 @@ class Stok extends CI_Controller
     {
 	$this->form_validation->set_rules('wp_barang_id', 'wp barang id', 'trim|required');
 	$this->form_validation->set_rules('stok', 'stok', 'trim|required');
-	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
+	$this->form_validation->set_rules('wp_gudang_id', 'gudang', 'trim|required');
 
 	//$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
@@ -201,6 +206,7 @@ class Stok extends CI_Controller
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
 	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
+  xlsWriteLabel($tablehead, $kolomhead++, "Wp Gudang Id");
 	xlsWriteLabel($tablehead, $kolomhead++, "Stok");
 	xlsWriteLabel($tablehead, $kolomhead++, "Updated At");
 
@@ -210,6 +216,7 @@ class Stok extends CI_Controller
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_barang_id);
+      xlsWriteNumber($tablebody, $kolombody++, $data->wp_gudang_id);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->stok);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_at);
 
