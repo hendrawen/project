@@ -111,18 +111,17 @@ class Transaksi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'id_transaksi' => $this->transaksi_model->buat_kode(),
-		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
-		'harga' => $this->input->post('harga',TRUE),
-		'qty' => $this->input->post('qty',TRUE),
-		//'satuan' => $this->input->post('satuan',TRUE),
-		'tgl_transaksi' => date('Y-m-d H:i:s'),
-		//'updated_at' => $this->input->post('updated_at',TRUE),
-		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
-		'username' => $this->input->post('username',TRUE),
-		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
-	    );
-
+        		'id_transaksi' => $this->transaksi_model->buat_kode(),
+        		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
+        		'harga' => $this->input->post('harga',TRUE),
+        		'qty' => $this->input->post('qty',TRUE),
+        		//'satuan' => $this->input->post('satuan',TRUE),
+        		'tgl_transaksi' => date('Y-m-d H:i:s'),
+        		//'updated_at' => $this->input->post('updated_at',TRUE),
+        		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
+        		'username' => $this->session->identity,
+        		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
+         );
             $this->transaksi_model->insert($data);
             $this->session->set_flashdata('message', 'Simpan Data Success');
             redirect(site_url('transaksi'));
@@ -137,18 +136,18 @@ class Transaksi extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('transaksi/update_action'),
-		'id' => set_value('id', $row->id),
-		'id_transaksi' => set_value('id_transaksi', $row->id_transaksi),
-		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
-		'harga' => set_value('harga', $row->harga),
-		'qty' => set_value('qty', $row->qty),
-		//'satuan' => set_value('satuan', $row->satuan),
-		'tgl_transaksi' => set_value('tgl_transaksi', $row->tgl_transaksi),
-		'updated_at' => set_value('updated_at', $row->updated_at),
-		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
-		'username' => set_value('username', $row->username),
-		'wp_status_id' => set_value('wp_status_id', $row->wp_status_id),
-	    );
+            		'id' => set_value('id', $row->id),
+            		'id_transaksi' => set_value('id_transaksi', $row->id_transaksi),
+            		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
+            		'harga' => set_value('harga', $row->harga),
+            		'qty' => set_value('qty', $row->qty),
+            		//'satuan' => set_value('satuan', $row->satuan),
+            		'tgl_transaksi' => set_value('tgl_transaksi', $row->tgl_transaksi),
+            		'updated_at' => set_value('updated_at', $row->updated_at),
+            		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
+            		'username' => $this->session->identity,
+            		'wp_status_id' => set_value('wp_status_id', $row->wp_status_id),
+        	    );
             $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';

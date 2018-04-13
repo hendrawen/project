@@ -125,6 +125,7 @@ class Barang extends CI_Controller
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
               //'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
           		'created_at' => date('Y-m-d H:i:s'),
+              'username' => $this->session->identity,
           		//'updated_at' => $this->input->post('updated_at',TRUE),
               //'created_at' => mdate($datestring, $time),
 	           );
@@ -182,6 +183,7 @@ class Barang extends CI_Controller
           		'harga_jual' => $this->input->post('harga_jual',TRUE),
               'satuan' => $this->input->post('satuan',TRUE),
           		'wp_suplier_id' => $this->input->post('wp_suplier_id',TRUE),
+              'username' => $this->session->identity,
               //'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
               'updated_at' => date('Y-m-d H:i:s'),
           		//'created_at' => $this->input->post('created_at',TRUE),
