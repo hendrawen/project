@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Piutang_model extends CI_Model{
 
-  var $table = 'v_piutang';
+  var $table = 'v_detail_utang';
   public $id = 'id';
   var $column_order = array('id_pelanggan','nama_pelanggan','utang','bayar','id_transaksi','tgl_transaksi','jatuh_tempo','sisa','selisih'); //set column field database for datatable orderable
   var $column_search = array('id_pelanggan','nama_pelanggan','id_transaksi'); //set column field database for datatable searchable

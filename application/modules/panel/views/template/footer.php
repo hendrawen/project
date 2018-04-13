@@ -15,6 +15,9 @@
     <!-- Bootstrap -->
     <script src="<?php echo base_url()?>assets/template/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
+
+    <script src="<?php echo base_url()?>assets/template/production/js/jquery-ui.js" type="text/javascript"></script>
+
     <script src="<?php echo base_url()?>assets/template/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="<?php echo base_url()?>assets/template/vendors/nprogress/nprogress.js"></script>
@@ -79,6 +82,22 @@
         });
       });
     </script> -->
+
+    <script type="text/javascript">
+  		$(document).ready(function(){
+
+  		    $('#title').autocomplete({
+                  source: "<?php echo site_url('pembayaran/get_autocomplete');?>",
+                  select: function (event, ui) {
+                      $('[name="title"]').val(ui.item.label);
+                      $('[name="hutang"]').val(ui.item.utang);
+                      $('[name="id_transaksi"]').val(ui.item.transaksi);
+                      $('[name="id"]').val(ui.item.id);
+                  }
+              });
+
+  		});
+  	</script>
 
   </body>
 </html>

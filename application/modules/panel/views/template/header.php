@@ -49,6 +49,8 @@
 
     <link href="<?php echo base_url()?>assets/template/build/css/custom.min.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/production/css/styleprintarea.css" media="print" rel="stylesheet">
+    <link href="<?php echo base_url()?>assets/template/production/css/jquery-ui.css" rel="stylesheet">
+
 
     <script>var base_url = '<?php echo base_url() ?>';</script>
 
