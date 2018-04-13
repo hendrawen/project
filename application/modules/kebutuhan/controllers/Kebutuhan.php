@@ -137,6 +137,7 @@ class Kebutuhan extends CI_Controller{
           		'wp_jkebutuhan_id' => $this->input->post('wp_jkebutuhan_id',TRUE),
           		'jumlah' => $this->input->post('jumlah',TRUE),
           		'tgl' => date('Y-m-d H:i:s'),
+              'username' => $this->session->identity,
 	           );
 
             $this->kebutuhan->save($data);
@@ -178,6 +179,7 @@ class Kebutuhan extends CI_Controller{
             		'wp_jkebutuhan_id' => $this->input->post('wp_jkebutuhan_id',TRUE),
             		'jumlah' => $this->input->post('jumlah',TRUE),
             		'tgl' => $this->input->post('tgl',TRUE),
+                'username' => $this->session->identity,
         	    );
 
             $this->Model_kebutuhan->update($this->input->post('id', TRUE), $data);

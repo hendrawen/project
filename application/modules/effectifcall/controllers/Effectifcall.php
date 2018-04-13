@@ -104,6 +104,7 @@ class Effectifcall extends CI_Controller{
                       'keterangan' => $this->input->post('keterangan', true),
                       'wp_status_effectif_id' => $this->input->post('wp_status_effectif_id', true),
                       'created_at' => date('Y-m-d H:i:s'),
+                      'username' => $this->session->identity,
                     );
           $this->effectif->save($data);
           $this->session->set_flashdata('message', 'tambah data berhasil');
@@ -126,6 +127,7 @@ class Effectifcall extends CI_Controller{
             		'tgl_kirim' => set_value('tgl_kirim', $row->tgl_kirim),
             		'keterangan' => set_value('keterangan', $row->keterangan),
             		'wp_status_effectif_id' => set_value('wp_status_effectif_id', $row->wp_status_effectif_id),
+                'username' => $this->session->identity,
 	          );
             $data['aktif']			='Active Call';
         		$data['title']			='Brajamarketindo';
@@ -155,6 +157,7 @@ class Effectifcall extends CI_Controller{
                 'keterangan' => $this->input->post('keterangan', true),
                 'wp_status_effectif_id' => $this->input->post('wp_status_effectif_id', true),
                 'updated_at' => date('Y-m-d H:i:s'),
+                'username' => $this->session->identity,
               );
             $this->effectif->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');

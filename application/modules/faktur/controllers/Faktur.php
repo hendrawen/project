@@ -86,6 +86,7 @@ class Faktur extends CI_Controller{
           $result[] = array(
             "wp_detail_transaksi_id" 	=> $_POST['wp_detail_transaksi_id'][$key],
             "no_faktur" 				=> $_POST['no_faktur'][$key],
+            'username' => $this->session->identity,
             "tgl_faktur"			=> $tg
           );
           $res = $this->db->insert_batch('wp_faktur', $result); // fungsi dari codeigniter untuk menyimpan multi array
