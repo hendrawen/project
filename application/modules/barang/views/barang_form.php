@@ -80,7 +80,7 @@
         	    <!-- <div class="form-group">
                     <label for="timestamp">Created At <?php echo form_error('created_at') ?></label>
                     <input type="text" class="form-control" name="created_at" id="created_at" placeholder="Created At" value="<?php echo $created_at; ?>" />
-                </div>-->
+                </div>
         	    <div class="form-group">
                     <label for="int">Dari Gudang <?php echo form_error('gudang') ?></label>
                     <select name="wp_gudang_id" id="wp_gudang_id" class="form-control" required>
@@ -99,7 +99,7 @@
                           </option>
                           <?php }?>
                             </select>
-                </div>
+                </div>-->
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
         	    <input type="hidden" name="id" value="<?php echo $id; ?>" />
         	    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>

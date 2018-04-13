@@ -61,11 +61,11 @@ class Faktur_model extends CI_Model{
 
   function get_transaksi()
   {
-      $this->db->select('wp_transaksi.id_transaksi,wp_pelanggan.nama_pelanggan,wp_detail_transaksi.utang');
+      $this->db->select('wp_detail_transaksi.id_transaksi,wp_pelanggan.nama_pelanggan,wp_detail_transaksi.utang');
       $this->db->from('wp_detail_transaksi');
       $this->db->join('wp_transaksi','wp_transaksi.id_transaksi=wp_detail_transaksi.id_transaksi','left');
       $this->db->join('wp_pelanggan','wp_pelanggan.id=wp_transaksi.wp_pelanggan_id','left');
-      $this->db->order_by('id_transaksi','ASC');
+      $this->db->order_by('id_transaksi','DESC');
       $query = $this->db->get();
       if ($query->num_rows() > 0) {
          return $query->result();
@@ -73,11 +73,12 @@ class Faktur_model extends CI_Model{
   }
 
   function get_data_bykode($kode){
-		$this->db->select('wp_detail_transaksi.id, wp_detail_transaksi.utang, wp_detail_transaksi.bayar, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.subtotal, wp_transaksi.tgl_transaksi, wp_barang.nama_barang, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.no_telp, wp_pelanggan.nama_dagang, wp_pelanggan.alamat');
+		$this->db->select('wp_detail_transaksi.id, wp_detail_transaksi.utang, wp_detail_transaksi.bayar, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.subtotal, wp_transaksi.tgl_transaksi, wp_barang.nama_barang, wp_barang.satuan, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.no_telp, wp_pelanggan.nama_dagang, wp_pelanggan.alamat, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, wp_pelanggan.lat, wp_pelanggan.long, v_detail_utang.jatuh_tempo');
     $this->db->from('wp_transaksi');
     $this->db->join('wp_detail_transaksi','wp_detail_transaksi.id_transaksi=wp_transaksi.id_transaksi','left');
     $this->db->join('wp_pelanggan','wp_pelanggan.id=wp_transaksi.wp_pelanggan_id','left');
     $this->db->join('wp_barang','wp_barang.id=wp_transaksi.wp_barang_id','left');
+    $this->db->join('v_detail_utang','v_detail_utang.id_pelanggan=wp_pelanggan.id_pelanggan','left');
     $this->db->where('wp_transaksi.id_transaksi', $kode);
     $hsl = $this->db->get();
     if($hsl->num_rows()>0){
@@ -90,12 +91,17 @@ class Faktur_model extends CI_Model{
           'nama_barang' => $data->nama_barang,
           'harga' => $data->harga,
           'qty' => $data->qty,
-          //'subtotal' => $data->subtotal,
+          'satuan' => $data->satuan,
           'id_pelanggan' => $data->id_pelanggan,
 					'nama_pelanggan' => $data->nama_pelanggan,
           'nama_dagang' => $data->nama_dagang,
           'alamat' => $data->alamat,
 					'no_telp' => $data->no_telp,
+          'kelurahan' => $data->kelurahan,
+          'kecamatan' => $data->kecamatan,
+          'lat' => $data->lat,
+          'long' => $data->long,
+          'jatuh_tempo' => $data->jatuh_tempo,
           'tgl_transaksi' => $data->tgl_transaksi,
 					);
 			}

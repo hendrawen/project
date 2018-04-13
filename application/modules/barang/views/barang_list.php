@@ -34,7 +34,7 @@
                                   		<th>Harga Jual</th>
                                       <th>Satuan</th>
                                   		<th>Nama Suplier</th>
-                                      <th>Gudang</th>
+                                      <!-- <th>Gudang</th> -->
                                   		<th>Tanggal Input</th>
                                   		<th>Tanggal Update</th>
                                       <th style="text-align:center">Aksi</th>
@@ -52,7 +52,7 @@
                                			<td><?php echo $key->harga_jual ?></td>
                                     <td><?php echo $key->satuan ?></td>
                                			<td><?php echo $key->id_suplier ?> - <?php echo $key->nama_suplier ?></td>
-                                    <td><?php echo $key->nama_gudang ?></td>
+                                    <!-- <td><?php echo $key->nama_gudang ?></td> -->
                                			<td><?php echo tgl_indo($key->created_at) ?></td>
                                			<td><?php echo tgl_indo($key->updated_at) ?></td>
                                    <td style="text-align:center">
@@ -81,7 +81,7 @@
                                 <th>Harga Jual</th>
                                 <th>Satuan</th>
                                 <th>Nama Suplier</th>
-                                <th>Gudang</th>
+                                <!-- <th>Gudang</th> -->
                                 <th>Tanggal Input</th>
                                 <th>Tanggal Update</th>
                                 <th style="text-align:center">Aksi</th>

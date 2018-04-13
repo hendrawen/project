@@ -64,6 +64,7 @@ class Faktur extends CI_Controller{
       'name' => $this->input->post('nama_barang'),
       'harga' => $this->input->post('harga'),
       'qty' => $this->input->post('qty'),
+      'satuan' => $this->input->post('satuan'),
 			'price' => $this->input->post('bayar'),
       'utang' => $this->input->post('utang'),
       'selisih' => $hasil,
@@ -78,7 +79,7 @@ class Faktur extends CI_Controller{
    function simpan_faktur()
     {
 
-        $kp = $this->input->post('idfaktur', TRUE);
+        $kp = $this->input->post('idfaktur[]', TRUE);
         $tg = date('Y-m-d H-i-s');
         $result = array();
         foreach($kp AS $key => $val){
@@ -194,6 +195,7 @@ class Faktur extends CI_Controller{
           <td>'.$items['name'].'</td>
           <td>'.number_format($items['harga'],2,",",".").'</td>
           <td>'.$items['qty'].'</td>
+          <td>'.$items['satuan'].'</td>
           <td>'.number_format($items['utang'],2,",",".").'</td>
 					<td>'.number_format($items['price'],2,",",".").'</td>
           <td>'.number_format($items['selisih'],2,",",".").'</td>

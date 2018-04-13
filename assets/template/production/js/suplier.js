@@ -4,6 +4,7 @@ $(document).ready(function(){
     var nama_barang  = $(this).data("nama_barang");
     var harga = $(this).data("harga");
     var qty   = $(this).data("qty");
+    var satuan = $(this).data("satuan");
     var bayar = $(this).data("bayar");
     var utang = $(this).data("utang");
     $.ajax({
@@ -35,19 +36,27 @@ $('#id_transaksi').on('input',function(){
                data : {id_transaksi: id_transaksi},
                cache:false,
                success: function(data){
-                   $.each(data,function(id, nama_barang, harga, utang, bayar, tgl_transaksi, nama_pelanggan, nama_dagang, no_telp, alamat, id_pelanggan ){
+                   $.each(data,function(id, nama_barang, harga, utang, bayar, satuan, tgl_transaksi, nama_pelanggan, nama_dagang, no_telp, alamat, id_pelanggan, kelurahan, kecamatan, lat, long, jatuh_tempo){
                        $('[name="id"]').val(data.id);
                        $('[name="nama_barang"]').val(data.nama_barang);
                        $('[name="harga"]').val(data.harga);
                        $('[name="utang"]').val(data.utang);
                        $('[name="bayar"]').val(data.bayar);
                        $('[name="qty"]').val(data.qty);
-                       //document.getElementById('qty').innerHTML = data.qty;
+                       $('[name="satuan"]').val(data.satuan);
+                       //$('[name="lat"]').val(data.lat);
+                       //$('[name="lang"]').val(data.lang);
+                       document.getElementById('lat').innerHTML = data.lat;
+                       document.getElementById('long').innerHTML = data.long;
                        document.getElementById('nama_pelanggan').innerHTML = data.nama_pelanggan;
                        document.getElementById('alamat').innerHTML = data.alamat;
                        document.getElementById('no_telp').innerHTML = data.no_telp;
                        document.getElementById('nama_dagang').innerHTML = data.nama_dagang;
+                       document.getElementById('kelurahan').innerHTML = data.kelurahan;
+                       document.getElementById('kecamatan').innerHTML = data.kecamatan;
                        document.getElementById('id_pelanggan').innerHTML = data.id_pelanggan;
+                       document.getElementById('tgl_transaksi').innerHTML = data.tgl_transaksi;
+                       document.getElementById('jatuh_tempo').innerHTML = data.jatuh_tempo;
                    });
 
                }

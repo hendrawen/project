@@ -1,20 +1,3 @@
-<?php if ($this->session->flashdata('message')): ?>
-         <small>
-           <script type="text/javascript">
-              swal({
-                   title: "Maaf",
-                   text: "<?php echo $this->session->flashdata('message'); ?>",
-                    timer: 3500,
-                   showConfirmButton: true,
-                   type: 'error' },
-                   function(){
-                     location.reload();
-                   }
-                 );
-           </script>
-         </small>
-    <?php endif; ?>
-
 <div class="row">
   <form action="#" id="form_faktur" method="POST" class="form-horizontal">
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
@@ -37,7 +20,7 @@
   <input type="hidden" name="nama_barang" id="nama_barang" class="form-control">
   <input type="hidden" name="harga" id="harga" class="form-control">
   <input type="hidden" name="qty" id="qty" class="form-control">
-  <!-- <input type="hidden" name="subtotal" id="subtotal" class="form-control"> -->
+  <input type="hidden" name="satuan" id="satuan" class="form-control">
   <input type="hidden" name="bayar" id="bayar" class="form-control">
   <input type="hidden" name="utang" id="utang" class="form-control">
   <div class="col-md-2 col-sm-12 col-xs-12 form-group text-leftt">
@@ -73,11 +56,11 @@
                <?php $i = 1; ?>
                <?php foreach($this->cart->contents() as $items): ?>
                <?php echo form_hidden('rowid[]', $items['rowid']); ?>
-               <input type="hidden" name="idfaktur[]" value="<?php echo rand(1,10000);?>">
-               <input type="hidden" name="no_faktur[]" readonly value="<?php echo $generate_faktur; ?>" style="border:0px;background:none;">
-               <input type="hidden" name="wp_detail_transaksi_id[]" readonly value="<?php echo $items['wp_detail_transaksi_id'];?>" style="border:0px;background:none;">
-               <input type="hidden" name="id" id="id" class="form-control">
-               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
+   <input type="hidden" name="idfaktur[]" value="<?php echo rand(1,10000);?>">
+   <input type="hidden" name="no_faktur[]" readonly value="<?php echo $generate_faktur; ?>" style="border:0px;background:none;">
+   <input type="hidden" name="wp_detail_transaksi_id[]" readonly value="<?php echo $items['wp_detail_transaksi_id'];?>" style="border:0px;background:none;">
+   <input type="hidden" name="id" id="id" class="form-control">
+   <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                <?php $i++; ?>
                <?php endforeach; ?>
               <div class="row">
@@ -102,7 +85,9 @@
                                   <br>Email: <?php echo $value->email ?>
                                   <br>Website: <?php echo $value->website ?>
                         <?php
-                        } ?>
+                      } ?><br>
+                        <br>Tgl Kirim   : <span name="tgl_transaksi" id="tgl_transaksi"></span>
+                        <br>Jatuh Tempo : <span name="jatuh_tempo" id="jatuh_tempo"></span>
                   </address>
                 </div>
                 <!-- /.col -->
@@ -120,8 +105,9 @@
                   <b>No.Faktur    : <?php echo $generate_faktur; ?></b>
                   <br>
                   <b>ID Pelanggan : </b> <span name="id_pelanggan" id="id_pelanggan"></span>
-                  <br>
-                  <!-- <b>Tgl Transaksi : </b> <span name="tgl_transaksi" id="tgl_transaksi"></span> -->
+                  <br>Kelurahan : <span name="kelurahan" id="kelurahan"></span>
+                  <br>Kecamatan : <span name="kecamatan" id="kecamatan"></span>
+                  <br>GPS : <span name="lat" id="lat"></span>&nbsp;<span name="long" id="long"></span>
                   <br>
                 </div>
               </div>
@@ -138,6 +124,7 @@
                           <th>Nama Barang</th>
                           <th>Harga</th>
                           <th>Qty</th>
+                          <th>Satuan</th>
                           <th>Total</th>
                           <th>Bayar</th>
                           <th>Hutang</th>
