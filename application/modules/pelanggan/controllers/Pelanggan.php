@@ -221,6 +221,7 @@ class Pelanggan extends CI_Controller{
                       'status' => $this->input->post('status', true),
                       'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
                       'created_at' => date('Y-m-d H:i:s'),
+                      'username' => $this->session->identity,
                     );
             }else {
                     $data = array(
@@ -326,6 +327,7 @@ class Pelanggan extends CI_Controller{
                       'status' => $this->input->post('status', true),
                       'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
                       'updated_at' => date('Y-m-d H:i:s'),
+                      'username' => $this->session->identity,
                     );
             }else {
                     $data = array(

@@ -107,11 +107,12 @@ class Profile extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'nama_perusahaan' => $this->input->post('nama_perusahaan',TRUE),
-		'alamat' => $this->input->post('alamat',TRUE),
-		'no_telp' => $this->input->post('no_telp',TRUE),
-		'email' => $this->input->post('email',TRUE),
-		'website' => $this->input->post('website',TRUE),
+        		'nama_perusahaan' => $this->input->post('nama_perusahaan',TRUE),
+        		'alamat' => $this->input->post('alamat',TRUE),
+        		'no_telp' => $this->input->post('no_telp',TRUE),
+        		'email' => $this->input->post('email',TRUE),
+        		'website' => $this->input->post('website',TRUE),
+            'username' => $this->session->identity,
 	    );
 
             $this->profile_model->insert($data);
@@ -160,6 +161,7 @@ class Profile extends CI_Controller
 		'no_telp' => $this->input->post('no_telp',TRUE),
 		'email' => $this->input->post('email',TRUE),
 		'website' => $this->input->post('website',TRUE),
+    'username' => $this->session->identity,
 	    );
 
             $this->profile_model->update($this->input->post('id', TRUE), $data);

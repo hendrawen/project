@@ -81,6 +81,7 @@ class Suplier extends CI_Controller
               		'id_suplier' => $this->suplier_model->buat_kode(),
               		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
               		'alamat' => $this->input->post('alamat',TRUE),
+                  'username' => $this->session->identity,
 	             );
 
             $this->suplier_model->insert($data);
@@ -125,6 +126,7 @@ class Suplier extends CI_Controller
           		// 'id_suplier' => $this->input->post('id_suplier',TRUE),
           		'nama_suplier' => $this->input->post('nama_suplier',TRUE),
           		'alamat' => $this->input->post('alamat',TRUE),
+              'username' => $this->session->identity,
         	    );
 
             $this->suplier_model->update($this->input->post('id', TRUE), $data);
