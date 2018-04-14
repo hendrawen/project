@@ -36,7 +36,7 @@ $('#id_transaksi').on('input',function(){
                data : {id_transaksi: id_transaksi},
                cache:false,
                success: function(data){
-                   $.each(data,function(id, nama_barang, harga, utang, bayar, satuan, tgl_transaksi, nama_pelanggan, nama_dagang, no_telp, alamat, id_pelanggan, kelurahan, kecamatan, lat, long, jatuh_tempo){
+                   $.each(data,function(id, nama_barang, harga, utang, bayar, satuan, tgl_transaksi, nama_pelanggan, nama_dagang, no_telp, alamat, id_pelanggan, kelurahan, kecamatan, lat, long, jatuh_tempo, nama){
                        $('[name="id"]').val(data.id);
                        $('[name="nama_barang"]').val(data.nama_barang);
                        $('[name="harga"]').val(data.harga);
@@ -57,6 +57,7 @@ $('#id_transaksi').on('input',function(){
                        document.getElementById('id_pelanggan').innerHTML = data.id_pelanggan;
                        document.getElementById('tgl_transaksi').innerHTML = data.tgl_transaksi;
                        document.getElementById('jatuh_tempo').innerHTML = data.jatuh_tempo;
+                       document.getElementById('nama').innerHTML = data.nama;
                    });
 
                }

@@ -108,6 +108,7 @@
                   <br>Kelurahan : <span name="kelurahan" id="kelurahan"></span>
                   <br>Kecamatan : <span name="kecamatan" id="kecamatan"></span>
                   <br>GPS : <span name="lat" id="lat"></span>&nbsp;<span name="long" id="long"></span>
+                  <br>Surveyor : <span name="nama" id="nama"></span>
                   <br>
                 </div>
               </div>
