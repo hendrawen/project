@@ -62,6 +62,7 @@
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/effectifcall.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.PrintArea.js"></script>
 
