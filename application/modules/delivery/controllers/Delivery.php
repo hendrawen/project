@@ -14,31 +14,9 @@ class Delivery extends CI_Controller
 
     public function index()
     {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'delivery/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'delivery/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'delivery/index.html';
-            $config['first_url'] = base_url() . 'delivery/index.html';
-        }
-
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Aset_model->total_rows($q);
-        $aset = $this->Aset_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
+        $aset = $this->Aset_model->get_all();
         $data = array(
             'aset_data' => $aset,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
             'aktif'			=>'delivery',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',

@@ -35,49 +35,6 @@ class Muat_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
-    // get total rows
-    function total_rows($q = NULL) {
-        $this->db->like('wp_debt_muat.id', $q);
-      	$this->db->or_like('muat_krat', $q);
-      	$this->db->or_like('muat_dust', $q);
-      	$this->db->or_like('terkirim_krat', $q);
-      	$this->db->or_like('terkirim_btl', $q);
-      	$this->db->or_like('kembali_krat', $q);
-      	$this->db->or_like('kembali_btl', $q);
-      	$this->db->or_like('retur_krat', $q);
-      	$this->db->or_like('keterangan', $q);
-      	$this->db->or_like('wp_debt_muat.created_at', $q);
-      	$this->db->or_like('username', $q);
-      	$this->db->or_like('wp_barang_id', $q);
-        $this->db->select('wp_debt_muat.*, wp_barang.id_barang, wp_barang.nama_barang, wp_gudang.nama_gudang');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
-        $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
-      	$this->db->from($this->table);
-        return $this->db->count_all_results();
-    }
-
-    // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('wp_debt_muat.id', $q);
-      	$this->db->or_like('muat_krat', $q);
-      	$this->db->or_like('muat_dust', $q);
-      	$this->db->or_like('terkirim_krat', $q);
-      	$this->db->or_like('terkirim_btl', $q);
-      	$this->db->or_like('kembali_krat', $q);
-      	$this->db->or_like('kembali_btl', $q);
-      	$this->db->or_like('retur_krat', $q);
-      	$this->db->or_like('keterangan', $q);
-      	$this->db->or_like('wp_debt_muat.created_at', $q);
-      	$this->db->or_like('username', $q);
-      	$this->db->or_like('wp_barang_id', $q);
-        $this->db->select('wp_debt_muat.*, wp_barang.id_barang, wp_barang.nama_barang, wp_gudang.nama_gudang');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
-        $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
-      	$this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
-    }
-
     // insert data
     function insert($data)
     {
