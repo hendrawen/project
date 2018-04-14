@@ -70,11 +70,7 @@
                       </li>
                     </ul>
                   </li>
-<<<<<<< HEAD
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur"><i class="fa fa-file-text-o"></i> Faktur </a></li>
-=======
-                  <!-- <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur"><i class="fa fa-table"></i> Faktur </a></li> -->
->>>>>>> 3f934a4539ce5936f26afad998eec650b664c6ea
                 </ul>
               </div>
 
