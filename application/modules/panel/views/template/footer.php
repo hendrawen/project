@@ -70,34 +70,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
-
-
-    <!-- <script>
-      $(document).ready(function(){
-        $("#printButton").click(function(){
-            var mode = 'iframe'; //popup
-            var close = mode == "popup";
-            var options = { mode : mode, popClose : close};
-            $("div.x_content").printArea( options );
-        });
-      });
-    </script> -->
-
-    <script type="text/javascript">
-  		$(document).ready(function(){
-
-  		    $('#title').autocomplete({
-                  source: "<?php echo site_url('pembayaran/get_autocomplete');?>",
-                  select: function (event, ui) {
-                      $('[name="title"]').val(ui.item.label);
-                      $('[name="hutang"]').val(ui.item.utang);
-                      $('[name="id_transaksi"]').val(ui.item.transaksi);
-                      $('[name="id"]').val(ui.item.id);
-                  }
-              });
-
-  		});
-  	</script>
-
+    <script>
+      function formatNumber (num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+      }
+    </script>
   </body>
 </html>
