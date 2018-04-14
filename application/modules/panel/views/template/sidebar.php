@@ -64,7 +64,7 @@
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"> Delivery</a>
                       </li>
-                      <li><a <?php echo ($aktif == 'muat')?'class="active"':"";?> href="<?php echo base_url();?>muat"> Muat</a>
+                      <li><a <?php echo ($aktif == 'muat')?'class="active"':"";?> href="<?php echo base_url();?>delivery/muat"> Muat</a>
                       </li>
                     </ul>
                   </li>
