@@ -56,6 +56,7 @@
           </thead>
           <tbody>
             <?php
+            $start = 0;
             foreach ($aset_data as $aset)
             {
                 ?>
@@ -87,15 +88,5 @@
           </tbody>
       </table>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-    <?php echo anchor(site_url('delivery/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-      </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
-
       </div>
     </div>
