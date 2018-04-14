@@ -59,6 +59,16 @@
                       </li>
                     </ul>
                   </li>
+                  <li><a <?php echo ($aktif == 'Jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-table"></i> Jadwal </a></li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Asset<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"> Delivery</a>
+                      </li>
+                      <li><a <?php echo ($aktif == 'muat')?'class="active"':"";?> href="<?php echo base_url();?>muat"> Muat</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur"><i class="fa fa-table"></i> Faktur </a></li>
                 </ul>
               </div>
 
