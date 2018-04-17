@@ -108,8 +108,8 @@ class Auth extends CI_Controller {
 				//redirect them back to the home page
 				if ($this->ion_auth->in_group('admin')) {
                 redirect('administrator','refresh');
-                 }elseif ($this->ion_auth->in_group('members')) {
-            	redirect('panel','refresh');
+							}elseif ($this->ion_auth->in_group('marketing')) {
+            	redirect('marketing','refresh');
 	            }else{
 					redirect('login','refresh');
 				}
