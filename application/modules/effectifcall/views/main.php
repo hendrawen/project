@@ -55,7 +55,7 @@
         <div class="col-md-3 col-sm-12 col-xs-12 form-group">
           <div class="text-right">
             <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
-            <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> Tampilkan Semua</button>
+            <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> Semua</button>
           </div>
 
         </div>

@@ -28,7 +28,7 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                     <br>
                     <form action="<?php echo $action; ?>" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
                       <div class="class-row">
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <input name="id_pelanggan" type="hidden" value="<?php echo $id_pelanggan; ?>">
                           <div class="form-group">
                             <label>Nama Pelanggan</label>
@@ -59,13 +59,13 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                             <textarea name="alamat" class="form-control" placeholder="masukkan alamat lengkap"><?php echo $alamat; ?></textarea>
                           </div>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                               <label>Latitude</label>
                               <input type="text" name="lat" id="lat" class="form-control" placeholder="masukkan latitude" value="<?php echo $lat; ?>">
                             </div>
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                               <label>Longlatitude</label>
                               <input type="text" name="long" id="long" class="form-control" placeholder="masukkan longlatitude" value="<?php echo $long; ?>">
                             </div>
@@ -135,10 +135,8 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                       </form>
                   </div>
                 </div>
-
-                <script
-                  src="https://maps.googleapis.com/maps/api/js?key=<?php echo API_KEY; ?>&callback=initMap"
-                  async defer></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo API_KEY; ?>&callback=initMap"
+    async defer></script>
                 <script type="text/javascript">
                 var map;
                 function initMap() {

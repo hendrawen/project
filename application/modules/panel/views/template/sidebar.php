@@ -30,7 +30,7 @@
                 <ul class="nav side-menu">
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php echo base_url();?>profile"><i class="fa fa-table"></i> Profile </a></li>
+                  <li><a <?php echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php echo base_url();?>profile"><i class="fa fa-user"></i> Profile </a></li>
                   <li><a <?php echo ($aktif == 'Karyawan')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Karyawan <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>karyawan/jabatan">Jabatan</a></li>
@@ -57,10 +57,12 @@
                       </li>
                       <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>piutang"> Piutang</a>
                       </li>
+                      <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
+                      </li>
                     </ul>
                   </li>
-                  <li><a <?php echo ($aktif == 'Jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-table"></i> Jadwal </a></li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Asset<span class="fa fa-chevron-down"></span></a>
+                  <li><a <?php echo ($aktif == 'Jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar-o"></i> Jadwal </a></li>
+                  <li><a><i class="fa fa-cube"></i> Asset<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"> Delivery</a>
                       </li>
@@ -68,7 +70,7 @@
                       </li>
                     </ul>
                   </li>
-                  <!-- <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur"><i class="fa fa-table"></i> Faktur </a></li> -->
+                  <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur"><i class="fa fa-file-text-o"></i> Faktur </a></li>
                 </ul>
               </div>
 

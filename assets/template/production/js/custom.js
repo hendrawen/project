@@ -21,3 +21,15 @@ $(document).ready(function () {
 $(document).ready(function() {
   $('.js-example-basic-single').select2();
 });
+
+
+$('#title').autocomplete({
+        source: (base_url+"pembayaran/get_autocomplete"),
+        select: function (event, ui) {
+            $('[name="title"]').val(ui.item.label);
+            $('[name="hutang"]').val(formatNumber(ui.item.utang));
+            $('[name="id_transaksi"]').val(ui.item.transaksi);
+            $('[name="id"]').val(ui.item.id);
+            $('[name="sudah"]').val(ui.item.sudah);
+        }
+});
