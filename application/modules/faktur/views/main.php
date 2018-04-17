@@ -59,7 +59,6 @@
    <input type="hidden" name="idfaktur[]" value="<?php echo rand(1,10000);?>">
    <input type="hidden" name="no_faktur[]" readonly value="<?php echo $generate_faktur; ?>" style="border:0px;background:none;">
    <input type="hidden" name="wp_detail_transaksi_id[]" readonly value="<?php echo $items['wp_detail_transaksi_id'];?>" style="border:0px;background:none;">
-   <input type="hidden" name="id" id="id" class="form-control">
    <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                <?php $i++; ?>
                <?php endforeach; ?>
@@ -152,7 +151,7 @@
             <div class="row no-print">
               <div class="col-xs-12">
                 <!--<button type="submit" class="btn btn-primary pull-right" id="printButton" onclick="javascript:void(0);"><i class="fa fa-print"></i> Simpan & Cetak</button> -->
-                <a href="javascript:void(0)" id="printButton" class="save_faktur btn btn-primary pull-right">Save & Print</a>
+                <a href="javascript:void(0)" id="printButton" class="savefaktur btn btn-primary pull-right">Save & Print</a>
               </div>
             </div>
           <!-- </form> -->

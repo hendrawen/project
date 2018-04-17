@@ -94,7 +94,8 @@ class Pesan extends CI_Controller{
   						"subtotal"       	=> $_POST['subtotal'][$key],
               "wp_pelanggan_id" => $wp_pelanggan_id,
   						"tgl_transaksi" 				=> $tg,
-  						"wp_status_id"				=> $wp_status_id
+  						"wp_status_id"				=> $wp_status_id,
+              "username"      => $this->session->identity
   					);
           }
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
@@ -122,7 +123,8 @@ class Pesan extends CI_Controller{
   						"subtotal"       	=> $_POST['subtotal'][$key],
               "wp_pelanggan_id" => $wp_pelanggan_id,
   						"tgl_transaksi" 				=> $tg,
-  						"wp_status_id"				=> $wp_status_id
+  						"wp_status_id"				=> $wp_status_id,
+              "username"    => $this->session->identity
   					);
           }
           $data = array(

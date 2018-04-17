@@ -78,7 +78,8 @@ class Faktur extends CI_Controller{
 
    function simpan_faktur()
     {
-        $kp = $this->input->post('idfaktur', true);
+        $kp = $this->input->post('idfaktur',true);
+        //$jatuh_tempo = $this->input->post('jatuh_tempo',true);
         $tg = date('Y-m-d H-i-s');
         $result = array();
 
@@ -86,8 +87,9 @@ class Faktur extends CI_Controller{
             $result[] = array(
               "wp_detail_transaksi_id" 	=> $_POST['wp_detail_transaksi_id'][$key],
               "no_faktur" 				=> $_POST['no_faktur'][$key],
+              //'jatuh_tempo' 				=> $jatuh_tempo,
               "tgl_faktur"			=> $tg,
-              "username" => $this->session->identity,
+              'username' => $this->session->identity,
             );
             $res = $this->db->insert_batch('wp_faktur', $result); // fungsi dari codeigniter untuk menyimpan multi array
             if($res){
@@ -201,7 +203,7 @@ class Faktur extends CI_Controller{
           <td>'.number_format($items['utang'],2,",",".").'</td>
 					<td>'.number_format($items['price'],2,",",".").'</td>
           <td>'.number_format($items['selisih'],2,",",".").'</td>
-					<td class="action"><a href="#" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></a></td>
+					<td class="action"><a id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></a></td>
 				</tr>
 			';
 		}

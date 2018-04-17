@@ -18,7 +18,7 @@ class Faktur_model extends CI_Model{
 		$result = $this->db->get('wp_profile')->result();
 		return $result;
 	}
-
+  
   // public function get_jenis_pembayaran()
   // {
   //   # code...
@@ -61,7 +61,7 @@ class Faktur_model extends CI_Model{
 
   function get_transaksi()
   {
-      $this->db->select('wp_detail_transaksi.id_transaksi,wp_pelanggan.nama_pelanggan,wp_detail_transaksi.utang');
+      $this->db->select('DISTINCT(wp_detail_transaksi.id_transaksi),wp_pelanggan.nama_pelanggan,wp_detail_transaksi.utang');
       $this->db->from('wp_detail_transaksi');
       $this->db->join('wp_transaksi','wp_transaksi.id_transaksi=wp_detail_transaksi.id_transaksi','left');
       $this->db->join('wp_pelanggan','wp_pelanggan.id=wp_transaksi.wp_pelanggan_id','left');
