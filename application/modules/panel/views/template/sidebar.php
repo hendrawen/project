@@ -70,6 +70,7 @@
                       </li>
                     </ul>
                   </li>
+                  <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur"><i class="fa fa-file-text-o"></i> Faktur </a></li>
                 </ul>
               </div>
