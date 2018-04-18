@@ -243,8 +243,12 @@ class Auth extends CI_Controller {
                 'type'  => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
-
-            $this->_render_page('user/table_user_form', $this->data);
+						$this->data['aktif']		  ='User';
+						$this->data['judul']      ='Dashboard';
+						$this->data['sub_judul']	='User';
+						$this->data['content']    ='user/table_user_form';
+						$this->_render_page('administrator/dashboard', $this->data);
+            //$this->_render_page('user/table_user_form', $this->data);
         }
     }
 
