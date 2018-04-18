@@ -22,6 +22,16 @@ class Barang_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_gudang()
+    {
+      $this->db->select('wp_barang.*, wp_suplier.*');
+      $this->db->join('wp_stok', 'wp_stok.wp_barang_id = wp_barang.id', 'inner');
+      $this->db->join('wp_gudang', 'wp_gudang.id = wp_stok.wp_gudang_id', 'inner');
+      $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id', 'inner');
+      $this->db->where('wp_gudang.username', $this->session->identity);
+      return $this->db->get('wp_barang')->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {
@@ -32,15 +42,15 @@ class Barang_model extends CI_Model
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id', $q);
-	$this->db->or_like('id_barang', $q);
-	$this->db->or_like('nama_barang', $q);
-	$this->db->or_like('harga_beli', $q);
-	$this->db->or_like('harga_jual', $q);
-  $this->db->or_like('satuan', $q);
-	$this->db->or_like('wp_suplier_id', $q);
-	$this->db->or_like('created_at', $q);
-	$this->db->or_like('updated_at', $q);
-	$this->db->from($this->table);
+      	$this->db->or_like('id_barang', $q);
+      	$this->db->or_like('nama_barang', $q);
+      	$this->db->or_like('harga_beli', $q);
+      	$this->db->or_like('harga_jual', $q);
+        $this->db->or_like('satuan', $q);
+      	$this->db->or_like('wp_suplier_id', $q);
+      	$this->db->or_like('created_at', $q);
+      	$this->db->or_like('updated_at', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
