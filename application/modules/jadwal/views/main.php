@@ -47,21 +47,7 @@
                           <input type="hidden" id="end">
                           <div class="form-group">
                             <label for="title">Pelanggan</label>
-                            <select name="wp_pelanggan_id" id="wp_pelanggan_id" class="form-control" required>
-                            <option value="" selected>--Pilih--</option>
-                                <?php
-                                  $users = $this->db->query("SELECT * FROM wp_pelanggan where status='Pelanggan'");
-                                  foreach($users->result() as $value){
-                                  $selected= '';
-                                  if($wp_pelanggan_id == $value->id){
-                                    $selected = 'selected="selected"';
-                                  }
-                                  ?>
-                                  <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
-                                  <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
-                                  </option>
-                                  <?php }?>
-                            </select>
+                            <input type="text" name="wp_pelanggan_id" id="autoidjadwal" class="form-control" placeholder="Masukkan ID Pelanggan" required="">
                           </div>
                           <div class="form-group">
                               <label for="title">Judul</label>
@@ -90,10 +76,6 @@
                             <input type="number" name="qty" id="qty" class="form-control" name="" value="">
                           </div>
                           <div class="form-group">
-                            <label for="tgl_kirim">Tanggal Kirim</label>
-                            <input type="date" class="form-control" name="tgl_kirim" id="tgl_kirim">
-                          </div>
-                          <div class="form-group">
                               <label for="description">Keterangan</label>
                                   <textarea class="form-control" id="description" name="description"></textarea>
                           </div>
@@ -101,6 +83,25 @@
                               <label for="color">Pilih Warna</label>
                                   <input id="color" name="color" type="text" class="form-control" readonly="readonly" />
                                   <span class="help-block">Click to pick a color</span>
+                          </div>
+                          <div class="form-group">
+                            <label for="title">Pilih Driver</label>
+                            <select name="wp_karyawan_id_karyawan" id="wp_karyawan_id_karyawan" class="form-control" required>
+                            <option value="" selected>--Pilih--</option>
+                                <?php
+                                  $users = $this->db->query("SELECT * FROM wp_karyawan join wp_jabatan where wp_karyawan.wp_jabatan_id = wp_jabatan.id AND
+                                  wp_jabatan.id = '3'");
+                                  foreach($users->result() as $value){
+                                  $selected= '';
+                                  if($wp_karyawan_id_karyawan == $value->id){
+                                    $selected = 'selected="selected"';
+                                  }
+                                  ?>
+                                  <option  value="<?php echo $value->id_karyawan; ?>"  <?php echo $selected;?> >
+                                  <?php echo $value->id_karyawan; ?> - <?php echo $value->nama; ?>
+                                  </option>
+                                  <?php }?>
+                            </select>
                           </div>
                         </form>
                         </div>

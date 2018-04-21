@@ -11,7 +11,13 @@
     	    <tr><td>No Telp</td><td>:</td><td><?php echo $no_telp; ?></td></tr>
     	    <tr><td>Status</td><td>:</td><td><?php echo $status; ?></td></tr>
     	    <tr><td>Tangal</td><td>:</td><td><?php echo $created_at; ?></td></tr>
-  	    <tr><td colspan="3" align="center"><a href="<?php echo site_url('marketing') ?>" class="btn btn-danger">Kembali</a></td></tr>
       </table>
+      <div class="form-group text-right">
+        <a href="<?=base_url()?>marketing/update/<?php echo $this->uri->segment(3); ?>" type="button" class="btn btn-primary">
+          <i class="fa fa-edit"> </i> ubah
+        </a>
+        <a href="<?php echo site_url('marketing') ?>" class="btn btn-danger">Kembali</a>
+      </div>
+
     </div>
     </div>

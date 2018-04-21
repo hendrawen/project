@@ -145,9 +145,9 @@ $(function(){
         $('#wp_barang_id').val(data.event ? data.event.wp_barang_id : '');
         $('#title').val(data.event ? data.event.title : '');
         $('#qty').val(data.event ? data.event.qty : '');
-        $('#tgl_kirim').val(data.event ? data.event.tgl_kirim : '');
         $('#description').val(data.event ? data.event.description : '');
         $('#color').val(data.event ? data.event.color : '#3a87ad');
+        $('#wp_karyawan_id_karyawan').val(data.event ? data.event.wp_karyawan_id_karyawan : '');
         // Create Butttons
         $.each(data.buttons, function(index, button){
             $('.modal-footer').prepend('<button type="button" id="' + button.id  + '" class="btn ' + button.css + '">' + button.label + '</button>')
@@ -170,10 +170,10 @@ $(function(){
                 wp_pelanggan_id: $('#wp_pelanggan_id').val(),
                 wp_barang_id: $('#wp_barang_id').val(),
                 qty: $('#qty').val(),
-                tgl_kirim: $('#tgl_kirim').val(),
                 color: $('#color').val(),
                 start: $('#start').val(),
-                end: $('#end').val()
+                end: $('#end').val(),
+                wp_karyawan_id_karyawan: $('#wp_karyawan_id_karyawan').val()
             }, function(result){
                 $('.alert').addClass('alert-success').text('Event added successfuly');
                 $('.modal').modal('hide');
@@ -199,8 +199,8 @@ $(function(){
                 wp_pelanggan_id: $('#wp_pelanggan_id').val(),
                 wp_barang_id: $('#wp_barang_id').val(),
                 qty: $('#qty').val(),
-                tgl_kirim: $('#tgl_kirim').val(),
-                color: $('#color').val()
+                color: $('#color').val(),
+                wp_karyawan_id_karyawan: $('wp_karyawan_id_karyawan').val()
             }, function(result){
                 $('.alert').addClass('alert-success').text('Event updated successfuly');
                 $('.modal').modal('hide');

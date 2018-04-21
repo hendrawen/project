@@ -68,6 +68,7 @@ class Pembayaran extends CI_Controller{
           'transaksi' => $row->id_transaksi,
           'id' => $row->id,
           'sudah' => $row->bayar,
+          'jumlah' => $row->utang,
 				);
 		     	echo json_encode($arr_result);
 		   	}
@@ -86,7 +87,7 @@ class Pembayaran extends CI_Controller{
         );
     $this->pembayaran->update($this->input->post('id', TRUE), $data);
     $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
-    redirect(site_url('pembayaran'));
+    redirect(site_url('dep'));
   }
 
 }

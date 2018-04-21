@@ -6,8 +6,16 @@ class Marketing extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('marketing')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
     //Codeigniter : Write Less Do More
     $this->load->model('Marketing_models', 'marketing');
+    $this->load->model('kebutuhan/Model_kebutuhan','kebutuhan');
   }
   public function index()
   {
@@ -44,7 +52,89 @@ class Marketing extends CI_Controller{
   $data['content']		='content';
   $data['total_pelanggan'] = $this->marketing->total_pelanggan();
   $data['total_responden'] = $this->marketing->total_responden();
+  $data['pelanggan_perbulan'] = $this->marketing->pelanggan_perbulan();
+  $data['responden_perbulan'] = $this->marketing->responden_perbulan();
+  $data['total'] = $this->marketing->total_transaksi();
   $this->load->view('marketing/dashboard',$data);
+  }
+
+  public function kebutuhan()
+  {
+    # code...
+    $data = array(
+        'button' => 'Tambah',
+        'action' => site_url('marketing/create_action'),
+        'id' => set_value('id'),
+        'wp_pelanggan_id' => set_value('wp_pelanggan_id'),
+        'wp_jkebutuhan_id' => set_value('wp_jkebutuhan_id'),
+        'jumlah' => set_value('jumlah'),
+        'tgl' => set_value('tgl'),
+    );
+    $data['aktif']			='Dashboard';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Pelanggan';
+    $data['sub_judul']	='Kebutuhan';
+    $data['content']		='form_kebutuhan';
+    $this->load->view('marketing/dashboard',$data);
+
+  }
+
+  public function create_action()
+  {
+      $this->_rules_kebutuhan();
+
+      if ($this->form_validation->run() == FALSE) {
+          $this->kebutuhan();
+      } else {
+          $data = array(
+            'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
+            'wp_jkebutuhan_id' => $this->input->post('wp_jkebutuhan_id',TRUE),
+            'jumlah' => $this->input->post('jumlah',TRUE),
+            'tgl' => date('Y-m-d H:i:s'),
+            'username' => $this->session->identity,
+           );
+
+          $this->kebutuhan->save($data);
+          $this->session->set_flashdata('message', 'Kebutuhan pelanggan berhasil di tambahkan');
+          redirect(site_url('marketing'));
+      }
+  }
+
+  public function transaksi_pelanggan($id)
+  {
+    # code...
+
+    $id_pelanggan = $this->uri->segment(3);
+    $row = $this->marketing->get_by_idpelanggan($id);
+    if ($row) {
+        $data = array(
+        'id_pelanggan' => $row->id_pelanggan,
+        'nama_pelanggan' => $row->nama_pelanggan,
+        'nama_dagang' => $row->nama_dagang,
+        'no_telp' => $row->no_telp,
+        'photo' => $row->photo,
+        'status' => $row->status,
+        'alamat' => $row->alamat,
+        'photo_toko' => $row->photo_toko,
+        'kota'  => $row->kota,
+        'kelurahan' => $row->kelurahan,
+        'kecamatan' => $row->kecamatan,
+        'status'  => $row->status,
+        'created_at'  => $row->created_at,
+        'updated_at'  => $row->updated_at,
+          );
+        $data['aktif']			='marketing';
+        $data['title']			='Brajamarketindo';
+        $data['judul']			='Detail';
+        $data['sub_judul']	='Pelanggan';
+        $data['content']		='detail_transaksi';
+        $data['total_transaksi'] = $this->marketing->detail_total_transaksi($id_pelanggan);
+        $data['riwayat_transaksi'] =  $this->marketing->transaksi_detail_pelanggan($id_pelanggan);
+        $this->load->view('marketing/dashboard', $data);
+    } else {
+        $this->session->set_flashdata('msg', 'Data Tidak Ada');
+        redirect(site_url('marketing'));
+    }
   }
 
   public function detail($id)
@@ -151,7 +241,7 @@ class Marketing extends CI_Controller{
                     'long' => $this->input->post('long', true),
                     'keterangan' => $this->input->post('keterangan', true),
                     'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    'wp_karyawan_id_karyawan' => $this->session->identity,
                     'created_at' => date('Y-m-d H:i:s'),
                     'username' => $this->session->identity,
                   );
@@ -173,7 +263,7 @@ class Marketing extends CI_Controller{
                     'long' => $this->input->post('long', true),
                     'keterangan' => $this->input->post('keterangan', true),
                     'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    'wp_karyawan_id_karyawan' => $this->session->identity,
                     'created_at' => date('Y-m-d H:i:s'),
                   );
           }
@@ -205,7 +295,7 @@ class Marketing extends CI_Controller{
               'long' => set_value('long', $row->long),
               'keterangan' => set_value('keterangan', $row->keterangan),
               'status' => set_value('status', $row->status),
-              'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
+              'wp_karyawan_id_karyawan' => $this->session->identity,
           );
           $data['aktif']			='Pelanggan';
           $data['title']			='Edit Data Pelanggan';
@@ -238,7 +328,7 @@ class Marketing extends CI_Controller{
         $stat = $this->input->post('status');
         $stat2 = $this->input->post('id_pelanggan');
         if (($stat != "Responden" && $stat2 == "")){
-        $test = $this->pelanggan->get_kode_pelanggan();
+        $test = $this->marketing->get_kode_pelanggan();
         }else{
         $test = '';
         }
@@ -257,7 +347,7 @@ class Marketing extends CI_Controller{
                     'long' => $this->input->post('long', true),
                     'keterangan' => $this->input->post('keterangan', true),
                     'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    'wp_karyawan_id_karyawan' => $this->session->identity,
                     'updated_at' => date('Y-m-d H:i:s'),
                     'username' => $this->session->identity,
                   );
@@ -278,13 +368,13 @@ class Marketing extends CI_Controller{
                     'long' => $this->input->post('long', true),
                     'keterangan' => $this->input->post('keterangan', true),
                     'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
+                    'wp_karyawan_id_karyawan' => $this->session->identity,
                     'updated_at' => date('Y-m-d H:i:s'),
                   );
           }
           $this->marketing->update($this->input->post('id', TRUE), $data);
           $this->session->set_flashdata('message', 'Update Record Success');
-          redirect(site_url('pelanggan'));
+          redirect(site_url('marketing'));
       }
   }
 
@@ -305,10 +395,19 @@ class Marketing extends CI_Controller{
     $this->form_validation->set_rules('kelurahan', 'kelurahan', 'trim|required');
     $this->form_validation->set_rules('kecamatan', 'kecamatan', 'trim|required');
     $this->form_validation->set_rules('status', 'status', 'trim|required');
-    $this->form_validation->set_rules('wp_karyawan_id_karyawan', 'wp karyawan id karyawan', 'trim|required');
 
     $this->form_validation->set_rules('id', 'id', 'trim');
     $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+  }
+
+  public function _rules_kebutuhan()
+  {
+      $this->form_validation->set_rules('wp_pelanggan_id', 'wp pelanggan id', 'trim|required');
+      $this->form_validation->set_rules('wp_jkebutuhan_id', 'wp jkebutuhan id', 'trim|required');
+      $this->form_validation->set_rules('jumlah', 'jumlah', 'trim|required');
+
+      $this->form_validation->set_rules('id', 'id', 'trim');
+      $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
   }
 
 }

@@ -4,7 +4,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url('marketing') ?>" class="site_title"><i class="fa fa-paw"></i> <span>Brajamarketindo</span></a>
+              <a href="<?php echo base_url('dep') ?>" class="site_title"><i class="fa fa-paw"></i> <span>Brajamarketindo</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -28,9 +28,11 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('marketing');?>"><i class="fa fa-home"></i> Dashboard</a>
+                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('dep');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>marketing/tambah"><i class="fa fa-user"></i> Tambah</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/transaksi"><i class="fa fa-shopping-cart"></i> Transaksi</a>
+                  </li>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/list"><i class="fa fa-file-text"></i> List Transaksi</a>
                   </li>
                 </ul>
               </div>

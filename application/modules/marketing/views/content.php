@@ -1,14 +1,64 @@
-                    <a href="<?php echo base_url()?>marketing/tambah"  class="btn btn-app">
-                      <i class="fa fa-user"></i> Tambah
-                    </a>
-                    <a class="btn btn-app">
-                      <span class="badge bg-orange"><?php echo $total_pelanggan; ?></span>
-                      <i class="fa fa-users"></i> Pelanggan
-                    </a>
-                    <a class="btn btn-app">
-                      <span class="badge bg-orange"><?php echo $total_responden ?></span>
-                      <i class="fa fa-users"></i> Responden
-                    </a>
+<?php if ($this->session->flashdata('message')): ?>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-success alert-dismissible fade in" role="alert" id="message"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+                    <div class="row">
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-users"></i>
+                          </div>
+                          <div class="count"><?php echo $total_pelanggan; ?></div>
+
+                          <h3>Total Pelanggan</h3>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-comments-o"></i>
+                          </div>
+                          <div class="count"><?php echo $total_responden ?></div>
+
+                          <h3>Total Responden</h3>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                          </div>
+                          <div class="count"><?php echo $pelanggan_perbulan ?></div>
+
+                          <h3>Pelanggan Baru</h3>
+                        </div>
+                      </div>
+                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-check-square-o"></i>
+                          </div>
+                          <div class="count"><?php echo $responden_perbulan ?></div>
+
+                          <h3>Responden Baru</h3>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row tile_count">
+                      <?php foreach ($total as $value): ?>
+                        <div class="col-md-6 col-sm-12 col-xs-12 tile_stats_count">
+                          <span class="count_top"><i class="fa fa-bar-chart"></i> Total Penjualan (Rp.)</span>
+                          <div class="count green"><?php echo number_format($value->sub_total,0,'.','.') ?></div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12 tile_stats_count">
+                          <span class="count_top"><i class="fa fa-user"></i> Total Transaksi</span>
+                          <div class="count"><?php echo number_format($value->jmlh_transaksi) ?></div>
+                        </div>
+                      <?php endforeach; ?>
+                    </div>
 
                     <div class="row">
                       <div class="title">
@@ -18,8 +68,7 @@
                             <input type="text" class="form-control" name="q" value="<?php echo $q; ?>" placeholder="Cari...">
                             <span class="input-group-btn">
                               <?php
-                                  if ($q <> '')
-                                  {
+                                  if ($q <> '') {
                                       ?>
                                       <a href="<?php echo site_url('marketing'); ?>" class="btn btn-default">Reset</a>
                                       <?php
@@ -38,7 +87,7 @@
                             <div class="col-sm-12">
                               <h4 class="brief"><?php echo $value->status; ?></h4>
                               <div class="left col-xs-7">
-                                <h2><?php echo $value->nama_pelanggan ?></h2>
+                                <h5><?php echo $value->id_pelanggan ?> <?php echo $value->nama_pelanggan ?></h5>
                                 <p><strong>Nama Toko: </strong> <?php echo $value->nama_dagang ?> </p>
                                 <ul class="list-unstyled">
                                   <li><i class="fa fa-building"></i> Alamat: <?php echo $value->alamat ?></li>
@@ -49,13 +98,24 @@
                                 <img src="<?php echo base_url()?>assets/uploads/<?php echo $value->photo ?>" alt="" height="80" width="80" class="img-circle">
                               </div>
                             </div>
-                            <div class="col-xs-12 bottom text-center">
+                            <div class="col-xs-12 bottom text-right">
                               <div class="col-xs-12 col-sm-12 emphasis text-right">
-                                <a href="<?=base_url()?>marketing/update/<?php echo $value->id ?>" type="button" class="btn btn-primary btn-xs">
-                                  <i class="fa fa-edit"> </i> Ubah
+                                <?php if ($value->status == 'Pelanggan'){
+                                  echo '
+                                  <a href="'.base_url('marketing/transaksi_pelanggan/'.$value->id_pelanggan.'').'" type="button" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-file-text"> </i> riwayat transaksi
+                                  </a>
+                                  ';}
+                                  else {
+                                    echo "Status masih responden";
+                                  }
+
+                                ?>
+                                <a href="<?=base_url()?>marketing/kebutuhan" type="button" class="btn btn-primary btn-xs">
+                                  <i class="fa fa-download"> </i> Kebutuhan
                                 </a>
                                 <a href="<?=base_url()?>marketing/detail/<?php echo $value->id ?>" type="button" class="btn btn-primary btn-xs">
-                                  <i class="fa fa-user"> </i> Lihat Profile
+                                  <i class="fa fa-user"> </i> profile
                                 </a>
                               </div>
                             </div>

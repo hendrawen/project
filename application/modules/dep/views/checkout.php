@@ -13,21 +13,7 @@
 <div class="row">
   <form action="#" id="form_checkout" class="form-horizontal">
     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <select name="id_pelanggan" id="id_pelanggan" class="e1 form-control" required>
-      <option value="" selected>--Pilih Pelanggan--</option>
-          <?php
-            $users = $this->db->query("SELECT * FROM wp_pelanggan WHERE status='pelanggan'");
-            foreach ($users->result() as $value) {
-                $selected= '';
-                if ($wp_pelanggan_id == $value->id_pelanggan) {
-                    $selected = 'selected="selected"';
-                } ?>
-            <option  value="<?php echo $value->id_pelanggan; ?>"  <?php echo $selected; ?> >
-            <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
-            </option>
-      <?php
-            } ?>
-      </select>
+      <input type="text" name="id_pelanggan" id="autoidtransaksi" class="form-control" placeholder="Masukkan ID Pelanggan" required="">
     </div>
 </form>
 </div>
@@ -64,7 +50,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content" id="printable">
-              <form method="POST" action="<?php echo site_url('pesan/checkout_action');?>">
+              <form method="POST" action="<?php echo site_url('dep/checkout_action');?>">
               <section class="content invoice">
                 <!-- title row -->
                 <div class="row">
