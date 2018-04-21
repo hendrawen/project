@@ -7,13 +7,13 @@ class Panel extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Main_model');
-		// if (!$this->ion_auth->logged_in()) {//cek login ga?
-    //         redirect('login','refresh');
-    //     }else{
-    //         if (!$this->ion_auth->in_group('members')) {//cek admin ga?
-    //             redirect('login','refresh');
-    //         }
-    //     }
+		if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('members')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
 	}
 
 	public function index()

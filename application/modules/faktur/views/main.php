@@ -1,7 +1,7 @@
 <div class="row">
   <form action="#" id="form_faktur" method="POST" class="form-horizontal">
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
-    <select name="id_transaksi" id="id_transaksi" class="e1 form-control"><?php echo form_error('id_transaksi') ?>
+    <select name="id_transaksi" id="id_transaksi" class="e1 form-control js-example-basic-single"><?php echo form_error('id_transaksi') ?>
     <option disabled selected>--Pilih Id Transaksi--</option>
         <?php
           //$users = $this->db->query("SELECT * FROM wp_detail_transaksi");

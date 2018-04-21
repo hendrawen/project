@@ -860,7 +860,7 @@ class Ion_auth_model extends CI_Model
 			$data = array(
 			    'password'                => $this->hash_password($password, $salt),
 			    'forgotten_password_code' => NULL,
-			    'active'                  => 1,
+			    'active'                  => 'Active',
 			 );
 
 			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
