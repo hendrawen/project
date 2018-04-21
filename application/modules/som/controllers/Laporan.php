@@ -218,10 +218,62 @@ class Laporan extends CI_Controller{
     echo $opt;
   }
 
+  function marketing()
+  {
+      $data = array(
+          'aktif'			=>'som',
+          'title'			=>'Brajamarketindo',
+          'judul'			=>'Dashboard',
+          'sub_judul'	=>'SOM',
+          'content'		=>'transaksi/laporan_marketing',
+      );
+      $this->load->view('som/dashboard', $data);
+  }
+
+  function load_marketing()
+  {
+    $tahun = $this->input->post('tahun');
+    $berdasarkan = $this->input->post('berdasarkan');
+    $nama = $this->input->post('nama');
+    $data = $this->mLap->laporan_marketing($tahun, $nama);
+    $no = 1;
+    $this->template_table();
+    $this->table->clear();
+    $this->table->set_heading('No','ID Transaksi','Nama Barang','Harga','QTY','Subtotal','Nama Pelanggan','Status','Tgl Transaksi');
+    if ($data) {
+      foreach ($data as $row) {
+        $this->table->add_row($no++, $row->id_transaksi, $row->nama_barang, $row->harga, $row->qty, $row->subtotal, $row->nama_pelanggan, $row->nama_status, $row->tgl_transaksi);
+      }
+    } else {
+        $this->table->add_row('','','','','','','','','');
+    }
+    echo $this->table->generate();
+  }
+
+  function isi_marketing($pilih)
+  {
+    $this->load->database();
+    $karyawan = $this->db->get('wp_karyawan')->result();
+    $opt = "";
+    if ($pilih == "marketing") {
+      foreach ($karyawan as $row) {
+        $opt .= '
+        <option value="'.$row->id_karyawan.'">'.$row->nama.'</option>
+        ';
+      }
+    } else {
+        $opt = '
+        <option value="semua">Semua</option>
+        ';
+    }
+    echo $opt;
+  }
+
   function template_table()
   {
     $template = array(
-        'table_open'            => '<table id="datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">',
+        'table_open'            => '<table id="datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid" aria-describedby="datatable_info" >',
+        // 'table_open'            => '<table id="example" class="table table-striped jambo_table table-bordered dt-responsive nowrap">',
         'thead_open'            => '<thead>',
         'thead_close'           => '</thead>',
         'heading_row_start'     => '<tr>',

@@ -73,4 +73,20 @@ class Model_laporan extends CI_Model{
     return $this->db->get('wp_transaksi')->result();
   }
 
+  function laporan_marketing($year, $nama)
+  {
+    $this->db->select('id_transaksi, wp_barang.nama_barang,
+      harga, qty, subtotal, tgl_transaksi,
+      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
+    if ($nama !== 'semua') {
+      $this->db->where('wp_karyawan.id_karyawan', $nama);
+    }
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    return $this->db->get('wp_transaksi')->result();
+  }
+
 }
