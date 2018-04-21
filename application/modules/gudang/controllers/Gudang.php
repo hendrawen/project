@@ -7,7 +7,7 @@ class Gudang extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
-    $this->load->model(array('barang/Barang_model','barang/Stok_model'));
+    $this->load->model(array('barang/Barang_model','barang/Stok_model','faktur/Faktur_model'));
   }
 
   function index()
@@ -289,5 +289,25 @@ class Gudang extends CI_Controller{
   }
   /* ----------------
       end stok
+  ---------------- */
+
+  /* ----------------
+      faktur
+  ---------------- */
+  function faktur()
+  {
+    $data['aktif']			='Faktur';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Cetak Faktur';
+    $data['sub_judul']		='';
+    $data['content']			= 'gudang/faktur/main';
+    $data['query'] =$this->Faktur_model->get_transaksi();
+    $data['data']=$this->Faktur_model->get_all_product();
+    $data['profile']=$this->Faktur_model->get_profile();
+    $data['generate_faktur'] = $this->Faktur_model->generatekode_faktur();
+    $this->load->view('panel/dashboard', $data);
+  }
+  /* ----------------
+      end faktur
   ---------------- */
 }

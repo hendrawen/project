@@ -77,6 +77,9 @@
     <script src="<?php echo base_url()?>assets/template/production/js/effectifcall.js"></script>
     <?php
 	  } ?>
+    <?php if ($this->uri->segment(1) == 'som'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan.js" charset="utf-8"></script>
+    <?php endif; ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>

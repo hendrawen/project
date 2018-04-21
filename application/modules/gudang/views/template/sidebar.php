@@ -31,7 +31,7 @@
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo site_url('gudang');?>"><i class="fa fa-home"></i> Dashboard</a></li>
                   <li><a <?php echo ($aktif == 'barang')?'class="active"':"";?> href="<?php echo site_url();?>gudang/barang"><i class="fa fa-user"></i> Barang</a></li>
                   <li><a <?php echo ($aktif == 'stok')?'class="active"':"";?> href="<?php echo site_url();?>gudang/stok"><i class="fa fa-tty"></i> Stok </a></li>
-                  <!-- <li><a <?php echo ($aktif == 'aset')?'class="active"':"";?> href="<?php echo site_url();?>gudang/aset"><i class="fa fa-file-text-o"></i> Aset</a></li> -->
+                  <li><a <?php echo ($aktif == 'faktur')?'class="active"':"";?> href="<?php echo site_url();?>gudang/faktur"><i class="fa fa-file-text-o"></i> Faktur</a></li>
                 </ul>
               </div>
             </div>

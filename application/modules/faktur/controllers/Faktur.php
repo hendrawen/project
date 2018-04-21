@@ -99,7 +99,6 @@ class Faktur extends CI_Controller{
               $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
             }
           }
-
     }
       function checkout_action() {
   			$this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
