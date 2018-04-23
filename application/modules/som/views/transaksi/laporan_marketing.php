@@ -54,6 +54,7 @@
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <button type="button" class="btn btn-primary" id="btn-marketing"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
+        <button type="button" id="excel_marketing" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive" id="tabel">

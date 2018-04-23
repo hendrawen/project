@@ -21,11 +21,17 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tanggal <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
-          <input type="date" class="form-control" id="tgl" placeholder="">
+          <input type="date" class="form-control" id="tgl" placeholder="" value="<?php echo date('m/d/Y')?>">
         </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right">
+        <button type="button" id="excel_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
@@ -34,13 +40,13 @@
             <tr>
                 <th>No</th>
                 <th>ID Transaksi</th>
+                <th>Tgl Transaksi</th>
+                <th>Nama Pelanggan</th>
                 <th>Nama Barang</th>
                 <th>Harga</th>
                 <th>QTY</th>
                 <th>Subtotal</th>
-                <th>Nama Pelanggan</th>
                 <th>Status</th>
-                <th>Tgl Transaksi</th>
             </tr>
           </thead>
           <tbody id="tbody">

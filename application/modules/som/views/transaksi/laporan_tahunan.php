@@ -26,25 +26,28 @@
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="tahunan">
             <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-              echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+              echo '<option value="'.$tahun.'">'.$tahun.'</option>';
             } ?>
           </select>
         </div>
+      </div>
+      <div class="col-md-4">
+        <button type="button" id="excel_tahunan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
       <table id="datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
           <thead>
             <tr>
-                <th>No</th>
-                <th>ID Transaksi</th>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>QTY</th>
-                <th>Subtotal</th>
-                <th>Nama Pelanggan</th>
-                <th>Status</th>
-                <th>Tgl Transaksi</th>
+              <th>No</th>
+              <th>ID Transaksi</th>
+              <th>Tgl Transaksi</th>
+              <th>Nama Pelanggan</th>
+              <th>Nama Barang</th>
+              <th>Harga</th>
+              <th>QTY</th>
+              <th>Subtotal</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody id="tbody">

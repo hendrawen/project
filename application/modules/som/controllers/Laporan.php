@@ -33,20 +33,26 @@ class Laporan extends CI_Controller{
     $data = $this->mLap->laporan_harian($day);
     $pesan = "";
     $no = 1;
+    $total = 0;
     if ($data) {
       foreach ($data as $row) {
         $pesan .= '<tr>
           <td>'.$no++.'</td>
           <td>'.$row->id_transaksi.'</td>
-          <td>'.$row->nama_barang.'</td>
-          <td>'.$row->harga.'</td>
-          <td>'.$row->qty.'</td>
-          <td>'.$row->subtotal.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
-          <td>'.$row->nama_status.'</td>
           <td>'.$row->tgl_transaksi.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.number_format($row->harga).'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.number_format($row->subtotal).'</td>
+          <td>'.$row->nama_status.'</td>
         </tr>';
+        $total += $row->subtotal;
       }
+      $pesan .= '<tr>
+      <td colspan=7 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
     } else {
       $pesan .= '<tr>
         <td colspan=9></td>
@@ -77,20 +83,26 @@ class Laporan extends CI_Controller{
     $data = $this->mLap->laporan_bulanan($from, $to, $tahun);
     $pesan = "";
     $no = 1;
+    $total = 0;
     if ($data) {
       foreach ($data as $row) {
         $pesan .= '<tr>
           <td>'.$no++.'</td>
           <td>'.$row->id_transaksi.'</td>
-          <td>'.$row->nama_barang.'</td>
-          <td>'.$row->harga.'</td>
-          <td>'.$row->qty.'</td>
-          <td>'.$row->subtotal.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
-          <td>'.$row->nama_status.'</td>
           <td>'.$row->tgl_transaksi.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.number_format($row->harga).'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.number_format($row->subtotal).'</td>
+          <td>'.$row->nama_status.'</td>
         </tr>';
+        $total += $row->subtotal;
       }
+      $pesan .= '<tr>
+      <td colspan=7 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
     } else {
       $pesan .= '<tr>
         <td colspan=9></td>
@@ -116,21 +128,27 @@ class Laporan extends CI_Controller{
     $tahun = $this->input->post('tahun');
     $data = $this->mLap->laporan_tahunan($tahun);
     $pesan = "";
+    $total = 0;
     $no = 1;
     if ($data) {
       foreach ($data as $row) {
         $pesan .= '<tr>
           <td>'.$no++.'</td>
           <td>'.$row->id_transaksi.'</td>
-          <td>'.$row->nama_barang.'</td>
-          <td>'.$row->harga.'</td>
-          <td>'.$row->qty.'</td>
-          <td>'.$row->subtotal.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
-          <td>'.$row->nama_status.'</td>
           <td>'.$row->tgl_transaksi.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.number_format($row->harga).'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.number_format($row->subtotal).'</td>
+          <td>'.$row->nama_status.'</td>
         </tr>';
+        $total += $row->subtotal;
       }
+      $pesan .= '<tr>
+      <td colspan=7 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
     } else {
       $pesan .= '<tr>
         <td colspan=9></td>
@@ -161,13 +179,26 @@ class Laporan extends CI_Controller{
     $no = 1;
     $this->template_table();
     $this->table->clear();
-    $this->table->set_heading('No','ID Transaksi','Nama Barang','Harga','QTY','Subtotal','Nama Pelanggan','Status','Tgl Transaksi');
+    $total = 0;
+    $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row($no++, $row->id_transaksi, $row->nama_barang, $row->harga, $row->qty, $row->subtotal, $row->nama_pelanggan, $row->nama_status, $row->tgl_transaksi);
+        $this->table->add_row(
+          $no++,
+          $row->id_transaksi,
+          $row->tgl_transaksi,
+          $row->nama_pelanggan,
+          $row->nama_barang,
+          number_format($row->harga),
+          $row->qty,
+          number_format($row->subtotal),
+          $row->nama_status
+        );
+        $total += $row->subtotal;
       }
+      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
     } else {
-        $this->table->add_row('','','','','','','','','');
+        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
     }
     echo $this->table->generate();
   }
@@ -193,13 +224,26 @@ class Laporan extends CI_Controller{
     $no = 1;
     $this->template_table();
     $this->table->clear();
-    $this->table->set_heading('No','ID Transaksi','Nama Barang','Harga','QTY','Subtotal','Nama Pelanggan','Status','Tgl Transaksi');
+    $total = 0;
+    $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row($no++, $row->id_transaksi, $row->nama_barang, $row->harga, $row->qty, $row->subtotal, $row->nama_pelanggan, $row->nama_status, $row->tgl_transaksi);
+        $this->table->add_row(
+          $no++,
+          $row->id_transaksi,
+          $row->tgl_transaksi,
+          $row->nama_pelanggan,
+          $row->nama_barang,
+          number_format($row->harga),
+          $row->qty,
+          number_format($row->subtotal),
+          $row->nama_status
+        );
+        $total += $row->subtotal;
       }
+      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
     } else {
-        $this->table->add_row('','','','','','','','','');
+        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
     }
     echo $this->table->generate();
   }
@@ -239,13 +283,26 @@ class Laporan extends CI_Controller{
     $no = 1;
     $this->template_table();
     $this->table->clear();
-    $this->table->set_heading('No','ID Transaksi','Nama Barang','Harga','QTY','Subtotal','Nama Pelanggan','Status','Tgl Transaksi');
+    $total = 0;
+    $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row($no++, $row->id_transaksi, $row->nama_barang, $row->harga, $row->qty, $row->subtotal, $row->nama_pelanggan, $row->nama_status, $row->tgl_transaksi);
+        $this->table->add_row(
+          $no++,
+          $row->id_transaksi,
+          $row->tgl_transaksi,
+          $row->nama_pelanggan,
+          $row->nama_barang,
+          number_format($row->harga),
+          $row->qty,
+          number_format($row->subtotal),
+          $row->nama_status
+        );
+        $total += $row->subtotal;
       }
+      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
     } else {
-        $this->table->add_row('','','','','','','','','');
+        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
     }
     echo $this->table->generate();
   }
@@ -272,7 +329,7 @@ class Laporan extends CI_Controller{
   function template_table()
   {
     $template = array(
-        'table_open'            => '<table id="datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid" aria-describedby="datatable_info" >',
+        'table_open'            => '<table border=1px id="datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid" aria-describedby="datatable_info" >',
         // 'table_open'            => '<table id="example" class="table table-striped jambo_table table-bordered dt-responsive nowrap">',
         'thead_open'            => '<thead>',
         'thead_close'           => '</thead>',
@@ -294,4 +351,14 @@ class Laporan extends CI_Controller{
     );
     $this->table->set_template($template);
   }
+
+  function tes_table()
+  {
+    $this->template_table();
+    $this->table->clear();
+    $this->table->set_heading('No','NIM','Nama','Alamat');
+    $this->table->add_row(array('data' => 'Colspan', 'colspan' => 3));
+    echo $this->table->generate();
+  }
+
 }

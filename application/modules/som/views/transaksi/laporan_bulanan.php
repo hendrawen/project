@@ -54,21 +54,22 @@
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
         <button type="button" class="btn btn-primary" id="btn-search_bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
+        <button type="button" id="excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
       <table id="transaksilist datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
           <thead>
             <tr>
-                <th>No</th>
-                <th>ID Transaksi</th>
-                <th>Nama Barang</th>
-                <th>Harga</th>
-                <th>QTY</th>
-                <th>Subtotal</th>
-                <th>Nama Pelanggan</th>
-                <th>Status</th>
-                <th>Tgl Transaksi</th>
+              <th>No</th>
+              <th>ID Transaksi</th>
+              <th>Tgl Transaksi</th>
+              <th>Nama Pelanggan</th>
+              <th>Nama Barang</th>
+              <th>Harga</th>
+              <th>QTY</th>
+              <th>Subtotal</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody id="tbody">

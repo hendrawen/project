@@ -82,9 +82,6 @@ $(document).ready(function() {
     tahun = $("#tahun-area").val();
     area = $("#pilih-area").val();
     berdasarkan = $("#berdasarkan-area").val();
-    console.log(tahun);
-    console.log(area);
-    console.log(berdasarkan);
     $("#loading").show();
     $.ajax({
       url: base_url+'som/laporan/load_area/',
@@ -96,5 +93,74 @@ $(document).ready(function() {
         $("#tabel").html(data);
       }
     });
+  });
+  //berdasarkan marketing
+  $("#berdasarkan-marketing").change(function() {
+    berdasarkan = $("#berdasarkan-marketing").val();
+    $("#loading-combo").show();
+    $.ajax({
+      url: base_url+'som/laporan/isi_marketing/'+berdasarkan,
+      type: 'POST',
+      dataType: 'html',
+      success : function (data) {
+        $("#loading-combo").hide();
+        $("#nama-marketing").html(data);
+        $("#nama-marketing").focus();
+      }
+    });
+  });
+
+  $("#btn-marketing").click(function() {
+    tahun = $("#tahun-marketing").val();
+    berdasarkan = $("#berdasarkan-marketing").val();
+    nama = $("#nama-marketing").val();
+    $("#loading").show();
+    $.ajax({
+      url: base_url+'som/laporan/load_marketing/',
+      type: 'POST',
+      dataType: 'html',
+      data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tabel").html(data);
+      }
+    });
+  });
+
+  // download excel
+  $("#excel_harian").click(function() {
+    tgl = $("#tgl").val();
+    window.location = base_url + 'som/excel/harian/'+tgl;
+  });
+  // bulan
+  $("#excel_bulanan").click(function() {
+    b1 = $("#bulan_dari").val();
+    b2 = $("#bulan_ke").val();
+    t = $("#tahun").val();
+    window.location = base_url + 'som/excel/bulanan/'+b1+'/'+b2+'/'+t;
+  });
+  // tahun
+  $("#excel_tahunan").click(function() {
+    t = $("#tahunan").val();
+    window.location = base_url + 'som/excel/tahunan/'+t;
+  });
+  // produk
+  $("#excel_produk").click(function() {
+    t = $("#tahun").val();
+    i = $("#id_barang").val();
+    window.location = base_url + 'som/excel/produk/'+t+'/'+i;
+  });
+  // area
+  $("#excel_area").click(function() {
+    t = $("#tahun-area").val();
+    p = $("#pilih-area").val();
+    b = $("#berdasarkan-area").val();
+    window.location = base_url + 'som/excel/area/'+t+'/'+p+'/'+b;
+  });
+  // marketing
+  $("#excel_marketing").click(function() {
+    t = $("#tahun-marketing").val();
+    n = $("#nama-marketing").val();
+    window.location = base_url + 'som/excel/marketing/'+t+'/'+n;
   });
 });
