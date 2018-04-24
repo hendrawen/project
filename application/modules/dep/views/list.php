@@ -39,7 +39,7 @@
                         <tbody>
                           <?php foreach ($list as $key): ?>
                             <tr>
-                              <td><?php echo $key->id_transaksi ?></td>
+                              <td><a class="btn btn-success btn-xs" href="<?php echo base_url('dep/invoice/'.$key->id_transaksi)  ?>"><?php echo $key->id_transaksi ?></a></td>
                               <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                               <td><?php echo $key->id_pelanggan ?></td>
                               <td><?php echo $key->nama_barang ?></td>
