@@ -3,6 +3,11 @@ $(document).ready(function() {
   $("#tgl").change(function() {
     tgl = $("#tgl").val();
     $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/load_harian/',
       type: 'POST',
@@ -20,6 +25,11 @@ $(document).ready(function() {
     bulan_ke = $("#bulan_ke").val();
     tahun = $("#tahun").val();
     $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/load_bulanan/',
       type: 'POST',
@@ -35,6 +45,11 @@ $(document).ready(function() {
   $("#tahunan").change(function() {
     tahun = $("#tahunan").val();
     $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/load_tahunan/',
       type: 'POST',
@@ -51,6 +66,11 @@ $(document).ready(function() {
     tahun = $("#tahun").val();
     id_barang = $("#id_barang").val();
     $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/load_produk/',
       type: 'POST',
@@ -66,6 +86,11 @@ $(document).ready(function() {
   $("#berdasarkan-area").change(function() {
     berdasarkan = $("#berdasarkan-area").val();
     $("#loading-combo").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/isi_area/'+berdasarkan,
       type: 'POST',
@@ -83,6 +108,11 @@ $(document).ready(function() {
     area = $("#pilih-area").val();
     berdasarkan = $("#berdasarkan-area").val();
     $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/load_area/',
       type: 'POST',
@@ -98,6 +128,11 @@ $(document).ready(function() {
   $("#berdasarkan-marketing").change(function() {
     berdasarkan = $("#berdasarkan-marketing").val();
     $("#loading-combo").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/isi_marketing/'+berdasarkan,
       type: 'POST',
@@ -115,6 +150,11 @@ $(document).ready(function() {
     berdasarkan = $("#berdasarkan-marketing").val();
     nama = $("#nama-marketing").val();
     $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
     $.ajax({
       url: base_url+'som/laporan/load_marketing/',
       type: 'POST',
