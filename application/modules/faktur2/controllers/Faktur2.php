@@ -29,6 +29,31 @@ class Faktur2 extends CI_Controller{
 		echo json_encode($data);
 	}
 
+  function get_autocomplete(){
+		if (isset($_GET['term'])) {
+		  	$result = $this->faktur2->cari_transaksi($_GET['term']);
+		   	if (count($result) > 0) {
+		    foreach ($result as $row)
+		     	$arr_result[] = array(
+					'label' => $row->id_transaksi,
+          'tgl_transaksi' => $row->tgl_transaksi,
+          'id_pelanggan' => $row->id_pelanggan,
+					'nama_pelanggan' => $row->nama_pelanggan,
+          'nama_dagang' => $row->nama_dagang,
+          'alamat' => $row->alamat,
+          'no_telp' => $row->no_telp,
+           'nama'  => $row->nama,
+          'kelurahan'  => $row->kelurahan,
+          'kecamatan'  => $row->kecamatan,
+          'lat'  => $row->lat,
+          'long'  => $row->long,
+          'jatuh_tempo' => $row->jatuh_tempo
+				);
+		     	echo json_encode($arr_result);
+		   	}
+		}
+	}
+
   public function cari_faktur(){
     $cari = $this->input->post('judul',TRUE);
      // if ($cari == '') {
