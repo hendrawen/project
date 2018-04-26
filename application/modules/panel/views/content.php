@@ -1,5 +1,6 @@
 
             <div class="row top_tiles">
+              <a href="<?php echo base_url('karyawan');?>">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
@@ -8,7 +9,8 @@
                   <h3>Karyawan</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
-              </div>
+              </div></a>
+              <a href="<?php echo base_url('suplier');?>">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-comments-o"></i></div>
@@ -17,7 +19,8 @@
                   <h3>Suplier</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
-              </div>
+              </div></a>
+              <a href="<?php echo base_url('barang');?>">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
@@ -26,7 +29,8 @@
                   <h3>Barang</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
-              </div>
+              </div></a>
+              <a href="<?php echo base_url('barang/stok');?>">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-check-square-o"></i></div>
@@ -35,7 +39,7 @@
                   <h3>Stok Barang</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
-              </div>
+              </div></a>
             </div>
 
             <div class="row">
