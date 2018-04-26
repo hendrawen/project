@@ -167,10 +167,13 @@ $(document).ready(function() {
     });
   });
 
-  $("#btn-tahun-pelanggan").click(function() {
+  $("#btn-lap-pelanggan").click(function() {
     from = $("#bulan-pelanggan-from").val();
     to = $("#bulan-pelanggan-to").val();
     tahun = $("#tahun-pelanggan").val();
+    console.log(from);
+    console.log(to);
+    console.log(tahun);
     $("#loading").show();
     $.ajaxSetup({
       data : {
@@ -184,10 +187,9 @@ $(document).ready(function() {
       data: {from: from, to : to, tahun : tahun},
       success : function (data) {
         $("#loading").hide();
-        $("#tabel").html(data);
+        $("#tbody").html(data);
       }
     });
-
   });
 
   // download excel
@@ -225,5 +227,12 @@ $(document).ready(function() {
     t = $("#tahun-marketing").val();
     n = $("#nama-marketing").val();
     window.location = base_url + 'som/excel/marketing/'+t+'/'+n;
+  });
+  //Pelanggan
+  $("#excel_pelanggan").click(function() {
+    b1 = $("#bulan-pelanggan-from").val();
+    b2 = $("#bulan-pelanggan-to").val();
+    t  = $("#tahun-pelanggan").val();
+    window.location = base_url + 'som/excel/pelanggan/'+b1+'/'+b2+'/'+t;
   });
 });

@@ -376,6 +376,104 @@ class Excel extends CI_Controller{
   }
 
 
+  //laporan Pelanggan
+
+  function pelanggan($from, $to, $year)
+  {
+      $this->load->helper('exportexcel');
+      $namaFile = "transaksi_pelanggan.xls";
+      $judul = "Transaksi";
+      $tablehead = 3;
+      $tablebody = 5;
+      $nourut = 1;
+      //penulisan header
+      header("Pragma: public");
+      header("Expires: 0");
+      header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+      header("Content-Type: application/force-download");
+      header("Content-Type: application/octet-stream");
+      header("Content-Type: application/download");
+      header("Content-Disposition: attachment;filename=" . $namaFile . "");
+      header("Content-Transfer-Encoding: binary ");
+
+      xlsBOF();
+      xlsWriteLabel(0, 0, "Laporan");
+      xlsWriteLabel(1, 0, "Periode");
+      xlsWriteLabel(0, 1, "Pelanggan");
+      xlsWriteLabel(1, 1, $this->get_month($from).' - '.$this->get_month($to).' '.$year);
+      $kolomhead = 0;
+      xlsWriteLabel($tablehead, $kolomhead++, "No");
+      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Customer");
+      xlsWriteLabel($tablehead, $kolomhead++, "Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Piutang");
+      xlsWriteLabel($tablehead, 8, "Januari");
+      xlsWriteLabel($tablehead, 10, "Februari");
+      xlsWriteLabel($tablehead, 12, "Maret");
+      xlsWriteLabel($tablehead, 14, "April");
+      xlsWriteLabel($tablehead, 16, "Mei");
+      xlsWriteLabel($tablehead, 18, "Juni");
+      xlsWriteLabel($tablehead, 20, "Juli");
+      xlsWriteLabel($tablehead, 22, "Agustus");
+      xlsWriteLabel($tablehead, 24, "September");
+      xlsWriteLabel($tablehead, 26, "Oktober");
+      xlsWriteLabel($tablehead, 28, "November");
+      xlsWriteLabel($tablehead, 30, "Desember");
+      xlsWriteLabel(($tablehead+1), 8, "TRX");
+      xlsWriteLabel(($tablehead+1), 9, "QTY");
+      xlsWriteLabel(($tablehead+1), 10, "TRX");
+      xlsWriteLabel(($tablehead+1), 11, "QTY");
+      xlsWriteLabel(($tablehead+1), 12, "TRX");
+      xlsWriteLabel(($tablehead+1), 13, "QTY");
+      xlsWriteLabel(($tablehead+1), 14, "TRX");
+      xlsWriteLabel(($tablehead+1), 15, "QTY");
+      xlsWriteLabel(($tablehead+1), 16, "TRX");
+      xlsWriteLabel(($tablehead+1), 17, "QTY");
+      xlsWriteLabel(($tablehead+1), 18, "TRX");
+      xlsWriteLabel(($tablehead+1), 19, "QTY");
+      xlsWriteLabel(($tablehead+1), 20, "TRX");
+      xlsWriteLabel(($tablehead+1), 21, "QTY");
+      xlsWriteLabel(($tablehead+1), 22, "TRX");
+      xlsWriteLabel(($tablehead+1), 23, "QTY");
+      xlsWriteLabel(($tablehead+1), 24, "TRX");
+      xlsWriteLabel(($tablehead+1), 25, "QTY");
+      xlsWriteLabel(($tablehead+1), 26, "TRX");
+      xlsWriteLabel(($tablehead+1), 27, "QTY");
+      xlsWriteLabel(($tablehead+1), 28, "TRX");
+      xlsWriteLabel(($tablehead+1), 29, "QTY");
+      xlsWriteLabel(($tablehead+1), 30, "TRX");
+      xlsWriteLabel(($tablehead+1), 31, "QTY");
+
+      $record = $this->mLap->laporan_pelanggan($from, $to, $year);
+      foreach ($record as $row) {
+          $utang = $this->mLap->laporan_pelanggan_utang($row->id_pelanggan, $from, $to, $year);
+          $kolombody = 0;
+          xlsWriteNumber($tablebody, $kolombody++, $nourut);
+          xlsWriteLabel($tablebody, $kolombody++, $row->id_pelanggan);
+          xlsWriteLabel($tablebody, $kolombody++, $row->nama_pelanggan);
+          xlsWriteLabel($tablebody, $kolombody++, $row->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $row->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $row->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $row->nama);
+          xlsWriteNumber($tablebody, $kolombody++, $utang);
+          for ($month=1; $month <=12 ; $month++) {
+            $jumlah_trx = $this->mLap->laporan_pelanggan_trx($row->id_pelanggan, $month, $year);
+            $jumlah_qty = $this->mLap->laporan_pelanggan_qty($row->id_pelanggan, $month, $year);
+            xlsWriteNumber($tablebody, $kolombody++, $jumlah_trx);
+            xlsWriteNumber($tablebody, $kolombody++, $jumlah_qty);
+          }
+          $tablebody++;
+          $nourut++;
+      }
+
+
+      xlsEOF();
+      exit();
+  }
+
   /* --------
     other function
   ----------*/

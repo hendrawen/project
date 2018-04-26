@@ -9,7 +9,7 @@
         <ul class="dropdown-menu" role="menu">
           <li><a href="#">Settings 1</a>
           </li>
-          <li><a href="#">Settings 2</a>
+          <li><a href="#">Settings 2 <?php echo $from.$to ?></a>
           </li>
         </ul>
       </li>
@@ -21,18 +21,42 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Bulan dari</span>
+          <select class="form-control" id="bulan-pelanggan-from">
+            <?php $i = 1; foreach ($month as $key): ?>
+              <option value="<?php echo $i++;?>"><?php echo $key?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Bulan ke</span>
+          <select class="form-control" id="bulan-pelanggan-to">
+            <?php $i = 1;  foreach ($month as $key): ?>
+              <option <?php echo ($to == $key)?'selected':'' ?> value="<?php echo $i++;?>"><?php echo $key ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="tahun-pelanggan">
             <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-              echo '<option value="'.$tahun.'">'.$tahun.'</option>';
+              if ($tahun == $year) {
+                echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+              } else {
+                echo '<option  value="'.$tahun.'">'.$tahun.'</option>';
+              }
             } ?>
           </select>
         </div>
       </div>
-      <div class="col-md-4">
-        <button type="button" id="btn-tahun-pelanggan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <button type="button" id="btn-lap-pelanggan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_pelanggan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
@@ -72,27 +96,35 @@
             </tr>
           </thead>
           <tbody id="tbody">
-            <?php $no = 1; foreach ($record as $row): ?>
-              <tr>
-                <td><?php echo $no++ ?></td>
-                <td><?php echo $row->id_pelanggan++ ?></td>
-                <td><?php echo $row->nama_pelanggan++ ?></td>
-                <td><?php echo $row->no_telp++ ?></td>
-                <td><?php echo $row->kelurahan++ ?></td>
-                <td><?php echo $row->kecamatan++ ?></td>
-                <td><?php echo $row->nama++ ?></td>
-                <td><?php echo $row->piutang++ ?></td>
-                <?php for ($month = 1 ; $month <= 12 ; $month++):
-                    $jumlah_trx = $this->mLap->laporan_pelanggan_trx($row->id_pelanggan, $month, 2018);
-                    $jumlah_qty = $this->mLap->laporan_pelanggan_qty($row->id_pelanggan, $month, 2018);
-                  ?>
-                  <td><?php echo $jumlah_trx ?></td>
-                  <td><?php echo $jumlah_qty ?></td>
-                <?php endfor ?>
-              </tr>
-            <?php endforeach; ?>
+
           </tbody>
       </table>
     </div>
   </div>
 </div>
+
+
+<!--
+<?php $no = 1; foreach ($record as $row): ?>
+  <tr>
+    <td><?php echo $no++ ?></td>
+    <td><?php echo $row->id_pelanggan ?></td>
+    <td><?php echo $row->nama_pelanggan ?></td>
+    <td><?php echo $row->no_telp ?></td>
+    <td><?php echo $row->kelurahan ?></td>
+    <td><?php echo $row->kecamatan ?></td>
+    <td><?php echo $row->nama ?></td>
+    <?php
+      $utang = $this->mLap->laporan_pelanggan_utang($row->id_pelanggan, 1, 4, 2018);
+    ?>
+    <td><?php echo ($utang)?$utang->piutang:'-' ?></td>
+    <?php for ($month = 1 ; $month <= 12 ; $month++):
+        $jumlah_trx = $this->mLap->laporan_pelanggan_trx($row->id_pelanggan, $month, 2018);
+        $jumlah_qty = $this->mLap->laporan_pelanggan_qty($row->id_pelanggan, $month, 2018);
+      ?>
+       <td><?php echo ($jumlah_trx)?$jumlah_trx:'-' ?></td>
+       <td><?php echo ($jumlah_qty)?$jumlah_qty:'-' ?></td>
+    <?php endfor ?>
+  </tr>
+<?php endforeach; ?>
+-->

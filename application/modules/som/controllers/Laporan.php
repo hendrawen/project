@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Laporan extends CI_Controller{
+  private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
 
   public function __construct()
   {
@@ -63,14 +64,14 @@ class Laporan extends CI_Controller{
 
   function bulanan()
   {
-      $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_bulanan',
-          'month'     => $month,
+          'month'     => $this->month,
       );
       $this->load->view('som/dashboard', $data);
   }
@@ -332,14 +333,24 @@ class Laporan extends CI_Controller{
 
   function pelanggan()
   {
+    $to = date('n');
+    $from = $to - 1 ;
+    $year = date('Y');
+
+    // $record = $this->mLap->laporan_pelanggan($from, $to, $year);
     $data = array(
         'aktif'			=>'som',
         'title'			=>'Brajamarketindo',
         'judul'			=>'Dashboard',
         'sub_judul'	=>'SOM',
         'content'		=>'transaksi/laporan_pelanggan',
-        'record'    => $this->mLap->laporan_pelanggan(1, 12, 2018),
+        'month'     => $this->month,
+        // 'record'    => $record,
+        'from'  => set_value('from', $from),
+        'to'  => set_value('to', $to),
+        'year'  => set_value('year', $year)
     );
+
     $this->load->view('som/dashboard', $data);
   }
 
@@ -348,32 +359,39 @@ class Laporan extends CI_Controller{
     $from = $this->input->post('from');
     $to = $this->input->post('to');
     $tahun = $this->input->post('tahun');
-    $data = $this->mLap->laporan_pelanggan($to, $from, $tahun);
+    $data = $this->mLap->laporan_pelanggan($from, $to, $tahun);
     $no = 1;
-    $this->template_table();
-    $this->table->clear();
     $total = 0;
-    $this->table->set_heading('ID Customer','Nama Customer','Telpon','Kelurahan','Kecamatan','Surveyor','Piutang','Status');
+    $pesan = "";
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row(
-          $no++,
-          $row->id_transaksi,
-          $row->tgl_transaksi,
-          $row->nama_pelanggan,
-          $row->nama_barang,
-          number_format($row->harga),
-          $row->qty,
-          number_format($row->subtotal),
-          $row->nama_status
-        );
-        $total += $row->subtotal;
+        $utang = $this->mLap->laporan_pelanggan_utang($row->id_pelanggan, $from, $to, $tahun);
+
+        $pesan .= '
+        <tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_pelanggan.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.number_format($utang).'</td>';
+          for ($month=1; $month <=12 ; $month++) {
+            $jumlah_trx = $this->mLap->laporan_pelanggan_trx($row->id_pelanggan, $month, $tahun);
+            $jumlah_qty = $this->mLap->laporan_pelanggan_qty($row->id_pelanggan, $month, $tahun);
+            $pesan  .= '<td>'.$jumlah_trx.'</td>
+            <td>'.$jumlah_qty.'</td>';
+          }
+        '</tr>';
       }
-      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+
     } else {
-        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+      $pesan = '<td colspan=15>
+      null
+      </td>';
     }
-    echo $this->table->generate();
+    echo $pesan;
   }
 
   function template_table()
@@ -402,21 +420,11 @@ class Laporan extends CI_Controller{
     $this->table->set_template($template);
   }
 
-  function tes_table()
+  function tes()
   {
-    $this->template_table();
-    $this->table->clear();
-    $this->table->set_heading('No','NIM','Nama','Alamat');
-    $this->table->add_row(array('data' => 'Colspan', 'colspan' => 3));
-    echo $this->table->generate();
+    $tes = $this->mLap->laporan_pelanggan_utang('CBM0001', 1, 4, 2018);
+
+    print_r($tes);
   }
 
-
-  function coba2()
-  {
-    echo 'QTY '.$this->mLap->laporan_pelanggan_qty('CBM7865', 4, 2018);
-    echo 'TRX '. $this->mLap->laporan_pelanggan_trx('CBM7865', 4, 2018);
-
-
-  }
 }
