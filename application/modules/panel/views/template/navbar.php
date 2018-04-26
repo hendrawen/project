@@ -35,7 +35,7 @@
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>John Smith</span>
+                          <span>John Smit</span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
