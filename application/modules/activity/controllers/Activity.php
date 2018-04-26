@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Activity extends CI_Controller{
+class Activity2 extends CI_Controller{
 
   public function __construct()
   {
@@ -11,7 +11,12 @@ class Activity extends CI_Controller{
 
   function index()
   {
-
+      $this->test();
+  }
+  public function test()
+  {
+    # code...
+    echo "string";
   }
 
 }

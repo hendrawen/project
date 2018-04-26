@@ -62,7 +62,7 @@ class Marketing extends CI_Controller{
   {
     # code...
     $data = array(
-        'button' => 'Tambah',
+        'button' => 'Simpan',
         'action' => site_url('marketing/create_action'),
         'id' => set_value('id'),
         'wp_pelanggan_id' => set_value('wp_pelanggan_id'),

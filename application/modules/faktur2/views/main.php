@@ -21,13 +21,13 @@
                     <div class="clearfix"></div>
                   </div>
 
-                  <label class="col-sm-3 control-label">Input Id Transaksi</label>
 
-                  <div class="col-sm-9">
-                    <div class="input-group">
+
+                  <div class="col-sm-12">
+
                       <!-- <input type="search" name="keyword" id="keyword" oninput="ambildata()" class="form-control"> -->
                       <!-- <input type="text" name="cetak" id="search" class="form-control input-sm" style="text-align: center; "> -->
-                      <select name="id_transaksi" id="id_transaksi" class="e1 form-control js-example-basic-single">
+                      <!-- <select name="id_transaksi" id="id_transaksi" class="e1 form-control js-example-basic-single">
                       <option disabled selected>--Pilih Id Transaksi--</option>
                           <?php
                               foreach ($query as $value) {
@@ -37,17 +37,23 @@
                             <?php echo $value->id_transaksi; ?> - <?php echo $value->nama_pelanggan; ?>
                             </option>
                       <?php } ?>
-                    </select> &nbsp;
-                      <button type="button" id="button" class="btn btn-primary">Add</button>
-                    </div>
-                  </div>
+                    </select> &nbsp; -->
+
+                      <div class="col-md-8 col-sm-12 col-xs-12 form-group">
+                        <div class="input-group">
+                           <input type="text" id="id_transaksi" name="id_transaksi" class="form-control" placeholder="Input Id Transaksi" required>
+                           <span class="input-group-btn">
+                               <button type="button" id="button" class="btn btn-primary">Add</button>
+                           </span>
+                         </div>
+
+                      </div>
 
                 <div class="divider-dashed"></div>
-                
                   <div class="x_content">
 
-                    <form class="form-horizontal" action="#">
-                    </form>
+                  <form class="form-horizontal" action="#" method="post">
+                      <br>
                     <div class="row">
                       <div class="col-xs-12 invoice-header">
                         <h1>
@@ -71,8 +77,8 @@
                                         <br>Website: <?php echo $value->website ?>
                               <?php
                             } ?><br>
-                              <br>Tgl Kirim   : <span name="tgl_transaksi" id="tgl_transaksi"></span>
-                              <br>Jatuh Tempo : <span name="jatuh_tempo" id="jatuh_tempo"></span>
+                              <br>Tgl Kirim   : <span name="tgl_transaksi" id="tgl_transaksi">Tgl Transaksi</span>
+                              <br>Jatuh Tempo : <span name="jatuh_tempo" id="jatuh_tempo">Jatuh Tempo</span>
                         </address>
                       </div>
                       <!-- /.col -->
@@ -97,6 +103,8 @@
                         <br>
                       </div>
                     </div>
+            </form>
+
               <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari" style="display: none;">
                     <thead>
                       <th>Nama Barang</th>
@@ -108,22 +116,24 @@
                     <tbody id="result">
                     </tbody>
                     </table>
-                  </div>
 
-                  <br><br>
-                  <div class="row no-print">
-                    <div class="col-xs-12">
-                        <strong><span style="margin-left:40px;">Diterima,</span></strong><br><br><br><br>
-                        <strong><span style="margin-left:27px;" name="nama_pelanggan" id="nama_pelanggan">Nama Pelanggan</span></strong><br>
-                        <span>(Tanda Tangan & Stempel)</span>
+                    <br><br>
+                    <div class="row no-print">
+                      <div class="col-xs-12">
+                          <strong><span style="margin-left:40px;">Diterima,</span></strong><br><br><br><br>
+                          <strong><span name="nama_pelanggan" id="nama_pelanggan"></span></strong><br>
+                          <span>(Tanda Tangan & Stempel)</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row no-print">
-                    <div class="col-xs-12">
-                      <!--<button type="submit" class="btn btn-primary pull-right" id="printButton" onclick="javascript:void(0);"><i class="fa fa-print"></i> Simpan & Cetak</button> -->
-                      <a href="javascript:void(0)" id="printButton" class="btn btn-primary pull-right">Save & Print</a>
+                  </div>
+                    <div class="row no-print">
+                      <div class="col-xs-12">
+                        <!--<button type="submit" class="btn btn-primary pull-right" id="printButton" onclick="javascript:void(0);"><i class="fa fa-print"></i> Simpan & Cetak</button> -->
+                        <a href="javascript:void(0)" id="printButton" class="btn btn-primary pull-right">Save & Print</a>
+                      </div>
                     </div>
+
                   </div>
             </div>
       </div>

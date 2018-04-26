@@ -10,7 +10,7 @@
     	    <tr><td>Alamat Lengkap</td><td>:</td><td><?php echo $alamat; ?></td></tr>
     	    <tr><td>No Telp</td><td>:</td><td><?php echo $no_telp; ?></td></tr>
     	    <tr><td>Status</td><td>:</td><td><?php echo $status; ?></td></tr>
-    	    <tr><td>Tangal</td><td>:</td><td><?php echo $created_at; ?></td></tr>
+    	    <tr><td>Tangal</td><td>:</td><td><?php echo tgl_indo($created_at); ?></td></tr>
       </table>
       <div class="form-group text-right">
         <a href="<?=base_url()?>marketing/update/<?php echo $this->uri->segment(3); ?>" type="button" class="btn btn-primary">

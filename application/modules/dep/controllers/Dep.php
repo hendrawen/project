@@ -24,7 +24,33 @@ class Dep extends CI_Controller{
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Dep';
+    $data['content']		='main';
+    $data['total_transaksi'] = $this->dep->total_transaksi();
+    $data['transaksi_perbulan'] = $this->dep->transaksi_perbulan();
+    $data['total_penjualan'] = $this->dep->total_penjualan();
+    $data['penjualan_bulanan'] = $this->dep->penjualan_bulanan();
+    $data['total_jadwal'] = $this->dep->gettotaljadwal();
+    $this->load->view('dep/dashboard',$data);
+  }
+
+  function piutang()
+  {
+    $data['aktif']			='Dashboard';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Dashboard';
+    $data['sub_judul']	='Piutang';
     $data['content']		='content';
+    $data['jadwal'] = $this->dep->getbydriver();
+    $this->load->view('dep/dashboard',$data);
+  }
+  public function jadwal()
+  {
+    # code...
+    $data['aktif']			='Dashboard';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Dashboard';
+    $data['sub_judul']	='Jadwal';
+    $data['content']		='jadwal';
     $data['jadwal'] = $this->dep->getbydriver();
     $this->load->view('dep/dashboard',$data);
   }
@@ -207,6 +233,24 @@ class Dep extends CI_Controller{
         }
 
   			}
+  }
+
+  public function invoice()
+  {
+    # code...
+    $id = $this->uri->segment(3);
+    $data['aktif']			='transaksi';
+    $data['title']			='Transaksi';
+    $data['judul']			='Transaksi';
+    $data['sub_judul']		='Invoice';
+    $data['content']			= 'invoice';
+    $data['profile']=$this->pesan->get_profile();
+    $data['jenis_pembayaran']=$this->pesan->get_jenis_pembayaran();
+    $data['cetak_invoice'] = $this->dep->cetakinvoice($id);
+    $data['idinvoice'] = $this->dep->idinvoice($id);
+    $data['total_invoice'] = $this->dep->total_invoice($id);
+    $data['status'] = $this->dep->status($id);
+    $this->load->view('dep/dashboard', $data);
   }
 
   public function cek()

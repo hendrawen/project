@@ -8,6 +8,11 @@
   </div>
 </div>
 <?php endif; ?>
+                  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                      </button>
+                      <strong>Selamat Datang !</strong> <?php echo $this->session->identity; ?>.
+                    </div>
                     <div class="row">
                       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                         <div class="tile-stats">
@@ -111,7 +116,7 @@
                                   }
 
                                 ?>
-                                <a href="<?=base_url()?>marketing/kebutuhan" type="button" class="btn btn-primary btn-xs">
+                                <a href="<?=base_url()?>marketing/kebutuhan/<?php echo $value->id ?>" type="button" class="btn btn-primary btn-xs">
                                   <i class="fa fa-download"> </i> Kebutuhan
                                 </a>
                                 <a href="<?=base_url()?>marketing/detail/<?php echo $value->id ?>" type="button" class="btn btn-primary btn-xs">
