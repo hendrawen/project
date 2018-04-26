@@ -7,7 +7,7 @@
                   <?php $jml = $this->db->query("select * from wp_karyawan")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Karyawan</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <p></p>
                 </div>
               </div></a>
               <a href="<?php echo base_url('suplier');?>">
@@ -17,7 +17,7 @@
                   <?php $jml = $this->db->query("select * from wp_suplier")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Suplier</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <p></p>
                 </div>
               </div></a>
               <a href="<?php echo base_url('barang');?>">
@@ -27,7 +27,7 @@
                   <?php $jml = $this->db->query("select * from wp_barang")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Barang</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <p></p>
                 </div>
               </div></a>
               <a href="<?php echo base_url('barang/stok');?>">
@@ -37,7 +37,7 @@
                   <?php $jml = $this->db->query("select * from wp_stok")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Stok Barang</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
+                  <p></p>
                 </div>
               </div></a>
             </div>

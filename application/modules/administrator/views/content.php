@@ -1,41 +1,65 @@
 
             <div class="row top_tiles">
+              <a href="<?php echo base_url();?>users">
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-user"></i></div>
+                  <?php $jml = $this->db->query("select * from users")->num_rows();?>
+                  <div class="count"><?php echo $jml; ?></div>
+                  <h3>Users</h3>
+                  <p></p>
+                </div>
+              </div></a>
+              <a href="<?php echo base_url();?>users/groups">
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-user"></i></div>
+                  <?php $jml = $this->db->query("select * from groups")->num_rows();?>
+                  <div class="count"><?php echo $jml; ?></div>
+                  <h3>User Group</h3>
+                  <p></p>
+                </div>
+              </div></a>
+              <a href="<?php echo base_url();?>karyawan">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
                   <?php $jml = $this->db->query("select * from wp_karyawan")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Karyawan</h3>
-                  <p>Lorem ipsum psdea itgum rixt</p>
+                  <p></p>
                 </div>
-              </div>
+              </div></a>
+              <a href="<?php echo base_url();?>suplier">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-comments-o"></i></div>
                   <?php $jml = $this->db->query("select * from wp_suplier")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Suplier</h3>
-                  <p>Lorem ipsum psdea itgum rixt</p>
+                  <p></p>
                 </div>
-              </div>
+              </div></a>
+              <a href="<?php echo base_url();?>barang">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
                   <?php $jml = $this->db->query("select * from wp_barang")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Barang</h3>
-                  <p>Lorem ipsum psdea itgum rixt</p>
+                  <p></p>
                 </div>
-              </div>
+              </div></a>
+              <a href="<?php echo base_url();?>barang/stok">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-check-square-o"></i></div>
                   <?php $jml = $this->db->query("select * from wp_stok")->num_rows();?>
                   <div class="count"><?php echo $jml; ?></div>
                   <h3>Stok Barang</h3>
-                  <p>Lorem ipsum psdea itgum rixt</p>
+                  <p></p>
                 </div>
-              </div>
+              </div></a>
             </div>
 
             <div class="row">
