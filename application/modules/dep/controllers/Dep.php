@@ -14,6 +14,7 @@ class Dep extends CI_Controller{
             }
         }
     //Codeigniter : Write Less Do More
+    $this->load->model('pembayaran/Pembayaran_model', 'pembayaran');
     $this->load->model('Dep_model', 'dep');
     $this->load->model('pesan/Pesan_model', 'pesan');
   }
@@ -31,6 +32,21 @@ class Dep extends CI_Controller{
     $data['penjualan_bulanan'] = $this->dep->penjualan_bulanan();
     $data['total_jadwal'] = $this->dep->gettotaljadwal();
     $this->load->view('dep/dashboard',$data);
+  }
+
+  public function update_action()
+  {
+    $test = str_replace(".","", $this->input->post('bayar'));
+    $test2 = $this->input->post('sudah');
+    $hasil = $test+$test2;
+    $data = array(
+        // 'id_suplier' => $this->input->post('id_suplier',TRUE),
+        'bayar' => $hasil,
+        'created_at' => date('Y-m-d'),
+        );
+    $this->pembayaran->update($this->input->post('id', TRUE), $data);
+    $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
+    redirect(site_url('dep'));
   }
 
   function piutang()
@@ -65,6 +81,24 @@ class Dep extends CI_Controller{
     $data['list'] = $this->dep->gettransaksiharian();
     $this->load->view('dep/dashboard',$data);
   }
+
+  function get_auto(){
+		if (isset($_GET['term'])) {
+		  	$result = $this->pembayaran->cari_pelanggan($_GET['term']);
+		   	if (count($result) > 0) {
+		    foreach ($result as $row)
+		     	$arr_result[] = array(
+					'label'			=> $row->id_pelanggan,
+					'utang'	=> $row->sisa,
+          'transaksi' => $row->id_transaksi,
+          'id' => $row->id,
+          'sudah' => $row->bayar,
+          'jumlah' => $row->utang,
+				);
+		     	echo json_encode($arr_result);
+		   	}
+		}
+	}
 
   function get_autocomplete(){
 		if (isset($_GET['term'])) {

@@ -84,7 +84,7 @@ class Pembayaran_model extends CI_Model{
 		$this->db->order_by('id_pelanggan', 'ASC');
     $this->db->where('utang <=', 'bayar');
 		$this->db->limit(10);
-		return $this->db->get('v_detail_utang')->result();
+		return $this->db->get('v_detail')->result();
 	}
 
   function update($id, $data)

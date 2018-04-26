@@ -1,7 +1,18 @@
+<?php if ($this->session->flashdata('message')): ?>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-success alert-dismissible fade in" role="alert" id="message"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+
 <div class="alert alert-success alert-dismissible fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
-    <strong>Selamat Datang !</strong> <?php echo $this->session->identity; ?>.
+    <strong>Selamat Datang !</strong> <?php echo $this->session->first_name; ?>.
   </div>
 
   <div class="x_panel">
@@ -41,16 +52,18 @@
                       <span class="badge bg-red"><?php echo $total_jadwal ?></span>
                       <i class="fa fa-calendar-o"></i> Jadwal
                     </a>
+                    <a href="<?php echo base_url('dep/jadwal') ?>" class="btn btn-app">
+                      <span class="badge bg-red"><?php echo $total_transaksi; ?></span>
+                      <i class="fa fa-bar-chart"></i> Total Trans.
+                    </a>
+                    <a href="<?php echo base_url('dep/jadwal') ?>" class="btn btn-app">
+                      <span class="badge bg-red"><?php echo $transaksi_perbulan; ?></span>
+                      <i class="fa fa-tags"></i> Trans. Bulanan
+                    </a>
                   </div>
                 </div>
                 <div class="row">
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                          <div class="count"><?php echo $total_transaksi; ?></div>
-                          <h3>Jumlah Transaksi</h3>
-                        </div>
-                      </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                      <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="count">
                             <?php foreach ($total_penjualan as $value): ?>
@@ -59,13 +72,7 @@
                           <h3>Total Penjualan</h3>
                         </div>
                       </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                          <div class="count"><?php echo $transaksi_perbulan; ?></div>
-                          <h3>Transaksi Bulanan</h3>
-                        </div>
-                      </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                      <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="count">
                           <?php foreach ($penjualan_bulanan as $value): ?>

@@ -31,10 +31,10 @@
         <div class="x_content">
 
           <!-- start form for validation -->
-          <form action="<?php echo base_url(). 'pembayaran/update_action'; ?>" method="post">
+          <form action="<?php echo base_url(). 'dep/update_action'; ?>" method="post">
             <div class="col-md-3 col-sm-12 col-xs-12 form-group">
               <label for="fullname">ID Pelanggan * :</label>
-              <input type="text" id="title" class="form-control" placeholder="Masukkan ID Pelanggan" name="id_pelanggan" required="">
+              <input type="text" id="title2" class="form-control" placeholder="Masukkan ID Pelanggan" name="id_pelanggan" required="">
             </div>
             <div class="col-md-3 col-sm-12 col-xs-12 form-group">
               <label for="fullname">ID Transaksi :</label>
@@ -120,5 +120,3 @@
        return (((sign)?'':'-') + num);
     }
   </script>
-
-                

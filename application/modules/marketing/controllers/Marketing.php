@@ -23,11 +23,11 @@ class Marketing extends CI_Controller{
   $start = intval($this->input->get('start'));
 
   if ($q <> '') {
-      $config['base_url'] = base_url() . 'marketing/index.html?q=' . urlencode($q);
-      $config['first_url'] = base_url() . 'marketing/index.html?q=' . urlencode($q);
+      $config['base_url'] = base_url() . 'marketing/index?q=' . urlencode($q);
+      $config['first_url'] = base_url() . 'marketing/index?q=' . urlencode($q);
   } else {
-      $config['base_url'] = base_url() . 'marketing/index.html';
-      $config['first_url'] = base_url() . 'marketing/index.html';
+      $config['base_url'] = base_url() . 'marketing/index';
+      $config['first_url'] = base_url() . 'marketing/index';
   }
 
   $config['per_page'] = 6;
