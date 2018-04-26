@@ -167,6 +167,29 @@ $(document).ready(function() {
     });
   });
 
+  $("#btn-tahun-pelanggan").click(function() {
+    from = $("#bulan-pelanggan-from").val();
+    to = $("#bulan-pelanggan-to").val();
+    tahun = $("#tahun-pelanggan").val();
+    $("#loading").show();
+    $.ajaxSetup({
+      data : {
+        csrf_test_name: $.cookie('csrf_cookie_name')
+      }
+    });
+    $.ajax({
+      url: base_url+'som/laporan/load_pelanggan/',
+      type: 'POST',
+      dataType: 'html',
+      data: {from: from, to : to, tahun : tahun},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tabel").html(data);
+      }
+    });
+
+  });
+
   // download excel
   $("#excel_harian").click(function() {
     tgl = $("#tgl").val();

@@ -1,0 +1,12 @@
+SELECT DISTINCT wp_pelanggan.id_pelanggan, nama_pelanggan, (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) as piutang
+FROM
+wp_detail_transaksi
+INNER JOIN
+wp_pelanggan
+INNER JOIN
+wp_transaksi
+ON
+wp_pelanggan.id = wp_transaksi.wp_pelanggan_id AND
+wp_transaksi.id_transaksi = wp_detail_transaksi.id_transaksi AND
+wp_pelanggan.id_pelanggan = 'CBM2765'
+AND (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) >0

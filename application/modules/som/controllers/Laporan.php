@@ -326,6 +326,56 @@ class Laporan extends CI_Controller{
     echo $opt;
   }
 
+  /*
+    pelanggan
+  */
+
+  function pelanggan()
+  {
+    $data = array(
+        'aktif'			=>'som',
+        'title'			=>'Brajamarketindo',
+        'judul'			=>'Dashboard',
+        'sub_judul'	=>'SOM',
+        'content'		=>'transaksi/laporan_pelanggan',
+        'record'    => $this->mLap->laporan_pelanggan(1, 12, 2018),
+    );
+    $this->load->view('som/dashboard', $data);
+  }
+
+  function load_pelanggan()
+  {
+    $from = $this->input->post('from');
+    $to = $this->input->post('to');
+    $tahun = $this->input->post('tahun');
+    $data = $this->mLap->laporan_pelanggan($to, $from, $tahun);
+    $no = 1;
+    $this->template_table();
+    $this->table->clear();
+    $total = 0;
+    $this->table->set_heading('ID Customer','Nama Customer','Telpon','Kelurahan','Kecamatan','Surveyor','Piutang','Status');
+    if ($data) {
+      foreach ($data as $row) {
+        $this->table->add_row(
+          $no++,
+          $row->id_transaksi,
+          $row->tgl_transaksi,
+          $row->nama_pelanggan,
+          $row->nama_barang,
+          number_format($row->harga),
+          $row->qty,
+          number_format($row->subtotal),
+          $row->nama_status
+        );
+        $total += $row->subtotal;
+      }
+      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+    } else {
+        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+    }
+    echo $this->table->generate();
+  }
+
   function template_table()
   {
     $template = array(
@@ -361,4 +411,12 @@ class Laporan extends CI_Controller{
     echo $this->table->generate();
   }
 
+
+  function coba2()
+  {
+    echo 'QTY '.$this->mLap->laporan_pelanggan_qty('CBM7865', 4, 2018);
+    echo 'TRX '. $this->mLap->laporan_pelanggan_trx('CBM7865', 4, 2018);
+
+
+  }
 }

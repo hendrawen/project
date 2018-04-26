@@ -40,6 +40,7 @@
                       <li><a href="<?php echo base_url();?>som/laporan/produk">Penjualan Per Produk</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/area">Penjualan Per Area</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/marketing">Penjualan Per Marketing</a></li>
+                      <li><a href="<?php echo base_url();?>som/laporan/pelanggan">Pelanggan</a></li>
                     </ul>
                   </li>
                 </ul>

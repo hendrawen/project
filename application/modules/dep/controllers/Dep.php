@@ -29,6 +29,7 @@ class Dep extends CI_Controller{
     $data['transaksi_perbulan'] = $this->dep->transaksi_perbulan();
     $data['total_penjualan'] = $this->dep->total_penjualan();
     $data['penjualan_bulanan'] = $this->dep->penjualan_bulanan();
+    $data['total_jadwal'] = $this->dep->gettotaljadwal();
     $this->load->view('dep/dashboard',$data);
   }
 
