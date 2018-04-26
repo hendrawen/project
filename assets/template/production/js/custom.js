@@ -35,6 +35,18 @@ $('#title').autocomplete({
         }
 });
 
+$('#title2').autocomplete({
+        source: (base_url+"dep/get_auto"),
+        select: function (event, ui) {
+            $('[name="title"]').val(ui.item.label);
+            $('[name="hutang"]').val(formatNumber(ui.item.utang));
+            $('[name="id_transaksi"]').val(ui.item.transaksi);
+            $('[name="id"]').val(ui.item.id);
+            $('[name="sudah"]').val(ui.item.sudah);
+            $('[name="jumlah"]').val(formatNumber(ui.item.jumlah));
+        }
+});
+
 $('#autoidtransaksi').autocomplete({
         source: (base_url+"dep/get_autocomplete"),
         select: function (event, ui) {
