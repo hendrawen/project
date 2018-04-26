@@ -5,7 +5,7 @@
       var harga_jual = $(this).data("harga_jual");
       var qty   	  = $('#' + id).val();
       $.ajax({
-        url : (base_url+"pesan/add_to_cart"),
+        url : (base_url+"dep/add_to_cart"),
         method : "POST",
         data: $('#form_transaksi').serialize(),
         success: function(data){
@@ -15,7 +15,7 @@
       });
     });
 
-  $('#detail_cart').load(base_url+"pesan/load_cart");
+  $('#detail_cart').load(base_url+"dep/load_cart");
 
   $('#id_barang').on('input',function(){
 
@@ -27,7 +27,7 @@
              });
              $.ajax({
                  type : "POST",
-                 url  : (base_url+"pesan/get_barang"),
+                 url  : (base_url+"dep/get_barang"),
                  dataType : "JSON",
                  data : {id_barang: id_barang},
                  cache:false,
@@ -96,7 +96,7 @@
           }
       });
       $.ajax({
-        url : (base_url+"pesan/delete_cart"),
+        url : (base_url+"dep/delete_cart"),
         method : "POST",
         data : {row_id : row_id},
         success :function(data){
@@ -111,7 +111,7 @@
           }
       });
       $.ajax({
-        url : (base_url+"pesan/hapus_cart"),
+        url : (base_url+"dep/hapus_cart"),
         method : "POST",
         success :function(data){
           $('#detail_cart').html(data);
