@@ -920,7 +920,7 @@ class Ion_auth_model extends CI_Model
 		    'email'      => $email,
 		    'ip_address' => $ip_address,
 		    'created_on' => date('Y-m-d H:i:s'),
-		    'active'     => ($manual_activation === FALSE ? Active : Suspend),
+		    'active'     => ($manual_activation === FALSE ? 'Active' : 'Suspend'),
 		);
 
 		if ($this->store_salt)

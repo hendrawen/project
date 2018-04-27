@@ -36,7 +36,9 @@
                   </li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/transaksi"><i class="fa fa-shopping-cart"></i> Transaksi</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/list"><i class="fa fa-file-text"></i> List Transaksi</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/delivery"><i class="fa fa-cube"></i> Aset</a>
+                  </li>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/muat"><i class="fa fa-file-text"></i> Muat</a>
                   </li>
                 </ul>
               </div>

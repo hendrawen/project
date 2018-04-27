@@ -10,7 +10,7 @@ class Laporan extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
         }else{
-            if (!$this->ion_auth->in_group('som')) {//cek admin ga?
+            if (!$this->ion_auth->in_group('som') AND !$this->ion_auth->in_group('admin')) {//cek admin ga?
                 redirect('login','refresh');
             }
         }
