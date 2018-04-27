@@ -7,6 +7,13 @@ class Pembayaran extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
     $this->load->model('Pembayaran_model', 'pembayaran');
   }
 

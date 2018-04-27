@@ -6,6 +6,13 @@ class Pesan extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }else{
+            if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
     //Codeigniter : Write Less Do More
     $this->load->model('Pesan_model');
   }
