@@ -41,16 +41,18 @@
                       <span class="badge bg-red"><?php echo $total_jadwal ?></span>
                       <i class="fa fa-calendar-o"></i> Jadwal
                     </a>
+                    <a href="" class="btn btn-app">
+                      <span class="badge bg-red"><?php echo $total_transaksi; ?></span>
+                      <i class="fa fa-bar-chart"></i> Jumlah Trans.
+                    </a>
+                    <a href="" class="btn btn-app">
+                      <span class="badge bg-red"><?php echo $transaksi_perbulan; ?></span>
+                      <i class="fa fa-calendar"></i> Trans. Bulanan
+                    </a>
                   </div>
                 </div>
                 <div class="row">
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                          <div class="count"><?php echo $total_transaksi; ?></div>
-                          <h3>Jumlah Transaksi</h3>
-                        </div>
-                      </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                      <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="count">
                             <?php foreach ($total_penjualan as $value): ?>
@@ -59,13 +61,7 @@
                           <h3>Total Penjualan</h3>
                         </div>
                       </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <div class="tile-stats">
-                          <div class="count"><?php echo $transaksi_perbulan; ?></div>
-                          <h3>Transaksi Bulanan</h3>
-                        </div>
-                      </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                      <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="count">
                           <?php foreach ($penjualan_bulanan as $value): ?>

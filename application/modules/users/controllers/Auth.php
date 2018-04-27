@@ -107,7 +107,7 @@ class Auth extends CI_Controller {
 				//if the login is successful
 				//redirect them back to the home page
 				if ($this->ion_auth->in_group('admin')) {
-                redirect('administrator','refresh');
+                redirect('panel','refresh');
 							}elseif ($this->ion_auth->in_group('marketing')) {
             	redirect('marketing','refresh');
 							}elseif ($this->ion_auth->in_group('super user')) {
@@ -116,6 +116,8 @@ class Auth extends CI_Controller {
 							redirect('dep','refresh');
 							}elseif ($this->ion_auth->in_group('marketing')) {
 							redirect('marketing','refresh');
+							}elseif ($this->ion_auth->in_group('som')) {
+							redirect('som','refresh');
 	            }else{
 					redirect('login','refresh');
 				}

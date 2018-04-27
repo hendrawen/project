@@ -19,4 +19,4 @@
   </div>
   <!-- /page content -->
 
-<?php $this->load->view('panel/template/footer');?>
+<?php $this->load->view('template/footer');?>

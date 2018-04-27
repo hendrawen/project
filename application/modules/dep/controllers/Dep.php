@@ -84,6 +84,24 @@ class Dep extends CI_Controller{
 		}
 	}
 
+  function get_auto(){
+		if (isset($_GET['term'])) {
+		  	$result = $this->dep->cek_piutang($_GET['term']);
+		   	if (count($result) > 0) {
+		    foreach ($result as $row)
+		     	$arr_result[] = array(
+					'label'			=> $row->id_pelanggan,
+					'utang'	=> $row->sisa,
+          'transaksi' => $row->id_transaksi,
+          'id' => $row->id,
+          'sudah' => $row->bayar,
+          'jumlah' => $row->utang,
+				);
+		     	echo json_encode($arr_result);
+		   	}
+		}
+	}
+
   public function detail()
   {
     # code...

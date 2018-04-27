@@ -1,7 +1,7 @@
       <?php
-	        $this->load->view('template/header');
-	        $this->load->view('template/sidebar');
-	        $this->load->view('template/navbar');
+	        $this->load->view('panel/template/header');
+	        $this->load->view('panel/template/sidebar');
+	        $this->load->view('panel/template/navbar');
       ?>
 
 
@@ -19,4 +19,4 @@
         </div>
         <!-- /page content -->
 
-      <?php $this->load->view('template/footer');?>
+      <?php $this->load->view('panel/template/footer');?>

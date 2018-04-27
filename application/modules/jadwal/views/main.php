@@ -47,7 +47,23 @@
                           <input type="hidden" id="end">
                           <div class="form-group">
                             <label for="title">Pelanggan</label>
-                            <input type="text" name="wp_pelanggan_id" id="autoidjadwal" class="form-control" placeholder="Masukkan ID Pelanggan" required="">
+                            <!-- <input type="text" name="wp_pelanggan_id" id="autoidjadwal" class="form-control" placeholder="Masukkan ID Pelanggan" required=""> -->
+                            <select name="wp_pelanggan_id" id="wp_pelanggan_id" class="form-control js-example-basic-single" required>
+                            <option disabled selected>--Pilih Pelanggan--</option>
+
+                                <?php
+                                  $users = $this->db->query("SELECT * FROM wp_pelanggan Where status='Pelanggan'");
+                                  foreach($users->result() as $value){
+                                  $selected= '';
+                                  if($wp_pelanggan_id == $value->id){
+                                    $selected = 'selected="selected"';
+                                  }
+                                  ?>
+                                  <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+                                  <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
+                                  </option>
+                                  <?php }?>
+                                </select>
                           </div>
                           <div class="form-group">
                               <label for="title">Judul</label>
@@ -93,7 +109,7 @@
                                   wp_jabatan.id = '3'");
                                   foreach($users->result() as $value){
                                   $selected= '';
-                                  if($wp_karyawan_id_karyawan == $value->id){
+                                  if($wp_karyawan_id_karyawan == $value->id_karyawan){
                                     $selected = 'selected="selected"';
                                   }
                                   ?>

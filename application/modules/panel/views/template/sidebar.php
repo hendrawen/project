@@ -72,6 +72,9 @@
                   </li>
                   <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
+
+                  <li><a <?php echo ($aktif == 'User')?'class="active"':"";?> href="<?php echo base_url();?>users"><i class="fa fa-table"></i> Users </a></li>
+                  <li><a <?php echo ($aktif == 'Group')?'class="active"':"";?> href="<?php echo base_url();?>users/groups"><i class="fa fa-clone"></i> User Groups </a></li>
                 </ul>
               </div>
 

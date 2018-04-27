@@ -65,7 +65,7 @@ class Dep_model extends CI_Model{
     $this->db->from('wp_jadwal');
     $this->db->join('wp_pelanggan', 'wp_jadwal.wp_pelanggan_id = wp_pelanggan.id', 'inner');
     $this->db->join('wp_barang', 'wp_jadwal.wp_barang_id = wp_barang.id', 'inner');
-    // $this->db->where('wp_jadwal.wp_karyawan_id_karyawan', $this->session->identity);
+    $this->db->where('wp_jadwal.wp_karyawan_id_karyawan', $this->session->identity);
     $this->db->where($condition);
     return $this->db->get()->result();
   }
@@ -140,6 +140,14 @@ class Dep_model extends CI_Model{
     $this->db->where('status', 'Pelanggan');
 		$this->db->limit(10);
 		return $this->db->get('wp_pelanggan')->result();
+	}
+
+  function cek_piutang($idpelanggan){
+		$this->db->like('id_pelanggan', $idpelanggan , 'both');
+		$this->db->order_by('id_pelanggan', 'ASC');
+    $this->db->where('utang <=', 'bayar');
+		$this->db->limit(10);
+		return $this->db->get('v_detail_utang')->result();
 	}
 
   // get data by id

@@ -37,7 +37,7 @@ class Jadwal_model extends CI_Model{
 	Public function updateEvent()
 	{
 
-	$sql = "UPDATE wp_jadwal SET title = ?, description = ?, color = ?, wp_pelanggan_id = ?, wp_barang_id = ?, qty = ?, tgl_kirim = ?, wp_karyawan_id_karyawan = ? WHERE id = ?";
+	$sql = "UPDATE wp_jadwal SET title = ?, description = ?, color = ?, wp_pelanggan_id = ?, wp_barang_id = ?, qty = ?, wp_karyawan_id_karyawan = ? WHERE id = ?";
 	$this->db->query($sql, array($_POST['title'], $_POST['description'], $_POST['color'], $_POST['wp_pelanggan_id'], $_POST['wp_barang_id'], $_POST['qty'], $_POST['id'], $_POST['wp_karyawan_id_karyawan']));
 		return ($this->db->affected_rows()!=1)?false:true;
 	}

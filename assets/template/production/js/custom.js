@@ -60,7 +60,7 @@ $('#autoidtransaksi').autocomplete({
 });
 
 $('#autoidjadwal').autocomplete({
-        source: (base_url+"dep/get_autocomplete"),
+        source: (base_url+"pembayaran/get_autocomplete"),
         select: function (event, ui) {
             $('[name="id_pelanggan"]').val(ui.item.label);
         }
