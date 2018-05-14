@@ -43,14 +43,15 @@
                       <li><a href="<?php echo base_url();?>suplier">Suplier</a></li>
                       <li><a href="<?php echo base_url();?>barang">Barang</a></li>
                       <li><a href="<?php echo base_url();?>barang/stok">Stok</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-newspaper-o"></i> Kebutuhan<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>kebutuhan">Kebutuhan</a></li>
                       <li><a href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
                     </ul>
                   </li>
+                  <!-- <li><a><i class="fa fa-newspaper-o"></i> Kebutuhan<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+
+                    </ul>
+                  </li> -->
                   <li><a><i class="fa fa-bar-chart-o"></i> Payment<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi"> Transaksi</a>

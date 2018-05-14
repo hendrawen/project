@@ -238,6 +238,15 @@ class Model_pelanggan extends CI_Model{
         return $bulan;
     }
 
+    function get_kebutuhan($id_pelanggan)
+    {
+      $this->db->from('wp_kebutuhan');
+      $this->db->where('wp_kebutuhan.wp_pelanggan_id',$id_pelanggan);
+      $this->db->join('wp_jkebutuhan', 'wp_jkebutuhan.id = wp_kebutuhan.wp_jkebutuhan_id', 'inner');
+      $query = $this->db->get();
+      return $query->result();
+    }
+
     //BUAT MODEL MAX_KODE_MAHASISWA
    public function get_kode_pelanggan() {
     $tahun = date("Y");
