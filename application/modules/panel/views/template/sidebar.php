@@ -31,27 +31,26 @@
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
                   <li><a <?php echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php echo base_url();?>profile"><i class="fa fa-user"></i> Profile </a></li>
-                  <li><a <?php echo ($aktif == 'Karyawan')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Karyawan <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>karyawan/jabatan">Jabatan</a></li>
-                        <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
-                      </ul>
-                  </li>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
                       <li><a href="<?php echo base_url();?>suplier">Suplier</a></li>
                       <li><a href="<?php echo base_url();?>barang">Barang</a></li>
                       <li><a href="<?php echo base_url();?>barang/stok">Stok</a></li>
+                    </ul>
+                  </li>
+                  <li><a <?php echo ($aktif == 'Karyawan')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Karyawan <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>karyawan/jabatan">Jabatan</a></li>
+                        <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
+                      </ul>
+                  </li>
+                  <li><a><i class="fa fa-newspaper-o"></i> Kebutuhan<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>kebutuhan">Kebutuhan</a></li>
                       <li><a href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
                     </ul>
                   </li>
-                  <!-- <li><a><i class="fa fa-newspaper-o"></i> Kebutuhan<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-
-                    </ul>
-                  </li> -->
                   <li><a><i class="fa fa-bar-chart-o"></i> Payment<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi"> Transaksi</a>
