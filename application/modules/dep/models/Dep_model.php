@@ -145,10 +145,34 @@ class Dep_model extends CI_Model{
   function cek_piutang($idpelanggan){
 		$this->db->like('id_pelanggan', $idpelanggan , 'both');
 		$this->db->order_by('id_pelanggan', 'ASC');
+		$this->db->limit(10);
+		return $this->db->get('wp_pelanggan')->result();
+	}
+
+  function update_piutang($idpelanggan){
+		$this->db->like('id_transaksi', $idpelanggan , 'both');
+		$this->db->order_by('id_transaksi', 'ASC');
     $this->db->where('utang <=', 'bayar');
 		$this->db->limit(10);
-		return $this->db->get('v_detail_utang')->result();
+		return $this->db->get('v_detail')->result();
 	}
+
+  function get_track($cari){
+    $this->db->where('id_pelanggan', $cari);
+    $hsl = $this->db->get('v_detail');
+    if($hsl->num_rows() == 0){
+        echo '<tr><td colspan="9"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Memiliki Utang</div></center></td></tr>';
+    } else {
+      return $hsl->result();
+    }
+  }
+
+  function get_min_track($cari){
+    $this->db->select('min(id_transaksi) as min');
+    $this->db->where('id_pelanggan', $cari);
+    $hsl = $this->db->get('v_detail');
+    return $hsl->result();
+  }
 
   // get data by id
   function get_by_id($id)
@@ -169,6 +193,13 @@ class Dep_model extends CI_Model{
     $this->db->select('nama_barang, qty, nama_pelanggan, id_pelanggan');
     $this->db->where('id_pelanggan', $id);
     return $this->db->get('v_event')->result();
+  }
+
+  function update($id, $data)
+  {
+      $this->db->where('id', $id);
+      return $this->db->update('wp_detail_transaksi', $data);
+
   }
 
 }

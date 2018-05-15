@@ -91,8 +91,21 @@ class Dep extends CI_Controller{
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
 					'label'			=> $row->id_pelanggan,
+				);
+		     	echo json_encode($arr_result);
+		   	}
+		}
+	}
+
+  function get_auto_transaksi(){
+		if (isset($_GET['term'])) {
+		  	$result = $this->dep->update_piutang($_GET['term']);
+		   	if (count($result) > 0) {
+		    foreach ($result as $row)
+		     	$arr_result[] = array(
+					'label'			=> $row->id_transaksi,
 					'utang'	=> $row->sisa,
-          'transaksi' => $row->id_transaksi,
+          'pelanggan' => $row->id_pelanggan,
           'id' => $row->id,
           'sudah' => $row->bayar,
           'jumlah' => $row->utang,
@@ -353,6 +366,57 @@ class Dep extends CI_Controller{
           $this->session->set_flashdata('msg', 'Data Tidak Ada');
           redirect(site_url('dep/list'));
       }
+  }
+
+  public function update_action()
+  {
+    $test = str_replace(".","", $this->input->post('bayar'));
+    $test2 = $this->input->post('sudah');
+    $hasil = $test+$test2;
+    $data = array(
+        // 'id_suplier' => $this->input->post('id_suplier',TRUE),
+        'bayar' => $hasil,
+        'created_at' => date('Y-m-d'),
+        );
+    $this->dep->update($this->input->post('id', TRUE), $data);
+    $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
+    redirect(site_url('dep'));
+  }
+
+  function pembayaran()
+  {
+
+  }
+
+  public function track_transaksi(){
+      $cari = $this->input->post('judul');
+      $total = 0;
+         $query = $this->dep->get_track($cari);
+         $query2 = $this->dep->get_min_track($cari);
+          foreach ($query2 as $key) { ?>
+           min_id_transaksi = <?php echo $key->min ?>
+           <?php }
+           ;
+          foreach ($query as $key) { ?>
+             <tr>
+                 <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
+                 <td><?php echo $key->id_pelanggan ?></td>
+                 <td><?php echo $key->nama_pelanggan ?></td>
+                 <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
+                 <td><?php echo number_format($key->utang,2,",",".") ?></td>
+                 <td><?php echo tgl_indo($key->tgl_bayar) ?></td>
+                 <td><?php echo number_format($key->bayar,2,",",".") ?></td>
+                 <td><?php echo number_format($key->sisa,2,",",".") ?></td>
+
+             <tr>;
+               <input type="hidden" id="id_track" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="id_track" required="">
+         <?php }
+         ;
+  }
+
+  public function track_pembayaran()
+  {
+    // code...
   }
 
 }
