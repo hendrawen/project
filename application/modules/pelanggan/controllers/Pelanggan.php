@@ -86,8 +86,10 @@ class Pelanggan extends CI_Controller{
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $pelanggans) {
+
             $row = array();
             $row[] = $pelanggans->id_pelanggan;
+            $kebutuhan = $this->pelanggan->get_kebutuhan($pelanggans->id);
             $row[] = $pelanggans->nama_pelanggan;
             $row[] = $pelanggans->no_telp;
             $row[] = $pelanggans->nama_dagang;
@@ -95,9 +97,24 @@ class Pelanggan extends CI_Controller{
             $row[] = $pelanggans->kota;
             $row[] = $pelanggans->kelurahan;
             $row[] = $pelanggans->kecamatan;
-            $row[] = $pelanggans->lat;
-            $row[] = $pelanggans->long;
+            $row[] = $pelanggans->lat.'<br />'.$pelanggans->long;
+            // $row[] = $pelanggans->long;
             $row[] = $pelanggans->status;
+            $list_kebutuhan = "";
+            if ($kebutuhan) {
+
+              foreach ($kebutuhan as $sip) {
+                $list_kebutuhan .= '
+                  <ul>
+                    <li>'.$sip->jenis.' = '.$sip->jumlah.'</li>
+                  </ul>
+                ';
+              }
+              $row[] = $list_kebutuhan;
+            } else {
+              $row[] = "~";
+            }
+            // $row[] = print_r($kebutuhan);
             if($pelanggans->photo_toko)
                 $row[] = '<a href="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" target="_blank"><img src="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" class="img-responsive" height="42" width="42"/></a>';
             else

@@ -91,9 +91,10 @@
                               <th>Kota</th>
                               <th>Kelurahan</th>
                               <th>Kecamatan</th>
-                              <th>Lat</th>
-                              <th>Long</th>
-                              <th>status</th>
+                              <th>GPS</th>
+                              <!-- <th>Long</th> -->
+                              <th>Status</th>
+                              <th>Kebutuhan</th>
                               <th>Photo</th>
                               <th>Surveyor</th>
                               <th>Tanggal</th>
@@ -112,9 +113,10 @@
                           <th>Kota</th>
                           <th>Kelurahan</th>
                           <th>Kecamatan</th>
-                          <th>Lat</th>
-                          <th>Long</th>
-                          <th>status</th>
+                          <th>GPS</th>
+                          <!-- <th>Long</th> -->
+                          <th>Status</th>
+                          <th>Kebutuhan</th>
                           <th>Photo</th>
                           <th>Surveyor</th>
                           <th>Tanggal</th>
