@@ -38,7 +38,7 @@ class Jenis_kebutuhan extends CI_Controller{
           'total_rows' => $config['total_rows'],
           'start' => $start,
       );
-      $data['aktif']			='Pelanggan';
+      $data['aktif']			='Master';
   		$data['title']			='Kebuthan Pelanggan';
   		$data['judul']			='Data Kebutuhan Pelanggan';
   		$data['sub_judul']		='';
@@ -56,7 +56,7 @@ class Jenis_kebutuhan extends CI_Controller{
           'created_at' => set_value('created_at'),
           'updated_at' => set_value('updated_at'),
           );
-          $data['aktif']			='Pelanggan';
+          $data['aktif']			='Master';
       		$data['title']			='Kebuthan Pelanggan';
       		$data['judul']			='Data Kebutuhan Pelanggan';
       		$data['sub_judul']		='';
@@ -95,7 +95,7 @@ class Jenis_kebutuhan extends CI_Controller{
               'created_at' => set_value('created_at', $row->created_at),
               'updated_at' => set_value('updated_at', $row->updated_at),
             );
-            $data['aktif']			='Pelanggan';
+            $data['aktif']			='Master';
         		$data['title']			='Kebuthan Pelanggan';
         		$data['judul']			='Data Kebutuhan Pelanggan';
         		$data['sub_judul']		='';

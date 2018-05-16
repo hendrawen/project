@@ -8,7 +8,7 @@
             </div>
 
             <div class="clearfix"></div>
-            
+
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -30,7 +30,7 @@
                 <ul class="nav side-menu">
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('pembelian');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/jadwal"><i class="fa fa-calendar-o"></i> Jadwal</a>
+                  <!-- <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/jadwal"><i class="fa fa-calendar-o"></i> Jadwal</a>
                   </li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/piutang"><i class="fa fa-credit-card"></i> Piutang</a>
                   </li>
@@ -39,7 +39,7 @@
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/delivery"><i class="fa fa-cube"></i> Aset</a>
                   </li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/muat"><i class="fa fa-file-text"></i> Muat</a>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
 
