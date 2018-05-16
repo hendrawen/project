@@ -74,3 +74,39 @@ var table;
 
           }
       }
+
+      $("#kota").change(function(event) {
+        var element = $("option:selected", this);
+        var id_kota = element.attr("id_kota");
+        $("#loader-kecamatan").show();
+        $.ajax({
+          url: base_url+'pelanggan/get_kecamatan/'+id_kota,
+          dataType: 'html',
+          success : function (data) {
+            $("#loader-kecamatan").hide();
+            $("#kecamatan").html(data);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error getting record');
+          }
+        })
+      });
+
+      $("#kecamatan").change(function(event) {
+        var element = $("option:selected", this);
+        $("#loader-kelurahan").show();
+        var id_kecamatan = element.attr("id_kecamatan");
+        $.ajax({
+          url: base_url+'pelanggan/get_kelurahan/'+id_kecamatan,
+          dataType: 'html',
+          success : function (data) {
+            $("#loader-kelurahan").hide();
+            $("#kelurahan").html(data);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error getting record');
+          }
+        })
+      });

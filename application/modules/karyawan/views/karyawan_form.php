@@ -47,7 +47,10 @@
             </div>
     	    <div class="form-group">
                 <label for="varchar">Status <?php echo form_error('status') ?></label>
-                <input type="text" class="form-control" name="status" id="status" placeholder="Status" value="<?php echo $status; ?>" />
+                <select class="form-control" name="status" id="status">
+                  <option <?php echo ($status == 'NIKAH')?'selected':'' ?> value="NIKAH">NIKAH</option>
+                  <option <?php echo ($status == 'BELUM NIKAH')?'selected':'' ?> value="BELUM NIKAH">BELUM NIKAH</option>
+                </select>
             </div>
           <div class="form-group">
                 <label for="int">Jabatan <?php echo form_error('wp_jabatan_id') ?></label>

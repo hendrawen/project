@@ -87,13 +87,14 @@
                               <th>Nama</th>
                               <th>Telp</th>
                               <th>Nama Dagang</th>
+                              <th>Kategori</th>
                               <th>Alamat</th>
                               <th>Kota</th>
                               <th>Kelurahan</th>
                               <th>Kecamatan</th>
-                              <th>Lat</th>
-                              <th>Long</th>
-                              <th>status</th>
+                              <th>GPS</th>
+                              <th>Status</th>
+                              <th>Kebutuhan</th>
                               <th>Photo</th>
                               <th>Surveyor</th>
                               <th>Tanggal</th>
@@ -108,13 +109,14 @@
                           <th>Nama</th>
                           <th>Telp</th>
                           <th>Nama Dagang</th>
+                          <th>Kategori</th>
                           <th>Alamat</th>
                           <th>Kota</th>
                           <th>Kelurahan</th>
                           <th>Kecamatan</th>
-                          <th>Lat</th>
-                          <th>Long</th>
-                          <th>status</th>
+                          <th>GPS</th>
+                          <th>Status</th>
+                          <th>Kebutuhan</th>
                           <th>Photo</th>
                           <th>Surveyor</th>
                           <th>Tanggal</th>

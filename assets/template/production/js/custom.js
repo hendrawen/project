@@ -35,12 +35,24 @@ $('#title').autocomplete({
         }
 });
 
-$('#title2').autocomplete({
+$('#id_track').autocomplete({
         source: (base_url+"dep/get_auto"),
         select: function (event, ui) {
             $('[name="title"]').val(ui.item.label);
+            // $('[name="hutang"]').val(formatNumber(ui.item.utang));
+            // $('[name="id_transaksi"]').val(ui.item.transaksi);
+            // $('[name="id"]').val(ui.item.id);
+            // $('[name="sudah"]').val(ui.item.sudah);
+            // $('[name="jumlah"]').val(formatNumber(ui.item.jumlah));
+        }
+});
+
+$('#title3').autocomplete({
+        source: (base_url+"dep/get_auto_transaksi"),
+        select: function (event, ui) {
+            $('[name="title"]').val(ui.item.label);
             $('[name="hutang"]').val(formatNumber(ui.item.utang));
-            $('[name="id_transaksi"]').val(ui.item.transaksi);
+            $('[name="id_pelanggan2"]').val(ui.item.pelanggan);
             $('[name="id"]').val(ui.item.id);
             $('[name="sudah"]').val(ui.item.sudah);
             $('[name="jumlah"]').val(formatNumber(ui.item.jumlah));
@@ -65,3 +77,34 @@ $('#autoidjadwal').autocomplete({
             $('[name="id_pelanggan"]').val(ui.item.label);
         }
 });
+
+$(document).ready(function(){
+    function search(){
+       var judul=$("#id_track").val();
+       console.log(judul);
+        if(judul!=""){
+            $("#result").html(base_url+"assets/ajax-loader.gif");
+              $.ajax({
+                     type : "POST",
+                  url  : (base_url+"dep/track_transaksi"),
+                  data:"judul="+judul,
+
+                  success:function(data){
+                    $("#result").html(data);
+                    $("#id_track").val();
+                  }
+           });
+           $('#tabel_cari').show();
+        }
+    }
+
+    $("#button").click(function(){
+        search();
+    });
+
+    $('#id_track').keyup(function(e) {
+        if(e.keyCode == 13) {
+           search();
+        }
+    });
+  });
