@@ -30,15 +30,20 @@
                       <thead>
                           <tr>
                               <th>#</th>
-                              <th>Id Transaksi</th>
-                          		<th>Nama Barang</th>
-                              <th>Harga (Rp.)</th>
-                          		<th>Qty</th>
-                              <th>Total (Rp.)</th>
+                              <th>No Faktur</th>
                               <th>Tgl Transaksi</th>
-                          		<th>Tanggal Update</th>
-                          		<th>Nama Pelanggan</th>
-                          		<th>Username</th>
+                              <th>ID Pelanggan</th>
+                              <th>Nama Pelanggan</th>
+                          		<th>Nama Barang</th>
+                          		<th>Qty</th>
+                          		<th>Satuan</th>
+                              <th>Kecamatan</th>
+                          		<th>Kelurahan</th>
+                              <th>No Telpon</th>
+                              <th>Marketing</th>
+                              <!-- <th>Harga (Rp.)</th>
+                              <th>Total (Rp.)</th>
+                          		<th>Tanggal Update</th> -->
                           		<th>Status</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
@@ -48,7 +53,7 @@
                         $no = 1;
                         $jum = 1;
                         foreach($transaksi as $key){ ?>
-                       <tr>
+                       <!-- <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
                       			<td><?php echo $key->nama_barang ?></td>
@@ -67,9 +72,7 @@
                       			<td><?php echo $key->username ?></td>
                       			<td><?php echo $key->nama_status ?></td>
                             <td style="text-align:center">
-                              <!-- <a href="<?=base_url()?>transaksi/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
                               <a href="<?=base_url()?>transaksi/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
-                              <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
                               <a class="btn btn-default btn-sm" onclick="return swal({
                                                       title: 'Yakin akan hapus data ini?',
                                                       text: 'Anda tidak akan melihat data ini lagi!',
@@ -80,7 +83,7 @@
                                                             window.location.href ='<?=base_url()?>transaksi/delete/<?=$key->id ?>';
                                                                        });"><i class="glyphicon glyphicon-trash"></i></a>
                            </td>
-                      </tr>
+                      </tr> -->
                       <?php } ?>
                     </tbody>
                     <tfoot>
