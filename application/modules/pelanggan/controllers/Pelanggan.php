@@ -16,6 +16,7 @@ class Pelanggan extends CI_Controller{
             }
         }
     $this->load->model('Model_pelanggan','pelanggan');
+    $this->load->model('Daerah_model','daerah');
   }
 
   function index()
@@ -93,6 +94,7 @@ class Pelanggan extends CI_Controller{
             $row[] = $pelanggans->nama_pelanggan;
             $row[] = $pelanggans->no_telp;
             $row[] = $pelanggans->nama_dagang;
+            $row[] = $pelanggans->nama_kategori;
             $row[] = $pelanggans->alamat;
             $row[] = $pelanggans->kota;
             $row[] = $pelanggans->kelurahan;
@@ -175,10 +177,12 @@ class Pelanggan extends CI_Controller{
     public function tambah()
     {
         $data = array(
+            'list_kategori' => $this->pelanggan->get_kategori(),
               'button' => 'Tambah',
               'action' => site_url('pelanggan/aksi_tambah'),
               'id' => set_value('id'),
         	    'id_pelanggan' => set_value('id_pelanggan'),
+        	    'id_kategori' => set_value('id_kategori'),
         	    'nama_pelanggan' => set_value('nama_pelanggan'),
         	    'no_telp' => set_value('no_telp'),
         	    'nama_dagang' => set_value('nama_dagang'),
@@ -194,6 +198,7 @@ class Pelanggan extends CI_Controller{
         	    'status' => set_value('status'),
         	    'created_at' => set_value('created_at'),
         	    'updated_at' => set_value('updated_at'),
+              'list_kota' => $this->daerah->get_kota(),
             	'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
           );
           $data['aktif']			='Pelanggan';
@@ -281,10 +286,12 @@ class Pelanggan extends CI_Controller{
         $row = $this->pelanggan->get_by_id($id);
         if ($row) {
             $data = array(
+                'list_kategori' => $this->pelanggan->get_kategori(),
                 'button' => 'Update',
                 'action' => site_url('pelanggan/update_action'),
             		'id' => set_value('id', $row->id),
             		'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
+            		'id_kategori' => set_value('id_kategori', $row->id_kategori),
             		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
             		'no_telp' => set_value('no_telp', $row->no_telp),
             		'nama_dagang' => set_value('nama_dagang', $row->nama_dagang),
@@ -294,6 +301,7 @@ class Pelanggan extends CI_Controller{
             		'kota' => set_value('kota', $row->kota),
             		'kelurahan' => set_value('kelurahan', $row->kelurahan),
             		'kecamatan' => set_value('kecamatan', $row->kecamatan),
+                'list_kota' => $this->daerah->get_kota(),
             		'lat' => set_value('lat', $row->lat),
             		'long' => set_value('long', $row->long),
             		'keterangan' => set_value('keterangan', $row->keterangan),
@@ -402,6 +410,28 @@ class Pelanggan extends CI_Controller{
 
     	$this->form_validation->set_rules('id', 'id', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+    function get_kecamatan($kota)
+    {
+      $kecamatan = $this->daerah->get_kecamatan($kota);
+      $pesan = "";
+      $pesan .= "<option>--Pilih Kecamatan-- </option>";
+  	  foreach($kecamatan as $k){
+  	    $pesan.= "<option id_kecamatan='{$k->id_kec}' value='{$k->nama}'>{$k->nama}</option>";
+  	  }
+      echo $pesan;
+    }
+
+    function get_kelurahan($kecamatan)
+    {
+      $kelurahan = $this->daerah->get_kelurahan($kecamatan);
+      $pesan = "";
+      $pesan .= "<option>--Pilih Kelurahan-- </option>";
+      foreach($kelurahan as $k){
+  	    $pesan .= "<option value='{$k->nama}'>{$k->nama}</option>";
+  	  }
+      echo $pesan;
     }
 
 

@@ -6,8 +6,8 @@ class Model_pelanggan extends CI_Model{
      public $id = 'id';
      var $table = 'wp_vpelanggan';
      var $table2 = 'wp_pelanggan';
-     var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama','created_at', null); //set column field database for datatable orderable
-     var $column_search = array('id_pelanggan','nama_pelanggan','nama_dagang','alamat','kota','kelurahan','kecamatan','status','nama'); //set column field database for datatable searchable
+     var $column_order = array('id_pelanggan','nama_pelanggan','no_telp','nama_dagang','nama_kategori','alamat','photo_toko','kota','kelurahan','kecamatan','lat','long','status','nama','created_at', null); //set column field database for datatable orderable
+     var $column_search = array('id_pelanggan','nama_pelanggan','nama_dagang','nama_kategori','alamat','kota','kelurahan','kecamatan','status','nama'); //set column field database for datatable searchable
      var $order = array('id_pelanggan' => 'DESC'); // default order
 
      public function __construct()
@@ -16,7 +16,7 @@ class Model_pelanggan extends CI_Model{
      }
 
      private function _get_datatables_query()
-    {
+     {
 
         //add custom filter here
         if($this->input->post('kota'))
@@ -38,6 +38,10 @@ class Model_pelanggan extends CI_Model{
         if($this->input->post('nama'))
         {
             $this->db->like('nama', $this->input->post('nama'));
+        }
+        if($this->input->post('nama_kategori'))
+        {
+            $this->db->like('nama_kategori', $this->input->post('nama_kategori'));
         }
         if($this->input->post('created_at'))
         {
@@ -258,6 +262,11 @@ class Model_pelanggan extends CI_Model{
     $kode_pelanggan = $max_id1 +1;
     $maxkode_pelanggan = $kode.''.sprintf("%04s",$kode_pelanggan);
     return $maxkode_pelanggan;
+   }
+
+   function get_kategori()
+   {
+     return $this->db->get('wp_kategori')->result();
    }
 
 }

@@ -12,8 +12,8 @@ class Kebutuhan extends CI_Controller{
 
   function index()
   {
-    $data['aktif']			='Kebutuhan';
-		$data['title']			='Kebuthan Pelanggan';
+    $data['aktif']			='Master';
+		$data['title']			='Kebutuhan Pelanggan';
 		$data['judul']			='Data Kebutuhan Pelanggan';
 		$data['sub_judul']		='';
     $data['content']			= 'kebutuhan';
@@ -58,7 +58,7 @@ class Kebutuhan extends CI_Controller{
       	    'jumlah' => set_value('jumlah'),
       	    'tgl' => set_value('tgl'),
 	      );
-        $data['aktif']			='Kebutuhan';
+        $data['aktif']			='Master';
         $data['title']			='Data Kebutuhan';
         $data['judul']			='Kebutuhan';
         $data['sub_judul']		='';
@@ -69,7 +69,7 @@ class Kebutuhan extends CI_Controller{
     public function presentasi()
     {
       # code...
-      $data['aktif']			='Kebutuhan/presentasi';
+      $data['aktif']			='Master/presentasi';
       $data['title']			='Data Kebutuhan';
       $data['judul']			='Report Kebutuhan';
       $data['sub_judul']		='';
@@ -102,7 +102,7 @@ class Kebutuhan extends CI_Controller{
        $data['result_display2'] = "No record found !";
        }
        }
-       $data['aktif']			='Kebutuhan/presentasi';
+       $data['aktif']			='Master/presentasi';
        $data['title']			='Data Kebutuhan';
        $data['judul']			='Report Kebutuhan';
        $data['sub_judul']		='';
