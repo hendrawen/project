@@ -30,6 +30,24 @@ class Pesan extends CI_Controller{
     $this->load->view('panel/dashboard', $data);
   }
 
+  function get_autocomplete(){
+		if (isset($_GET['term'])) {
+		  	$result = $this->Pesan_model->cari_pelanggan($_GET['term']);
+		   	if (count($result) > 0) {
+		    foreach ($result as $row)
+		     	$arr_result[] = array(
+					'label'			=> $row->id_pelanggan,
+					'nama_pelanggan'	=> $row->nama_pelanggan,
+          'alamat' => $row->alamat,
+          'nama_dagang' => $row->nama_dagang,
+          'no_telp' => $row->no_telp,
+          'id' => $row->id,
+				);
+		     	echo json_encode($arr_result);
+		   	}
+		}
+	}
+
   public function checkout()
   {
     $data['aktif']			='Kebutuhan';
@@ -41,6 +59,12 @@ class Pesan extends CI_Controller{
     $data['profile']=$this->Pesan_model->get_profile();
     $data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
     $data['generate_invoice'] = $this->Pesan_model->generatekode_invoice();
+    $cart = $this->cart->total() -  str_replace(".","", $this->input->post('diskon'));
+    $newdata = array(
+        'total_belanja'  => $cart,
+        'diskon'     =>  str_replace(".","", $this->input->post('diskon')),
+    );
+    $sesi = $this->session->set_userdata($newdata);
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -64,6 +88,7 @@ class Pesan extends CI_Controller{
 			'qty' => $this->input->post('qty'),
       'wp_barang_id' => $this->input->post('id'),
       'id_transaksi' => $this->input->post('id_transaksi'),
+      'satuan' => $this->input->post('satuan'),
 		);
 		$this->cart->insert($data);
 		echo $this->show_cart();
@@ -102,6 +127,7 @@ class Pesan extends CI_Controller{
               "wp_pelanggan_id" => $wp_pelanggan_id,
   						"tgl_transaksi" 				=> $tg,
   						"wp_status_id"				=> $wp_status_id,
+              "diskon"        => $this->input->post('diskon'),
               "username"      => $this->session->identity
   					);
           }
@@ -131,6 +157,7 @@ class Pesan extends CI_Controller{
               "wp_pelanggan_id" => $wp_pelanggan_id,
   						"tgl_transaksi" 				=> $tg,
   						"wp_status_id"				=> $wp_status_id,
+              "diskon"        => $this->input->post('diskon'),
               "username"    => $this->session->identity
   					);
           }
@@ -173,14 +200,15 @@ class Pesan extends CI_Controller{
 					<td>'.$items['name'].'</td>
           <td>'.$items['price'].'</td>
 					<td><input type="text" name="qty[]" size="1" value="'.$items['qty'].'" style="border:0px;background:none;"></td>
+          <td>'.$items['satuan'].'</td>
 					<td>'.number_format($items['subtotal'],2,",",".").'</td>
-					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
+					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart_admin btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
 				</tr>
 			';
 		}
 		$output .= '
 			<tr>
-          <th colspan="4">Total</th>
+          <th colspan="5">Total</th>
           <th colspan="2">'.'Rp '.number_format($this->cart->total(),2,",",".").'</th>
 			</tr>
 		';

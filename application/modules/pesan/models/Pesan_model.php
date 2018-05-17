@@ -14,6 +14,14 @@ class Pesan_model extends CI_Model{
 		return $result;
 	}
 
+  function cari_pelanggan($idpelanggan){
+		$this->db->like('id_pelanggan', $idpelanggan , 'both');
+		$this->db->order_by('id_pelanggan', 'ASC');
+    $this->db->where('status', 'Pelanggan');
+		$this->db->limit(10);
+		return $this->db->get('wp_pelanggan')->result();
+	}
+
   public function get_profile(){
 		$result = $this->db->get('wp_profile')->result();
 		return $result;
@@ -35,6 +43,7 @@ class Pesan_model extends CI_Model{
 					'id_barang' => $data->id_barang,
 					'nama_barang' => $data->nama_barang,
 					'harga_jual' => $data->harga_jual,
+          'satuan'  => $data->satuan,
 					);
 			}
 		}

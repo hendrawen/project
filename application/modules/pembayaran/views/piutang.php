@@ -35,12 +35,12 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                 <label for="fullname">ID Pelanggan * :</label>
-                <input type="text" id="id_track" class="form-control" placeholder="Masukkan ID Pelanggan" name="id_track" required="">
+                <input type="text" id="id_track_admin" class="form-control" placeholder="Masukkan ID Pelanggan" name="id_track_admin" required="">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
-                <button id="button" class="btn btn-success"><i class="fa fa-search"></i> Cek</button>
+                <button id="button_admin" class="btn btn-success"><i class="fa fa-search"></i> Cek</button>
               </div>
             </div>
             <div class="row">
@@ -56,7 +56,7 @@
                       <th>Bayar (Rp.)</th>
                       <th>Sisa Hutang (Rp.)</th>
                     </thead>
-                    <tbody id="result">
+                    <tbody id="result2">
                     </tbody>
                     </table>
             </div>
@@ -89,7 +89,7 @@
         <div class="x_content">
 
           <!-- start form for validation -->
-          <form action="<?php echo base_url(). 'dep/track_pembayaran'; ?>" method="post">
+          <form action="<?php echo base_url(). 'pembayaran/track_pembayaran'; ?>" method="post">
             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
               <label for="fullname">Tanggal Transaksi * :</label>
               <div class="controls">
@@ -115,60 +115,3 @@
 
         </div>
       </div>
-
-      <script type="text/javascript">
-
-      function FormatCurrency(objNum)
-    {
-       var num = objNum.value
-       var ent, dec;
-       if (num != '' && num != objNum.oldvalue)
-       {
-         num = HapusTitik(num);
-         if (isNaN(num))
-         {
-           objNum.value = (objNum.oldvalue)?objNum.oldvalue:'';
-         } else {
-           var ev = (navigator.appName.indexOf('Netscape') != -1)?Event:event;
-           if (ev.keyCode == 190 || !isNaN(num.split('.')[1]))
-           {
-             alert(num.split('.')[1]);
-             objNum.value = TambahTitik(num.split('.')[0])+'.'+num.split('.')[1];
-           }
-           else
-           {
-             objNum.value = TambahTitik(num.split('.')[0]);
-           }
-           objNum.oldvalue = objNum.value;
-         }
-       }
-    }
-    function HapusTitik(num)
-    {
-       return (num.replace(/\./g, ''));
-    }
-
-    function TambahTitik(num)
-    {
-       numArr=new String(num).split('').reverse();
-       for (i=3;i<numArr.length;i+=3)
-       {
-         numArr[i]+='.';
-       }
-       return numArr.reverse().join('');
-    }
-
-    function formatCurrency(num) {
-       num = num.toString().replace(/\$|\./g,'');
-       if(isNaN(num))
-       num = "0";
-       sign = (num == (num = Math.abs(num)));
-       num = Math.floor(num*100+0.50000000001);
-       cents = num0;
-       num = Math.floor(num/100).toString();
-       for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
-       num = num.substring(0,num.length-(4*i+3))+'.'+
-       num.substring(num.length-(4*i+3));
-       return (((sign)?'':'-') + num);
-    }
-  </script>

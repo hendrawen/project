@@ -67,6 +67,7 @@
 
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/transaksi_admin.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>

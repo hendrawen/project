@@ -36,6 +36,7 @@
                          $('[name="id"]').val(data.id);
                          $('[name="nama_barang"]').val(data.nama_barang);
                          $('[name="harga_jual"]').val(data.harga_jual);
+                         $('[name="satuan"]').val(data.satuan);
                          cek = data.nama_barang.search('Setengah');
                          if (cek > 0) {
                            $('[name="qty"]').val(0.5);

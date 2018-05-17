@@ -2,9 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dep extends CI_Controller{
-
+  private $temb_bayar;
   public function __construct()
   {
+    $temb_bayar = array();
     parent::__construct();
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
@@ -152,6 +153,12 @@ class Dep extends CI_Controller{
     $data['profile']=$this->pesan->get_profile();
     $data['jenis_pembayaran']=$this->pesan->get_jenis_pembayaran();
     $data['generate_invoice'] = $this->pesan->generatekode_invoice();
+    $cart = $this->cart->total() -  str_replace(".","", $this->input->post('diskon'));
+    $newdata = array(
+        'total_belanja'  => $cart,
+        'diskon'     =>  str_replace(".","", $this->input->post('diskon')),
+    );
+    $sesi = $this->session->set_userdata($newdata);
     $this->load->view('dep/dashboard', $data);
   }
 
@@ -175,6 +182,7 @@ class Dep extends CI_Controller{
 			'qty' => $this->input->post('qty'),
       'wp_barang_id' => $this->input->post('id'),
       'id_transaksi' => $this->input->post('id_transaksi'),
+      'satuan' => $this->input->post('satuan'),
 		);
 		$this->cart->insert($data);
 		echo $this->show_cart();
@@ -213,6 +221,7 @@ class Dep extends CI_Controller{
               "wp_pelanggan_id" => $wp_pelanggan_id,
   						"tgl_transaksi" 				=> $tg,
   						"wp_status_id"				=> $wp_status_id,
+              "diskon"        => $this->input->post('diskon'),
               "username"      => $this->session->identity
   					);
           }
@@ -242,6 +251,7 @@ class Dep extends CI_Controller{
               "wp_pelanggan_id" => $wp_pelanggan_id,
   						"tgl_transaksi" 				=> $tg,
   						"wp_status_id"				=> $wp_status_id,
+              "diskon"        => $this->input->post('diskon'),
               "username"    => $this->session->identity
   					);
           }
@@ -287,8 +297,9 @@ class Dep extends CI_Controller{
   public function cek()
   {
     # code...
-    $cart = $this->cart->contents();
-    print_r($cart);
+    echo $this->session->userdata('total_belanja');
+    echo '<br />';
+    echo $this->session->userdata('diskon');
   }
 
 	function show_cart(){
@@ -302,6 +313,7 @@ class Dep extends CI_Controller{
 					<td>'.$items['name'].'</td>
           <td>'.$items['price'].'</td>
 					<td><input type="text" name="qty[]" size="1" value="'.$items['qty'].'" style="border:0px;background:none;"></td>
+          <td>'.$items['satuan'].'</td>
 					<td>'.number_format($items['subtotal'],2,",",".").'</td>
 					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
 				</tr>
@@ -309,7 +321,7 @@ class Dep extends CI_Controller{
 		}
 		$output .= '
 			<tr>
-          <th colspan="4">Total</th>
+          <th colspan="5">Total</th>
           <th colspan="2">'.'Rp '.number_format($this->cart->total(),2,",",".").'</th>
 			</tr>
 		';
@@ -383,19 +395,24 @@ class Dep extends CI_Controller{
     redirect(site_url('dep'));
   }
 
-  function pembayaran()
-  {
-
-  }
-
   public function track_transaksi(){
       $cari = $this->input->post('judul');
+      $this->session->unset_userdata('id_transaksi');
       $total = 0;
+      $i = 0;
          $query = $this->dep->get_track($cari);
+         $sum = $this->dep->sum_get_track($cari);
          $query2 = $this->dep->get_min_track($cari);
-          foreach ($query2 as $key) { ?>
-           min_id_transaksi = <?php echo $key->min ?>
+            foreach ($query2 as $key) {
+              $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
+              $this->temb_bayar[$i]['sisa']= $key->sisa;
+              $this->temb_bayar[$i]['id_pelanggan']= $key->id_pelanggan;
+              $i++;
+
+            ?>
+           min_id_transaksi = <?php echo $this->session->userdata('id_transaksi') ?>
            <?php }
+           $data =  $this->session->set_userdata('id_transaksi', $this->temb_bayar);
            ;
           foreach ($query as $key) { ?>
              <tr>
@@ -403,20 +420,61 @@ class Dep extends CI_Controller{
                  <td><?php echo $key->id_pelanggan ?></td>
                  <td><?php echo $key->nama_pelanggan ?></td>
                  <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
-                 <td><?php echo number_format($key->utang,2,",",".") ?></td>
+                 <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
                  <td><?php echo tgl_indo($key->tgl_bayar) ?></td>
-                 <td><?php echo number_format($key->bayar,2,",",".") ?></td>
-                 <td><?php echo number_format($key->sisa,2,",",".") ?></td>
+                 <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td>
+                 <td>Rp. <?php echo number_format($key->sisa,2,",",".") ?></td>
 
              <tr>;
                <input type="hidden" id="id_track" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="id_track" required="">
          <?php }
          ;
+         foreach ($sum as $key) { ?>
+            <tr>
+             <th colspan="7">Total Hutang</th>
+                <th colspan="1">Rp. <?php echo number_format($key->sisa,2,",",".") ?> </th>
+
+            </tr>
+            <?php }
   }
 
   public function track_pembayaran()
   {
-    // code...
+    $list = $this->session->userdata('id_transaksi');
+    print_r($list);
+    echo '<br />';
+    $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
+    $sisa = 0;
+    for ($i=0; $i < sizeof($list); $i++) {
+      if ($jumlah_bayar > $list[$i]['sisa']) {
+          $jumlah_bayar -= $list[$i]['sisa'];
+          $data = array(
+            'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
+            'bayar' => $list[$i]['sisa'],
+            'id_transaksi' => $list[$i]['id_transaksi'],
+            'id_pelanggan' => $list[$i]['id_pelanggan'],
+            'username' => $this->session->identity,
+          );
+          $this->dep->insert_pembayaran($data);
+          $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
+          // echo 'utang lunas, sisa : '.$jumlah_bayar;
+          //update transaksi $list[$i]['id_transaksi'];
+      } else {
+        //$sisa = $list[$i]['sisa'] - $jumlah_bayar;
+        $data = array(
+          'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
+          'bayar' => $jumlah_bayar,
+          'id_transaksi' => $list[$i]['id_transaksi'] ,
+          'id_pelanggan' => $list[$i]['id_pelanggan'],
+          'username' => $this->session->identity,
+        );
+        $this->dep->insert_pembayaran($data);
+        $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
+        //
+      }
+      redirect(site_url('dep/piutang'));
+
+    }
   }
 
 }

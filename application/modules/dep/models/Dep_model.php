@@ -167,9 +167,17 @@ class Dep_model extends CI_Model{
     }
   }
 
-  function get_min_track($cari){
-    $this->db->select('min(id_transaksi) as min');
+  function sum_get_track($cari){
+    $this->db->select('sum(sisa) as sisa');
     $this->db->where('id_pelanggan', $cari);
+    $hsl = $this->db->get('v_detail');
+    return $hsl->result();
+  }
+
+  function get_min_track($cari){
+    $this->db->select('id_transaksi, sisa, id_pelanggan');
+    $this->db->where('id_pelanggan', $cari);
+    $this->db->order_by('id_transaksi', 'ASC');
     $hsl = $this->db->get('v_detail');
     return $hsl->result();
   }
@@ -200,6 +208,13 @@ class Dep_model extends CI_Model{
       $this->db->where('id', $id);
       return $this->db->update('wp_detail_transaksi', $data);
 
+  }
+
+
+  function insert_pembayaran($data)
+  {
+    // code...
+    $this->db->insert('wp_pembayaran', $data);
   }
 
 }

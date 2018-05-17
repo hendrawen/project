@@ -13,21 +13,7 @@
 <div class="row">
   <form action="#" id="form_checkout" class="form-horizontal">
     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <select name="id_pelanggan" id="id_pelanggan" class="e1 form-control" required>
-      <option value="" selected>--Pilih Pelanggan--</option>
-          <?php
-            $users = $this->db->query("SELECT * FROM wp_pelanggan WHERE status='pelanggan'");
-            foreach ($users->result() as $value) {
-                $selected= '';
-                if ($wp_pelanggan_id == $value->id_pelanggan) {
-                    $selected = 'selected="selected"';
-                } ?>
-            <option  value="<?php echo $value->id_pelanggan; ?>"  <?php echo $selected; ?> >
-            <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
-            </option>
-      <?php
-            } ?>
-      </select>
+      <input type="text" name="id_pelanggan" id="autoidtransaksi2" class="form-control" placeholder="Masukkan ID Pelanggan" required="">
     </div>
 </form>
 </div>
@@ -123,12 +109,13 @@
                 <?php echo form_hidden('rowid[]', $items['rowid']); ?>
                 <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                 <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
-                  <input type="hidden" name="hutang" value="<?php echo $this->cart->total() ?>">
+								<input type="hidden" name="hutang" value="<?php echo $this->session->userdata('total_belanja') ?>">
+								<input type="hidden" name="diskon" value="<?php echo $this->session->userdata('diskon') ?>">
                   <input type="hidden" name="id_transaksi_hutang" id="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>">
                   <input type="hidden" name="id" id="id" class="form-control">
                   <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>">
                   <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
-                  <input type="hidden" name="subtotal[]" value="<?php echo $items['subtotal'];?>"></td>
+                  <input type="hidden" name="subtotal[]" value="<?php echo $this->session->userdata('total_belanja') ?>"></td>
                   <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
 
                   <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
@@ -148,6 +135,7 @@
                           <th>Nama Barang</th>
                           <th>Harga (Rp.)</th>
                           <th>QTY</th>
+													<th>Satuan</th>
                           <th>Subtotal (Rp.)</th>
                         </tr>
                       </thead>
@@ -171,15 +159,24 @@
                           <td>
                             <?php echo $items['qty']; ?>
                           </td>
+													<td>
+                            <?php echo $items['satuan']; ?>
+                          </td>
                           <td>
                             Rp. <?php echo $this->cart->format_number($items['subtotal']); ?>
                           </div>
                         </tr>
                         <?php $i++; ?>
                         <?php endforeach; ?>
+												<tr>
+														<td colspan="5"><strong>Diskon</strong></td>
+														<td><?php
+														$diskon = $this->session->userdata('diskon');
+														 echo 'Rp. &nbsp;';  echo number_format($diskon,2,',','.') ?></td>
+												</tr>
                         <tr>
-                          <td colspan="4"><strong>Total</strong></td>
-                          <td>Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></td>
+                          <td colspan="5"><strong>Total</strong></td>
+                          <td>Rp. <?php  echo number_format($this->session->userdata('total_belanja'),2,',','.')?></td>
                         </tr>
                       </tbody>
                     </table>
