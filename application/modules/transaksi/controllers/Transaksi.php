@@ -15,10 +15,15 @@ class Transaksi extends CI_Controller
                     redirect('login','refresh');
                 }
             }
-        $this->load->model('transaksi_model');
+        $this->load->model('Transaksi_model');
         $this->load->library('form_validation');
     }
 
+    function tes()
+    {
+      print_r($this->Transaksi_model->get_all());
+
+    }
     public function index()
     {
         $q = urldecode($this->input->get('q', TRUE));
@@ -34,8 +39,8 @@ class Transaksi extends CI_Controller
 
         $config['per_page'] = 10;
         $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->transaksi_model->total_rows($q);
-        $transaksi = $this->transaksi_model->get_limit_data($config['per_page'], $start, $q);
+        $config['total_rows'] = $this->Transaksi_model->total_rows($q);
+        $transaksi = $this->Transaksi_model->get_limit_data($config['per_page'], $start, $q);
 
         $this->load->library('pagination');
         $this->pagination->initialize($config);
@@ -52,13 +57,15 @@ class Transaksi extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Transaksi';
         $data['content']		='transaksi_list';
-        $data['transaksi']    =$this->transaksi_model->get_data();
+        $data['transaksi']    =$this->Transaksi_model->get_data();
+
         $this->load->view('panel/dashboard', $data);
+
     }
 
     public function read($id)
     {
-        $row = $this->transaksi_model->get_by_id($id);
+        $row = $this->Transaksi_model->get_by_id($id);
         if ($row) {
             $data = array(
 		'id' => $row->id,
@@ -118,7 +125,7 @@ class Transaksi extends CI_Controller
             $this->create();
         } else {
             $data = array(
-        		'id_transaksi' => $this->transaksi_model->buat_kode(),
+        		'id_transaksi' => $this->Transaksi_model->buat_kode(),
         		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
         		'harga' => $this->input->post('harga',TRUE),
         		'qty' => $this->input->post('qty',TRUE),
@@ -129,7 +136,7 @@ class Transaksi extends CI_Controller
         		'username' => $this->session->identity,
         		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
          );
-            $this->transaksi_model->insert($data);
+            $this->Transaksi_model->insert($data);
             $this->session->set_flashdata('message', 'Simpan Data Success');
             redirect(site_url('transaksi'));
         }
@@ -137,7 +144,7 @@ class Transaksi extends CI_Controller
 
     public function update($id)
     {
-        $row = $this->transaksi_model->get_by_id($id);
+        $row = $this->Transaksi_model->get_by_id($id);
 
         if ($row) {
             $data = array(
@@ -187,7 +194,7 @@ class Transaksi extends CI_Controller
 		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
 	    );
 
-            $this->transaksi_model->update($this->input->post('id', TRUE), $data);
+            $this->Transaksi_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Data Success');
             redirect(site_url('transaksi'));
         }
@@ -195,10 +202,10 @@ class Transaksi extends CI_Controller
 
     public function delete($id)
     {
-        $row = $this->transaksi_model->get_by_id($id);
+        $row = $this->Transaksi_model->get_by_id($id);
 
         if ($row) {
-            $this->transaksi_model->delete($id);
+            $this->Transaksi_model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect(site_url('transaksi'));
         } else {
@@ -257,7 +264,7 @@ class Transaksi extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Username");
 	xlsWriteLabel($tablehead, $kolomhead++, "Wp Status Id");
 
-	foreach ($this->transaksi_model->get_all() as $data) {
+	foreach ($this->Transaksi_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
@@ -287,7 +294,7 @@ class Transaksi extends CI_Controller
         header("Content-Disposition: attachment;Filename=transaksi.doc");
 
         $data = array(
-            'transaksi_data' => $this->transaksi_model->get_all(),
+            'transaksi_data' => $this->Transaksi_model->get_all(),
             'start' => 0
         );
 
