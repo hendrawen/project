@@ -11,10 +11,10 @@ var table;
                "url": (base_url+"pelanggan/ajax_list"),
                "type": "POST",
                "data": function ( data ) {
-                    data.kota = $('#kota').val();
+                    data.kota = $('#filter-kota').val();
+                    data.kecamatan = $('#filter-kecamatan').val();
+                    data.kelurahan = $('#filter-kelurahan').val();
                     data.status = $('#status').val();
-                    data.kelurahan = $('#kelurahan').val();
-                    data.kecamatan = $('#kecamatan').val();
                     data.nama = $('#nama').val();
                     data.created_at = $('#created_at').val();
                     data.tahun = $('#tahun').val();
@@ -103,6 +103,38 @@ var table;
           success : function (data) {
             $("#loader-kelurahan").hide();
             $("#kelurahan").html(data);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error getting record');
+          }
+        })
+      });
+
+      $("#filter-kota").change(function(event) {
+        var element = $("option:selected", this);
+        var id_kota = element.attr("id_kota");
+        $.ajax({
+          url: base_url+'pelanggan/get_kecamatan/'+id_kota,
+          dataType: 'html',
+          success : function (data) {
+            $("#filter-kecamatan").html(data);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+              alert('Error getting record');
+          }
+        })
+      });
+
+      $("#filter-kecamatan").change(function(event) {
+        var element = $("option:selected", this);
+        var id_kecamatan = element.attr("id_kecamatan");
+        $.ajax({
+          url: base_url+'pelanggan/get_kelurahan/'+id_kecamatan,
+          dataType: 'html',
+          success : function (data) {
+            $("#filter-kelurahan").html(data);
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
