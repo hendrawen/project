@@ -4,7 +4,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url('pembelian') ?>" class="site_title"><i class="fa fa-paw"></i> <span>Brajamarketindo</span></a>
+              <a href="<?php echo base_url('dep') ?>" class="site_title"><i class="fa fa-paw"></i> <span>Brajamarketindo</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -28,18 +28,26 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('pembelian');?>"><i class="fa fa-home"></i> Dashboard</a>
+                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('dep');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
-                  <!-- <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/jadwal"><i class="fa fa-calendar-o"></i> Jadwal</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/jadwal"><i class="fa fa-calendar-o"></i> Jadwal</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/piutang"><i class="fa fa-credit-card"></i> Piutang</a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Payment<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/piutang"> Piutang</a>
+                      </li>
+                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/transaksi"> Transaksi</a>
+                      </li>
+                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/pembayaran"> Pembayaran</a>
+                      </li>
+                    </ul>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/transaksi"><i class="fa fa-shopping-cart"></i> Transaksi</a>
+                  <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url()?>dep/list"><i class="fa fa-file-text"></i> List Transaksi</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/delivery"><i class="fa fa-cube"></i> Aset</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/delivery"><i class="fa fa-cube"></i> Aset</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>pembelian/muat"><i class="fa fa-file-text"></i> Muat</a>
-                  </li> -->
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/muat"><i class="fa fa-file-text"></i> Muat</a>
+                  </li>
                 </ul>
               </div>
 

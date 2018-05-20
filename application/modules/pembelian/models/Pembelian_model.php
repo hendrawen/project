@@ -1,96 +1,250 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+class Pembelian_model extends CI_Model{
 
-class Pembelian_model extends CI_Model
-{
+  public function __construct()
+  {
+    parent::__construct();
+    //Codeigniter : Write Less Do More
+  }
+  public $table = 'wp_transaksistok';
+  public $id   = 'id';
+  public $order = 'DESC';
 
-    public $table = 'wp_transaksistok';
-    public $id = 'id';
-    public $order = 'DESC';
+  function total_penjualan()
+  {
+    # code...
+    $this->db->select('sum(subtotal) as total');
+    $this->db->from('wp_transaksi');
+    $this->db->where('username', $this->session->identity);
+    return $this->db->get()->result();
+  }
 
-    function __construct()
-    {
-        parent::__construct();
+  function penjualan_bulanan()
+  {
+    # code...
+    $condition = "MONTH(NOW()) = MONTH(tgl_transaksi)";
+    $this->db->select('sum(subtotal) as total');
+    $this->db->from('wp_transaksi');
+    $this->db->where($condition);
+    $this->db->where('username', $this->session->identity);
+    return $this->db->get()->result();
+  }
+
+  public function gettotaljadwal()
+  {
+    # code...
+    $condition = "curdate() = wp_jadwal.start";
+    $this->db->order_by('id_pelanggan');
+    $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.alamat, wp_pelanggan.lat, wp_pelanggan.long, wp_pelanggan.no_telp, wp_barang.nama_barang, wp_jadwal.qty, wp_jadwal.start, wp_jadwal.title, wp_jadwal.description');
+    $this->db->from('wp_jadwal');
+    $this->db->join('wp_pelanggan', 'wp_jadwal.wp_pelanggan_id = wp_pelanggan.id', 'inner');
+    $this->db->join('wp_barang', 'wp_jadwal.wp_barang_id = wp_barang.id', 'inner');
+    // $this->db->where('wp_jadwal.wp_karyawan_id_karyawan', $this->session->identity);
+    $this->db->where($condition);
+    return $this->db->count_all_results();
+  }
+
+  function total_transaksi() {
+      $this->db->from('wp_transaksi');
+      $this->db->where('username', $this->session->identity);
+      return $this->db->count_all_results();
+  }
+
+  function transaksi_perbulan() {
+      $condition = "MONTH(NOW()) = MONTH(tgl_transaksi)";
+      $this->db->from('wp_transaksi');
+      $this->db->where($condition);
+      $this->db->where('username', $this->session->identity);
+      return $this->db->count_all_results();
+  }
+
+  public function getbydriver()
+  {
+    # code...
+    $condition = "curdate() = wp_jadwal.start";
+    $this->db->order_by('id_pelanggan');
+    $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.alamat, wp_pelanggan.lat, wp_pelanggan.long, wp_pelanggan.no_telp, wp_barang.nama_barang, wp_jadwal.qty, wp_jadwal.start, wp_jadwal.title, wp_jadwal.description');
+    $this->db->from('wp_jadwal');
+    $this->db->join('wp_pelanggan', 'wp_jadwal.wp_pelanggan_id = wp_pelanggan.id', 'inner');
+    $this->db->join('wp_barang', 'wp_jadwal.wp_barang_id = wp_barang.id', 'inner');
+    $this->db->where('wp_jadwal.wp_karyawan_id_karyawan', $this->session->identity);
+    $this->db->where($condition);
+    return $this->db->get()->result();
+  }
+
+  public function gettransaksiharian()
+  {
+    # code...
+    $condition = "curdate() = wp_transaksi.tgl_transaksi";
+    $this->db->order_by('id_transaksi', 'DESC');
+    $this->db->select('wp_transaksi.id, wp_barang.nama_barang, wp_transaksi.tgl_transaksi, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.nama_dagang, wp_transaksi.id_transaksi, wp_transaksi.qty, wp_transaksi.harga, wp_transaksi.subtotal, wp_status.nama_status');
+    $this->db->from('wp_transaksi');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    $this->db->where('wp_transaksi.username', $this->session->identity);
+    $this->db->where($condition);
+    return $this->db->get()->result();
+  }
+
+  public function cetakinvoice($id)
+  {
+    # code...
+    $this->db->order_by('id_transaksi', 'DESC');
+    $this->db->select('wp_transaksi.id, wp_barang.nama_barang, wp_barang.satuan, wp_transaksi.tgl_transaksi, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.nama_dagang, wp_transaksi.id_transaksi, wp_transaksi.qty, wp_transaksi.harga, wp_transaksi.subtotal, wp_status.nama_status');
+    $this->db->from('wp_transaksi');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    $this->db->where('wp_transaksi.username', $this->session->identity);
+    $this->db->where('wp_transaksi.id_transaksi', $id);
+    return $this->db->get()->result();
+  }
+
+  public function idinvoice($id)
+  {
+    # code...
+    $this->db->DISTINCT();
+    $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.kelurahan, wp_pelanggan.alamat, wp_pelanggan.no_telp, wp_pelanggan.nama_dagang, wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi');
+    $this->db->from('wp_pelanggan');
+    $this->db->join('wp_transaksi', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    $this->db->where('wp_transaksi.username', $this->session->identity);
+    $this->db->where('wp_transaksi.id_transaksi', $id);
+    return $this->db->get()->result();
+  }
+
+  public function status($id)
+  {
+    # code...
+    $this->db->DISTINCT();
+    $this->db->select('nama_status');
+    $this->db->from('wp_status');
+    $this->db->join('wp_transaksi', 'wp_transaksi.wp_status_id = wp_status.id', 'inner');
+    $this->db->where('wp_transaksi.username', $this->session->identity);
+    $this->db->where('wp_transaksi.id_transaksi', $id);
+    return $this->db->get()->result();
+  }
+
+  public function total_invoice($id)
+  {
+    # code...
+    $this->db->select('sum(subtotal) as total');
+    $this->db->from('wp_transaksi');
+    $this->db->where('wp_transaksi.username', $this->session->identity);
+    $this->db->where('wp_transaksi.id_transaksi', $id);
+    return $this->db->get()->result();
+
+  }
+
+  function cari_pelanggan($idpelanggan){
+		$this->db->like('id_pelanggan', $idpelanggan , 'both');
+		$this->db->order_by('id_pelanggan', 'ASC');
+    $this->db->where('status', 'Pelanggan');
+		$this->db->limit(10);
+		return $this->db->get('wp_pelanggan')->result();
+	}
+
+  function cek_piutang($idpelanggan){
+		$this->db->like('id_pelanggan', $idpelanggan , 'both');
+		$this->db->order_by('id_pelanggan', 'ASC');
+		$this->db->limit(10);
+		return $this->db->get('wp_pelanggan')->result();
+	}
+
+  function update_piutang($idpelanggan){
+		$this->db->like('id_transaksi', $idpelanggan , 'both');
+		$this->db->order_by('id_transaksi', 'ASC');
+    $this->db->where('utang <=', 'bayar');
+		$this->db->limit(10);
+		return $this->db->get('v_detail')->result();
+	}
+
+  function get_track($cari){
+    $this->db->where('id_pelanggan', $cari);
+    $hsl = $this->db->get('v_detail');
+    if($hsl->num_rows() == 0){
+        echo '<tr><td colspan="9"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Memiliki Utang</div></center></td></tr>';
+    } else {
+      return $hsl->result();
     }
+  }
 
-    // get all
-    function get_all()
-    {
-        $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
-    }
+  function sum_get_track($cari){
+    $this->db->select('sum(sisa) as sisa');
+    $this->db->where('id_pelanggan', $cari);
+    $hsl = $this->db->get('v_detail');
+    return $hsl->result();
+  }
 
-    function get_all_gudang()
-    {
-      $this->db->select('wp_barang.*, wp_suplier.*');
-      $this->db->join('wp_stok', 'wp_stok.wp_barang_id = wp_barang.id', 'inner');
-      $this->db->join('wp_gudang', 'wp_gudang.id = wp_stok.wp_gudang_id', 'inner');
-      $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id', 'inner');
-      $this->db->where('wp_gudang.username', $this->session->identity);
-      return $this->db->get('wp_barang')->result();
-    }
+  function get_min_track($cari){
+    $this->db->select('id_transaksi, sisa, id_pelanggan');
+    $this->db->where('id_pelanggan', $cari);
+    $this->db->order_by('id_transaksi', 'ASC');
+    $hsl = $this->db->get('v_detail');
+    return $hsl->result();
+  }
 
-    // get data by id
-    function get_by_id($id)
-    {
-        $this->db->where($this->id, $id);
-        return $this->db->get($this->table)->row();
-    }
+  // get data by id
+  function get_by_id($id)
+  {
+      $this->db->where('id', $id);
+      return $this->db->get('wp_transaksistok')->row();
+  }
 
-    // get total rows
-    function total_rows($q = NULL) {
-        $this->db->like('id', $q);
-      	$this->db->or_like('id_transaksi', $q);
-      	$this->db->or_like('tgl_transaksi', $q);
-      	$this->db->or_like('wp_barang_id', $q);
-      	$this->db->or_like('qty', $q);
-        $this->db->or_like('satuan', $q);
-      	$this->db->or_like('harga', $q);
-      	$this->db->or_like('subtotal', $q);
-      	$this->db->or_like('updated_at', $q);
+  function delete($id)
+  {
+      $this->db->where('id', $id);
+      $this->db->delete('wp_transaksistok');
+  }
+
+  public function getdetail($id)
+  {
+    # code...
+    $this->db->select('nama_barang, qty, nama_pelanggan, id_pelanggan');
+    $this->db->where('id_pelanggan', $id);
+    return $this->db->get('v_event')->result();
+  }
+
+  function update($id, $data)
+  {
+      $this->db->where('id', $id);
+      return $this->db->update('wp_detail_transaksi', $data);
+
+  }
+
+
+  function insert_pembayaran($data)
+  {
+    // code...
+    $this->db->insert('wp_pembayaran', $data);
+  }
+
+  function get_data(){
+        $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_transaksistok.updated_at, wp_transaksistok.username');
         $this->db->from($this->table);
-        return $this->db->count_all_results();
+        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
+        $this->db->order_by('id_transaksi', $this->order);
+        return $this->db->get()->result();
     }
 
-    // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
-	$this->db->or_like('id_transaksi', $q);
-	$this->db->or_like('wp_barang_id', $q);
-	$this->db->or_like('tgl_transaksi', $q);
-	$this->db->or_like('qty', $q);
-  $this->db->or_like('harga', $q);
-	$this->db->or_like('satuan', $q);
-	$this->db->or_like('subtotal', $q);
-	$this->db->or_like('updated_at', $q);
-	$this->db->limit($limit, $start);
-        return $this->db->get($this->table)->result();
-    }
+    function get_data_barang_bykode($kode){
+  		$hsl=$this->db->query("SELECT * FROM wp_barang WHERE id_barang='$kode'");
+  		if($hsl->num_rows()>0){
+  			foreach ($hsl->result() as $data) {
+  				$hasil=array(
+  					'id' => $data->id,
+  					'id_barang' => $data->id_barang,
+  					'nama_barang' => $data->nama_barang,
+  					//'satuan'  => $data->satuan,
+  					);
+  			}
+  		}
+  		return $hasil;
+  	}
 
-    // insert data
-    function insert($data)
-    {
-        $this->db->insert($this->table, $data);
-    }
-
-    // update data
-    function update($id, $data)
-    {
-        $this->db->where($this->id, $id);
-        $this->db->update($this->table, $data);
-    }
-
-    // delete data
-    function delete($id)
-    {
-        $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
-    }
-
-    function buat_kode(){
+    function generatekode_invoice(){
           $this->db->select('RIGHT(wp_transaksistok.id_transaksi, 2) as kode', FALSE);
           $this->db->order_by($this->id, $this->order);
           $this->db->limit(1);
@@ -109,40 +263,21 @@ class Pembelian_model extends CI_Model
           return $kodejadi;
     }
 
-    function get_coba(){
-        $this->db->select("wp_barang.wp_suplier_id,wp_suplier.nama_suplier");
-        $this->db->from($this->table);
-        $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id');
-        $this->db->order_by('wp_suplier_id', $this->order);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-           return $query->result();
-        } else {
-          return FALSE;
-        }
-    }
+    public function get_all_product(){
+  		$result = $this->db->get('wp_barang');
+  		return $result;
+  	}
 
-    function get_data(){
-        $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_transaksistok.updated_at, wp_transaksistok.username');
-        $this->db->from($this->table);
-        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
-        $this->db->order_by('id_transaksi', $this->order);
-        return $this->db->get()->result();
-    }
-
-    function cek_kode_stok($id){
-      $this->db->where('wp_barang_id', $id);
-      $cek = $this->db->get('wp_stok');
-      if ($cek->num_rows() > 0) {
-          return TRUE;
-      } else return FALSE;
-    }
-
+    // public function generatekode_invoice() {
+    //  //$tahun = date("Y");
+    //  $kode = 'NP0';
+    //  $query = $this->db->query("SELECT MAX(id_transaksi) as max_id FROM wp_transaksistok");
+    //  $row = $query->row_array();
+    //  $max_id = $row['max_id'];
+    //  $max_id1 =(int) substr($max_id,9,5);
+    //  $kode_invoice = $max_id1 +1;
+    //  $maxkode_invoice = $kode.sprintf($kode_invoice);
+    //  return $maxkode_invoice;
+    // }
 
 }
-
-/* End of file Wp_barang_model.php */
-/* Location: ./application/models/Wp_barang_model.php */
-/* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2018-03-06 08:15:05 */
-/* http://harviacode.com */
