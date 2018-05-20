@@ -26,14 +26,16 @@ class Pelanggan extends CI_Controller{
 		$data['judul']			='Dashboard';
 		$data['sub_judul']		='Data Pelanggan';
     $data['content']			= 'main';
-    $kotas = $this->pelanggan->get_list_kota();
+    // $kotas = $this->pelanggan->get_list_kota();
 
-    $opt = array('' => 'Semua Kota');
-        foreach ($kotas as $kota) {
-            $opt[$kota] = $kota;
-    }
+    // $opt = array('' => 'Semua Kota');
+    //     foreach ($kotas as $kota) {
+    //         $opt[$kota] = $kota;
+    // }
+    // $data['form_kota'] = form_dropdown('',$opt,'','id="kota" class="form-control"');
 
-    $data['form_kota'] = form_dropdown('',$opt,'','id="kota" class="form-control"');
+    $data['list_kota'] = $this->daerah->get_kota();
+
     $statuse = $this->pelanggan->get_list_status();
 
     $opt1 = array('' => 'Semua Status');
@@ -43,23 +45,23 @@ class Pelanggan extends CI_Controller{
 
     $data['form_status'] = form_dropdown('',$opt1,'','id="status" class="form-control"');
 
-    $kecamatans = $this->pelanggan->get_list_kecamatan();
+    // $kecamatans = $this->pelanggan->get_list_kecamatan();
 
-    $opt2 = array('' => 'Semua Kecamatan');
-        foreach ($kecamatans as $kecamatan) {
-            $opt2[$kecamatan] = $kecamatan;
-    }
+    // $opt2 = array('' => 'Semua Kecamatan');
+    //     foreach ($kecamatans as $kecamatan) {
+    //         $opt2[$kecamatan] = $kecamatan;
+    // }
 
-    $data['form_kecamatan'] = form_dropdown('',$opt2,'','id="kecamatan" class="form-control"');
+    // $data['form_kecamatan'] = form_dropdown('',$opt2,'','id="kecamatan" class="form-control"');
 
-    $kelurahans = $this->pelanggan->get_list_kelurahan();
+    // $kelurahans = $this->pelanggan->get_list_kelurahan();
 
-    $opt3 = array('' => 'Semua Kelurahan');
-        foreach ($kelurahans as $kelurahan) {
-            $opt3[$kelurahan] = $kelurahan;
-    }
+    // $opt3 = array('' => 'Semua Kelurahan');
+    //     foreach ($kelurahans as $kelurahan) {
+    //         $opt3[$kelurahan] = $kelurahan;
+    // }
 
-    $data['form_kelurahan'] = form_dropdown('',$opt3,'','id="kelurahan" class="form-control"');
+    // $data['form_kelurahan'] = form_dropdown('',$opt3,'','id="kelurahan" class="form-control"');
 
     $surveyors = $this->pelanggan->get_list_surveyor();
 
@@ -82,64 +84,63 @@ class Pelanggan extends CI_Controller{
   }
 
   public function ajax_list()
-    {
-        $list = $this->pelanggan->get_datatables();
-        $data = array();
-        $no = $_POST['start'];
-        foreach ($list as $pelanggans) {
+  {
+      $list = $this->pelanggan->get_datatables();
+      $data = array();
+      $no = $_POST['start'];
+      foreach ($list as $pelanggans) {
+          $row = array();
+          $row[] = $pelanggans->id_pelanggan;
+          $kebutuhan = $this->pelanggan->get_kebutuhan($pelanggans->id);
+          $row[] = $pelanggans->nama_pelanggan;
+          $row[] = $pelanggans->no_telp;
+          $row[] = $pelanggans->nama_dagang;
+          $row[] = $pelanggans->nama_kategori;
+          $row[] = $pelanggans->alamat;
+          $row[] = $pelanggans->kota;
+          $row[] = $pelanggans->kelurahan;
+          $row[] = $pelanggans->kecamatan;
+          $row[] = $pelanggans->lat.'<br />'.$pelanggans->long;
+          // $row[] = $pelanggans->long;
+          $row[] = $pelanggans->status;
+          $list_kebutuhan = "";
+          if ($kebutuhan) {
 
-            $row = array();
-            $row[] = $pelanggans->id_pelanggan;
-            $kebutuhan = $this->pelanggan->get_kebutuhan($pelanggans->id);
-            $row[] = $pelanggans->nama_pelanggan;
-            $row[] = $pelanggans->no_telp;
-            $row[] = $pelanggans->nama_dagang;
-            $row[] = $pelanggans->nama_kategori;
-            $row[] = $pelanggans->alamat;
-            $row[] = $pelanggans->kota;
-            $row[] = $pelanggans->kelurahan;
-            $row[] = $pelanggans->kecamatan;
-            $row[] = $pelanggans->lat.'<br />'.$pelanggans->long;
-            // $row[] = $pelanggans->long;
-            $row[] = $pelanggans->status;
-            $list_kebutuhan = "";
-            if ($kebutuhan) {
-
-              foreach ($kebutuhan as $sip) {
-                $list_kebutuhan .= '
-                  <ul>
-                    <li>'.$sip->jenis.' = '.$sip->jumlah.'</li>
-                  </ul>
-                ';
-              }
-              $row[] = $list_kebutuhan;
-            } else {
-              $row[] = "~";
+            foreach ($kebutuhan as $sip) {
+              $list_kebutuhan .= '
+                <ul>
+                  <li>'.$sip->jenis.' = '.$sip->jumlah.'</li>
+                </ul>
+              ';
             }
-            // $row[] = print_r($kebutuhan);
-            if($pelanggans->photo_toko)
-                $row[] = '<a href="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" target="_blank"><img src="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" class="img-responsive" height="42" width="42"/></a>';
-            else
-                $row[] = '(tidak ada photo)';
-            $row[] = $pelanggans->nama;
-            $row[] = tgl_indo($pelanggans->created_at);
-            $row[] = '
-            <a href="'.base_url('pelanggan/update/'.$pelanggans->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
-            <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_pelanggan('."'".$pelanggans->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
-                     ';
+            $row[] = $list_kebutuhan;
+          } else {
+            $row[] = "~";
+          }
+          // $row[] = print_r($kebutuhan);
+          if($pelanggans->photo_toko)
+              $row[] = '<a href="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" target="_blank"><img src="'.base_url('assets/uploads/'.$pelanggans->photo_toko).'" class="img-responsive" height="42" width="42"/></a>';
+          else
+              $row[] = '(tidak ada photo)';
+          $row[] = $pelanggans->nama;
+          $row[] = tgl_indo($pelanggans->created_at);
+          $row[] = '
+          <a href="'.base_url('pelanggan/update/'.$pelanggans->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+          <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_pelanggan('."'".$pelanggans->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+                   ';
 
-            $data[] = $row;
-        }
+          $data[] = $row;
+      }
 
-        $output = array(
-                        "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->pelanggan->count_all(),
-                        "recordsFiltered" => $this->pelanggan->count_filtered(),
-                        "data" => $data,
-                );
-        //output to json format
-        echo json_encode($output);
-    }
+      $output = array(
+                      "draw" => $_POST['draw'],
+                      "recordsTotal" => $this->pelanggan->count_all(),
+                      "recordsFiltered" => $this->pelanggan->count_filtered(),
+                      "data" => $data,
+              );
+      //output to json format
+      echo json_encode($output);
+  }
 
     public function test()
     {
@@ -416,7 +417,7 @@ class Pelanggan extends CI_Controller{
     {
       $kecamatan = $this->daerah->get_kecamatan($kota);
       $pesan = "";
-      $pesan .= "<option>--Pilih Kecamatan-- </option>";
+      $pesan .= '<option value="">--Pilih Kecamatan-- </option>';
   	  foreach($kecamatan as $k){
   	    $pesan.= "<option id_kecamatan='{$k->id_kec}' value='{$k->nama}'>{$k->nama}</option>";
   	  }
@@ -427,7 +428,7 @@ class Pelanggan extends CI_Controller{
     {
       $kelurahan = $this->daerah->get_kelurahan($kecamatan);
       $pesan = "";
-      $pesan .= "<option>--Pilih Kelurahan-- </option>";
+      $pesan .= '<option value="">--Pilih Kelurahan-- </option>';
       foreach($kelurahan as $k){
   	    $pesan .= "<option value='{$k->nama}'>{$k->nama}</option>";
   	  }

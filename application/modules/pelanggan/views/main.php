@@ -4,15 +4,24 @@
                   <div class="row">
                     <form id="form-filter" class="form-horizontal">
                     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                      <?php echo $form_kota; ?>
+                      <select class="form-control" id="filter-kota" >
+                        <option value="" selected>--Semua Kota--</option>
+                        <?php foreach ($list_kota as $row): ?>
+                          <option id_kota="<?php echo $row->id_kab ?>" value="<?php echo $row->nama ?>"><?php echo $row->nama ?></option>
+                        <?php endforeach; ?>
+                      </select>
                     </div>
 
                     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                      <?php echo $form_kelurahan; ?>
+                      <select class="form-control" id="filter-kecamatan">
+                        <option value="" selected>--Semua Kecamatan--</option>
+                      </select>
                     </div>
 
                     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                      <?php echo $form_kecamatan; ?>
+                      <select class="form-control" id="filter-kelurahan">
+                        <option value="" selected>--Semua Kelurahan--</option>
+                      </select>
                     </div>
 
                     <div class="col-md-2 col-sm-12 col-xs-12 form-group">

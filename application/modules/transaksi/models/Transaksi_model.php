@@ -7,7 +7,7 @@ class Transaksi_model extends CI_Model
 {
 
     public $table = 'wp_transaksi';
-    public $id = 'id';
+    public $id = 'wp_transaksi.id';
     public $order = 'DESC';
 
     function __construct()
@@ -18,7 +18,9 @@ class Transaksi_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
+      $this->db->order_by($this->id, $this->order);
+        $this->db->select('wp_transaksi.*, wp_pelanggan.id_pelanggan');
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
         return $this->db->get($this->table)->result();
     }
 
@@ -31,16 +33,16 @@ class Transaksi_model extends CI_Model
 
     // get total rows
     function total_rows($q = NULL) {
-        $this->db->like('id', $q);
+        $this->db->like('wp_transaksi.id', $q);
       	$this->db->or_like('id_transaksi', $q);
       	$this->db->or_like('wp_barang_id', $q);
       	$this->db->or_like('harga', $q);
       	$this->db->or_like('qty', $q);
       	//$this->db->or_like('satuan', $q);
       	$this->db->or_like('tgl_transaksi', $q);
-      	$this->db->or_like('updated_at', $q);
+      	$this->db->or_like('wp_transaksi.updated_at', $q);
       	$this->db->or_like('wp_pelanggan_id', $q);
-      	$this->db->or_like('username', $q);
+      	$this->db->or_like('wp_transaksi.username', $q);
       	$this->db->or_like('wp_status_id', $q);
       	$this->db->from($this->table);
         return $this->db->count_all_results();
@@ -49,16 +51,19 @@ class Transaksi_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id', $q);
+        $this->db->select('wp_transaksi.*, wp_pelanggan.id_pelanggan');
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+
+        $this->db->like('wp_transaksi.id', $q);
       	$this->db->or_like('id_transaksi', $q);
       	$this->db->or_like('wp_barang_id', $q);
       	$this->db->or_like('harga', $q);
       	$this->db->or_like('qty', $q);
       	//$this->db->or_like('satuan', $q);
       	$this->db->or_like('tgl_transaksi', $q);
-      	$this->db->or_like('updated_at', $q);
+      	$this->db->or_like('wp_transaksi.updated_at', $q);
       	$this->db->or_like('wp_pelanggan_id', $q);
-      	$this->db->or_like('username', $q);
+      	$this->db->or_like('wp_transaksi.username', $q);
       	$this->db->or_like('wp_status_id', $q);
       	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
@@ -94,10 +99,16 @@ class Transaksi_model extends CI_Model
 
     function get_data()
     {
-        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga, wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at, wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+            wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+            wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+            wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+            wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+            wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`');
         $this->db->from($this->table);
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
         $this->db->order_by($this->id, $this->order);
         //$this->db->where('username');
