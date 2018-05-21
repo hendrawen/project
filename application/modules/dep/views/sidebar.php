@@ -34,19 +34,19 @@
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> Payment<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/piutang"> Piutang</a>
+                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/transaksi"> Transaksi Penjuaan</a>
                       </li>
-                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/transaksi"> Transaksi</a>
-                      </li>
-                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/pembayaran"> Pembayaran</a>
+                      <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url();?>dep/piutang">Transaksi Pembayaran</a>
                       </li>
                     </ul>
                   </li>
                   <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url()?>dep/list"><i class="fa fa-file-text"></i> List Transaksi</a>
                   </li>
+                  <li><a <?php echo ($aktif == 'dep')?'class="active"':"";?> href="<?php echo base_url()?>dep/list"><i class="fa fa-clipboard"></i> List Pembayaran</a>
+                  </li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/delivery"><i class="fa fa-cube"></i> Aset</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/muat"><i class="fa fa-file-text"></i> Muat</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>dep/muat"><i class="fa fa-truck"></i> Muat</a>
                   </li>
                 </ul>
               </div>

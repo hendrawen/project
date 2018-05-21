@@ -175,9 +175,9 @@ class Dep_model extends CI_Model{
   }
 
   function get_min_track($cari){
+    $this->db->order_by('id_transaksi', 'ASC');
     $this->db->select('id_transaksi, sisa, id_pelanggan');
     $this->db->where('id_pelanggan', $cari);
-    $this->db->order_by('id_transaksi', 'ASC');
     $hsl = $this->db->get('v_detail');
     return $hsl->result();
   }

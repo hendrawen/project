@@ -59,6 +59,18 @@ $('#id_track_admin').autocomplete({
     }
 });
 
+$('#id_track_aset').autocomplete({
+    source: (base_url+"delivery/get_auto"),
+    select: function (event, ui) {
+        $('[name="title"]').val(ui.item.label);
+        // $('[name="hutang"]').val(formatNumber(ui.item.utang));
+        // $('[name="id_transaksi"]').val(ui.item.transaksi);
+        // $('[name="id"]').val(ui.item.id);
+        // $('[name="sudah"]').val(ui.item.sudah);
+        // $('[name="jumlah"]').val(formatNumber(ui.item.jumlah));
+    }
+});
+
 $('#title3').autocomplete({
         source: (base_url+"dep/get_auto_transaksi"),
         select: function (event, ui) {
@@ -214,3 +226,32 @@ function formatCurrency(num) {
            search_admin();
         }
     });
+
+    function search_aset(){
+        var judul=$("#id_track_aset").val();
+        console.log(judul);
+         if(judul!=""){
+             $("#result3").html(base_url+"assets/ajax-loader.gif");
+               $.ajax({
+                      type : "POST",
+                   url  : (base_url+"delivery/track_aset"),
+                   data:"judul="+judul,
+ 
+                   success:function(data){
+                     $("#result3").html(data);
+                     $("#id_track_aset").val();
+                   }
+            });
+            $('#tabel_cari_aset').show();
+         }
+     }
+ 
+     $("#button_aset").click(function(){
+        search_aset();
+     });
+ 
+     $('#id_track_aset').keyup(function(e) {
+         if(e.keyCode == 13) {
+            search_aset();
+         }
+     });
