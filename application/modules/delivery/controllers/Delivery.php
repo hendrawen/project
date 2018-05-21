@@ -9,6 +9,8 @@ class Delivery extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Aset_model');
+        $this->load->model('dep/Dep_model', 'dep');
+        
         $this->load->library('form_validation');
     }
 
@@ -24,6 +26,79 @@ class Delivery extends CI_Controller
             'content'		=>'list',
         );
         $this->load->view('panel/dashboard', $data);
+    }
+
+    public function penarikan()
+    {
+        $aset = $this->Aset_model->get_all();
+        $data = array(
+            'aset_data' => $aset,
+            'aktif'			=>'delivery',
+            'title'			=>'Brajamarketindo',
+            'judul'			=>'Dashboard',
+            'sub_judul'	=>'Delivery',
+            'content'		=>'tarik_aset',
+        );
+        $this->load->view('panel/dashboard', $data);
+    }
+
+    function get_auto(){
+		if (isset($_GET['term'])) {
+		  	$result = $this->dep->cek_piutang($_GET['term']);
+		   	if (count($result) > 0) {
+		    foreach ($result as $row)
+		     	$arr_result[] = array(
+					'label'			=> $row->id_pelanggan,
+				);
+		     	echo json_encode($arr_result);
+		   	}
+		}
+    }
+    
+    public function track_aset(){
+        $cari = $this->input->post('judul');
+        $this->session->unset_userdata('id_transaksi');
+        $total = 0;
+        $i = 0;
+           $query = $this->dep->get_track($cari);
+           $sum = $this->dep->sum_get_track($cari);
+           $query2 = $this->dep->get_min_track($cari);
+              foreach ($query2 as $key) {
+                $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
+                $this->temb_bayar[$i]['sisa']= $key->sisa;
+                $this->temb_bayar[$i]['id_pelanggan']= $key->id_pelanggan;
+                $i++;
+              ?>
+             <?php }
+             $data =  $this->session->set_userdata('id_transaksi', $this->temb_bayar);
+             ;
+            foreach ($query as $key) { ?>
+               <tr>
+                   <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
+                   <td><?php echo $key->id_pelanggan ?></td>
+                   <td><?php echo $key->nama_pelanggan ?></td>
+                   <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
+                   <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
+                   <td><?php echo tgl_indo($key->tgl_bayar) ?></td>
+  
+               <tr>;
+                 <input type="hidden" id="id_track_aset" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="id_track_aset" required="">
+           <?php }
+           ;
+           foreach ($sum as $key) { ?>
+              <tr>
+               <th colspan="6">Total ASET</th>
+                  <th colspan="1">Rp. <?php echo number_format($key->sisa,2,",",".") ?> </th>
+  
+              </tr>
+              <?php }
+    }
+  
+    public function cek()
+    {
+      # code...
+      print_r ($this->session->userdata('id_transaksi'));
+      
     }
 
     public function create()
