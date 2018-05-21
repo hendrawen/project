@@ -59,6 +59,31 @@ class Aset_model extends CI_Model
       return $this->db->get('wp_pelanggan')->result();
     }
 
+    function get_track($cari){
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        if($hsl->num_rows() == 0){
+            echo '<tr><td colspan="6"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Ada ASET</div></center></td></tr>';
+        } else {
+          return $hsl->result();
+        }
+      }
+    
+      function sum_get_track($cari){
+        $this->db->select('sum(sisa) as sisa');
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        return $hsl->result();
+      }
+    
+      function get_min_track($cari){
+        $this->db->order_by('id_transaksi', 'ASC');
+        $this->db->select('id_transaksi, sisa, id_pelanggan');
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        return $hsl->result();
+      }
+
 }
 
 /* End of file Aset_model.php */
