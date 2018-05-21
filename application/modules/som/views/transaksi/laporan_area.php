@@ -35,6 +35,7 @@
         <div class="input-group">
           <span class="input-group-addon">Berdasarkan </span>
           <select class="form-control" id="berdasarkan-area">
+            <option value="">--Semua--</option>
             <option value="kota">Kota</option>
             <option value="kelurahan">Kelurahan</option>
             <option value="kecamatan">Kecamatan</option>
@@ -45,17 +46,42 @@
         <div class="input-group">
           <span class="input-group-addon">Pilih <img id="loading-combo" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="pilih-area">
+            <option value="">--Pilih--</option>
           </select>
         </div>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <button type="button" class="btn btn-primary" id="btn-area"><i class="fa fa-search"></i> Search</button>
+        <button type="button" class="btn btn-success" id="btn-area"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
         <button type="button" id="excel_area" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
-    <div class="table-responsive" id="tabel">
+    <div class="table-responsive">
+      <table id="datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>No Faktur</th>
+              <th>Tgl Kirim</th>
+              <th>Jatuh Tempo</th>
+              <th>ID Pelanggan</th>
+              <th>Nama Pelanggan</th>
+              <th>Nama Barang</th>
+              <th>QTY</th>
+              <th>Satuan</th>
+              <th>Kota</th>
+              <th>Kecamatan</th>
+              <th>Kelurahan</th>
+              <th>No Telpon</th>
+              <th>Surveyor</th>
+              <th>Debt</th>
+              <th>Jumlah</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
 
+          </tbody>
+      </table>
     </div>
   </div>
 </div>

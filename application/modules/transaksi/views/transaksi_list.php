@@ -56,7 +56,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
-                            <td>Jatuh Tempo</td>
+                            <td><?php echo tgl_indo($key->jatuh_tempo) ?></td>
                             <td><?php echo $key->id_pelanggan ?></td>
                             <td><?php echo $key->nama_pelanggan ?></td>
                             <td><?php echo $key->nama_barang ?></td>

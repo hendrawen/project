@@ -48,22 +48,29 @@ class Laporan extends CI_Controller{
           <td>'.$no++.'</td>
           <td>'.$row->id_transaksi.'</td>
           <td>'.$row->tgl_transaksi.'</td>
+          <td>'.$row->jatuh_tempo.'</td>
+          <td>'.$row->id_pelanggan.'</td>
           <td>'.$row->nama_pelanggan.'</td>
           <td>'.$row->nama_barang.'</td>
-          <td>'.number_format($row->harga).'</td>
           <td>'.$row->qty.'</td>
+          <td>'.$row->satuan.'</td>
+          <td>'.$row->kota.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->nama_karyawan.'</td>
+          <td>'.$row->username.'</td>
           <td>'.number_format($row->subtotal).'</td>
-          <td>'.$row->nama_status.'</td>
         </tr>';
         $total += $row->subtotal;
       }
       $pesan .= '<tr>
-      <td colspan=7 class=text-right>Total</td>
+      <td colspan=14 class=text-right>Total</td>
       <td colspan=2>'.number_format($total).'</td>
       </tr>';
     } else {
       $pesan .= '<tr>
-        <td colspan=9></td>
+        <td colspan=16>Record not found</td>
       </tr>';
     }
     echo $pesan;
@@ -95,25 +102,32 @@ class Laporan extends CI_Controller{
     if ($data) {
       foreach ($data as $row) {
         $pesan .= '<tr>
-          <td>'.$no++.'</td>
-          <td>'.$row->id_transaksi.'</td>
-          <td>'.$row->tgl_transaksi.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
-          <td>'.$row->nama_barang.'</td>
-          <td>'.number_format($row->harga).'</td>
-          <td>'.$row->qty.'</td>
-          <td>'.number_format($row->subtotal).'</td>
-          <td>'.$row->nama_status.'</td>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
       }
       $pesan .= '<tr>
-      <td colspan=7 class=text-right>Total</td>
+      <td colspan=14 class=text-right>Total</td>
       <td colspan=2>'.number_format($total).'</td>
       </tr>';
     } else {
       $pesan .= '<tr>
-        <td colspan=9></td>
+        <td colspan=16>Record not found</td>
       </tr>';
     }
     echo $pesan;
@@ -141,25 +155,32 @@ class Laporan extends CI_Controller{
     if ($data) {
       foreach ($data as $row) {
         $pesan .= '<tr>
-          <td>'.$no++.'</td>
-          <td>'.$row->id_transaksi.'</td>
-          <td>'.$row->tgl_transaksi.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
-          <td>'.$row->nama_barang.'</td>
-          <td>'.number_format($row->harga).'</td>
-          <td>'.$row->qty.'</td>
-          <td>'.number_format($row->subtotal).'</td>
-          <td>'.$row->nama_status.'</td>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
       }
       $pesan .= '<tr>
-      <td colspan=7 class=text-right>Total</td>
+      <td colspan=14 class=text-right>Total</td>
       <td colspan=2>'.number_format($total).'</td>
       </tr>';
     } else {
       $pesan .= '<tr>
-        <td colspan=9></td>
+        <td colspan=16>Record not found</td>
       </tr>';
     }
     echo $pesan;
@@ -184,31 +205,66 @@ class Laporan extends CI_Controller{
     $tahun = $this->input->post('tahun');
     $id_barang = $this->input->post('id_barang');
     $data = $this->mLap->laporan_produk($tahun, $id_barang);
-    $no = 1;
-    $this->template_table();
-    $this->table->clear();
+    // $no = 1;
+    // $this->template_table();
+    // $this->table->clear();
+    // $total = 0;
+    // $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
+    // if ($data) {
+    //   foreach ($data as $row) {
+    //     $this->table->add_row(
+    //       $no++,
+    //       $row->id_transaksi,
+    //       $row->tgl_transaksi,
+    //       $row->nama_pelanggan,
+    //       $row->nama_barang,
+    //       number_format($row->harga),
+    //       $row->qty,
+    //       number_format($row->subtotal),
+    //       $row->nama_status
+    //     );
+    //     $total += $row->subtotal;
+    //   }
+    //   $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+    // } else {
+    //     $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+    // }
+    // echo $this->table->generate();
+    $pesan = "";
     $total = 0;
-    $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
+    $no = 1;
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row(
-          $no++,
-          $row->id_transaksi,
-          $row->tgl_transaksi,
-          $row->nama_pelanggan,
-          $row->nama_barang,
-          number_format($row->harga),
-          $row->qty,
-          number_format($row->subtotal),
-          $row->nama_status
-        );
+        $pesan .= '<tr>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
+        </tr>';
         $total += $row->subtotal;
       }
-      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+      $pesan .= '<tr>
+      <td colspan=14 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
     } else {
-        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
     }
-    echo $this->table->generate();
+    echo $pesan;
   }
 
   function area()
@@ -229,31 +285,66 @@ class Laporan extends CI_Controller{
     $area = $this->input->post('area');
     $berdasarkan = $this->input->post('berdasarkan');
     $data = $this->mLap->laporan_area($tahun, $area, $berdasarkan);
-    $no = 1;
-    $this->template_table();
-    $this->table->clear();
+    $pesan = "";
     $total = 0;
-    $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
+    $no = 1;
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row(
-          $no++,
-          $row->id_transaksi,
-          $row->tgl_transaksi,
-          $row->nama_pelanggan,
-          $row->nama_barang,
-          number_format($row->harga),
-          $row->qty,
-          number_format($row->subtotal),
-          $row->nama_status
-        );
+        $pesan .= '<tr>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
+        </tr>';
         $total += $row->subtotal;
       }
-      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+      $pesan .= '<tr>
+      <td colspan=14 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
     } else {
-        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
     }
-    echo $this->table->generate();
+    echo $pesan;
+    // $no = 1;
+    // $this->template_table();
+    // $this->table->clear();
+    // $total = 0;
+    // $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
+    // if ($data) {
+    //   foreach ($data as $row) {
+    //     $this->table->add_row(
+    //       $no++,
+    //       $row->id_transaksi,
+    //       $row->tgl_transaksi,
+    //       $row->nama_pelanggan,
+    //       $row->nama_barang,
+    //       number_format($row->harga),
+    //       $row->qty,
+    //       number_format($row->subtotal),
+    //       $row->nama_status
+    //     );
+    //     $total += $row->subtotal;
+    //   }
+    //   $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+    // } else {
+    //     $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+    // }
+    // echo $this->table->generate();
   }
 
   function isi_area($pilih)
@@ -288,31 +379,66 @@ class Laporan extends CI_Controller{
     $berdasarkan = $this->input->post('berdasarkan');
     $nama = $this->input->post('nama');
     $data = $this->mLap->laporan_marketing($tahun, $nama);
-    $no = 1;
-    $this->template_table();
-    $this->table->clear();
+    $pesan = "";
     $total = 0;
-    $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
+    $no = 1;
     if ($data) {
       foreach ($data as $row) {
-        $this->table->add_row(
-          $no++,
-          $row->id_transaksi,
-          $row->tgl_transaksi,
-          $row->nama_pelanggan,
-          $row->nama_barang,
-          number_format($row->harga),
-          $row->qty,
-          number_format($row->subtotal),
-          $row->nama_status
-        );
+        $pesan .= '<tr>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
+        </tr>';
         $total += $row->subtotal;
       }
-      $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+      $pesan .= '<tr>
+      <td colspan=14 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
     } else {
-        $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
     }
-    echo $this->table->generate();
+    echo $pesan;
+    // $no = 1;
+    // $this->template_table();
+    // $this->table->clear();
+    // $total = 0;
+    // $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
+    // if ($data) {
+    //   foreach ($data as $row) {
+    //     $this->table->add_row(
+    //       $no++,
+    //       $row->id_transaksi,
+    //       $row->tgl_transaksi,
+    //       $row->nama_pelanggan,
+    //       $row->nama_barang,
+    //       number_format($row->harga),
+    //       $row->qty,
+    //       number_format($row->subtotal),
+    //       $row->nama_status
+    //     );
+    //     $total += $row->subtotal;
+    //   }
+    //   $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
+    // } else {
+    //     $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
+    // }
+    // echo $this->table->generate();
   }
 
   function isi_marketing($pilih)
@@ -394,9 +520,10 @@ class Laporan extends CI_Controller{
       }
 
     } else {
-      $pesan = '<td colspan=15>
-      null
-      </td>';
+      $pesan = '
+      <td colspan=16>Record not found</td>
+      ';
+
     }
     echo $pesan;
   }

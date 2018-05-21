@@ -9,7 +9,7 @@ class Excel extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
         }else{
-            if (!$this->ion_auth->in_group('som')) {//cek admin ga?
+            if (!$this->ion_auth->in_group('admin')) {//cek admin ga?
                 redirect('login','refresh');
             }
         }
@@ -41,15 +41,24 @@ class Excel extends CI_Controller{
       xlsWriteLabel(0, 1, "Harian");
       xlsWriteLabel(1, 1, $day);
       $kolomhead = 0;
+
       xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "Harga");
       xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Subtotal");
-      xlsWriteLabel($tablehead, $kolomhead++, "Status");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+
       $record = $this->mLap->laporan_harian($day);
       $total = 0;
       foreach ($record as $data) {
@@ -57,20 +66,25 @@ class Excel extends CI_Controller{
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
           xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
           xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-          xlsWriteNumber($tablebody, $kolombody++, $data->harga);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
           xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
       }
-      xlsWriteLabel($tablebody, 6, 'Total');
-      xlsWriteNumber($tablebody, 7, $total);
-
-
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
       xlsEOF();
       exit();
   }
@@ -100,14 +114,21 @@ class Excel extends CI_Controller{
       xlsWriteLabel(1, 1, $this->get_month($from).' - '.$this->get_month($to).' '.$year);
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "Harga");
       xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Subtotal");
-      xlsWriteLabel($tablehead, $kolomhead++, "Status");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
       $record = $this->mLap->laporan_bulanan($from, $to, $year);
       $total = 0;
       foreach ($record as $data) {
@@ -115,20 +136,25 @@ class Excel extends CI_Controller{
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
           xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
           xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-          xlsWriteNumber($tablebody, $kolombody++, $data->harga);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
           xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
       }
-      xlsWriteLabel($tablebody, 6, 'Total');
-      xlsWriteNumber($tablebody, 7, $total);
-
-
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
       xlsEOF();
       exit();
   }
@@ -162,14 +188,21 @@ class Excel extends CI_Controller{
       xlsWriteLabel(1, 1, $year);
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "Harga");
       xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Subtotal");
-      xlsWriteLabel($tablehead, $kolomhead++, "Status");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
       $record = $this->mLap->laporan_tahunan($year);
       $total = 0;
       foreach ($record as $data) {
@@ -177,20 +210,25 @@ class Excel extends CI_Controller{
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
           xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
           xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-          xlsWriteNumber($tablebody, $kolombody++, $data->harga);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
           xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
       }
-      xlsWriteLabel($tablebody, 6, 'Total');
-      xlsWriteNumber($tablebody, 7, $total);
-
-
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
       xlsEOF();
       exit();
   }
@@ -223,14 +261,21 @@ class Excel extends CI_Controller{
       xlsWriteLabel(1, 1, $year);
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "Harga");
       xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Subtotal");
-      xlsWriteLabel($tablehead, $kolomhead++, "Status");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
       $record = $this->mLap->laporan_produk($year, $id_barang);
       $total = 0;
       foreach ($record as $data) {
@@ -238,20 +283,25 @@ class Excel extends CI_Controller{
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
           xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
           xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-          xlsWriteNumber($tablebody, $kolombody++, $data->harga);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
           xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
       }
-      xlsWriteLabel($tablebody, 6, 'Total');
-      xlsWriteNumber($tablebody, 7, $total);
-
-
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
       xlsEOF();
       exit();
   }
@@ -276,6 +326,16 @@ class Excel extends CI_Controller{
       header("Content-Type: application/download");
       header("Content-Disposition: attachment;filename=" . $namaFile . "");
       header("Content-Transfer-Encoding: binary ");
+      $area2 = "";
+      $berdasarkan2 = "";
+      if ($area == "-") {
+        $area = "Semua";
+        $area2 = "";
+      }
+      if ($berdasarkan == "-") {
+        $berdasarkan = "Semua";
+        $berdasarkan2 = "";
+      }
 
       xlsBOF();
       xlsWriteLabel(0, 0, "Laporan");
@@ -286,35 +346,48 @@ class Excel extends CI_Controller{
       xlsWriteLabel(2, 1, $area);
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "Harga");
       xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Subtotal");
-      xlsWriteLabel($tablehead, $kolomhead++, "Status");
-      $record = $this->mLap->laporan_area($tahun, $area, $berdasarkan);
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+
+      $record = $this->mLap->laporan_area($tahun, $area2, $berdasarkan2);
       $total = 0;
       foreach ($record as $data) {
           $kolombody = 0;
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
           xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
           xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-          xlsWriteNumber($tablebody, $kolombody++, $data->harga);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
           xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
       }
-      xlsWriteLabel($tablebody, 6, 'Total');
-      xlsWriteNumber($tablebody, 7, $total);
-
-
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
       xlsEOF();
       exit();
   }
@@ -349,14 +422,21 @@ class Excel extends CI_Controller{
 
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
       xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "Harga");
       xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Subtotal");
-      xlsWriteLabel($tablehead, $kolomhead++, "Status");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
       $record = $this->mLap->laporan_marketing($tahun, $nama);
       $total = 0;
       foreach ($record as $data) {
@@ -364,19 +444,25 @@ class Excel extends CI_Controller{
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
           xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
           xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-          xlsWriteNumber($tablebody, $kolombody++, $data->harga);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
           xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
       }
-      xlsWriteLabel($tablebody, 6, 'Total');
-      xlsWriteNumber($tablebody, 7, $total);
-
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
 
       xlsEOF();
       exit();

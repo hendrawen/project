@@ -104,7 +104,9 @@ class Transaksi_model extends CI_Model
             wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
             wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
             wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
-            wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`');
+            wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`,
+            DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+            //SELECT DATE_ADD(tgl_transaksi, INTERVAL 14 day) as jatuh FROM wp_transaksi
         $this->db->from($this->table);
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');

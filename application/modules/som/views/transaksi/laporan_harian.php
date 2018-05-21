@@ -28,10 +28,10 @@
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-
+        <button type="button" id="btn-laporan-harian" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
+        <button type="button" id="excel_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right">
-        <button type="button" id="excel_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
@@ -39,18 +39,24 @@
           <thead>
             <tr>
                 <th>No</th>
-                <th>ID Transaksi</th>
-                <th>Tgl Transaksi</th>
+                <th>No Faktur</th>
+                <th>Tgl Kirim</th>
+                <th>Jatuh Tempo</th>
+                <th>ID Pelanggan</th>
                 <th>Nama Pelanggan</th>
                 <th>Nama Barang</th>
-                <th>Harga</th>
                 <th>QTY</th>
-                <th>Subtotal</th>
-                <th>Status</th>
+                <th>Satuan</th>
+                <th>Kota</th>
+                <th>Kecamatan</th>
+                <th>Kelurahan</th>
+                <th>No Telpon</th>
+                <th>Surveyor</th>
+                <th>Debt</th>
+                <th>Jumlah</th>
             </tr>
           </thead>
           <tbody id="tbody">
-
           </tbody>
       </table>
     </div>

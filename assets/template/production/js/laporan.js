@@ -1,6 +1,13 @@
 $(document).ready(function() {
+  // $("#excel_pelanggan").hide();
+  // $("#excel_marketing").hide();
+  // $("#excel_area").hide();
+  // $("#excel_produk").hide();
+  // $("#excel_tahunan").hide();
+  // $("#excel_harian").hide();
+  // $("#excel_bulanan").hide();
 
-  $("#tgl").change(function() {
+  $("#btn-laporan-harian").click(function() {
     tgl = $("#tgl").val();
     $("#loading").show();
     $.ajaxSetup({
@@ -16,6 +23,7 @@ $(document).ready(function() {
       success : function (data) {
         $("#loading").hide();
         $("#tbody").html(data);
+
       }
     })
   });
@@ -42,7 +50,7 @@ $(document).ready(function() {
     })
   });
 
-  $("#tahunan").change(function() {
+  $("#btn-laporan-tahunan").click(function() {
     tahun = $("#tahunan").val();
     $("#loading").show();
     $.ajaxSetup({
@@ -78,14 +86,19 @@ $(document).ready(function() {
       data: {tahun: tahun, id_barang : id_barang},
       success : function (data) {
         $("#loading").hide();
-        $("#tabel").html(data);
+        $("#tbody").html(data);
       }
     });
   });
 
   $("#berdasarkan-area").change(function() {
     berdasarkan = $("#berdasarkan-area").val();
+    if (berdasarkan == '') {
+      $('#pilih-area').find('option').remove().end().append('<option value="">--Semua--</option>').val('');
+      return false;
+    }
     $("#loading-combo").show();
+
     $.ajaxSetup({
         data: {
             csrf_test_name: $.cookie('csrf_cookie_name')
@@ -120,7 +133,7 @@ $(document).ready(function() {
       data: {tahun: tahun, area : area, berdasarkan : berdasarkan},
       success : function (data) {
         $("#loading").hide();
-        $("#tabel").html(data);
+        $("#tbody").html(data);
       }
     });
   });
@@ -162,7 +175,7 @@ $(document).ready(function() {
       data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},
       success : function (data) {
         $("#loading").hide();
-        $("#tabel").html(data);
+        $("#tbody").html(data);
       }
     });
   });
@@ -171,9 +184,6 @@ $(document).ready(function() {
     from = $("#bulan-pelanggan-from").val();
     to = $("#bulan-pelanggan-to").val();
     tahun = $("#tahun-pelanggan").val();
-    console.log(from);
-    console.log(to);
-    console.log(tahun);
     $("#loading").show();
     $.ajaxSetup({
       data : {
@@ -220,6 +230,13 @@ $(document).ready(function() {
     t = $("#tahun-area").val();
     p = $("#pilih-area").val();
     b = $("#berdasarkan-area").val();
+    if (p == '') {
+      p = '-';
+    }
+    if (b == '') {
+      b = '-';
+    }
+
     window.location = base_url + 'som/excel/area/'+t+'/'+p+'/'+b;
   });
   // marketing

@@ -11,83 +11,190 @@ class Model_laporan extends CI_Model{
 
   function laporan_harian($day)
   {
-    $this->db->select('id_transaksi, wp_barang.nama_barang,
-      harga, qty, subtotal, tgl_transaksi,
-      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+        wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+        wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+        wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
+        DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+    $this->db->from('wp_transaksi');
     $this->db->where('wp_transaksi.tgl_transaksi', $day);
-    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
-    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
-    return $this->db->get('wp_transaksi')->result();
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+    $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+    $data = $this->db->get();
+    return $data->result();
+    // $this->db->select('id_transaksi, wp_barang.nama_barang,
+    //   harga, qty, subtotal, tgl_transaksi,
+    //   wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->where('wp_transaksi.tgl_transaksi', $day);
+
+    // $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    // $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    // $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    // return $this->db->get('wp_transaksi')->result();
   }
 
   function laporan_bulanan($from, $to, $year)
   {
-    $this->db->select('id_transaksi, wp_barang.nama_barang,
-      harga, qty, subtotal, tgl_transaksi,
-      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+        wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+        wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+        wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
+        DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+    $this->db->from('wp_transaksi');
     $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
     $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
-    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
-    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
-    return $this->db->get('wp_transaksi')->result();
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+    $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+    $data = $this->db->get();
+    return $data->result();
+    // $this->db->select('id_transaksi, wp_barang.nama_barang,
+    //   harga, qty, subtotal, tgl_transaksi,
+    //   wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
+    // $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
+    // $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    // $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    // $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    // $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    // return $this->db->get('wp_transaksi')->result();
   }
 
   function laporan_tahunan($year)
   {
-    $this->db->select('id_transaksi, wp_barang.nama_barang,
-      harga, qty, subtotal, tgl_transaksi,
-      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+        wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+        wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+        wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
+        DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+    $this->db->from('wp_transaksi');
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
-    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
-    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
-    return $this->db->get('wp_transaksi')->result();
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+    $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+    $data = $this->db->get();
+    return $data->result();
+    // $this->db->select('id_transaksi, wp_barang.nama_barang,
+    //   harga, qty, subtotal, tgl_transaksi,
+    //   wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    // $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    // $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    // $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    // return $this->db->get('wp_transaksi')->result();
   }
 
   function laporan_produk($year, $id_barang)
   {
-    $this->db->select('id_transaksi, wp_barang.nama_barang,
-      harga, qty, subtotal, tgl_transaksi,
-      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+        wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+        wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+        wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
+        DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+    $this->db->from('wp_transaksi');
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
     $this->db->where('wp_barang.id', $id_barang);
-    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
-    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
-    return $this->db->get('wp_transaksi')->result();
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+    $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+    $data = $this->db->get();
+    return $data->result();
+
+    // $this->db->select('id_transaksi, wp_barang.nama_barang,
+    //   harga, qty, subtotal, tgl_transaksi,
+    //   wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    // $this->db->where('wp_barang.id', $id_barang);
+    // $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    // $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    // $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    // return $this->db->get('wp_transaksi')->result();
   }
 
   function laporan_area($year, $area, $berdasarkan)
   {
-    $this->db->select('id_transaksi, wp_barang.nama_barang,
-      harga, qty, subtotal, tgl_transaksi,
-      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->select('id_transaksi, wp_barang.nama_barang,
+    //   harga, qty, subtotal, tgl_transaksi,
+    //   wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    // $this->db->where('wp_pelanggan.'.$berdasarkan, $area);
+    // $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    // $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    // $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    // return $this->db->get('wp_transaksi')->result();
+    $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+        wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+        wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+        wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
+        DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+    $this->db->from('wp_transaksi');
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
-    $this->db->where('wp_pelanggan.'.$berdasarkan, $area);
-    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
-    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
-    return $this->db->get('wp_transaksi')->result();
+    if ($berdasarkan) {
+      $this->db->where('wp_pelanggan.'.$berdasarkan, $area);
+    }
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+    $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+    $data = $this->db->get();
+    return $data->result();
   }
 
   function laporan_marketing($year, $nama)
   {
-    $this->db->select('id_transaksi, wp_barang.nama_barang,
-      harga, qty, subtotal, tgl_transaksi,
-      wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
+        wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+        wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
+        wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
+        DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
+    $this->db->from('wp_transaksi');
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
-    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
-    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
-
     if ($nama !== 'semua') {
       $this->db->where('wp_karyawan.id_karyawan', $nama);
     }
-    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
-    return $this->db->get('wp_transaksi')->result();
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
+    $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
+    $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
+    $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+    $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+    $data = $this->db->get();
+    return $data->result();
+    // $this->db->select('id_transaksi, wp_barang.nama_barang,
+    //   harga, qty, subtotal, tgl_transaksi,
+    //   wp_pelanggan.nama_pelanggan, wp_status.nama_status');
+    // $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    // if ($nama !== 'semua') {
+    //   $this->db->where('wp_karyawan.id_karyawan', $nama);
+    // }
+    // $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+    // $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+    // $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
+    //
+    // $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id', 'inner');
+    // return $this->db->get('wp_transaksi')->result();
   }
 
   function laporan_pelanggan_utang($id_pelanggan, $from, $to, $year)
