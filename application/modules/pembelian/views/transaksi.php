@@ -26,7 +26,7 @@
     <?php } ?>
     </select>
   </div>
-  <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $generate_invoice; ?>">
+  <!-- <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $generate_invoice; ?>"> -->
   <input type="hidden" name="id" id="id" class="form-control">
   <input type="hidden" name="nama_barang" id="nama_barang" placeholder="Nama Barang" readonly class="form-control" required>
   <div class="col-md-12 col-sm-12 col-xs-12 form-group">
@@ -61,9 +61,9 @@
 
   <?php echo form_hidden('rowid[]', $items['rowid']); ?>
   <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
-  <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
+  <!-- <input type="text" name="idpesan[]" value="<?php echo rand(1,10000);?>"> -->
     <!-- <input type="text" name="id" id="id" class="form-control"> -->
-    <input type="hidden" name="id_transaksi[]" value="<?php echo $items['id_transaksi']; ?>">
+    <!-- <input type="text" name="id_transaksi" value="<?php echo $generate_invoice; ?>"> -->
     <input type="hidden" name="satuan[]" readonly value="<?php echo $items['satuan'];?>">
     <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
     <input type="hidden" name="subtotal[]" value="<?php echo $items['subtotal']; ?>"></td>

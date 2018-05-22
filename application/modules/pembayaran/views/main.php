@@ -1,3 +1,4 @@
+<a href="<?php echo base_url('pembayaran/piutang'); ?>" type="button" class="btn btn-success" > <i class="fa fa-plus"></i> Tambah</a>
 <div class="x_panel">
   <div class="x_title">
     <h2><i class="fa fa-group"></i> Data Pembayaran Pelanggan</h2>
@@ -22,26 +23,44 @@
     <table id="pembayaran" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
           <tr>
-              <th>ID Transaksi</th>
-              <th>Tanggal Transaksi</th>
+              <th>No. Faktur</th>
+              <th>TGL Kirim</th>
+              <th>Jatuh Tempo</th>
               <th>ID Pelanggan</th>
-              <th>Nama</th>
-              <th>Utang (Rp.)</th>
-              <th>Bayar (Rp.)</th>
-              <th>Tanggal Bayar</th>
+              <th>Nama Pelanggan</th>
+              <th>Nama Barang</th>
+              <th>QTY</th>
+              <th>Satuan</th>
+              <th>Kelurahan</th>
+              <th>Kecamatan</th>
+              <th>No. Telp</th>
+              <th>Surveyor</th>
+              <th>DEBT</th>
+              <th>Jumlah</th>
+              <th>TGL Bayar</th>
+              <th>Bayar</th>
           </tr>
       </thead>
       <tbody>
       </tbody>
       <tfoot>
         <tr>
-          <th>ID Transaksi</th>
-          <th>Tanggal Transaksi</th>
-          <th>ID Pelanggan</th>
-          <th>Nama</th>
-          <th>Utang (Rp.)</th>
-          <th>Bayar (Rp.)</th>
-          <th>Tanggal Bayar</th>
+        <th>No. Faktur</th>
+              <th>TGL Kirim</th>
+              <th>Jatuh Tempo</th>
+              <th>ID Pelanggan</th>
+              <th>Nama Pelanggan</th>
+              <th>Nama Barang</th>
+              <th>QTY</th>
+              <th>Satuan</th>
+              <th>Kelurahan</th>
+              <th>Kecamatan</th>
+              <th>No. Telp</th>
+              <th>Surveyor</th>
+              <th>DEBT</th>
+              <th>Jumlah</th>
+              <th>TGL Bayar</th>
+              <th>Bayar</th>
         </tr>
       </tfoot>
   </table>

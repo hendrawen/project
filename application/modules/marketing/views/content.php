@@ -52,19 +52,6 @@
                       </div>
                     </div>
 
-                    <div class="row tile_count">
-                      <?php foreach ($total as $value): ?>
-                        <div class="col-md-6 col-sm-12 col-xs-12 tile_stats_count">
-                          <span class="count_top"><i class="fa fa-bar-chart"></i> Total Penjualan (Rp.)</span>
-                          <div class="count green"><?php echo number_format($value->sub_total,0,'.','.') ?></div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 tile_stats_count">
-                          <span class="count_top"><i class="fa fa-user"></i> Total Transaksi</span>
-                          <div class="count"><?php echo number_format($value->jmlh_transaksi) ?></div>
-                        </div>
-                      <?php endforeach; ?>
-                    </div>
-
                     <div class="row">
                       <div class="title">
                         <form action="<?php echo site_url('marketing/index'); ?>" class="form-inline" method="get">
@@ -105,17 +92,6 @@
                             </div>
                             <div class="col-xs-12 bottom text-right">
                               <div class="col-xs-12 col-sm-12 emphasis text-right">
-                                <?php if ($value->status == 'Pelanggan'){
-                                  echo '
-                                  <a href="'.base_url('marketing/transaksi_pelanggan/'.$value->id_pelanggan.'').'" type="button" class="btn btn-primary btn-xs">
-                                    <i class="fa fa-file-text"> </i> riwayat transaksi
-                                  </a>
-                                  ';}
-                                  else {
-                                    echo "Status masih responden";
-                                  }
-
-                                ?>
                                 <a href="<?=base_url()?>marketing/kebutuhan/<?php echo $value->id ?>" type="button" class="btn btn-primary btn-xs">
                                   <i class="fa fa-download"> </i> Kebutuhan
                                 </a>

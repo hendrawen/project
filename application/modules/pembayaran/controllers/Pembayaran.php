@@ -48,11 +48,20 @@ class Pembayaran extends CI_Controller{
             $row = array();
             $row[] = $pembayarans->id_transaksi;
             $row[] = tgl_indo($pembayarans->tgl_transaksi);
+            $row[] = tgl_indo($pembayarans->jatuh_tempo);
             $row[] = $pembayarans->id_pelanggan;
             $row[] = $pembayarans->nama_pelanggan;
-            $row[] = number_format($pembayarans->utang,2,",",".");
-            $row[] = number_format($pembayarans->bayar,2,",",".");
+            $row[] = $pembayarans->nama_barang;
+            $row[] = $pembayarans->qty;
+            $row[] = $pembayarans->satuan;
+            $row[] = $pembayarans->kelurahan;
+            $row[] = $pembayarans->kecamatan;
+            $row[] = $pembayarans->no_telp;
+            $row[] = $pembayarans->nama;
+            $row[] = $pembayarans->username;
+            $row[] = number_format($pembayarans->subtotal,2,",",".");
             $row[] = tgl_indo($pembayarans->tgl_bayar);
+            $row[] = number_format($pembayarans->bayar,2,",",".");
             $data[] = $row;
         }
 
@@ -133,6 +142,7 @@ class Pembayaran extends CI_Controller{
             foreach ($query2 as $key) {
               $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
               $this->temb_bayar[$i]['sisa']= $key->sisa;
+              $this->temb_bayar[$i]['id_pelanggan']= $key->id_pelanggan;
               $i++;
             ?>
            <?php }
@@ -172,8 +182,8 @@ class Pembayaran extends CI_Controller{
   public function track_pembayaran()
   {
     $list = $this->session->userdata('id_transaksi');
-    // print_r($list);
-    // echo '<br />';
+    print_r($list);
+    echo '<br />';
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
     $sisa = 0;
     for ($i=0; $i < sizeof($list); $i++) {
@@ -183,28 +193,30 @@ class Pembayaran extends CI_Controller{
             'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
             'bayar' => $list[$i]['sisa'],
             'id_transaksi' => $list[$i]['id_transaksi'],
+            'id_pelanggan' => $list[$i]['id_pelanggan'],
             'username' => $this->session->identity,
           );
           $this->dep->insert_pembayaran($data);
           $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
           // echo 'utang lunas, sisa : '.$jumlah_bayar;
           //update transaksi $list[$i]['id_transaksi'];
-      } else {
-        // $sisa = $list[$i]['sisa'] - $jumlah_bayar;
+      } else if($jumlah_bayar <= $list[$i]['sisa']) {
+        
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
           'id_transaksi' => $list[$i]['id_transaksi'] ,
+          'id_pelanggan' => $list[$i]['id_pelanggan'],
           'username' => $this->session->identity,
         );
         $this->dep->insert_pembayaran($data);
-        $this->session->set_flashdata('message', 'Pembayaran Berhasil dan sisa !!!');
-          // echo 'utang lunas, sisa bayar  sisa: '.$jumlah_bayar;
+        $jumlah_bayar =0;
+        $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
         //
       }
-      redirect(site_url('pembayaran/piutang'));
-
     }
+    $this->session->unset_userdata('id_transaksi');
+    redirect(site_url('pembayaran/piutang'));
   }
 
 }

@@ -8,9 +8,9 @@ class Pembayaran_model extends CI_Model{
   public $order2 = 'DESC';
 
   public $id = 'id_transaksi';
-  var $table = 'v_pembayaran';
-  var $column_order = array('id_transaksi', 'id_pelanggan','nama_pelanggan', 'utang', 'bayar', 'tgl_bayar', 'tgl_transaksi'); //set column field database for datatable orderable
-  var $column_search = array('id_pelanggan','nama_pelanggan','id_transaksi'); //set column field database for datatable searchable
+  var $table = 'vdetail_pembayaran';
+  var $column_order = array('id_transaksi', 'tgl_kirim', 'jatuh_tempo', 'id_pelanggan','nama_pelanggan', 'nama_barang', 'qty', 'satuan', 'kelurahan', 'kecamatan', 'no_telp', 'nama', 'username', 'subtotal', 'tgl_bayar', 'bayar'); //set column field database for datatable orderable
+  var $column_search = array('id_pelanggan','nama_pelanggan','id_transaksi', 'jatuh_tempo'); //set column field database for datatable searchable
   var $order = array('id_transaksi' => 'DESC'); // default order
 
   public function __construct()
