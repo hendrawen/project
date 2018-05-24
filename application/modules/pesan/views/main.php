@@ -87,7 +87,7 @@
                   <div class="form-group">
                     <label class="control-label col-md-1 col-sm-12 col-xs-12" for="first-name">Diskon</label>
                     <div class="col-md-3 col-sm-12 col-xs-12">
-                      <input type="text" class="form-control" name="diskon" id="diskon" placeholder="input diskon (Rp.)" onkeyup="FormatCurrency(this)" value="0">
+                      <input type="text" class="form-control" name="diskon" id="diskon" placeholder="input diskon (Rp.)" autocomplete="off" onkeyup="FormatCurrency(this)" value="0">
                     </div>
                   </div>
                   <div class="col-md-8 col-sm-12 col-xs-12">

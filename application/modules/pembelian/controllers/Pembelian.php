@@ -198,7 +198,7 @@ class Pembelian extends CI_Controller{
       'wp_barang_id' => $this->input->post('id'),
       'subtotal' => $this->input->post('subtotal'),
       'satuan' => $this->input->post('satuan2'),
-      'id_transaksi' => $this->input->post('id_transaksi'),
+      //'id_transaksi' => $this->input->post('id_transaksi'),
 		);
 		$this->cart->insert($data);
 		echo $this->show_cart();
@@ -206,30 +206,30 @@ class Pembelian extends CI_Controller{
 
 
     function checkout_action() {
-
-          $kp = $this->input->post('idpesan', true);
-          //$id_transaksi = $this->pembelian->buat_kode();
+          $id_transaksi = $this->pembelian->generatekode_invoice();
   				// $wp_pelanggan_id = $this->input->post('id', true);
   				// $wp_status_id = $this->input->post('wp_status_id', true);
   				$tg = date('Y-m-d H-i-s');
   				$tg2 = date('Y-m-d');
   				$result = array();
-  				foreach($kp AS $key => $val){
+         foreach ($this->cart->contents() as $items) {
   					$result[] = array(
-  						"id_transaksi" 		=> $_POST['id_transaksi'][$key],
-  						"qty"          		=> $_POST['qty'][$key],
-  						"wp_barang_id"    => $_POST['wp_barang_id'][$key],
-  						"harga"       		=> $_POST['harga'][$key],
-  						//"subtotal"       	=> $_POST['subtotal'][$key],
+  						"id_transaksi" 		=> $id_transaksi,
+  						"qty"          		=> $items['qty'],
+  						"wp_barang_id"    => $items['wp_barang_id'],
+  						"harga"       		=> $items['price'],
+  						//"subtotal"       	=> $items['subtotal'][$key],
               //"wp_pelanggan_id" => $wp_pelanggan_id,
-  						"tgl_transaksi" 				=> $tg2,
-  						"satuan"				=> $_POST['satuan'][$key],
-              "subtotal"        => $_POST['subtotal'][$key],
+  						//"tgl_transaksi" 				=> $tg2,
+  						"satuan"				=> $items['satuan'],
+              "subtotal"        => $items['subtotal'],
               "username"      => $this->session->identity,
   					);
-          }
+        }
+          // print_r($result);
+          // exit();
   				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
-  				if($res){$this->cart->destroy();
+  				if($res){ $this->cart->destroy();
   					$this->session->set_flashdata('message','Transaksi berhasil !');
   					redirect('pembelian');
   				}else{
@@ -440,16 +440,16 @@ class Pembelian extends CI_Controller{
 
   public function delete($id)
      {
-         $row = $this->pembelian->get_by_id($id);
-         // $row = $this->Pembelian_model->cek_kode_stok($id);
-         // if ($row) {
-         //     $this->session->set_flashdata('msg', 'Maaf, Data Pembelian Ini Masih Ada Stok, Mohon Hapus Stoknya Dulu!!!');
-         //     redirect(site_url('pembelian'));
-         // } else {
+       $row = $this->pembelian->get_by_id($id);
+
+       if ($row) {
            $this->pembelian->delete($id);
-           $this->session->set_flashdata('message', 'Hapus Data Success');
+           $this->session->set_flashdata('message', 'Hapus Data Sukses');
            redirect(site_url('pembelian'));
-         //}
+       } else {
+           $this->session->set_flashdata('message', 'Record Tidak Ada');
+           redirect(site_url('pembelian'));
+       }
      }
 
 

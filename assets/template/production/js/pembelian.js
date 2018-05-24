@@ -1,11 +1,13 @@
 $(document).ready(function(){
   $('.add_cart').click(function(){
     var id    = $(this).data("id");
+    //var idpesan = $(this).data("idpesan");
     var nama_barang  = $(this).data("nama_barang");
     var harga = $(this).data("harga");
     var satuan = $(this).data("satuan2");
     var subtotal = $(this).data("subtotal");
     var qty   	  = $('#' + id).val();
+    //console.log(idpesan);
     $.ajax({
       url : (base_url+"pembelian/add_to_cart"),
       method : "POST",

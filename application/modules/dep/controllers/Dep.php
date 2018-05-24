@@ -297,9 +297,7 @@ class Dep extends CI_Controller{
   public function cek()
   {
     # code...
-    echo $this->session->userdata('total_belanja');
-    echo '<br />';
-    echo $this->session->userdata('diskon');
+    print_r($this->session->userdata('id_transaksi'));
   }
 
 	function show_cart(){
@@ -459,8 +457,8 @@ class Dep extends CI_Controller{
           $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
           // echo 'utang lunas, sisa : '.$jumlah_bayar;
           //update transaksi $list[$i]['id_transaksi'];
-      } else {
-        //$sisa = $list[$i]['sisa'] - $jumlah_bayar;
+      } else if($jumlah_bayar <= $list[$i]['sisa']) {
+        
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
@@ -469,12 +467,13 @@ class Dep extends CI_Controller{
           'username' => $this->session->identity,
         );
         $this->dep->insert_pembayaran($data);
+        $jumlah_bayar =0;
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
         //
       }
-      redirect(site_url('dep/piutang'));
-
     }
+    $this->session->unset_userdata('id_transaksi');
+    redirect(site_url('dep/piutang'));
   }
 
 }
