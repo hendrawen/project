@@ -47,6 +47,19 @@ $('#id_track').autocomplete({
         }
 });
 
+$('#id_track_aset').autocomplete({
+    source: (base_url+"delivery/get_auto"),
+    select: function (event, ui) {
+        $('[name="title"]').val(ui.item.label);
+        // $('[name="hutang"]').val(formatNumber(ui.item.utang));
+        // $('[name="id_transaksi"]').val(ui.item.transaksi);
+        // $('[name="id"]').val(ui.item.id);
+        // $('[name="sudah"]').val(ui.item.sudah);
+        // $('[name="jumlah"]').val(formatNumber(ui.item.jumlah));
+    }
+});
+
+
 $('#id_track_admin').autocomplete({
     source: (base_url+"pembayaran/get_auto"),
     select: function (event, ui) {
