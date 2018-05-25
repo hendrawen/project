@@ -22,7 +22,7 @@
   <div class="x_content">
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-4">
-            <?php echo anchor(site_url('delivery/create'),'<i class="fa fa-plus"></i> Create', 'class="btn btn-primary"'); ?>
+            <?php echo anchor(site_url('delivery/penarikan'),'<i class="fa fa-plus"></i> Create', 'class="btn btn-primary"'); ?>
         </div>
         <div class="col-md-4 text-center">
             <div style="margin-top: 8px" id="message">
@@ -38,20 +38,24 @@
       <table id="datatable" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
           <thead>
             <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Jam</th>
-                <th>Turun Krat</th>
-                <th>Turun Btl</th>
-                <th>Naik Krat</th>
-                <th>Naik Btl</th>
-                <th>Aset Krat</th>
-                <th>Aset Btl</th>
+                <th>No. Faktur</th>
+                <th>Tgl Kirim</th>
+                <th>Jatuh Tempo</th>
+                <th>ID Pelanggan</th>
+                <th>Nama Pelanggan</th>
+                <th>Nama Barang</th>
+                <th>qty</th>
+                <th>Satuan</th>
+                <th style="wider_kelurahan">Kelurahan</th>
+                <th style="wider_kecamatan">Kecamatan</th>
+                <th>No. telp</th>
+                <th>Surveyor</th>
+                <th>Debt</th>
+                <th>Jumlah</th>
+                <th>Tgl Penarikan</th>
                 <th>Bayar</th>
-                <th>Keterangan</th>
-                <th>Username</th>
-                <th>Pelanggan</th>
-                <th>Action</th>
+                <th>Tgl Penarikan</th>
+                <th>Bayar</th>
             </tr>
           </thead>
           <tbody>
@@ -61,26 +65,31 @@
             {
                 ?>
                 <tr>
-                  <td width="80px"><?php echo ++$start ?></td>
-                  <td><?php echo $aset->tanggal ?></td>
-                  <td><?php echo $aset->jam ?></td>
-                  <td><?php echo $aset->turun_krat ?></td>
-                  <td><?php echo $aset->turun_btl ?></td>
-                  <td><?php echo $aset->naik_krat ?></td>
-                  <td><?php echo $aset->naik_btl ?></td>
-                  <td><?php echo $aset->aset_krat ?></td>
-                  <td><?php echo $aset->aset_btl ?></td>
-                  <td><?php echo $aset->bayar ?></td>
-                  <td><?php echo $aset->keterangan ?></td>
-                  <td><?php echo $aset->username ?></td>
+                  <td><?php echo $aset->id_transaksi ?></td>
+                  <td><?php echo tgl_indo($aset->tgl_transaksi) ?></td>
+                  <td><?php echo tgl_indo($aset->jatuh_tempo) ?></td>
+                  <td><?php echo $aset->id_pelanggan ?></td>
                   <td><?php echo $aset->nama_pelanggan ?></td>
-                  <td style="text-align:center" width="200px">
+                  <td><?php echo $aset->nama_barang ?></td>
+                  <td><?php echo $aset->qty ?></td>
+                  <td><?php echo $aset->satuan ?></td>
+                  <td><?php echo $aset->kelurahan ?></td>
+                  <td><?php echo $aset->kecamatan ?></td>
+                  <td><?php echo $aset->no_telp ?></td>
+                  <td><?php echo $aset->nama ?></td>
+                  <td><?php echo $aset->username ?></td>
+                  <td><?php echo $aset->jumlah ?></td>
+                  <td><?php echo tgl_indo($aset->tgl_penarikan) ?></td>
+                  <td><?php echo $aset->bayar_krat ?></td>
+                  <td><?php echo tgl_indo($aset->tgl_penarikan) ?></td>
+                  <td><?php echo $aset->bayar_uang ?></td>
+                  <!-- <td style="text-align:center" width="200px">
                     <?php
                     echo anchor(site_url('delivery/update/'.$aset->id), '<button type="button" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update</button>');
                     echo '&nbsp;';
                     echo anchor(site_url('delivery/delete/'.$aset->id),'<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
                     ?>
-                  </td>
+                  </td> -->
                 </tr>
                 <?php
             }

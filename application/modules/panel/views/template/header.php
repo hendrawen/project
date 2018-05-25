@@ -11,6 +11,9 @@
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url()?>assets/template/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="<?php echo base_url()?>assets/template/production/css/custom.css" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link href="<?php echo base_url()?>assets/template/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->

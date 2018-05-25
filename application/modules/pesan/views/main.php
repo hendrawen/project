@@ -92,7 +92,7 @@
                   </div>
                   <div class="col-md-8 col-sm-12 col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Checkout</button>
-                    <button type="button" class="hapus_cart btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
+                    <button type="button" class="hapus_cart_admin btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
                   </div>
                   <form>
                 </div>

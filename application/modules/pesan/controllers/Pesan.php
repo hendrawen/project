@@ -185,8 +185,16 @@ class Pesan extends CI_Controller{
   public function cek()
   {
     # code...
-    $cart = $this->cart->contents();
-    print_r($cart);
+    // $cart = $this->cart->contents();
+		// print_r($cart);
+		foreach($this->cart->contents() as $items) {
+			if ($items['satuan'] == 'Krat') {
+				echo $items['wp_barang_id'] ;  echo '&nbsp; : &nbsp;'; echo $items['qty']; echo '</br>';
+			} else{
+				echo "gagal";
+			}
+
+		}
   }
 
 	function show_cart(){

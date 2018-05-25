@@ -66,15 +66,17 @@
                       </li>
                     </ul>
                   </li>
-                  <li><a <?php echo ($aktif == 'Jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar-o"></i> Jadwal </a></li>
+                  <!-- <li><a <?php echo ($aktif == 'Jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar-o"></i> Jadwal </a></li>
                   <li><a><i class="fa fa-cube"></i> Asset<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"> Delivery</a>
+                      <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"> Transaksi ASET</a>
                       </li>
                       <li><a <?php echo ($aktif == 'muat')?'class="active"':"";?> href="<?php echo base_url();?>delivery/muat"> Muat</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
+                  <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"><i class="fa fa-cube"></i> Aset</a>
+                      </li>
                   <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
 
@@ -87,8 +89,10 @@
                       <li><a href="<?php echo base_url();?>som/laporan/area">Penjualan Per Area</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/marketing">Penjualan Per Marketing</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/pelanggan">Pelanggan</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/pembayaran_bulanan">Pembayaran</a></li>
                     </ul>
                   </li>
+                  <li><a href="<?php echo base_url();?>laporan/penarikan_bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
 
                   <li><a <?php echo ($aktif == 'User')?'class="active"':"";?> href="<?php echo base_url();?>users"><i class="fa fa-table"></i> Users </a></li>
                   <li><a <?php echo ($aktif == 'Group')?'class="active"':"";?> href="<?php echo base_url();?>users/groups"><i class="fa fa-clone"></i> User Groups </a></li>
