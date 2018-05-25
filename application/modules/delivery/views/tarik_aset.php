@@ -45,20 +45,19 @@
             </div>
             <div class="row">
               <div class="table-responsive">
-              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari_aset" style="display: none;">
+              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari_aset">
                     <thead>
                       <th>ID Pelanggan</th>
                       <th>Nama Pelanggan</th>
                       <th>Piutang</th>
                       <th>Tanggal Penarikan</th>
-                      <th>Bayar (Rp/Krat)</th>
-                      <th>Tanggal Penarikan</th>
-                      <th>Bayar</th>
+                      <th>Bayar Krat</th>
+                      <th>Bayar Uang</th>
                     </thead>
-                    <tbody id="result3">
+                    <tbody id="result_aset">
                     </tbody>
                     </table>
-            </div>
+              </div>
             </div>
           <!-- end form for validations -->
 
@@ -87,9 +86,10 @@
         </div>
         <div class="x_content">
 
-          <!-- start form for validation -->
-          <form action="<?php echo base_url(). 'pembayaran/track_pembayaran'; ?>" method="post">
-            <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+          <form action="#" id="form-tarik-aset" method="post">
+            <div id="pesan-post">
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
               <label for="fullname">Tanggal Bayar/Tarik * :</label>
               <div class="controls">
                   <div class="col-md-12 xdisplay_inputx form-group has-feedback">
@@ -99,19 +99,31 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-              <label for="bayar">Bayar (Rp.) *</label>
-              <input type="text" name="bayar" id="bayar" class="form-control" onkeyup="FormatCurrency(this)" autocomplete="off" placeholder="Masukkan jumlah bayar" required>
+            <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+              <label for="jenis">Jenis Pembayaran * :</label>
+              <select name="jenis" id="jenis" class="form-control">
+                <option value="krat" selected>Krat</option>
+                <option value="uang">Uang</option>
+              </select>
+            </div>
+            <div id="form-input-uang" class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+              <label for="bayar_uang">Bayar Uang (Rp.) *</label>
+              <input type="text" id="bayar_uang" class="form-control" onkeyup="FormatCurrency(this)" autocomplete="off" placeholder="Masukkan jumlah bayar">
+            </div>
+            <div id="form-input-krat" class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+              <label for="bayar_krat">Bayar Krat *</label>
+              <input type="text" id="bayar_krat" class="form-control" autocomplete="off" placeholder="Masukkan jumlah bayar">
             </div>
             <!-- <input type="hidden" name="sudah" id="sudah"> -->
             <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
             <input type="hidden" id="id" name="id" />
+            
             <div class="form-group text-right">
-            <a href="<?php echo base_url('pembayaran'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
-              <button type="submit" class="btn btn-success"><i class="fa fa-credit-card"></i> Bayar</button>
+              <a href="<?php echo base_url('pembayaran'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
+              <button type="button" id="btn-bayar-aset" class="btn btn-success"><i class="fa fa-credit-card"></i> Bayar</button>
             </div>
+            
           </form>
           <!-- end form for validations -->
-
         </div>
       </div>
