@@ -18,9 +18,7 @@ $(document).ready(function(){
     });
   });
 
-
 $('#detail_faktur').load(base_url+"faktur/load_cart");
-
 
   $(document).on('click','.romove_cart',function(){
     var row_id=$(this).attr("id");
@@ -72,44 +70,6 @@ $('#detail_faktur').load(base_url+"faktur/load_cart");
       }
     });
   });
-
-  // $('#id_transaksi').autocomplete({
-  //         url: (base_url+"faktur2/get_autocomplete"),
-  //         select: function (event, ui) {
-  //             $('[name="id_transaksi"]').val(ui.item.label);
-  //             $('[name="id_pelanggan"]').val(ui.item.id_pelanggan);
-  //             $('[name="nama_pelanggan"]').val(ui.item.nama_pelanggan);
-  //             $('[name="nama_dagang"]').val(ui.item.nama_dagang);
-  //             $('[name="alamat"]').val(ui.item.alamat);
-  //             $('[name="no_telp"]').val(ui.item.no_telp);
-  //             $('[name="tgl_transaksi"]').val(ui.item.tgl_transaksi);
-  //             $('[name="nama"]').val(ui.item.nama);
-  //             $('[name="kelurahan"]').val(ui.item.kelurahan);
-  //             $('[name="kecamatan"]').val(ui.item.kecamatan);
-  //             $('[name="lat"]').val(ui.item.lat);
-  //             $('[name="long"]').val(ui.item.long);
-  //             $('[name="jatuh_tempo"]').val(ui.item.jatuh_tempo);
-  //         }
-  // //         select: function(data){
-  // //             $.each(data, function(id_transaksi, tgl_transaksi, id_pelanggan, nama_pelanggan, nama_dagang, no_telp, alamat, kelurahan, kecamatan, lat, long, jatuh_tempo, nama){
-  // //                 $('[name="id_transaksi"]').val(data.id_transaksi);
-  // //                 //$('[name="tgl_transaksi"]').val(data.tgl_transaksi);
-  // //                 //$('[name="id_transaksi"]').val(data.item.label);
-  // //                 document.getElementById("tgl_transaksi").innerHTML = data.tgl_transaksi;
-  // //                 document.getElementById('id_pelanggan').innerHTML = data.id_pelanggan;
-  // //                 document.getElementById('nama_pelanggan').innerHTML = data.nama_pelanggan;
-  // //                 document.getElementById('nama_dagang').innerHTML = data.nama_dagang;
-  // //                 document.getElementById('no_telp').innerHTML = data.no_telp;
-  // //                 document.getElementById('alamat').innerHTML = data.alamat;
-  // //                 document.getElementById('kelurahan').innerHTML = data.kelurahan;
-  // //                 document.getElementById('kecamatan').innerHTML = data.kecamatan;
-  // //                 document.getElementById('lat').innerHTML = data.lat;
-  // //                 document.getElementById('long').innerHTML = data.long;
-  // //                 document.getElementById('jatuh_tempo').innerHTML = data.jatuh_tempo;
-  // //                 document.getElementById('nama').innerHTML = data.nama;
-  // //             });
-  // //         }
-  //     });
 
   $('#id_transaksi').autocomplete({
           source: (base_url+"faktur2/get_autocomplete"),

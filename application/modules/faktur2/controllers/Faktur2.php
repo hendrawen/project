@@ -67,22 +67,33 @@ class Faktur2 extends CI_Controller{
                  <td><?php echo $key->nama_barang ?></td>
                  <td><?php echo number_format($key->harga,2,",",".") ?></td>
                  <td><?php echo $key->qty ?></td>
-                 <td><?php echo number_format($key->subtotal,2,",",".") ?></td>
+                      <?php
+                          $subtotal = $key->harga*$key->qty;
+                          $total += $subtotal;
+                      ?>
+                 <td><?php echo number_format($subtotal,2,",",".") ?></td>
                  <td><?php echo $key->satuan ?></td>
-
              <tr>;
          <?php }
          echo '<tr>
-         <td colspan="3" style="text-align:center; font-weight:bold;">Total</td>
-         <td colspan="2" style="font-weight:bold;">'.number_format($query[0]->subtotal+$query[1]->subtotal,2,",",".").'</td>
+         <td colspan="3" style="text-align:right; font-weight:bold;">Total</td>
+         <td colspan="2" style="font-weight:bold;">'.number_format($total,2,",",".").'</td>
          </tr>
          <tr>
-         <td colspan="3" style="text-align:center; font-weight:bold;">Bayar</td>
+         <td colspan="3" style="text-align:right; font-weight:bold;">Diskon</td>
+         <td colspan="2" style="font-weight:bold;">'.number_format($query[0]->diskon,2,",",".").'</td>
+         </tr>
+         <tr>
+         <td colspan="3" style="text-align:right; font-weight:bold;">Total Akhir</td>
+         <td colspan="2" style="font-weight:bold;">'.number_format($total-$query[0]->diskon,2,",",".").'</td>
+         </tr>
+         <tr>
+         <td colspan="3" style="text-align:right; font-weight:bold;">Bayar</td>
          <td colspan="2" style="font-weight:bold;">'.number_format($query[0]->bayar,2,",",".").'</td>
          </tr>
          <tr>
-         <td colspan="3" style="text-align:center; font-weight:bold;">Hutang</td>
-         <td colspan="2" style="font-weight:bold;">'.number_format($query[0]->sisa,2,",",".").'</td>
+         <td colspan="3" style="text-align:right; font-weight:bold;">Hutang</td>
+         <td colspan="2" style="font-weight:bold;">'.number_format(($total-$query[0]->diskon)-$query[0]->bayar,2,",",".").'</td>
          </tr>'
          ;
   }

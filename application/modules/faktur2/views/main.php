@@ -21,8 +21,6 @@
                     <div class="clearfix"></div>
                   </div>
 
-
-
                   <div class="col-sm-12">
 
                       <!-- <input type="search" name="keyword" id="keyword" oninput="ambildata()" class="form-control"> -->
@@ -140,23 +138,6 @@
 </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script type="text/javascript">
-                  // function ambildata() {
-                  // var keyword=$('#keyword').val();
-                  //   if (keyword == "") {
-                  //     $('#tabel_cari').hide();
-                  // }else{
-                  // $.ajax({
-                  //   url:'<?php echo base_url();?>faktur2/cari_faktur',
-                  //     type:'GET',
-                  //       dataType:'html',
-                  //       data:'keyword='+keyword,
-                  //       success:function (respons) {
-                  //     $('#hasil').html(respons);
-                  // },
-                  // })
-                  // $('#tabel_cari').show();
-                  // }
-                  // }
 
     $(document).ready(function(){
 	      function search(){
