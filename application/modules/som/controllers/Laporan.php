@@ -32,7 +32,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_harian',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_harian()
@@ -87,7 +87,7 @@ class Laporan extends CI_Controller{
           'content'		=>'transaksi/laporan_bulanan',
           'month'     => $this->month,
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_bulanan()
@@ -142,7 +142,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_tahunan',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_tahunan()
@@ -197,7 +197,7 @@ class Laporan extends CI_Controller{
           'content'		=>'transaksi/laporan_per_produk',
           'list_barang' => $this->Barang_model->get_all(),
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_produk()
@@ -276,7 +276,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_area',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_area()
@@ -370,7 +370,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_marketing',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_marketing()
@@ -484,7 +484,7 @@ class Laporan extends CI_Controller{
         'year'  => set_value('year', $year)
     );
 
-    $this->load->view('som/dashboard', $data);
+    $this->load->view('panel/dashboard', $data);
   }
 
   function load_pelanggan()

@@ -58,13 +58,8 @@ class Pesan extends CI_Controller{
     $data['data']=$this->Pesan_model->get_all_product();
     $data['profile']=$this->Pesan_model->get_profile();
     $data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
-    $data['generate_invoice'] = $this->Pesan_model->generatekode_invoice();
-    $cart = $this->cart->total() -  str_replace(".","", $this->input->post('diskon'));
-    $newdata = array(
-        'total_belanja'  => $cart,
-        'diskon'     =>  str_replace(".","", $this->input->post('diskon')),
-    );
-    $sesi = $this->session->set_userdata($newdata);
+		$data['generate_invoice'] = $this->Pesan_model->generatekode_invoice();
+		$data['get_total'] = $this->get_total();
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -81,15 +76,39 @@ class Pesan extends CI_Controller{
 	}
 
   function add_to_cart(){
-		$data = array(
-			'id' => $this->input->post('id_barang'),
-			'name' => $this->input->post('nama_barang'),
-			'price' => $this->input->post('harga_jual'),
-			'qty' => $this->input->post('qty'),
-      'wp_barang_id' => $this->input->post('id'),
-      'id_transaksi' => $this->input->post('id_transaksi'),
-      'satuan' => $this->input->post('satuan'),
+		if ($this->input->post('diskon') <= 0) {
+				$harga = $this->input->post('harga_jual');
+				$diskon = str_replace(".","", $this->input->post('diskon'));
+				$hasil = $harga - $diskon;
+				$data = array(
+					'id' => $this->input->post('id_barang'),
+					'name' => $this->input->post('nama_barang'),
+					'price' => $this->input->post('harga_jual'),
+					'qty' => $this->input->post('qty'),
+					'diskon' => 0,
+					'wp_barang_id' => $this->input->post('id'),
+					'id_transaksi' => $this->input->post('id_transaksi'),
+					'satuan' => $this->input->post('satuan'),
+				);
+		} else {
+				$harga = $this->input->post('harga_jual');
+				$diskon = str_replace(".","", $this->input->post('diskon'));
+				$hasil = $harga - $diskon;
+				$data = array(
+					'id' => $this->input->post('id_barang'),
+					'name' => $this->input->post('nama_barang'),
+					'price' => $this->input->post('harga_jual'),
+					'qty' => $this->input->post('qty'),
+					'diskon' => $this->input->post('diskon'),
+					'wp_barang_id' => $this->input->post('id'),
+					'id_transaksi' => $this->input->post('id_transaksi'),
+					'satuan' => $this->input->post('satuan'),
+				);
+		$newdata = array(
+			'diskon'     =>  str_replace(".","", $this->input->post('diskon')),
 		);
+		$sesi = $this->session->set_userdata($newdata);
+		}
 		$this->cart->insert($data);
 		echo $this->show_cart();
 	}
@@ -168,7 +187,7 @@ class Pesan extends CI_Controller{
             'created_at' => date('Y-m-d'),
             //'updated_at' => $this->input->post('updated_at',TRUE),
             //'created_at' => mdate($datestring, $time),
-           );
+					 );
           $this->db->insert('wp_detail_transaksi', $data);
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){$this->cart->destroy();
@@ -202,25 +221,41 @@ class Pesan extends CI_Controller{
 		$no = 0;
 		foreach ($this->cart->contents() as $items) {
 			$no++;
+			$qty = ($items['price'] - str_replace(".","",$items['diskon']));
+			$total = ($qty * $items['qty']);
 			$output .='
 				<tr>
 					<td>'.$items['id'].'</td>
 					<td>'.$items['name'].'</td>
-          <td>'.$items['price'].'</td>
+          <td>'.number_format($items['price'],2,",",".").'</td>
 					<td><input type="text" name="qty[]" size="1" value="'.$items['qty'].'" style="border:0px;background:none;"></td>
-          <td>'.$items['satuan'].'</td>
-					<td>'.number_format($items['subtotal'],2,",",".").'</td>
+					<td>'.$items['satuan'].'</td>
+					<td>'.$items['diskon'].'</td>
+					<td>'.number_format($total,2,",",".").'</td>
 					<td><button type="button" id="'.$items['rowid'].'" class="romove_cart_admin btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
 				</tr>
 			';
 		}
 		$output .= '
 			<tr>
-          <th colspan="5">Total</th>
-          <th colspan="2">'.'Rp '.number_format($this->cart->total(),2,",",".").'</th>
+          <th colspan="6">Total</th>
+          <th colspan="2">'.'Rp '.number_format($this->get_total(),2,",",".").'</th>
 			</tr>
 		';
 		return $output;
+	}
+
+	function get_total()
+	{
+		# code...
+		$total = 0;
+		if ($this->cart->contents()) {
+			foreach ($this->cart->contents() as $items) {
+				$subtotal = $items['subtotal'] - (str_replace(".","",$items['diskon']) * $items['qty']);
+				$total += $subtotal;
+			}
+		}
+		return $total;
 	}
 
 	function load_cart(){

@@ -28,7 +28,10 @@
   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
       <input type="text" name="satuan" id="satuan" placeholder="Satuan" readonly class="form-control">
   </div>
-  <div class="col-md-2 col-sm-12 col-xs-12 form-group text-right">
+  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+      <input type="text" class="form-control" name="diskon" id="diskon" placeholder="input diskon (Rp.)" autocomplete="off" onkeyup="FormatCurrency(this)" >
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
       <button type="button"  class="add_cart_admin btn btn-success"><i class="fa fa-shopping-cart"></i> Tambah</button>
   </div>
 
@@ -70,6 +73,7 @@
                           <th>Harga (Rp.)</th>
                           <th>QTY</th>
                           <th>Satuan</th>
+                          <th>Diskon (Rp.)</th>
                           <th>Subtotal (Rp.)</th>
                           <th></th>
                         </tr>
@@ -84,13 +88,7 @@
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
                   <form method="POST" action="<?php echo site_url('pesan/checkout');?>">
-                  <div class="form-group">
-                    <label class="control-label col-md-1 col-sm-12 col-xs-12" for="first-name">Diskon</label>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                      <input type="text" class="form-control" name="diskon" id="diskon" placeholder="input diskon (Rp.)" autocomplete="off" onkeyup="FormatCurrency(this)" value="0">
-                    </div>
-                  </div>
-                  <div class="col-md-8 col-sm-12 col-xs-12">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Checkout</button>
                     <button type="button" class="hapus_cart_admin btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
                   </div>
