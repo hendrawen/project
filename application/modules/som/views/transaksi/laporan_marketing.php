@@ -55,6 +55,7 @@
         <button type="button" class="btn btn-success" id="btn-marketing"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
         <button type="button" id="excel_marketing" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
     </div>
     <div class="table-responsive">

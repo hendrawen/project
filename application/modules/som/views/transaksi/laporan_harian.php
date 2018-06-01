@@ -30,6 +30,7 @@
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <button type="button" id="btn-laporan-harian" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right">
       </div>
