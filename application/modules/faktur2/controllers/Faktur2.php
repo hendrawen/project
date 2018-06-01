@@ -36,7 +36,7 @@ class Faktur2 extends CI_Controller{
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
 					'label' => $row->id_transaksi,
-          'tgl_transaksi' => $row->tgl_transaksi,
+          'tgl_transaksi' => tgl_indo($row->tgl_transaksi),
           'id_pelanggan' => $row->id_pelanggan,
 					'nama_pelanggan' => $row->nama_pelanggan,
           'nama_dagang' => $row->nama_dagang,
@@ -47,7 +47,7 @@ class Faktur2 extends CI_Controller{
           'kecamatan'  => $row->kecamatan,
           'lat'  => $row->lat,
           'long'  => $row->long,
-          'jatuh_tempo' => $row->jatuh_tempo
+          'jatuh_tempo' => tgl_indo($row->jatuh_tempo)
 				);
 		     	echo json_encode($arr_result);
 		   	}

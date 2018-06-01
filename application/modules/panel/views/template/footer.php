@@ -70,6 +70,7 @@
     <script src="<?php echo base_url()?>assets/template/production/js/pembelian.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi_admin.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/dept.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script>
@@ -90,7 +91,7 @@
     <?php if ($this->uri->segment(1) == 'som'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan.js" charset="utf-8"></script>
     <?php endif; ?>
-    
+
     <?php if($this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/delivery.js" charset="utf-8"></script>
     <?php endif; ?>

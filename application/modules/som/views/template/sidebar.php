@@ -43,6 +43,14 @@
                       <li><a href="<?php echo base_url();?>som/laporan/pelanggan">Pelanggan</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-edit"></i> Report Transaksi Dep <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>som/lap_dep/harian">Penjualan Harian</a></li>
+                      <li><a href="<?php echo base_url();?>som/lap_dep/bulanan">Penjualan Bulanan</a></li>
+                      <li><a href="<?php echo base_url();?>som/lap_dep/tahunan">Penjualan Tahunan</a></li>
+
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
