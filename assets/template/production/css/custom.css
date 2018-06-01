@@ -1,0 +1,14 @@
+tr > th {
+    white-space: nowrap;
+    padding: 5px 23px 5px 23px !important;
+}
+
+.wider {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+}
+
+.wider_kecamatan{
+    padding-left: 70px !important;
+    padding-right: 70px !important;
+}

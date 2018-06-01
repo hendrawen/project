@@ -1,5 +1,5 @@
 $('#transaksilist').dataTable( {
-  "rowsGroup": [1],
+  "rowsGroup": [0],
   "columnDefs": [
   {
       "targets": [ 0, 7 ], //first column / numbering column

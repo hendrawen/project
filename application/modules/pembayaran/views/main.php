@@ -24,7 +24,7 @@
       <thead>
           <tr>
               <th>No. Faktur</th>
-              <th>TGL Kirim</th>
+              <th>Tgl Kirim</th>
               <th>Jatuh Tempo</th>
               <th>ID Pelanggan</th>
               <th>Nama Pelanggan</th>
@@ -37,7 +37,7 @@
               <th>Surveyor</th>
               <th>DEBT</th>
               <th>Jumlah</th>
-              <th>TGL Bayar</th>
+              <th>Tgl Bayar</th>
               <th>Bayar</th>
           </tr>
       </thead>

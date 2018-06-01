@@ -21,39 +21,30 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-4">
         <div class="input-group">
           <span class="input-group-addon">Tahun </span>
-          <select class="form-control" id="tahun-area">
+          <select class="form-control" id="tahun">
             <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
               echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
             } ?>
           </select>
         </div>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-4">
         <div class="input-group">
-          <span class="input-group-addon">Berdasarkan </span>
-          <select class="form-control" id="berdasarkan-area">
-            <option value="">--Semua--</option>
-            <option value="kota">Kota</option>
-            <option value="kelurahan">Kelurahan</option>
-            <option value="kecamatan">Kecamatan</option>
+          <span class="input-group-addon">Nama Produk </span>
+          <select class="form-control" id="id_barang">
+            <?php foreach ($list_barang as $row): ?>
+              <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
+            <?php endforeach; ?>
           </select>
         </div>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="input-group">
-          <span class="input-group-addon">Pilih <img id="loading-combo" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
-          <select class="form-control" id="pilih-area">
-            <option value="">--Pilih--</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <button type="button" class="btn btn-success" id="btn-area"><i class="fa fa-search"></i> Search</button>
+      <div class="col-md-4">
+        <button type="button" class="btn btn-success" id="btn-produk-tahun"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
-        <button type="button" id="excel_area" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="excel_produk" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
         <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
     </div>

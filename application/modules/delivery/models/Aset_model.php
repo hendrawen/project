@@ -18,10 +18,16 @@ class Aset_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->select('wp_asis_debt.*, wp_pelanggan.id as `id_pel`, wp_pelanggan.nama_pelanggan');
-        $this->db->order_by($this->id, $this->order);
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'left');
-        return $this->db->get($this->table)->result();
+        $this->db->select('wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as jatuh_tempo, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, SUM(wp_transaksi.qty) as qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_pelanggan.kecamatan, wp_pelanggan.no_telp, wp_karyawan.nama, wp_transaksi.username, SUM(wp_asis_debt.turun_krat) AS jumlah, wp_penarikan.tgl_penarikan, wp_asis_debt.bayar_krat, wp_penarikan.tgl_penarikan, wp_asis_debt.bayar_uang');
+        $this->db->from('wp_asis_debt');
+        $this->db->join('wp_penarikan', 'wp_asis_debt.id = wp_penarikan.wp_asis_debt_id', 'left');
+        $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id', 'left');
+        $this->db->join('wp_pelanggan', 'wp_asis_debt.wp_pelanggan_id = wp_pelanggan.id', 'left');
+        $this->db->join('wp_barang', 'wp_asis_debt.wp_barang_id = wp_barang.id', 'left');
+        $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan', 'left');
+        $this->db->group_by('wp_asis_debt.wp_pelanggan_id');
+        return $this->db->get()->result();
+     
     }
 
     // get data by id

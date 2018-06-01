@@ -115,7 +115,10 @@
                   <input type="hidden" name="id" id="id" class="form-control">
                   <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>">
                   <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
-                  <input type="hidden" name="subtotal[]" value="<?php echo $this->session->userdata('total_belanja') ?>"></td>
+                  <?php 
+                  $qty = ($items['price'] - str_replace(".","",$items['diskon']));
+                  $total = ($qty * $items['qty']); ?>
+                  <input type="hidden" name="subtotal[]" value="<?php echo $total ?>"></td>
                   <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
 
                   <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
@@ -136,6 +139,7 @@
                           <th>Harga (Rp.)</th>
                           <th>QTY</th>
 													<th>Satuan</th>
+                          <th>Diskon (Rp.)</th>
                           <th>Subtotal (Rp.)</th>
                         </tr>
                       </thead>
@@ -163,20 +167,20 @@
                             <?php echo $items['satuan']; ?>
                           </td>
                           <td>
-                            Rp. <?php echo $this->cart->format_number($items['subtotal']); ?>
+                            <?php echo $items['diskon']; ?>
+                          </td>
+                          <td>
+                            Rp. <?php
+                                  $qty = ($items['price'] - str_replace(".","",$items['diskon']));
+                                  $total = ($qty * $items['qty']);
+                            echo $this->cart->format_number($total); ?>
                           </div>
                         </tr>
                         <?php $i++; ?>
                         <?php endforeach; ?>
-												<tr>
-														<td colspan="5"><strong>Diskon</strong></td>
-														<td><?php
-														$diskon = $this->session->userdata('diskon');
-														 echo 'Rp. &nbsp;';  echo number_format($diskon,2,',','.') ?></td>
-												</tr>
                         <tr>
-                          <td colspan="5"><strong>Total</strong></td>
-                          <td>Rp. <?php  echo number_format($this->session->userdata('total_belanja'),2,',','.')?></td>
+                          <td colspan="6"><strong>Total</strong></td>
+                          <td>Rp. <?php  echo $this->cart->format_number($get_total,2,',','.');?></td>
                         </tr>
                       </tbody>
                     </table>

@@ -1,7 +1,7 @@
 
 <div class="x_panel">
   <div class="x_title">
-    <h2>Laporan Transaksi <small>Harian</small></h2>
+    <h2>Laporan Penarikan ASET <small>Bulanan</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -53,16 +53,14 @@
         </div>
       </div>
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <button type="button" class="btn btn-success" id="btn-search_bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
-        <button type="button" id="excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+        <button type="button" class="btn btn-success" id="btn-search_bulan_aset"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
+        <button type="button" id="penarikan_excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
-      <table id="transaksilist datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
+      <table id="transaksilist_penarikan datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
           <thead>
             <tr>
-              <th>No</th>
               <th>No Faktur</th>
               <th>Tgl Kirim</th>
               <th>Jatuh Tempo</th>
@@ -71,13 +69,19 @@
               <th>Nama Barang</th>
               <th>QTY</th>
               <th>Satuan</th>
-              <th>Kota</th>
-              <th>Kecamatan</th>
-              <th>Kelurahan</th>
+              <th class="wider_kecamatan">Kecamatan</th>
+              <th class="wider_kecamatan">Kelurahan</th>
               <th>No Telpon</th>
               <th>Surveyor</th>
               <th>Debt</th>
               <th>Jumlah</th>
+              <th>Tgl Penarikan</th>
+              <th>Bayar</th>
+              <th>Tgl Penarikan</th>
+              <th>Bayar</th>
+              <th>Jumlah</th>
+              <th>Sisa ASET</th>
+              <th class="wider">Status</th>
             </tr>
           </thead>
           <tbody id="tbody">

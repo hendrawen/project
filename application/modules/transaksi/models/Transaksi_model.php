@@ -18,7 +18,7 @@ class Transaksi_model extends CI_Model
     // get all
     function get_all()
     {
-      $this->db->order_by($this->id, $this->order);
+        $this->db->order_by(' wp_transaksi.tgl_transaksi', 'DESC');
         $this->db->select('wp_transaksi.*, wp_pelanggan.id_pelanggan');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
         return $this->db->get($this->table)->result();
@@ -50,7 +50,7 @@ class Transaksi_model extends CI_Model
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by(' wp_transaksi.tgl_transaksi', 'DESC');
         $this->db->select('wp_transaksi.*, wp_pelanggan.id_pelanggan');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
 
@@ -100,7 +100,7 @@ class Transaksi_model extends CI_Model
     function get_data()
     {
         $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
-            wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
+            wp_transaksi.qty, wp_transaksi.subtotal, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
             wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
             wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
             wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
@@ -112,7 +112,7 @@ class Transaksi_model extends CI_Model
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by(' wp_transaksi.tgl_transaksi', 'DESC');
         //$this->db->where('username');
         $data = $this->db->get();
         return $data->result();

@@ -1,6 +1,6 @@
 <div class="x_panel">
   <div class="x_title">
-    <h2>Laporan Transaksi <small>Pelanggan</small></h2>
+    <h2>Laporan Tracking <small>Pelanggan</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -58,6 +58,7 @@
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <button type="button" id="btn-lap-pelanggan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_pelanggan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="btn-refresh-tracking" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
     </div>
     <div class="table-responsive">
@@ -95,7 +96,7 @@
 
             </tr>
           </thead>
-          <tbody id="tbody">
+          <tbody id="tbody-tracking">
 
           </tbody>
       </table>

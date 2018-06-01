@@ -32,7 +32,47 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_harian',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
+  }
+
+  function get_all()
+  {
+    $data = $this->mLap->get_all();
+    $pesan = "";
+    $no = 1;
+    $total = 0;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_transaksi.'</td>
+          <td>'.$row->tgl_transaksi.'</td>
+          <td>'.$row->jatuh_tempo.'</td>
+          <td>'.$row->id_pelanggan.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.$row->satuan.'</td>
+          <td>'.$row->kota.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->nama_karyawan.'</td>
+          <td>'.$row->username.'</td>
+          <td>'.number_format($row->subtotal).'</td>
+        </tr>';
+        $total += $row->subtotal;
+      }
+      $pesan .= '<tr>
+      <td colspan=14 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
+    } else {
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
+    }
+    echo $pesan;
   }
 
   function load_harian()
@@ -87,7 +127,7 @@ class Laporan extends CI_Controller{
           'content'		=>'transaksi/laporan_bulanan',
           'month'     => $this->month,
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_bulanan()
@@ -142,7 +182,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_tahunan',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_tahunan()
@@ -186,7 +226,11 @@ class Laporan extends CI_Controller{
     echo $pesan;
   }
 
-  function produk()
+  /* -------------
+  ----- Produk ---
+  --------------*/
+  //harian
+  function produk_harian()
   {
     $this->load->model('barang/Barang_model');
       $data = array(
@@ -194,42 +238,17 @@ class Laporan extends CI_Controller{
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
           'sub_judul'	=>'SOM',
-          'content'		=>'transaksi/laporan_per_produk',
+          'content'		=>'produk/harian',
           'list_barang' => $this->Barang_model->get_all(),
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
-  function load_produk()
+  function load_produk_harian()
   {
-    $tahun = $this->input->post('tahun');
+    $day = $this->input->post('day');
     $id_barang = $this->input->post('id_barang');
-    $data = $this->mLap->laporan_produk($tahun, $id_barang);
-    // $no = 1;
-    // $this->template_table();
-    // $this->table->clear();
-    // $total = 0;
-    // $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
-    // if ($data) {
-    //   foreach ($data as $row) {
-    //     $this->table->add_row(
-    //       $no++,
-    //       $row->id_transaksi,
-    //       $row->tgl_transaksi,
-    //       $row->nama_pelanggan,
-    //       $row->nama_barang,
-    //       number_format($row->harga),
-    //       $row->qty,
-    //       number_format($row->subtotal),
-    //       $row->nama_status
-    //     );
-    //     $total += $row->subtotal;
-    //   }
-    //   $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
-    // } else {
-    //     $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
-    // }
-    // echo $this->table->generate();
+    $data = $this->mLap->laporan_produk_harian($day, $id_barang);
     $pesan = "";
     $total = 0;
     $no = 1;
@@ -267,6 +286,127 @@ class Laporan extends CI_Controller{
     echo $pesan;
   }
 
+  //bulanan
+  function produk_bulanan()
+  {
+    $this->load->model('barang/Barang_model');
+      $data = array(
+          'aktif'			=>'som',
+          'title'			=>'Brajamarketindo',
+          'judul'			=>'Dashboard',
+          'sub_judul'	=>'SOM',
+          'content'		=>'produk/bulanan',
+          'list_barang' => $this->Barang_model->get_all(),
+          'month'     => $this->month,
+      );
+      $this->load->view('panel/dashboard', $data);
+  }
+
+  function load_produk_bulanan()
+  {
+    $from = $this->input->post('from');
+    $to = $this->input->post('to');
+    $year = $this->input->post('year');
+    $id_barang = $this->input->post('id_barang');
+    $data = $this->mLap->laporan_produk_bulanan($from, $to, $year, $id_barang);
+    $pesan = "";
+    $total = 0;
+    $no = 1;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
+        </tr>';
+        $total += $row->subtotal;
+      }
+      $pesan .= '<tr>
+      <td colspan=14 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
+    } else {
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
+    }
+    echo $pesan;
+  }
+
+  //tahun
+  function produk_tahun()
+  {
+    $this->load->model('barang/Barang_model');
+      $data = array(
+          'aktif'			=>'som',
+          'title'			=>'Brajamarketindo',
+          'judul'			=>'Dashboard',
+          'sub_judul'	=>'SOM',
+          'content'		=>'produk/tahun',
+          'list_barang' => $this->Barang_model->get_all(),
+      );
+      $this->load->view('panel/dashboard', $data);
+  }
+
+  function load_produk_tahun()
+  {
+    $tahun = $this->input->post('tahun');
+    $id_barang = $this->input->post('id_barang');
+    $data = $this->mLap->laporan_produk($tahun, $id_barang);
+    $pesan = "";
+    $total = 0;
+    $no = 1;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
+        </tr>';
+        $total += $row->subtotal;
+      }
+      $pesan .= '<tr>
+      <td colspan=14 class=text-right>Total</td>
+      <td colspan=2>'.number_format($total).'</td>
+      </tr>';
+    } else {
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
+    }
+    echo $pesan;
+  }
+
+  /* -------------
+  -- end Produk --
+  --------------*/
+
   function area()
   {
       $data = array(
@@ -276,7 +416,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_area',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_area()
@@ -370,7 +510,7 @@ class Laporan extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_marketing',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_marketing()
@@ -484,7 +624,7 @@ class Laporan extends CI_Controller{
         'year'  => set_value('year', $year)
     );
 
-    $this->load->view('som/dashboard', $data);
+    $this->load->view('panel/dashboard', $data);
   }
 
   function load_pelanggan()
@@ -513,6 +653,44 @@ class Laporan extends CI_Controller{
           for ($month=1; $month <=12 ; $month++) {
             $jumlah_trx = $this->mLap->laporan_pelanggan_trx($row->id_pelanggan, $month, $tahun);
             $jumlah_qty = $this->mLap->laporan_pelanggan_qty($row->id_pelanggan, $month, $tahun);
+            $pesan  .= '<td>'.$jumlah_trx.'</td>
+            <td>'.$jumlah_qty.'</td>';
+          }
+        '</tr>';
+      }
+
+    } else {
+      $pesan = '
+      <td colspan=16>Record not found</td>
+      ';
+
+    }
+    echo $pesan;
+  }
+
+  function load_pelanggan_all()
+  {
+    $data = $this->mLap->laporan_pelanggan_all();
+    $no = 1;
+    $total = 0;
+    $pesan = "";
+    if ($data) {
+      foreach ($data as $row) {
+        $utang = $this->mLap->laporan_pelanggan_utang_all($row->id_pelanggan);
+
+        $pesan .= '
+        <tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_pelanggan.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.number_format($utang).'</td>';
+          for ($month=1; $month <=12 ; $month++) {
+            $jumlah_trx = $this->mLap->laporan_pelanggan_trx_all($row->id_pelanggan, $month);
+            $jumlah_qty = $this->mLap->laporan_pelanggan_qty_all($row->id_pelanggan, $month);
             $pesan  .= '<td>'.$jumlah_trx.'</td>
             <td>'.$jumlah_qty.'</td>';
           }

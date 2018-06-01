@@ -26,10 +26,10 @@
             </div>
 
               <div class="x_content">
-                  <table class="table jambo_table table-bordered dt-responsive nowrap" id="transaksilist">
+              <div class="table-responsive">
+                  <table class="table jambo_table table-bordered" id="transaksilist">
                       <thead>
                           <tr>
-                              <th>#</th>
                               <th>No Faktur</th>
                               <th>Tgl Kirim</th>
                               <th>Jatuh Tempo</th>
@@ -53,7 +53,6 @@
                         $jum = 1;
                         foreach($transaksi as $key){ ?>
                        <tr>
-                            <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                             <td><?php echo tgl_indo($key->jatuh_tempo) ?></td>
@@ -70,12 +69,9 @@
                             <td><?php echo $key->username ?></td>
 
                             <!-- <td><?php echo number_format($key->harga,2,",",".") ?></td> -->
-                            <td><?php
-                                    $harga1 = $key->harga;
-                                    $qty1   = $key->qty;
-                                    $hitung = jumlah($harga1, $qty1);
-                                    echo number_format($hitung,2,",",".");
-                                ?>
+                            <td>
+                            
+                                <?php echo $key->subtotal ?>
                             </td>
 
 
@@ -98,7 +94,6 @@
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th>#</th>
                         <th>No Faktur</th>
                         <th>Tgl Kirim</th>
                         <th>Jatuh Tempo</th>
@@ -108,8 +103,8 @@
                         <th>Qty</th>
                         <th>Satuan</th>
                         <th>Kota</th>
-                        <th>Kecamatan</th>
-                        <th>Kelurahan</th>
+                        <th class="wider_kecamatan">Kecamatan</th>
+                        <th class="wider_kecamatan">Kelurahan</th>
                         <th>No Telpon</th>
                         <th>Marketing</th>
                         <th>Debt</th> <!-- username-->
@@ -117,6 +112,7 @@
                       </tr>
                     </tfoot>
                   </table>
+                  </div>
 
           </div>
               <div class="row">

@@ -34,6 +34,7 @@
       <div class="col-md-4">
         <button type="button" id="btn-laporan-tahunan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_tahunan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
       <div class="col-md-4 text-right">
 
