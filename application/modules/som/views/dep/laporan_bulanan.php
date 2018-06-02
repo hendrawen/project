@@ -22,7 +22,7 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Bulan dari</span>
           <select class="form-control" id="bulan_dari">
@@ -32,7 +32,7 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Bulan ke</span>
           <select class="form-control" id="bulan_ke">
@@ -42,7 +42,7 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun</span>
           <select class="form-control" id="tahun">
@@ -52,9 +52,28 @@
           </select>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
-        <button type="button" class="btn btn-success" id="btn-search_bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
-        <button type="button" id="excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Berdasarkan </span>
+          <select class="form-control" id="berdasarkan-dept">
+            <option value="semua">Semua Dept</option>
+            <option value="dept">Per Dept</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Nama Dept <img id="loading-combo" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+          <select class="form-control" id="nama-dept">
+            <option value="semua">Semua</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <button type="button" class="btn btn-success" id="btn-bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
+        <button type="button" id="excelbulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">

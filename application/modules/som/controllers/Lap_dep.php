@@ -69,7 +69,7 @@ class Lap_dep extends CI_Controller{
         $total += $row->subtotal;
       }
       $pesan .= '<tr>
-      <td colspan=15 class=text-center>Total</td>
+      <td colspan=15 class=text-right>Total</td>
       <td>'.number_format($total).'</td>
       </tr>';
     } else {
@@ -82,7 +82,6 @@ class Lap_dep extends CI_Controller{
 
   function bulanan()
   {
-
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
@@ -99,7 +98,9 @@ class Lap_dep extends CI_Controller{
     $from = $this->input->post('from');
     $to = $this->input->post('to');
     $tahun = $this->input->post('tahun');
-    $data = $this->dep->laporan_bulanan($from, $to, $tahun);
+    $nama = $this->input->post('nama');
+    $berdasarkan = $this->input->post('berdasarkan');
+    $data = $this->dep->laporan_bulanan($from, $to, $tahun, $nama);
     $pesan = "";
     $no = 1;
     $total = 0;
@@ -126,8 +127,8 @@ class Lap_dep extends CI_Controller{
         $total += $row->subtotal;
       }
       $pesan .= '<tr>
-      <td colspan=14 class=text-right>Total</td>
-      <td colspan=2>'.number_format($total).'</td>
+      <td colspan=15 class=text-right>Total</td>
+      <td>'.number_format($total).'</td>
       </tr>';
     } else {
       $pesan .= '<tr>
@@ -152,7 +153,9 @@ class Lap_dep extends CI_Controller{
   function load_tahunan()
   {
     $tahun = $this->input->post('tahun');
-    $data = $this->dep->laporan_tahunan($tahun);
+    $nama = $this->input->post('nama');
+    $berdasarkan = $this->input->post('berdasarkan');
+    $data = $this->dep->laporan_tahunan($tahun, $nama);
     $pesan = "";
     $total = 0;
     $no = 1;
@@ -179,8 +182,8 @@ class Lap_dep extends CI_Controller{
         $total += $row->subtotal;
       }
       $pesan .= '<tr>
-      <td colspan=14 class=text-right>Total</td>
-      <td colspan=2>'.number_format($total).'</td>
+      <td colspan=15 class=text-right>Total</td>
+      <td>'.number_format($total).'</td>
       </tr>';
     } else {
       $pesan .= '<tr>
@@ -376,7 +379,11 @@ class Lap_dep extends CI_Controller{
   function isi_dept($pilih)
   {
     $this->load->database();
-    $karyawan = $this->db->get('wp_karyawan')->result();
+    $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
+    $this->db->from('wp_karyawan');
+    $this->db->join('wp_jabatan','wp_jabatan.id=wp_karyawan.wp_jabatan_id');
+    $this->db->where('wp_jabatan.nama_jabatan','Driver');
+    $karyawan = $this->db->get()->result();
     $opt = "";
     if ($pilih == "dept") {
       foreach ($karyawan as $row) {

@@ -41,7 +41,7 @@ class Model_dep extends CI_Model{
     $this->db->from('wp_transaksi');
     $this->db->where('wp_transaksi.tgl_transaksi', $day);
     if ($nama !== 'semua') {
-      $this->db->where('wp_karyawan.id_karyawan', $nama);
+      $this->db->where('wp_transaksi.username', $nama);
     }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
@@ -52,7 +52,7 @@ class Model_dep extends CI_Model{
     return $data->result();
   }
 
-  function laporan_bulanan($from, $to, $year)
+  function laporan_bulanan($from, $to, $year, $nama)
   {
     $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
         wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
@@ -65,6 +65,9 @@ class Model_dep extends CI_Model{
     $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
     $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    if ($nama !== 'semua') {
+      $this->db->where('wp_transaksi.username', $nama);
+    }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
     $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
@@ -74,7 +77,7 @@ class Model_dep extends CI_Model{
     return $data->result();
   }
 
-  function laporan_tahunan($year)
+  function laporan_tahunan($year, $nama)
   {
     $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
         wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
@@ -85,6 +88,9 @@ class Model_dep extends CI_Model{
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
     $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    if ($nama !== 'semua') {
+      $this->db->where('wp_transaksi.username', $nama);
+    }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
     $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');

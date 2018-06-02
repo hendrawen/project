@@ -46,7 +46,7 @@
       </div>
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <button type="button" id="btn-dept" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
-        <button type="button" id="excel_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="excelharian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">

@@ -21,7 +21,7 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="tahunan">
@@ -31,9 +31,26 @@
           </select>
         </div>
       </div>
-      <div class="col-md-4">
-        <button type="button" id="btn-laporan-tahunan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
-        <button type="button" id="excel_tahunan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">Berdasarkan </span>
+          <select class="form-control" id="berdasarkan-dept">
+            <option value="semua">Semua Dept</option>
+            <option value="dept">Per Dept</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">Nama Dept <img id="loading-combo" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+          <select class="form-control" id="nama-dept">
+            <option value="semua">Semua</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button type="button" id="btn-tahunan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
+        <button type="button" id="exceltahunan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
       <div class="col-md-4 text-right">
 
