@@ -80,18 +80,27 @@
                   <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
 
-                  <li><a><i class="fa fa-edit"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-line-chart"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>som/laporan/harian">Penjualan Harian</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/bulanan">Penjualan Bulanan</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/tahunan">Penjualan Tahunan</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/produk">Penjualan Per Produk</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/area">Penjualan Per Area</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/marketing">Penjualan Per Marketing</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/pelanggan">Pelanggan</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/pembayaran_bulanan">Pembayaran</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/penjualan/harian">Penjualan Harian</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/penjualan/bulanan">Penjualan Bulanan</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/penjualan/tahunan">Penjualan Tahunan</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/area/tahun">Penjualan Per Area</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/marketing/harian_marketing">Penjualan Harian Marketing</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/marketing/bulanan_marketing">Penjualan Bulanan Marketing</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/marketing/tahunan_marketing">Penjualan Tahunan Marketing</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_bulanan">Pembayaran Bulanan</a></li>
+                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
                     </ul>
                   </li>
+                  <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
+                  <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
+                  <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-share-alt"></i> Produk Share</a></li>
+                  <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-list-alt"></i> Report Debt & Delivery</a></li>
                   <li><a href="<?php echo base_url();?>laporan/penarikan_bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
 
                   <li><a <?php echo ($aktif == 'User')?'class="active"':"";?> href="<?php echo base_url();?>users"><i class="fa fa-table"></i> Users </a></li>

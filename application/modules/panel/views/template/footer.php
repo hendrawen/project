@@ -95,17 +95,28 @@
     <?php if($this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/delivery.js" charset="utf-8"></script>
     <?php endif; ?>
-<<<<<<< HEAD
-=======
-
-    <?php if ($this->uri->segment(1) == 'laporan'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/laporan_pembayaran.js" charset="utf-8"></script>
-    <?php endif; ?>
     <?php if ($this->uri->segment(1) == 'market'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/market.js" charset="utf-8"></script>
     <?php endif; ?>
-    <script 
->>>>>>> 203c5345d5e396c36d370bfbcf2c7d3d20945aaf
+    <?php if ($this->uri->segment(2) == 'pembayaran'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_pembayaran.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'marketing'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_marketing.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'produk'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_produk.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'penjualan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_penjualan.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'area'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_area.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(1) == 'produk'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/produkshare.js" charset="utf-8"></script>
+    <?php endif; ?>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
