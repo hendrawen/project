@@ -1,7 +1,7 @@
 
 <div class="x_panel">
   <div class="x_title">
-    <h2>Laporan Pembayaran <small>Bulanan</small></h2>
+    <h2>Laporan Pembayaran <small>Harian</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -22,39 +22,15 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="input-group">
-          <span class="input-group-addon">Bulan dari</span>
-          <select class="form-control" id="bulan_dari">
-            <?php $i = 1; foreach ($month as $key): ?>
-              <option value="<?php echo $i++;?>"><?php echo $key?></option>
-            <?php endforeach; ?>
-          </select>
+          <span class="input-group-addon">Tanggal <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+          <input type="date" class="form-control" id="tgl" placeholder="" value="<?php echo date('m/d/Y')?>">
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="input-group">
-          <span class="input-group-addon">Bulan ke</span>
-          <select class="form-control" id="bulan_ke">
-            <?php $i = 1;  foreach ($month as $key): ?>
-              <option value="<?php echo $i++;?>"><?php echo $key ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-        <div class="input-group">
-          <span class="input-group-addon">Tahun</span>
-          <select class="form-control" id="tahun">
-            <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-              echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
-            } ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 col-xs-12 text-right">
-        <button type="button" class="btn btn-success" id="btn-search_bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
-        <button type="button" id="pembayaran_excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+      <div class="col-md-8 col-sm-6 col-xs-12 text-right">
+        <button type="button" class="btn btn-success" id="btn-laporan-pembayaran-harian"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
+        <button type="button" id="excel_pembayaran_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
         <button type="button" class="btn btn-warning" id="btn-refresh-pembayaran"> <i class="fa fa-refresh"> Reload</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
       </div>
     </div>

@@ -79,7 +79,6 @@ class Pesan extends CI_Controller{
 		if ($this->input->post('diskon') <= 0) {
 				$harga = $this->input->post('harga_jual');
 				$diskon = str_replace(".","", $this->input->post('diskon'));
-				$hasil = $harga - $diskon;
 				$data = array(
 					'id' => $this->input->post('id_barang'),
 					'name' => $this->input->post('nama_barang'),
@@ -149,7 +148,24 @@ class Pesan extends CI_Controller{
               "diskon"        => $this->input->post('diskon'),
               "username"      => $this->session->identity
   					);
-          }
+					}
+					$detail = array(
+            'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
+            'utang' => $this->input->post('hutang',TRUE),
+            'bayar' => $this->input->post('bayar', TRUE),
+            'created_at' => date('Y-m-d'),
+            //'updated_at' => $this->input->post('updated_at',TRUE),
+            //'created_at' => mdate($datestring, $time),
+					 );
+					$pembayaran = array(
+						'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
+						'id_pelanggan' => $wp_pelanggan_id,
+						'bayar' => $this->get_total(),
+						'tgl_bayar' => $tg,
+						'username' => $this->session->identity
+					);
+					$this->db->insert('wp_detail_transaksi', $detail);
+					$this->db->insert('wp_pembayaran', $pembayaran);
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){$this->cart->destroy();
   					$this->session->set_flashdata('message','sukses !');
@@ -157,8 +173,8 @@ class Pesan extends CI_Controller{
   				}else{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
   				}
-        }
-        //status hutang
+				}
+				//status hutang
         else {
           $kp = $this->input->post('idpesan', true);
   				$wp_pelanggan_id = $this->input->post('id', true);
@@ -188,7 +204,15 @@ class Pesan extends CI_Controller{
             //'updated_at' => $this->input->post('updated_at',TRUE),
             //'created_at' => mdate($datestring, $time),
 					 );
-          $this->db->insert('wp_detail_transaksi', $data);
+					$pembayaran = array(
+						'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
+						'id_pelanggan' => $wp_pelanggan_id,
+						'bayar' => $this->input->post('bayar', true),
+						'tgl_bayar' => $tg,
+						'username' => $this->session->identity
+					);
+					$this->db->insert('wp_detail_transaksi', $data);
+					$this->db->insert('wp_pembayaran', $pembayaran);
   				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){$this->cart->destroy();
   					$this->session->set_flashdata('message','sukses !');
@@ -197,6 +221,7 @@ class Pesan extends CI_Controller{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
   				}
         }
+        
 
   			}
   }

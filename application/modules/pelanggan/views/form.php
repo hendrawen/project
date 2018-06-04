@@ -132,7 +132,9 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                             <option value="" disabled selected>--Pilih Surveyor--</option>
 
                                 <?php
-                                  $users = $this->db->query("SELECT * FROM wp_karyawan");
+                                  $users = $this->db->query("SELECT wp_karyawan.id_karyawan, wp_karyawan.nama FROM wp_karyawan INNER JOIN wp_jabatan where 
+                                  wp_karyawan.wp_jabatan_id = wp_jabatan.id AND
+                                  wp_jabatan.nama_jabatan='Marketing'");
                                   foreach($users->result() as $value){
                                   $selected= '';
                                   if($wp_karyawan_id_karyawan == $value->id_karyawan){

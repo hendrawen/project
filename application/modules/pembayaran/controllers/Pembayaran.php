@@ -185,7 +185,7 @@ class Pembayaran extends CI_Controller{
     print_r($list);
     echo '<br />';
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
-    $sisa = 0;
+    $sisa = '';
     for ($i=0; $i < sizeof($list); $i++) {
       if ($jumlah_bayar > $list[$i]['sisa']) {
           $jumlah_bayar -= $list[$i]['sisa'];
@@ -210,7 +210,7 @@ class Pembayaran extends CI_Controller{
           'username' => $this->session->identity,
         );
         $this->dep->insert_pembayaran($data);
-        $jumlah_bayar =0;
+        $jumlah_bayar ='';
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
         //
       }

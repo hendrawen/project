@@ -104,23 +104,21 @@
                 </div>
                 <!-- /.row -->
                   <?php $i = 1; ?>
-                <?php foreach($this->cart->contents() as $items): ?>
-
+                <?php foreach($this->cart->contents() as $items): ?>    
+                <?php 
+                  $qty = ($items['price'] - str_replace(".","",$items['diskon']));
+                  $total = ($qty * $items['qty']); ?>
                 <?php echo form_hidden('rowid[]', $items['rowid']); ?>
                 <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
                 <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
-								<input type="hidden" name="hutang" value="<?php echo $this->session->userdata('total_belanja') ?>">
+								<input type="hidden" name="hutang" value="<?php echo $get_total ?>">
 								<input type="hidden" name="diskon" value="<?php echo $this->session->userdata('diskon') ?>">
                   <input type="hidden" name="id_transaksi_hutang" id="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>">
                   <input type="hidden" name="id" id="id" class="form-control">
                   <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>">
                   <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
-                  <?php 
-                  $qty = ($items['price'] - str_replace(".","",$items['diskon']));
-                  $total = ($qty * $items['qty']); ?>
                   <input type="hidden" name="subtotal[]" value="<?php echo $total ?>"></td>
                   <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
-
                   <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
                   <input type="hidden" readonly value="<?php echo $items['name'];?>" style="border:0px;background:none;">
                   <input type="hidden" name="qty[]" readonly size="1" value="<?php echo $items['qty']; ?>" style="border:0px;background:none;">
