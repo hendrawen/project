@@ -213,6 +213,56 @@ $(document).ready(function () {
       }
     });
   });
+
+
+    $("#btn-area-bulan").click(function() {
+      bulan_dari = $("#bulan_dari").val();
+      bulan_ke = $("#bulan_ke").val();
+      tahun = $("#tahun").val();
+      area = $("#pilih-area").val();
+      berdasarkan = $("#berdasarkan-area").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'som/laporan/load_area_bulan/',
+        type: 'POST',
+        dataType: 'html',
+        data: {from : bulan_dari, to : bulan_ke, tahun : tahun, area : area, berdasarkan : berdasarkan},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      });
+    });
+
+
+      $("#btn-area-hari").click(function() {
+        tgl = $("#tgl").val();
+        berdasarkan = $("#berdasarkan-area").val();
+        area = $("#pilih-area").val();
+        $("#loading").show();
+        $.ajaxSetup({
+            data: {
+                csrf_test_name: $.cookie('csrf_cookie_name')
+            }
+        });
+        $.ajax({
+          url: base_url+'som/laporan/load_area_harian/',
+          type: 'POST',
+          dataType: 'html',
+          data: {tgl: tgl, area : area, berdasarkan : berdasarkan},
+          success : function (data) {
+            $("#loading").hide();
+            $("#tbody").html(data);
+          }
+        });
+      });
+
+
   //berdasarkan marketing
   $("#berdasarkan-marketing").change(function() {
     berdasarkan = $("#berdasarkan-marketing").val();
@@ -295,7 +345,7 @@ $(document).ready(function () {
     t = $("#tahunan").val();
     window.location = base_url + 'som/excel/tahunan/'+t;
   });
-  
+
   /*
   --- produk ---
   */
@@ -312,7 +362,7 @@ $(document).ready(function () {
     i = $("#id_barang").val();
     window.location = base_url + 'som/excel/produk_bulanan/'+f+'/'+t+'/'+y+'/'+i;
   });
-  
+
   $("#excel_produk_harian").click(function() {
     t = $("#produk-hari").val();
     i = $("#id_barang").val();
@@ -351,11 +401,11 @@ $(document).ready(function () {
     window.location = base_url + 'som/excel/pelanggan/'+b1+'/'+b2+'/'+t;
   });
 
-  $("#btn-refresh").click(function () { 
+  $("#btn-refresh").click(function () {
     get_all();
   });
 
-  $("#btn-refresh-tracking").click(function () { 
+  $("#btn-refresh-tracking").click(function () {
     get_all_tracking();
-    
+
   });

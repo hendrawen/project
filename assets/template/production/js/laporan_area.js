@@ -2,7 +2,7 @@ $(document).ready(function () {
     get_all();
     get_all_tracking();
   });
-  
+
     function get_all() {
       $("#loading").show();
       $.ajax({
@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
       })
     }
-  
+
     function get_all_tracking() {
       $("#loading").show();
       $.ajax({
@@ -91,11 +91,11 @@ $("#berdasarkan-area").change(function() {
     window.location = base_url + 'som/excel/area/'+t+'/'+p+'/'+b;
   });
 
-  $("#btn-refresh").click(function () { 
+  $("#btn-refresh").click(function () {
     get_all();
   });
 
-  $("#btn-refresh-tracking").click(function () { 
+  $("#btn-refresh-tracking").click(function () {
     get_all_tracking();
-    
+
   });

@@ -38,16 +38,23 @@
                       <li><a href="<?php echo base_url();?>som/laporan/bulanan">Penjualan Bulanan</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/tahunan">Penjualan Tahunan</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/produk">Penjualan Per Produk</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/area">Penjualan Per Area</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/marketing">Penjualan Per Marketing</a></li>
                       <li><a href="<?php echo base_url();?>som/laporan/pelanggan">Pelanggan</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Report Transaksi Dep <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Report Trans Per Dept <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>som/lap_dep/harian">Penjualan Harian</a></li>
                       <li><a href="<?php echo base_url();?>som/lap_dep/bulanan">Penjualan Bulanan</a></li>
                       <li><a href="<?php echo base_url();?>som/lap_dep/tahunan">Penjualan Tahunan</a></li>
+
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> Report Trans Per Area <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>som/laporan/area_harian">Penjualan Harian</a></li>
+                      <li><a href="<?php echo base_url();?>som/laporan/area_bulanan">Penjualan Bulanan</a></li>
+                      <li><a href="<?php echo base_url();?>som/laporan/area">Penjualan Tahunan</a></li>
 
                     </ul>
                   </li>

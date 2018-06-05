@@ -141,91 +141,91 @@ $(document).ready(function() {
     });
   });
 
-  $("#btn-area").click(function() {
-    tahun = $("#tahun-area").val();
-    area = $("#pilih-area").val();
-    berdasarkan = $("#berdasarkan-area").val();
-    $("#loading").show();
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $.cookie('csrf_cookie_name')
-        }
-    });
-    $.ajax({
-      url: base_url+'som/laporan/load_area/',
-      type: 'POST',
-      dataType: 'html',
-      data: {tahun: tahun, area : area, berdasarkan : berdasarkan},
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    });
-  });
+  // $("#btn-area").click(function() {
+  //   tahun = $("#tahun-area").val();
+  //   area = $("#pilih-area").val();
+  //   berdasarkan = $("#berdasarkan-area").val();
+  //   $("#loading").show();
+  //   $.ajaxSetup({
+  //       data: {
+  //           csrf_test_name: $.cookie('csrf_cookie_name')
+  //       }
+  //   });
+  //   $.ajax({
+  //     url: base_url+'som/laporan/load_area/',
+  //     type: 'POST',
+  //     dataType: 'html',
+  //     data: {tahun: tahun, area : area, berdasarkan : berdasarkan},
+  //     success : function (data) {
+  //       $("#loading").hide();
+  //       $("#tbody").html(data);
+  //     }
+  //   });
+  // });
   //berdasarkan marketing
-  $("#berdasarkan-marketing").change(function() {
-    berdasarkan = $("#berdasarkan-marketing").val();
-    $("#loading-combo").show();
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $.cookie('csrf_cookie_name')
-        }
-    });
-    $.ajax({
-      url: base_url+'som/laporan/isi_marketing/'+berdasarkan,
-      type: 'POST',
-      dataType: 'html',
-      success : function (data) {
-        $("#loading-combo").hide();
-        $("#nama-marketing").html(data);
-        $("#nama-marketing").focus();
-      }
-    });
-  });
-
-  $("#btn-marketing").click(function() {
-    tahun = $("#tahun-marketing").val();
-    berdasarkan = $("#berdasarkan-marketing").val();
-    nama = $("#nama-marketing").val();
-    $("#loading").show();
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $.cookie('csrf_cookie_name')
-        }
-    });
-    $.ajax({
-      url: base_url+'som/laporan/load_marketing/',
-      type: 'POST',
-      dataType: 'html',
-      data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    });
-  });
-
-  $("#btn-lap-pelanggan").click(function() {
-    from = $("#bulan-pelanggan-from").val();
-    to = $("#bulan-pelanggan-to").val();
-    tahun = $("#tahun-pelanggan").val();
-    $("#loading").show();
-    $.ajaxSetup({
-      data : {
-        csrf_test_name: $.cookie('csrf_cookie_name')
-      }
-    });
-    $.ajax({
-      url: base_url+'som/laporan/load_pelanggan/',
-      type: 'POST',
-      dataType: 'html',
-      data: {from: from, to : to, tahun : tahun},
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    });
-  });
+  // $("#berdasarkan-marketing").change(function() {
+  //   berdasarkan = $("#berdasarkan-marketing").val();
+  //   $("#loading-combo").show();
+  //   $.ajaxSetup({
+  //       data: {
+  //           csrf_test_name: $.cookie('csrf_cookie_name')
+  //       }
+  //   });
+  //   $.ajax({
+  //     url: base_url+'som/laporan/isi_marketing/'+berdasarkan,
+  //     type: 'POST',
+  //     dataType: 'html',
+  //     success : function (data) {
+  //       $("#loading-combo").hide();
+  //       $("#nama-marketing").html(data);
+  //       $("#nama-marketing").focus();
+  //     }
+  //   });
+  // });
+  //
+  // $("#btn-marketing").click(function() {
+  //   tahun = $("#tahun-marketing").val();
+  //   berdasarkan = $("#berdasarkan-marketing").val();
+  //   nama = $("#nama-marketing").val();
+  //   $("#loading").show();
+  //   $.ajaxSetup({
+  //       data: {
+  //           csrf_test_name: $.cookie('csrf_cookie_name')
+  //       }
+  //   });
+  //   $.ajax({
+  //     url: base_url+'som/laporan/load_marketing/',
+  //     type: 'POST',
+  //     dataType: 'html',
+  //     data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},
+  //     success : function (data) {
+  //       $("#loading").hide();
+  //       $("#tbody").html(data);
+  //     }
+  //   });
+  // });
+  //
+  // $("#btn-lap-pelanggan").click(function() {
+  //   from = $("#bulan-pelanggan-from").val();
+  //   to = $("#bulan-pelanggan-to").val();
+  //   tahun = $("#tahun-pelanggan").val();
+  //   $("#loading").show();
+  //   $.ajaxSetup({
+  //     data : {
+  //       csrf_test_name: $.cookie('csrf_cookie_name')
+  //     }
+  //   });
+  //   $.ajax({
+  //     url: base_url+'som/laporan/load_pelanggan/',
+  //     type: 'POST',
+  //     dataType: 'html',
+  //     data: {from: from, to : to, tahun : tahun},
+  //     success : function (data) {
+  //       $("#loading").hide();
+  //       $("#tbody").html(data);
+  //     }
+  //   });
+  // });
 
   // download excel
   $("#excelharian").click(function() {
