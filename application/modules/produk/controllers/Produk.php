@@ -32,24 +32,32 @@ class Produk extends CI_Controller {
             'to'  => set_value('to', $to),
             'year'  => set_value('year', $year)
         );
-
+        // $data['kelurahan'] = $this->produk->kelurahan_all();
+        $data['barang']    = $this->produk->get_barang();
         $this->load->view('panel/dashboard', $data);
     }
 
     function load_kota()
     {
         # code...
+        $kelurahan = $this->produk->get_kelurahan();
+        $id_barang = $this->produk->get_id_barang();
         $data = $this->produk->kelurahan_all();
         $total = 0;
         $pesan = "";
         if ($data) {
         foreach ($data as $row) {
-            $utang = $this->produk->kelurahan_all();
             $pesan .= '
             <tr>
             <td>'.$row->kota.'</td>
-            <td>'.$row->kelurahan.'</td>
             <td>'.$row->kecamatan.'</td>
+            <td>'.$row->kelurahan.'</td>';
+            foreach ($id_barang as $key) {
+                # code...
+            $pesan .= '
+            <td>'.$this->produk->count_produk($row->kecamatan, $key->id).'</td>';
+            }
+            $pesan .= '
             </tr>';
         }
 
@@ -60,6 +68,13 @@ class Produk extends CI_Controller {
 
         }
         echo $pesan;
+    }
+
+    function cek()
+    {
+        # code...
+        // print_r($this->produk->get_id_barang());
+        print_r($this->produk->count_produk('pagesangan barat'));
     }
 
 }

@@ -98,8 +98,8 @@
                     </ul>
                   </li>
                   <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
-                  <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
-                  <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-share-alt"></i> Produk Share</a></li>
+                  <li><a href="<?php echo base_url();?>market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
+                  <li><a href="<?php echo base_url();?>produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>
                   <li><a href="<?php echo base_url();?>som/laporan/pelanggan"><i class="fa fa-list-alt"></i> Report Debt & Delivery</a></li>
                   <li><a href="<?php echo base_url();?>laporan/penarikan_bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
 
