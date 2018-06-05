@@ -6,7 +6,7 @@ class Market_model extends CI_Model {
     var $table = 'wp_pelanggan';
     var $column_order = array(null, 'kota','kecamatan','kelurahan'); //set column field database for datatable orderable
     var $column_search = array('kota','kecamatan','kelurahan'); //set column field database for datatable searchable 
-    var $order = array('id' => 'asc'); // default order 
+    var $order = array('wp_pelanggan.id' => 'asc'); // default order 
 
     function __construct()
     {
@@ -17,7 +17,22 @@ class Market_model extends CI_Model {
     {
          
         $this->db->select('kota, kecamatan, kelurahan');
+        $this->db->join('wp_transaksi', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'inner');
+        
         $this->db->group_by('kelurahan');
+        if($this->input->post('kota'))
+        {
+            $this->db->where('kota', $this->input->post('kota'));
+        }
+        if($this->input->post('kecamatan'))
+        {
+            $this->db->where('kecamatan', $this->input->post('kecamatan'));
+        }
+        if($this->input->post('tahun'))
+        {
+            $this->db->where('YEAR(wp_transaksi.tgl_transaksi)', $this->input->post('tahun'));
+        }
+
         $this->db->from($this->table);
         $i = 0;
      
@@ -129,6 +144,28 @@ class Market_model extends CI_Model {
         $this->db->where('month(wp_transaksi.tgl_transaksi)', $month);
         $result =  $this->db->get('wp_transaksi')->row();
         return $result->jumlah;
+    }
+
+    function get_laporan($tahun, $kota, $kecamatan)
+    {
+        $this->db->select('kota, kecamatan, kelurahan');
+        $this->db->join('wp_transaksi', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'inner');
+        $this->db->group_by('kelurahan');
+        if($kota != 'all')
+        {
+            $this->db->where('kota', $kota);
+        }
+        if($kecamatan != 'all')
+        {
+            $this->db->where('kecamatan', $kecamatan);
+        }
+        if($tahun != 'all')
+        {
+            $this->db->where('YEAR(wp_transaksi.tgl_transaksi)', $tahun);
+        }
+        $this->db->from($this->table);
+        return $this->db->get()->result();
+        
     }
 
     
