@@ -39,9 +39,12 @@ class Model_dep extends CI_Model{
         wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
-    $this->db->where('wp_transaksi.tgl_transaksi', $day);
+    // $this->db->where('wp_transaksi.tgl_transaksi', $day);
     if ($nama !== 'semua') {
       $this->db->where('wp_transaksi.username', $nama);
+    }
+    if ($day !== 'semua') {
+      $this->db->where('wp_transaksi.tgl_transaksi', $day);
     }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
