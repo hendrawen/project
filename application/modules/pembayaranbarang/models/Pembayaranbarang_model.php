@@ -3,15 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pembayaranbarang_model extends CI_Model{
 
-  public $table2 = 'wp_detail_transaksi';
-  public $id2 = 'id';
-  public $order2 = 'DESC';
+  public $table = 'wp_transaksistok';
+  public $id = 'id';
+  public $order = 'DESC';
 
-  public $id = 'id_transaksi';
-  var $table = 'vdetail_pembayaran';
-  var $column_order = array('id_transaksi', 'tgl_kirim', 'jatuh_tempo', 'id_pelanggan','nama_pelanggan', 'nama_barang', 'qty', 'satuan', 'kelurahan', 'kecamatan', 'no_telp', 'nama', 'username', 'subtotal', 'tgl_bayar', 'bayar'); //set column field database for datatable orderable
-  var $column_search = array('id_pelanggan','nama_pelanggan','id_transaksi', 'jatuh_tempo'); //set column field database for datatable searchable
-  var $order = array('id_transaksi' => 'DESC'); // default order
+  //public $id = 'id_transaksi';
+  //var $table = 'vdetail_pembayaran';
+  //var $column_order = array('id_transaksi', 'tgl_kirim', 'jatuh_tempo', 'id_pelanggan','nama_pelanggan', 'nama_barang', 'qty', 'satuan', 'kelurahan', 'kecamatan', 'no_telp', 'nama', 'username', 'subtotal', 'tgl_bayar', 'bayar'); //set column field database for datatable orderable
+  //var $column_search = array('id_pelanggan','nama_pelanggan','id_transaksi', 'jatuh_tempo'); //set column field database for datatable searchable
+  //var $order = array('id_transaksi' => 'DESC'); // default order
 
   public function __construct()
   {
@@ -93,5 +93,15 @@ class Pembayaranbarang_model extends CI_Model{
       return $this->db->update($this->table2, $data);
 
   }
+
+  function get_data(){
+        $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, status, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_transaksistok.updated_at, wp_transaksistok.username, wp_suplier.id_suplier, wp_suplier.nama_suplier');
+        $this->db->from($this->table);
+        $this->db->where('wp_transaksistok.status','Belum Bayar');
+        $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
+        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
+        $this->db->order_by('id_transaksi', $this->order);
+        return $this->db->get()->result();
+    }
 
 }

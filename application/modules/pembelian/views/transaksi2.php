@@ -29,6 +29,7 @@
                           <tr>
                               <th>#</th>
                               <th>No Faktur</th>
+                              <th>Nama Suplier</th>
                               <th>Tanggal</th>
                               <th>Kode Barang</th>
                               <th>Nama Barang</th>
@@ -48,6 +49,7 @@
                        <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
+                            <td><?php echo $key->id_suplier ?> - <?php echo $key->nama_suplier ?></td>
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                             <td><?php echo $key->id_barang ?></td>
                             <td><?php echo $key->nama_barang ?></td>

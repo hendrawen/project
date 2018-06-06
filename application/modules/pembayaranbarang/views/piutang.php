@@ -11,7 +11,7 @@
 
 <div class="x_panel">
         <div class="x_title">
-          <h2>Cek Piutang</h2>
+          <h2>Cek Suplier</h2>
           <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -34,13 +34,13 @@
           <!-- start form for validation -->
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-                <label for="fullname">ID Pelanggan * :</label>
-                <input type="text" id="id_track_admin" class="form-control" placeholder="Masukkan ID Pelanggan" name="id_track_admin" required="">
+                <label for="fullname">ID Suplier * :</label>
+                <input type="text" id="id_track_suplier" class="form-control" placeholder="Masukkan ID Suplier" name="id_track_suplier" required="">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
-                <button id="button_admin" class="btn btn-success"><i class="fa fa-search"></i> Cek</button>
+                <button id="button_suplier" class="btn btn-success"><i class="fa fa-search"></i> Cek</button>
               </div>
             </div>
             <div class="row">
@@ -108,7 +108,7 @@
             <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
             <input type="hidden" id="id" name="id" />
             <div class="form-group text-right">
-            <a href="<?php echo base_url('pembayaran'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
+            <a href="<?php echo base_url('pembayaranbarang'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
               <button type="submit" class="btn btn-success"><i class="fa fa-credit-card"></i> Bayar</button>
             </div>
           </form>

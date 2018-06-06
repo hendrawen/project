@@ -26,15 +26,16 @@ class Pembayaranbarang extends CI_Controller{
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Pembayaran';
     $data['content']		='main';
+    $data['pembayaran']       =$this->pembayaran->get_data();
     $this->load->view('panel/dashboard', $data);
   }
 
-  function piutang()
+  function barang()
   {
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
-    $data['sub_judul']	='Piutang';
+    $data['sub_judul']	='Pembayaran';
     $data['content']		='piutang';
     $this->load->view('panel/dashboard',$data);
   }
