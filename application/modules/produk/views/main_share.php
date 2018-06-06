@@ -21,27 +21,7 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="input-group">
-          <span class="input-group-addon">Dari</span>
-          <select class="form-control" id="bulan-pelanggan-from">
-            <?php $i = 1; foreach ($month as $key): ?>
-              <option value="<?php echo $i++;?>"><?php echo $key?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="input-group">
-          <span class="input-group-addon">Ke</span>
-          <select class="form-control" id="bulan-pelanggan-to">
-            <?php $i = 1;  foreach ($month as $key): ?>
-              <option <?php echo ($to == $key)?'selected':'' ?> value="<?php echo $i++;?>"><?php echo $key ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="tahun-pelanggan">
@@ -55,14 +35,14 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
         <button type="button" id="btn-lap-pelanggan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_pelanggan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
         <button type="button" id="btn-refresh-tracking" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
     </div>
     <div class="table-responsive">
-      <table id="datatable datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
+      <table id="datatable datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered nowrap">
       <!-- <table class="table"> -->
 
           <thead>

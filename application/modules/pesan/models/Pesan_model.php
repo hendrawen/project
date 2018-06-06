@@ -18,7 +18,7 @@ class Pesan_model extends CI_Model{
 		$this->db->like('id_pelanggan', $idpelanggan , 'both');
 		$this->db->order_by('id_pelanggan', 'ASC');
     $this->db->where('status', 'Pelanggan');
-		$this->db->limit(10);
+		$this->db->limit(25);
 		return $this->db->get('wp_pelanggan')->result();
 	}
 

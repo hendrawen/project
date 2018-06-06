@@ -20,6 +20,49 @@
   </div>
 
   <div class="x_content">
+    <div class="row">
+      <form action="" id="form-market">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="input-group">
+            <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+            <select class="form-control" id="tahun-market">
+              <option value="">--Pilih Tahun --</option>
+              <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
+                  echo '<option  value="'.$tahun.'">'.$tahun.'</option>';
+              } ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="input-group">
+            <span class="input-group-addon">Kota <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+            <select class="form-control" id="filter-kota" >
+              <option value="" selected>--Semua Kota--</option>
+              <?php foreach ($list_kota as $row): ?>
+                <option id_kota="<?php echo $row->id_kab ?>" value="<?php echo $row->nama ?>"><?php echo $row->nama ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="input-group">
+            <span class="input-group-addon">Kecamatan <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+            <select class="form-control" id="filter-kecamatan">
+              <option value="" selected>--Semua Kecamatan--</option>
+            </select>
+          </div>
+        </div>
+      
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-right">
+          <button type="button" id="btn-filter-market" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
+          <button type="button" id="excel-market" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+          <button type="button" id="btn-reset-market" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
+        </div>
+      </form>
+    </div>
+
     <div class="table-responsive">
       <table id="table-market" class="table table-striped jambo_table table-bordered nowrap">
           <thead>

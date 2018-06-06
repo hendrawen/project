@@ -15,6 +15,7 @@ class Laporan extends CI_Controller{
     //         }
     //     }
     $this->load->model('Model_laporan', 'mLap');
+    $this->load->model('Model_dep', 'dep');
     $this->load->library('table');
   }
 
@@ -415,6 +416,7 @@ class Laporan extends CI_Controller{
           'judul'			=>'Dashboard',
           'sub_judul'	=>'SOM',
           'content'		=>'transaksi/laporan_area',
+          'month'     => $this->month,
       );
       $this->load->view('panel/dashboard', $data);
   }
@@ -460,32 +462,8 @@ class Laporan extends CI_Controller{
       </tr>';
     }
     echo $pesan;
-    // $no = 1;
-    // $this->template_table();
-    // $this->table->clear();
-    // $total = 0;
-    // $this->table->set_heading('No','ID Transaksi','Tgl Transaksi','Nama Pelanggan','Nama Barang','Harga','QTY','Subtotal','Status');
-    // if ($data) {
-    //   foreach ($data as $row) {
-    //     $this->table->add_row(
-    //       $no++,
-    //       $row->id_transaksi,
-    //       $row->tgl_transaksi,
-    //       $row->nama_pelanggan,
-    //       $row->nama_barang,
-    //       number_format($row->harga),
-    //       $row->qty,
-    //       number_format($row->subtotal),
-    //       $row->nama_status
-    //     );
-    //     $total += $row->subtotal;
-    //   }
-    //   $this->table->add_row(array('data'=> 'Total', 'colspan' => 7,'style'=>'text-align:right'), array('data' => number_format($total), 'colspan' => 2));
-    // } else {
-    //     $this->table->add_row(array('data'=> 'null', 'colspan' => 9,'style'=>'text-align:center'));
-    // }
-    // echo $this->table->generate();
-  }
+  } //end load_area
+
 
   function isi_area($pilih)
   {
@@ -632,13 +610,13 @@ class Laporan extends CI_Controller{
     $from = $this->input->post('from');
     $to = $this->input->post('to');
     $tahun = $this->input->post('tahun');
-    $data = $this->mLap->laporan_pelanggan($from, $to, $tahun);
+    $data = $this->dep->laporan_pelanggan($from, $to, $tahun);
     $no = 1;
     $total = 0;
     $pesan = "";
     if ($data) {
       foreach ($data as $row) {
-        $utang = $this->mLap->laporan_pelanggan_utang($row->id_pelanggan, $from, $to, $tahun);
+        $utang = $this->dep->laporan_pelanggan_utang($row->id_pelanggan, $from, $to, $tahun);
 
         $pesan .= '
         <tr>
@@ -651,8 +629,8 @@ class Laporan extends CI_Controller{
           <td>'.$row->nama.'</td>
           <td>'.number_format($utang).'</td>';
           for ($month=1; $month <=12 ; $month++) {
-            $jumlah_trx = $this->mLap->laporan_pelanggan_trx($row->id_pelanggan, $month, $tahun);
-            $jumlah_qty = $this->mLap->laporan_pelanggan_qty($row->id_pelanggan, $month, $tahun);
+            $jumlah_trx = $this->dep->laporan_pelanggan_trx($row->id_pelanggan, $month, $tahun);
+            $jumlah_qty = $this->dep->laporan_pelanggan_qty($row->id_pelanggan, $month, $tahun);
             $pesan  .= '<td>'.$jumlah_trx.'</td>
             <td>'.$jumlah_qty.'</td>';
           }
@@ -737,6 +715,119 @@ class Laporan extends CI_Controller{
     $tes = $this->mLap->laporan_pelanggan_utang('CBM0001', 1, 4, 2018);
 
     print_r($tes);
+  }
+
+  function area_bulanan()
+  {
+      $data = array(
+          'aktif'			=>'som',
+          'title'			=>'Brajamarketindo',
+          'judul'			=>'Dashboard',
+          'sub_judul'	=>'SOM',
+          'content'		=>'transaksi/laporan_area_bulanan',
+          'month'     =>$this->month,
+      );
+      $this->load->view('panel/dashboard', $data);
+  }
+
+  function load_area_bulan()
+  {
+    $from = $this->input->post('from');
+    $to = $this->input->post('to');
+    $tahun = $this->input->post('tahun');
+    $area = $this->input->post('area');
+    $berdasarkan = $this->input->post('berdasarkan');
+    $data = $this->mLap->laporan_area_bulanan($from, $to, $tahun, $area, $berdasarkan);
+    $pesan = "";
+    $no = 1;
+    $total = 0;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+        <td>'.$no++.'</td>
+        <td>'.$row->id_transaksi.'</td>
+        <td>'.$row->tgl_transaksi.'</td>
+        <td>'.$row->jatuh_tempo.'</td>
+        <td>'.$row->id_pelanggan.'</td>
+        <td>'.$row->nama_pelanggan.'</td>
+        <td>'.$row->nama_barang.'</td>
+        <td>'.$row->qty.'</td>
+        <td>'.$row->satuan.'</td>
+        <td>'.$row->kota.'</td>
+        <td>'.$row->kecamatan.'</td>
+        <td>'.$row->kelurahan.'</td>
+        <td>'.$row->no_telp.'</td>
+        <td>'.$row->nama_karyawan.'</td>
+        <td>'.$row->username.'</td>
+        <td>'.number_format($row->subtotal).'</td>
+        </tr>';
+        $total += $row->subtotal;
+      }
+      $pesan .= '<tr>
+      <td colspan=15 class=text-right>Total</td>
+      <td>'.number_format($total).'</td>
+      </tr>';
+    } else {
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
+    }
+    echo $pesan;
+  }//load_area_bulan
+
+  function area_harian()
+  {
+      $data = array(
+          'aktif'			=>'som',
+          'title'			=>'Brajamarketindo',
+          'judul'			=>'Dashboard',
+          'sub_judul'	=>'SOM',
+          'content'		=>'transaksi/laporan_area_harian',
+      );
+      $this->load->view('panel/dashboard', $data);
+  }
+
+  function load_area_harian()
+  {
+    $day = $this->input->post('tgl');
+    $berdasarkan = $this->input->post('berdasarkan');
+    $area = $this->input->post('area');
+    $data = $this->mLap->laporan_area_harian($day, $area, $berdasarkan);
+    $pesan = "";
+    $no = 1;
+    $total = 0;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_transaksi.'</td>
+          <td>'.$row->tgl_transaksi.'</td>
+          <td>'.$row->jatuh_tempo.'</td>
+          <td>'.$row->id_pelanggan.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.$row->satuan.'</td>
+          <td>'.$row->kota.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->nama_karyawan.'</td>
+          <td>'.$row->username.'</td>
+          <td>'.number_format($row->subtotal).'</td>
+        </tr>';
+        $total += $row->subtotal;
+      }
+      $pesan .= '<tr>
+      <td colspan=15 class=text-right>Total</td>
+      <td>'.number_format($total).'</td>
+      </tr>';
+    } else {
+      $pesan .= '<tr>
+        <td colspan=16>Record not found</td>
+      </tr>';
+    }
+    echo $pesan;
   }
 
 }

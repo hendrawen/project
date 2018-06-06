@@ -98,8 +98,8 @@ class Pelanggan extends CI_Controller{
           $row[] = $pelanggans->nama_kategori;
           $row[] = $pelanggans->alamat;
           $row[] = $pelanggans->kota;
-          $row[] = $pelanggans->kelurahan;
           $row[] = $pelanggans->kecamatan;
+          $row[] = $pelanggans->kelurahan;
           $row[] = $pelanggans->lat.'<br />'.$pelanggans->long;
           // $row[] = $pelanggans->long;
           $row[] = $pelanggans->status;
@@ -190,9 +190,9 @@ class Pelanggan extends CI_Controller{
         	    'alamat' => set_value('alamat'),
         	    'photo' => set_value('photo'),
         	    'photo_toko' => set_value('photo_toko'),
-        	    'kota' => set_value('kota'),
-        	    'kelurahan' => set_value('kelurahan'),
+              'kota' => set_value('kota'), 
         	    'kecamatan' => set_value('kecamatan'),
+        	    'kelurahan' => set_value('kelurahan'),
         	    'lat' => set_value('lat'),
         	    'long' => set_value('long'),
         	    'keterangan' => set_value('keterangan'),
@@ -245,8 +245,8 @@ class Pelanggan extends CI_Controller{
                       'alamat' => $this->input->post('alamat', true),
                       'id_kategori' => $this->input->post('id_kategori', true),
                       'kota' => $this->input->post('kota', true),
-                      'kelurahan' => $this->input->post('kelurahan', true),
                       'kecamatan' => $this->input->post('kecamatan', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
                       'lat' => $this->input->post('lat', true),
                       'long' => $this->input->post('long', true),
                       'keterangan' => $this->input->post('keterangan', true),
@@ -268,8 +268,8 @@ class Pelanggan extends CI_Controller{
                       'photo_toko' => $hasil2['file_name'],
                       'nama_dagang' => $this->input->post('nama_dagang', true),
                       'kota' => $this->input->post('kota', true),
-                      'kelurahan' => $this->input->post('kelurahan', true),
                       'kecamatan' => $this->input->post('kecamatan', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
                       'lat' => $this->input->post('lat', true),
                       'long' => $this->input->post('long', true),
                       'keterangan' => $this->input->post('keterangan', true),
@@ -302,8 +302,8 @@ class Pelanggan extends CI_Controller{
             		'photo' => set_value('photo', $row->photo),
             		'photo_toko' => set_value('photo_toko', $row->photo_toko),
             		'kota' => set_value('kota', $row->kota),
-            		'kelurahan' => set_value('kelurahan', $row->kelurahan),
             		'kecamatan' => set_value('kecamatan', $row->kecamatan),
+            		'kelurahan' => set_value('kelurahan', $row->kelurahan),
                 'list_kota' => $this->daerah->get_kota(),
             		'lat' => set_value('lat', $row->lat),
             		'long' => set_value('long', $row->long),

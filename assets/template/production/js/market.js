@@ -1,10 +1,11 @@
 var table;
+var btn_excel = $("#excel-market");
  
 $(document).ready(function() {
  
     //datatables
     table = $('#table-market').DataTable({ 
- 
+
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
@@ -12,9 +13,14 @@ $(document).ready(function() {
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": base_url+"market/ajax_list",
-            "type": "POST"
+            "type": "POST",
+            "data": function ( data ) {
+                data.tahun = $('#tahun-market').val();
+                data.kota = $('#filter-kota').val();
+                data.kecamatan = $('#filter-kecamatan').val();
+            }
         },
- 
+
         //Set column definition initialisation properties.
         "columnDefs": [
         { 
@@ -25,4 +31,35 @@ $(document).ready(function() {
  
     });
  
+    $('#btn-filter-market').click(function(){
+        reload_table_market();
+        
+    });
+
+    $('#btn-reset-market').click(function(){ 
+        $('#form-market')[0].reset();
+        reload_table_market();
+    });
+});
+
+function reload_table_market()
+{
+    $('#table-market').DataTable().ajax.reload();//reload datatable ajax
+}
+
+$(btn_excel).click(function (e) {
+    tahun = $('#tahun-market').val();
+    kota = $('#filter-kota').val();
+    kecamatan = $('#filter-kecamatan').val();
+    if (tahun == '') {
+        tahun = 'all';
+    }
+    if (kota == '') {
+        kota = 'all';
+    }
+    if (kecamatan == '') {
+        kecamatan = 'all';
+    }
+    
+    window.location = base_url + 'market/download_excel/'+tahun+'/'+kota+'/'+kecamatan;
 });

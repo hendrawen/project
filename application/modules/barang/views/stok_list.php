@@ -43,12 +43,7 @@
             <div class="clearfix"></div>
       </div>
           <div class="row">
-            <div class="col-md-6">
-                <!-- <?php echo anchor(site_url('barang/stok/create'),'Tambah', 'class="btn btn-primary"'); ?> -->
-                <a href="<?php echo base_url('barang/stok/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
-            </div>
-          </div>
-            <div class="col-md-6 text-right">
+            <div class="col-md-12 text-right">
                 <div style="margin-top: 8px" id="message">
                     <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                 </div>

@@ -99,8 +99,8 @@
                               <th>Kategori</th>
                               <th>Alamat</th>
                               <th>Kota</th>
-                              <th>Kelurahan</th>
                               <th>Kecamatan</th>
+                              <th>Kelurahan</th>
                               <th>GPS</th>
                               <th>Status</th>
                               <th>Kebutuhan</th>
@@ -121,8 +121,8 @@
                           <th>Kategori</th>
                           <th>Alamat</th>
                           <th>Kota</th>
-                          <th>Kelurahan</th>
                           <th>Kecamatan</th>
+                          <th>Kelurahan</th>
                           <th>GPS</th>
                           <th>Status</th>
                           <th>Kebutuhan</th>
