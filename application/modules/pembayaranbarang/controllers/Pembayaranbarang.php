@@ -26,7 +26,7 @@ class Pembayaranbarang extends CI_Controller{
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Pembayaran';
     $data['content']		='main';
-    $data['pembayaran']       =$this->pembayaran->get_data();
+    $data['pembayaran'] =$this->pembayaran->get_data();
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -182,16 +182,18 @@ class Pembayaranbarang extends CI_Controller{
   public function track_pembayaran2()
   {
     $list = $this->session->userdata('id_transaksi');
+    $id = $this->session->userdata('id');
     print_r($list);
     echo '<br />';
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
     $sisa = '';
     for ($i=0; $i < sizeof($list); $i++) {
       if ($jumlah_bayar > $list[$i]['total']) {
-          $jumlah_bayar -= $list[$i]['total'];
+          $kembali = $jumlah_bayar-$list[$i]['total'];
           $data = array(
             'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
-            'bayar' => $list[$i]['total'],
+            'bayar' => $jumlah_bayar,
+            'kembali' => $kembali,
             'id_transaksi' => $list[$i]['id_transaksi'],
             'id_suplier' => $list[$i]['id_suplier'],
             'username' => $this->session->identity,
@@ -200,7 +202,22 @@ class Pembayaranbarang extends CI_Controller{
           $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
           //echo 'utang lunas, sisa : '.$jumlah_bayar;
           //update transaksi $list[$i]['id_transaksi'];
-      } else if($jumlah_bayar <= $list[$i]['total']) {
+      } else if($jumlah_bayar < $list[$i]['total']) {
+        $sisa = $jumlah_bayar-$list[$i]['total'];
+        $data = array(
+          'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
+          'bayar' => $jumlah_bayar,
+          'sisa'  => $sisa,
+          'id_transaksi' => $list[$i]['id_transaksi'] ,
+          'id_suplier' => $list[$i]['id_suplier'],
+          'username' => $this->session->identity,
+        );
+        $this->pembayaran->insert_pembayaran($data);
+        $jumlah_bayar ='';
+        $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
+      } else if($jumlah_bayar = $list[$i]['total']) {
+        //$status = $this->pembayaran->status($list);
+        //$this->db->query("UPDATE wp_transaksistok set status='' WHERE id_transaksi='$list'");
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
@@ -211,11 +228,10 @@ class Pembayaranbarang extends CI_Controller{
         $this->pembayaran->insert_pembayaran($data);
         $jumlah_bayar ='';
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
-        //
       }
     }
     $this->session->unset_userdata('id_transaksi');
-    redirect(site_url('pembayaranbarang'));
+    redirect(site_url('pembayaranbarang/barang'));
   }
 
 }
