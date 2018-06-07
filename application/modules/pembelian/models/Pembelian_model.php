@@ -222,8 +222,9 @@ class Pembelian_model extends CI_Model{
   }
 
   function get_data(){
-        $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_transaksistok.updated_at, wp_transaksistok.username');
+        $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_transaksistok.updated_at, wp_transaksistok.username, wp_suplier.id_suplier, wp_suplier.nama_suplier');
         $this->db->from($this->table);
+        $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
         $this->db->order_by('id_transaksi', $this->order);
         return $this->db->get()->result();

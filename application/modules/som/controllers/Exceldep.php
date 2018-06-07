@@ -63,6 +63,7 @@ class Exceldep extends CI_Controller{
 
       $record = $this->mLap->laporan_harian($day, $nama);
       $total = 0;
+      if ($record) {
       foreach ($record as $data) {
           $kolombody = 0;
           xlsWriteNumber($tablebody, $kolombody++, $nourut);
@@ -84,6 +85,7 @@ class Exceldep extends CI_Controller{
           $tablebody++;
           $nourut++;
           $total += $data->subtotal;
+        }
       }
       xlsWriteLabel($tablebody, 14, 'Total');
       xlsWriteNumber($tablebody, 15, $total);

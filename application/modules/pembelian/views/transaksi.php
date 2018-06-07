@@ -12,6 +12,21 @@
 <div class="row">
   <form action="#" id="form_barang" class="form-horizontal">
   <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+    <label for="varchar">Nama Suplier </label>
+    <select name="wp_suplier_id" id="wp_suplier_id" class="e1 form-control" required>
+    <option disabled selected>--Nama Suplier--</option>
+        <?php
+          $users = $this->db->query("SELECT * FROM wp_suplier");
+          foreach($users->result() as $value){
+          $selected= '';
+          ?>
+          <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+          <?php echo $value->id_suplier; ?> - <?php echo $value->nama_suplier; ?>
+          </option>
+    <?php } ?>
+    </select>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
     <label for="varchar">Id Barang </label>
     <select name="id_barang" id="id_barang" class="e1 form-control" required>
     <option disabled selected>--ID Barang--</option>
@@ -66,6 +81,7 @@
     <!-- <input type="text" name="id_transaksi" value="<?php echo $generate_invoice; ?>"> -->
     <input type="hidden" name="satuan[]" readonly value="<?php echo $items['satuan'];?>">
     <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
+    <input type="hidden" name="wp_suplier_id[]" readonly value="<?php echo $items['wp_suplier_id'];?>">
     <input type="hidden" name="subtotal[]" value="<?php echo $items['subtotal']; ?>"></td>
     <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
     <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
@@ -130,6 +146,7 @@
                   <div class="col-md-12 col-sm-12 col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Simpan</button>
                     <button type="button" class="hapus_cart btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
+                    <a href="<?php echo site_url('pembelian') ?>" class="btn btn-danger pull-right">Kembali</a>
                   </div>
                 </div>
               </section>
