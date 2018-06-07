@@ -185,6 +185,22 @@ class Model extends CI_Model {
         }
     }
 
+    function get_laporan_excel($kota, $kecamatan)
+    {
+        $this->db->select('id_pelanggan, nama_pelanggan, wp_pelanggan.no_telp, kota, kecamatan, kelurahan, wp_karyawan.nama');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
+        $this->db->where('wp_pelanggan.status', 'Pelanggan');
+        if($kota != 'all')
+        {
+            $this->db->where('kota', $kota);
+        }
+        if($kecamatan != 'all')
+        {
+            $this->db->where('kecamatan', $kecamatan);
+        }
+        return $this->db->get($this->table)->result();
+    }
+
 
 }
 

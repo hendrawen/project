@@ -116,8 +116,8 @@
               <th rowspan = 2>Nama Customer</th>
               <th rowspan = 2>Telpon</th>
               <th rowspan = 2>Kota</th>
-              <th rowspan = 2>Kelurahan</th>
               <th rowspan = 2>Kecamatan</th>
+              <th rowspan = 2>Kelurahan</th>
               <th rowspan = 2>Surveyor</th>
               <th rowspan = 2>Piutang</th>
               <th colspan = 2>Januari</th>
