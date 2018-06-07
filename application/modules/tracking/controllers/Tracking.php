@@ -62,12 +62,9 @@ class Tracking extends CI_Controller {
                             if ($cek > 0) {
                                 $row[2] = $this->warna('jingga',$record->nama_pelanggan);
                             } else {
-                                $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-5, $tahun);
-                                if ($cek > 0) {
+                                
                                     $row[2] = $this->warna('hijau-muda',$record->nama_pelanggan);
-                                } else {
-                                   $row[2] = $record->nama_pelanggan;
-                                }
+                                
                             }
                         }
                     }
@@ -207,16 +204,16 @@ class Tracking extends CI_Controller {
                 $result = '<span class="label label-merah">'.$value.'</span>';
                 break;
             case 'hijau' :
-                $result = '<span class="label-black label-hijau">'.$value.'</span>';
+                $result = '<span class="label label-hijau">'.$value.'</span>';
                 break;
             case 'kuning' :
-                $result = '<span class="label-black label-kuning">'.$value.'</span>';
+                $result = '<span class="label label-kuning">'.$value.'</span>';
                 break;
             case 'jingga' :
-                $result = '<span class="label-black label-jingga">'.$value.'</span>';
+                $result = '<span class="label label-jingga">'.$value.'</span>';
                 break;
             case 'hijau-muda' :
-                $result = '<span class="label-black label-hijau-muda">'.$value.'</span>';
+                $result = '<span class="label label-hijau-muda">'.$value.'</span>';
                 break;
             case 'orange' :
                 $result = '<span class="label label-warning">'.$value.'</span>';
