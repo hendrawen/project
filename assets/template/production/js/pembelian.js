@@ -124,4 +124,39 @@ $('#id_barang').on('input',function(){
     });
   });
 
+  $('#id_track_suplier').autocomplete({
+      source: (base_url+"pembayaranbarang/get_auto"),
+      select: function (event, ui) {
+          $('[name="title"]').val(ui.item.label);
+          // $('[name="hutang"]').val(formatNumber(ui.item.utang));
+          // $('[name="id_transaksi"]').val(ui.item.transaksi);
+          // $('[name="id"]').val(ui.item.id);
+          // $('[name="sudah"]').val(ui.item.sudah);
+          // $('[name="jumlah"]').val(formatNumber(ui.item.jumlah));
+      }
+  });
+
+  $("#button_suplier").click(function(){
+      search_suplier();
+  });
+
+  function search_suplier(){
+     var judul=$("#id_track_suplier").val();
+     console.log(judul);
+      if(judul!=""){
+          $("#result2").html(base_url+"assets/ajax-loader.gif");
+            $.ajax({
+                   type : "POST",
+                url  : (base_url+"pembayaranbarang/track_pembayaran"),
+                data:"judul="+judul,
+
+                success:function(data){
+                  $("#result2").html(data);
+                  $("#id_track_suplier").val();
+                }
+         });
+         $('#tabel_search').show();
+      }
+  }
+
 });

@@ -205,12 +205,24 @@ class Pembelian extends CI_Controller{
 		echo $this->show_cart();
 	}
 
+  function get_total()
+	{
+		# code...
+		$total = 0;
+		if ($this->cart->contents()) {
+			foreach ($this->cart->contents() as $items) {
+				$subtotal = $items['subtotal'] * $items['qty'];
+				$total += $subtotal;
+			}
+		}
+		return $total;
+	}
 
     function checkout_action() {
           $id_transaksi = $this->pembelian->generatekode_invoice();
   				// $wp_pelanggan_id = $this->input->post('id', true);
   				// $wp_status_id = $this->input->post('wp_status_id', true);
-          $status = 'hutang';
+          $status = 'Belum Bayar';
           $tg = date('Y-m-d H-i-s');
   				$tg2 = date('Y-m-d');
   				$result = array();
@@ -229,8 +241,16 @@ class Pembelian extends CI_Controller{
               "username"      => $this->session->identity,
   					);
         }
-          // print_r($result);
-          // exit();
+        $bayar = 0;
+        $detail = array(
+          'id_transaksi' => $id_transaksi,
+          'utang' => $this->get_total(),
+          'bayar' => $bayar,
+          'created_at' => date('Y-m-d'),
+          //'updated_at' => $this->input->post('updated_at',TRUE),
+          //'created_at' => mdate($datestring, $time),
+         );
+          $this->db->insert('wp_detail_transaksistok', $detail);
   				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){ $this->cart->destroy();
   					$this->session->set_flashdata('message','Transaksi berhasil !');
