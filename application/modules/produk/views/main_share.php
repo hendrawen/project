@@ -21,10 +21,49 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Kota</span>
+          <select class="form-control" id="filter-kota" >
+          <option value="" selected>--Semua Kota--</option>
+            <?php foreach ($list_kota as $row): ?>
+              <option id_kota="<?php echo $row->id_kab ?>" value="<?php echo $row->nama ?>"><?php echo $row->nama ?></option>
+            <?php endforeach; ?>
+        </select>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Kecamatan</span>
+          <select class="form-control" id="filter-kecamatan">
+              <option value="" selected>--Semua Kecamatan--</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Dari</span>
+          <select class="form-control" id="bulan-share-from">
+            <?php $i = 1; foreach ($month as $key): ?>
+              <option value="<?php echo $i++;?>"><?php echo $key?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+        <div class="input-group">
+          <span class="input-group-addon">Ke</span>
+          <select class="form-control" id="bulan-share-to">
+            <?php $i = 1;  foreach ($month as $key): ?>
+              <option <?php echo ($to == $key)?'selected':'' ?> value="<?php echo $i++;?>"><?php echo $key ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
-          <select class="form-control" id="tahun-pelanggan">
+          <select class="form-control" id="tahun-share">
             <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
               if ($tahun == $year) {
                 echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
@@ -35,10 +74,12 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
-        <button type="button" id="btn-lap-pelanggan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
-        <button type="button" id="excel_pelanggan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh-tracking" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+      </div>
+      <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+        <button type="button" id="btn-produk-share" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
+        <button type="button" id="excel_share_produk" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="btn-refresh-produk" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
       </div>
     </div>
     <div class="table-responsive">
@@ -51,10 +92,7 @@
               <th>Kecamatan</th>
               <th>Kelurahan</th>
               <?php
-              $this->db->select('nama_barang');
-              $this->db->from('wp_barang');
-              $query = $this->db->get()->result();
-              foreach($query as $key){ ?>
+              foreach($barang as $key){ ?>
                 <th><?php echo $key->nama_barang ?></th>
               <?php
               }
