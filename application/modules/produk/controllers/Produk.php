@@ -10,6 +10,7 @@ class Produk extends CI_Controller {
         parent::__construct();
         //Do your magic here
         $this->load->model('Models_share', 'produk');
+        $this->load->model('pelanggan/Daerah_model','daerah');
         
     }
     
@@ -32,6 +33,7 @@ class Produk extends CI_Controller {
             'to'  => set_value('to', $to),
             'year'  => set_value('year', $year)
         );
+        $data['list_kota'] = $this->daerah->get_kota();
         // $data['kelurahan'] = $this->produk->kelurahan_all();
         $data['barang']    = $this->produk->get_barang();
         $this->load->view('panel/dashboard', $data);
@@ -69,6 +71,113 @@ class Produk extends CI_Controller {
         }
         echo $pesan;
     }
+
+    function load_filter()
+    {
+        # code...
+        $kelurahan = $this->produk->get_kelurahan();
+        $id_barang = $this->produk->get_id_barang();
+        $kota = $this->input->post('kota');
+        $kecamatan = $this->input->post('kecamatan');
+        $from = $this->input->post('from');
+        $to = $this->input->post('to');
+        $year = $this->input->post('year');
+        $data = $this->produk->kelurahan_filter($kota, $kecamatan, $from, $to, $year);
+        $total = 0;
+        $pesan = "";
+        if ($data) {
+        foreach ($data as $row) {
+            $pesan .= '
+            <tr>
+            <td>'.$row->kota.'</td>
+            <td>'.$row->kecamatan.'</td>
+            <td>'.$row->kelurahan.'</td>';
+            foreach ($id_barang as $key) {
+                # code...
+            $pesan .= '
+            <td>'.$this->produk->count_produk($row->kecamatan, $key->id).'</td>';
+            }
+            $pesan .= '
+            </tr>';
+        }
+
+        } else {
+        $pesan = '
+        <td colspan=16>Record not found</td>
+        ';
+
+        }
+        echo $pesan;
+    }
+
+    function excel_produk_share($kota, $kecamatan, $from, $to, $year)
+    {
+        $this->load->helper('exportexcel');
+        $namaFile = "produk_share.xls";
+        $judul = "Produk Share";
+        $tablehead = 3;
+        $tablebody = 4;
+        $nourut = 1;
+        //penulisan header
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment;filename=" . $namaFile . "");
+        header("Content-Transfer-Encoding: binary ");
+
+        xlsBOF();
+        xlsWriteLabel(0, 0, "Laporan");
+        xlsWriteLabel(1, 0, "Tahun");
+        xlsWriteLabel(0, 1, "Kota : ".$kota ."Kecamatan : " .$kecamatan);
+        xlsWriteLabel(1, 1, $this->get_month($from).' - '.$this->get_month($to).' '.$year);
+
+        $barang = $this->produk->get_barang();
+        $kolomhead = 0;
+        xlsWriteLabel($tablehead, $kolomhead++, "No");
+        xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+        xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+        foreach ($barang as $key) {
+            # code...
+            xlsWriteLabel($tablehead, $kolomhead++, $key->nama_barang);
+        }
+        $record = $this->produk->kelurahan_filter_excel($kota, $kecamatan, $from, $to, $year);
+        $id_barang = $this->produk->get_id_barang();
+        foreach ($record as $data) {
+            $kolombody = 0;
+            xlsWriteNumber($tablebody, $kolombody++, $nourut);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+            foreach ($id_barang as $row) {
+                # code...
+                xlsWriteNumber($tablebody, $kolombody++, $this->produk->count_produk($data->kecamatan, $row->id));                
+            }
+            $tablebody++;
+            $nourut++;
+        }
+
+        xlsEOF();
+        exit();
+    }
+
+    function get_month($value)
+    {
+        $res;
+        $month = array('Januari','Februari','Maret','April','Mei','Juni',
+        'Juli','Agustus','September','Oktober','November','Desember');
+        for ($i=0; $i < sizeOf($month); $i++) {
+        if ($value == $i) {
+            $res = $month[$i-1];
+            break;
+        }
+        }
+        return $res;
+    }
+
 
     function cek()
     {

@@ -11,71 +11,113 @@ class Laporan extends CI_Controller {
         parent::__construct();
         //Do your magic here
         $this->load->model('Models_laporan', 'laporan');
+        $this->load->model('som/Model_laporan', 'mLap');
+        $this->load->model('som/Model_dep', 'dep');
         $this->load->library('table');
         
     }
-    
-    function penarikan_bulanan()
+
+    function tracking()
     {
-        # code...
+        $to = date('n');
+        $from = $to - 1 ;
+        $year = date('Y');
+
+        // $record = $this->mLap->laporan_pelanggan($from, $to, $year);
         $data = array(
             'aktif'			=>'laporan',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	    =>'Aset',
-            'content'		=>'penarikan_bulanan',
-            'month'         => $this->month,
+            'sub_judul'	=>'Tracking Pelanggan',
+            'content'		=>'som/transaksi/laporan_pelanggan',
+            'month'     => $this->month,
+            // 'record'    => $record,
+            'from'  => set_value('from', $from),
+            'to'  => set_value('to', $to),
+            'year'  => set_value('year', $year)
         );
+
         $this->load->view('panel/dashboard', $data);
     }
 
-    function load_penarikan_bulanan()
-    {
-        $from = $this->input->post('from');
-        $to = $this->input->post('to');
-        $tahun = $this->input->post('tahun');
-        $data = $this->laporan->penarikan_bulanan($from, $to, $tahun);
-        $pesan = "";
-        $total = 0;
-        if ($data) {
-        foreach ($data as $row) {
-            $pesan .= '<tr>
-            <td>'.$row->id_transaksi.'</td>
-            <td>'.tgl_indo($row->tgl_transaksi).'</td>
-            <td>'.tgl_indo($row->jatuh_tempo).'</td>
-            <td>'.$row->id_pelanggan.'</td>
-            <td>'.$row->nama_pelanggan.'</td>
-            <td>'.$row->nama_barang.'</td>
-            <td>'.$row->qty.'</td>
-            <td>'.$row->satuan.'</td>
-            <td>'.$row->kecamatan.'</td>
-            <td>'.$row->kelurahan.'</td>
-            <td>'.$row->no_telp.'</td>
-            <td>'.$row->nama.'</td>
-            <td>'.$row->username.'</td>
-            <td>'.$row->jumlah.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
-            <td>'.$row->bayar_krat.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
-            <td>'.$row->bayar_uang.'</td>
-            <td>'.$row->jumlah.'</td>
-            <td>'.$row->sisa.'</td>
-            <td>'.$row->status.'</td>
-            </tr>';
-            $total += $row->sisa;
-        }
-        $pesan .= '<tr>
-        <td colspan=19 class=text-right><b>total sisa aset</b></td>
-        <td colspan=2><b>'.$total.'</b></td>
-        </tr>';
-        } else {
-        $pesan .= '<tr>
-            <td colspan=16>Record not found</td>
-        </tr>';
-        }
-        echo $pesan;
-    }
+  function load_pelanggan()
+  {
+    $from = $this->input->post('from');
+    $to = $this->input->post('to');
+    $tahun = $this->input->post('tahun');
+    $data = $this->dep->laporan_pelanggan($from, $to, $tahun);
+    $no = 1;
+    $total = 0;
+    $pesan = "";
+    if ($data) {
+      foreach ($data as $row) {
+        $utang = $this->dep->laporan_pelanggan_utang($row->id_pelanggan, $from, $to, $tahun);
 
+        $pesan .= '
+        <tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_pelanggan.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.number_format($utang).'</td>';
+          for ($month=1; $month <=12 ; $month++) {
+            $jumlah_trx = $this->dep->laporan_pelanggan_trx($row->id_pelanggan, $month, $tahun);
+            $jumlah_qty = $this->dep->laporan_pelanggan_qty($row->id_pelanggan, $month, $tahun);
+            $pesan  .= '<td>'.$jumlah_trx.'</td>
+            <td>'.$jumlah_qty.'</td>';
+          }
+        '</tr>';
+      }
+
+    } else {
+      $pesan = '
+      <td colspan=16>Record not found</td>
+      ';
+
+    }
+    echo $pesan;
+  }
+
+  function load_pelanggan_all()
+  {
+    $data = $this->mLap->laporan_pelanggan_all();
+    $no = 1;
+    $total = 0;
+    $pesan = "";
+    if ($data) {
+      foreach ($data as $row) {
+        $utang = $this->mLap->laporan_pelanggan_utang_all($row->id_pelanggan);
+
+        $pesan .= '
+        <tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_pelanggan.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->no_telp.'</td>
+          <td>'.$row->kelurahan.'</td>
+          <td>'.$row->kecamatan.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.number_format($utang).'</td>';
+          for ($month=1; $month <=12 ; $month++) {
+            $jumlah_trx = $this->mLap->laporan_pelanggan_trx_all($row->id_pelanggan, $month);
+            $jumlah_qty = $this->mLap->laporan_pelanggan_qty_all($row->id_pelanggan, $month);
+            $pesan  .= '<td>'.$jumlah_trx.'</td>
+            <td>'.$jumlah_qty.'</td>';
+          }
+        '</tr>';
+      }
+
+    } else {
+      $pesan = '
+      <td colspan=16>Record not found</td>
+      ';
+
+    }
+    echo $pesan;
+  }
 
     function template_table()
     {
