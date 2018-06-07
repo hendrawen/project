@@ -230,6 +230,9 @@ $(document).ready(function() {
   // download excel
   $("#excelharian").click(function() {
     tgl = $("#tgl").val();
+    if (tgl == '')  {
+      tgl = 'semua';
+    }
     nama = $("#nama-dept").val();
     window.location = base_url + 'som/exceldep/harian/'+tgl+'/'+nama;
   });

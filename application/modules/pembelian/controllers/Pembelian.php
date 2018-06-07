@@ -196,6 +196,7 @@ class Pembelian extends CI_Controller{
 			'price' => $this->input->post('harga'),
 			'qty' => $this->input->post('qty'),
       'wp_barang_id' => $this->input->post('id'),
+      'wp_suplier_id' => $this->input->post('wp_suplier_id'),
       'subtotal' => $this->input->post('subtotal'),
       'satuan' => $this->input->post('satuan2'),
       //'id_transaksi' => $this->input->post('id_transaksi'),
@@ -209,7 +210,8 @@ class Pembelian extends CI_Controller{
           $id_transaksi = $this->pembelian->generatekode_invoice();
   				// $wp_pelanggan_id = $this->input->post('id', true);
   				// $wp_status_id = $this->input->post('wp_status_id', true);
-  				$tg = date('Y-m-d H-i-s');
+          $status = 'hutang';
+          $tg = date('Y-m-d H-i-s');
   				$tg2 = date('Y-m-d');
   				$result = array();
          foreach ($this->cart->contents() as $items) {
@@ -219,10 +221,11 @@ class Pembelian extends CI_Controller{
   						"wp_barang_id"    => $items['wp_barang_id'],
   						"harga"       		=> $items['price'],
   						//"subtotal"       	=> $items['subtotal'][$key],
-              //"wp_pelanggan_id" => $wp_pelanggan_id,
-  						//"tgl_transaksi" 				=> $tg2,
+              "tgl_transaksi" => $tg2,
+  						"wp_suplier_id" 				=> $items['wp_suplier_id'],
   						"satuan"				=> $items['satuan'],
               "subtotal"        => $items['subtotal'],
+              "status"      => $status,
               "username"      => $this->session->identity,
   					);
         }

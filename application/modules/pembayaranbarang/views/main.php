@@ -1,6 +1,6 @@
 <div class="x_panel">
       <div class="x_title">
-            <h2>Pembelian Barang List</h2>
+            <h2>Daftar Pembayaran Barang</h2>
             <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-md-6">
                 <!-- <?php echo anchor(site_url('barang/create'),'Tambah', 'class="btn btn-primary"'); ?> -->
-                <a href="<?php echo base_url('pembelian/barang'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo base_url('pembayaranbarang/barang'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
             </div>
           </div>
             <div class="col-md-6 text-right">
@@ -37,7 +37,7 @@
                               <th>Satuan</th>
                               <th>Harga</th>
                               <th>Jumlah</th>
-                              <!-- <th>Tanggal Update</th> -->
+                              <th>Status</th>
                               <th>Username</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
@@ -45,7 +45,7 @@
                       <tbody>
                         <?php
                         $no = 1;
-                        foreach($pembelian as $key){ ?>
+                        foreach($pembayaran as $key){ ?>
                        <tr>
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->id_transaksi ?></td>
@@ -57,7 +57,7 @@
                             <td><?php echo $key->satuan ?></td>
                             <td><?php echo $key->harga ?></td>
                             <td><?php echo $key->subtotal ?></td>
-                            <!-- <td><?php echo tgl_indo($key->updated_at) ?></td> -->
+                            <td><span class="label label-danger pull-right"><?php echo $key->status ?></span></td>
                             <td><?php echo $key->username ?></td>
                            <td style="text-align:center">
                               <!-- <a href="<?=base_url()?>pembelian/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a> -->

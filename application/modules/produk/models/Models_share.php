@@ -26,6 +26,58 @@ class Models_share extends CI_Model {
         
     }
 
+    function kelurahan_filter($kota, $kecamatan, $from, $to, $year)
+    {
+        # code...
+        $this->db->select('wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, COUNT(wp_transaksi.wp_barang_id) as jumlah');
+        $this->db->from('wp_transaksi');
+        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
+        if ($kota !== '') { 
+            $this->db->where('wp_pelanggan.kota', $kota);
+        }
+        if ($kecamatan !== '') { 
+            $this->db->where('wp_pelanggan.kecamatan', $kecamatan);
+        }
+        $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
+        $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
+        $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+        $this->db->group_by('wp_pelanggan.kelurahan');
+        
+        $data = $this->db->get();
+        return $data->result();  
+        
+    }
+
+    function kelurahan_filter_excel($kota, $kecamatan, $from, $to, $year)
+    {
+        # code...
+
+        // if ($kota == 'all') {
+        //     $kota == '';
+        // }
+        // if ($kecamatan == 'all') {
+        //     # code...
+        //     $kota == '';
+        // }
+        $this->db->select('wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, COUNT(wp_transaksi.wp_barang_id) as jumlah');
+        $this->db->from('wp_transaksi');
+        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
+        if ($kota !== 'all') { 
+            $this->db->where('wp_pelanggan.kota', $kota);
+        }
+        if ($kecamatan !== 'all') { 
+            $this->db->where('wp_pelanggan.kecamatan', $kecamatan); 
+        }
+        $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
+        $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
+        $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+        $this->db->group_by('wp_pelanggan.kelurahan');
+        
+        $data = $this->db->get();
+        return $data->result();  
+        
+    }
+
     function get_kelurahan()
     {
         # code...

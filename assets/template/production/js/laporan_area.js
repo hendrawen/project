@@ -1,12 +1,11 @@
 $(document).ready(function () {
     get_all();
-    get_all_tracking();
   });
 
     function get_all() {
       $("#loading").show();
       $.ajax({
-        url: base_url+'laporan/produk/get_all/',
+        url: base_url+'laporan/area/load_area_all/',
         type: 'POST',
         dataType: 'html',
         success : function (data) {
@@ -14,19 +13,6 @@ $(document).ready(function () {
           $("#tbody").html(data);
         }
       })
-    }
-
-    function get_all_tracking() {
-      $("#loading").show();
-      $.ajax({
-        url: base_url+'laporan/produk/load_pelanggan_all/',
-        type: 'POST',
-        dataType: 'html',
-        success : function (data) {
-          $("#loading").hide();
-          $("#tbody-tracking").html(data);
-        }
-      });
     }
 
 $("#berdasarkan-area").change(function() {
@@ -76,6 +62,52 @@ $("#berdasarkan-area").change(function() {
     });
   });
 
+  $("#btn-area-hari").click(function() {
+    tgl = $("#tgl").val();
+    berdasarkan = $("#berdasarkan-area").val();
+    area = $("#pilih-area").val();
+    $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url: base_url+'laporan/area/load_area_harian/',
+      type: 'POST',
+      dataType: 'html',
+      data: {tgl: tgl, area : area, berdasarkan : berdasarkan},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tbody").html(data);
+      }
+    });
+  });
+
+  $("#btn-area-bulan").click(function() {
+    bulan_dari = $("#bulan_dari").val();
+    bulan_ke = $("#bulan_ke").val();
+    tahun = $("#tahun").val();
+    area = $("#pilih-area").val();
+    berdasarkan = $("#berdasarkan-area").val();
+    $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url: base_url+'laporan/area/load_area_bulan/',
+      type: 'POST',
+      dataType: 'html',
+      data: {from : bulan_dari, to : bulan_ke, tahun : tahun, area : area, berdasarkan : berdasarkan},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tbody").html(data);
+      }
+    });
+  });
+
   // area
   $("#excel_area").click(function() {
     t = $("#tahun-area").val();
@@ -93,9 +125,4 @@ $("#berdasarkan-area").change(function() {
 
   $("#btn-refresh").click(function () {
     get_all();
-  });
-
-  $("#btn-refresh-tracking").click(function () {
-    get_all_tracking();
-
   });

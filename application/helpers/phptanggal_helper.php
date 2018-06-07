@@ -183,3 +183,12 @@ function terbilang($x){
     elseif ($x < 1000000000)
       return Terbilang($x / 1000000) . " Juta" . Terbilang($x % 1000000);
   }
+
+  function angka($value)
+  {
+      if ($value == '0' || $value == '') {
+          return '-';
+      } else {
+          return number_format($value);
+      }
+  }

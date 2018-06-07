@@ -34,7 +34,7 @@ class Lap_dep extends CI_Controller{
           'harian'    =>$this->dep->get_harian(),
       );
 
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_harian()
@@ -90,7 +90,7 @@ class Lap_dep extends CI_Controller{
           'content'		=>'dep/laporan_bulanan',
           'month'     => $this->month,
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_bulanan()
@@ -147,7 +147,7 @@ class Lap_dep extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'dep/laporan_tahunan',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_tahunan()
@@ -204,7 +204,7 @@ class Lap_dep extends CI_Controller{
           'content'		=>'dep/laporan_per_produk',
           'list_barang' => $this->Barang_model->get_all(),
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_produk()
@@ -259,7 +259,7 @@ class Lap_dep extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'dep/laporan_area',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_area()
@@ -329,7 +329,7 @@ class Lap_dep extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'dep/laporan_marketing',
       );
-      $this->load->view('som/dashboard', $data);
+      $this->load->view('panel/dashboard', $data);
   }
 
   function load_marketing()
@@ -423,7 +423,7 @@ class Lap_dep extends CI_Controller{
         'year'  => set_value('year', $year)
     );
 
-    $this->load->view('som/dashboard', $data);
+    $this->load->view('panel/dashboard', $data);
   }
 
   function load_pelanggan()
