@@ -51,5 +51,5 @@ $(document).ready(function () {
 
   $("#exc-pel").click(function() {
     t = $("#tahun").val();
-    window.location = base_url + 'som/excel/tahunan/'+t;
+    window.location = base_url + 'statspel/excel/tahunan/'+t;
   });

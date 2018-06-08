@@ -9,11 +9,12 @@ class Model_laporan extends CI_Model{
     $this->load->database();
   }
 
-  function laporan_pelanggan($year)
+  function laporan_tahunan($year)
   {
     $query = "SELECT * FROM `brajamarketindo`.`wp_pelanggan`, `wp_transaksi` where (YEAR(`wp_transaksi`.`tgl_transaksi`) = $year) group by kelurahan";
     return $this->db->query($query)->result();
   }
+
 
   function laporan_pelanggan_trx($id_pelanggan, $month, $year)
   {

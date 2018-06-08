@@ -86,7 +86,7 @@ class Laporan extends CI_Controller{
   function load_pelanggan()
   {
     $tahun = $this->input->post('tahun');
-    $data = $this->mLap->laporan_pelanggan($tahun);
+    $data = $this->mLap->laporan_tahunan($tahun);
     $no = 1;
     $total = 0;
     $pesan = "";
