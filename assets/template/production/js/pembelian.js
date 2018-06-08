@@ -2,7 +2,7 @@ $(document).ready(function(){
   $('.add_cart').click(function(){
     var id    = $(this).data("id");
     var nama_barang  = $(this).data("nama_barang");
-    var wp_status_id = $(this).data("wp_suplier_id");
+    var wp_suplier_id = $(this).data("wp_suplier_id");
     var harga = $(this).data("harga");
     var satuan = $(this).data("satuan2");
     var subtotal = $(this).data("subtotal");
@@ -59,7 +59,18 @@ $('#id_barang').on('input',function(){
            return false;
   });
 
-  $('#id_pelanggan').on('input',function(){
+  $('#wp_suplier_id').autocomplete({
+          source: (base_url+"pembelian/get_autocomplete"),
+          select: function (event, ui) {
+              $('[name="id_suplier"]').val(ui.item.label);
+              document.getElementById('nama_suplier').innerHTML = ui.item.nama_suplier;
+              document.getElementById('id_suplier').innerHTML = ui.item.id_suplier;
+              $('[name="id"]').val(ui.item.id);
+              document.getElementById('alamat').innerHTML = ui.item.alamat;
+          }
+  });
+
+  $('#id_suplier').on('input',function(){
 
              var id_pelanggan=$(this).val();
              $.ajaxSetup({
@@ -69,23 +80,21 @@ $('#id_barang').on('input',function(){
              });
              $.ajax({
                  type : "POST",
-                 url  : (base_url+"checkout/get_pelanggan"),
+                 url  : (base_url+"pembelian/get_suplier"),
                  dataType : "JSON",
-                 data : {id_pelanggan: id_pelanggan},
+                 data : {id_suplier: id_suplier},
                  cache:false,
                  success: function(data){
-                     $.each(data,function(id, id_pelanggan, nama_pelanggan, alamat, no_telp, nama_dagang, kota){
+                     $.each(data,function(id, id_suplier, nama_suplier, alamat){
                          // $('[name="nama_pelanggan"]').val(data.nama_pelanggan);
                          // $('[name="alamat"]').innerText(data.alamat);
                          // $('[name="no_telp"]').val(data.no_telp);
                          // $('[name="nama_dagang"]').val(data.nama_dagang);
                          $('[name="id"]').val(data.id);
                          document.getElementById('id').innerHTML = data.id;
-                         document.getElementById('idpelanggan').innerHTML = data.id_pelanggan;
-                         document.getElementById('nama_pelanggan').innerHTML = data.nama_pelanggan;
+                         document.getElementById('id_suplier').innerHTML = data.id_suplier;
+                         document.getElementById('nama_suplier').innerHTML = data.nama_suplier;
                          document.getElementById('alamat').innerHTML = data.alamat;
-                         document.getElementById('no_telp').innerHTML = data.no_telp;
-                         document.getElementById('nama_dagang').innerHTML = data.nama_dagang;
                      });
 
                  }

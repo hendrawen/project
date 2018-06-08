@@ -52,8 +52,8 @@
                       <th>Nama Suplier</th>
                       <th>ID Transaksi</th>
                       <th>Nama Barang</th>
-                      <th>Harga (Rp.)</th>
                       <th>Satuan</th>
+                      <th>Harga (Rp.)</th>
                       <th>Qty</th>
                       <th>Sub Total(Rp.)</th>
                     </thead>

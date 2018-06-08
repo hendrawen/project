@@ -33,8 +33,8 @@
                               <th>Tanggal</th>
                               <th>Kode Barang</th>
                               <th>Nama Barang</th>
-                              <th>QTY</th>
                               <th>Satuan</th>
+                              <th>QTY</th>
                               <th>Harga</th>
                               <th>Jumlah</th>
                               <!-- <th>Tanggal Update</th> -->
@@ -53,8 +53,8 @@
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                             <td><?php echo $key->id_barang ?></td>
                             <td><?php echo $key->nama_barang ?></td>
-                            <td><?php echo $key->qty ?></td>
                             <td><?php echo $key->satuan ?></td>
+                            <td><?php echo $key->qty ?></td>
                             <td><?php echo $key->harga ?></td>
                             <td><?php echo $key->subtotal ?></td>
                             <!-- <td><?php echo tgl_indo($key->updated_at) ?></td> -->

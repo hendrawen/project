@@ -5,7 +5,7 @@
                     <strong>Warning !</strong> Silahkan melakukan penambahan produk terlebih dahulu.
                   </div>
                 <div class="text-right">
-                <a href="'.base_url('pesan').'" type="button"  class="btn btn-success text-right"><i class="fa fa-plus-circle"></i> Input Transaksi</a>
+                <a href="'.base_url('pembelian/barang').'" type="button"  class="btn btn-success text-right"><i class="fa fa-plus-circle"></i> Input Transaksi</a>
                 </div>';
 					else:
 ?>
@@ -13,7 +13,7 @@
 <div class="row">
   <form action="#" id="form_checkout" class="form-horizontal">
     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <input type="text" name="id_pelanggan" id="autoidtransaksi" class="form-control" placeholder="Masukkan ID Pelanggan" required="">
+      <input type="text" name="wp_suplier_id" id="wp_suplier_id" class="form-control" placeholder="Masukkan ID Suplier" required="">
     </div>
 </form>
 </div>
@@ -50,7 +50,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content" id="printable">
-              <form method="POST" action="<?php echo site_url('dep/checkout_action');?>">
+              <form method="POST" action="<?php echo site_url('pembelian/checkout_action');?>">
               <section class="content invoice">
                 <!-- title row -->
                 <div class="row">
@@ -65,7 +65,7 @@
                 <!-- info row -->
                 <div class="row invoice-info">
                   <div class="col-sm-4 invoice-col">
-                    Dari
+                    Untuk
                     <address>
                       <?php
                           foreach ($profile as $value) {
@@ -81,48 +81,44 @@
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-4 invoice-col">
-                    Kepada
                     <address>
-                                    <strong><span name="nama_pelanggan" id="nama_pelanggan">Nama Pelanggan</span></strong>
-                                    <br><span name="nama_dagang" id="nama_dagang">Nama Dagang</span>
-                                    <br><span name="alamat" id="alamat">Alamat</span>
-                                    <br>Telp : <span name="no_telp" id="no_telp"></span>
+                                    <br>Nama Suplier # <strong><span name="nama_suplier" id="nama_suplier"></span></strong>
+																		<br>ID Suplier # <strong><span name="id_suplier" id="id_suplier"></span></strong>
+																		<br>Alamat # <strong><span name="alamat" id="alamat"></span></strong>
                                 </address>
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-4 invoice-col">
-                    <b>Order ID:</b> #<?php echo $generate_invoice; ?>
+                    <b>ID Pembelian </b> # <?php echo $generate_invoice; ?>
                     <br>
-                    <b>Tanggal Transaksi:</b> <?php
+                    <b>Tanggal Transaksi # </b> <?php
                                           $date = Date("Y-m-d");
                                           Echo tgl_indo($date);
                                         ?>
                     <br>
-                    <b>ID Pelanggan:</b> <span name="idpelanggan" id="idpelanggan">ID Pelanggan</span>
                   </div>
                   <!-- /.col -->
                 </div>
                 <!-- /.row -->
-                  <?php $i = 1; ?>
-                <?php foreach($this->cart->contents() as $items): ?>
+								<?php $i = 1; ?>
+							  <?php foreach($this->cart->contents() as $items): ?>
 
-                <?php echo form_hidden('rowid[]', $items['rowid']); ?>
-                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
-                <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
-                  <input type="hidden" name="hutang" value="<?php echo $this->cart->total() ?>">
-                  <input type="hidden" name="id_transaksi_hutang" id="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>">
-                  <input type="hidden" name="id" id="id" class="form-control">
-                  <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>">
-                  <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
-                  <input type="hidden" name="subtotal[]" value="<?php echo $items['subtotal'];?>"></td>
-                  <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
+							  <?php echo form_hidden('rowid[]', $items['rowid']); ?>
+							  <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
+							  <!-- <input type="text" name="idpesan[]" value="<?php echo rand(1,10000);?>"> -->
+							    <input type="hidden" name="id" id="id" class="form-control">
+							    <!-- <input type="hidden" name="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>"> -->
+							    <input type="hidden" name="satuan[]" readonly value="<?php echo $items['satuan'];?>">
+							    <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
+							    <input type="hidden" name="wp_suplier_id[]" readonly value="<?php echo $items['wp_suplier_id'];?>">
+							    <input type="hidden" name="subtotal[]" value="<?php echo $items['subtotal']; ?>"></td>
+							    <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
+							    <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
+							    <input type="hidden" readonly value="<?php echo $items['name'];?>" style="border:0px;background:none;">
+							    <input type="hidden" name="qty[]" readonly size="1" value="<?php echo $items['qty']; ?>" style="border:0px;background:none;">
 
-                  <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
-                  <input type="hidden" readonly value="<?php echo $items['name'];?>" style="border:0px;background:none;">
-                  <input type="hidden" name="qty[]" readonly size="1" value="<?php echo $items['qty']; ?>" style="border:0px;background:none;">
-
-                  <?php $i++; ?>
-                  <?php endforeach; ?>
+							    <?php $i++; ?>
+							    <?php endforeach; ?>
 
                 <!-- Table row -->
                 <div class="row">
@@ -134,6 +130,7 @@
                           <th>Nama Barang</th>
                           <th>Harga (Rp.)</th>
                           <th>QTY</th>
+													<th>Satuan</th>
                           <th>Subtotal (Rp.)</th>
                         </tr>
                       </thead>
@@ -157,6 +154,9 @@
                           <td>
                             <?php echo $items['qty']; ?>
                           </td>
+													<td>
+                            <?php echo $items['satuan']; ?>
+                          </td>
                           <td>
                             Rp. <?php echo $this->cart->format_number($items['subtotal']); ?>
                           </div>
@@ -164,18 +164,15 @@
                         <?php $i++; ?>
                         <?php endforeach; ?>
                         <tr>
-                          <td colspan="4"><strong>Total</strong></td>
+                          <td colspan="5"><strong>Total</strong></td>
                           <td>Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                  <!-- /.col -->
                 </div>
-                <!-- /.row -->
 
-                <div class="row">
-                  <!-- accepted payments column -->
+                <!-- <div class="row">
                   <div class="col-md-6 col-sm-12 col-xs-12">
                     <p class="lead">Jenis Pembayaran:</p>
                     <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
@@ -189,7 +186,6 @@
                         } ?>
                     </p>
                   </div>
-                  <!-- /.col -->
                   <div class="text col-md-6 col-xs-12">
                     <p class="lead">Pembayaran</p>
                     <div class="form-group">
@@ -197,15 +193,12 @@
                       <input type="text" name="bayar" placeholder="Rp." class="form-control" value="0">
                     </div>
                   </div>
-                  <!-- /.col -->
-                </div>
-                <!-- /.row -->
+                </div> -->
 
-                <!-- this row will not appear when printing -->
                 <div class="row no-print">
                   <div class="col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                    <a href="<?php echo base_url('pesan')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
+                    <a href="<?php echo base_url('pembelian/barang')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
                   </div>
                 </div>
               </section>

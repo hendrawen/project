@@ -33,11 +33,11 @@
                               <th>Tanggal</th>
                               <th>Kode Barang</th>
                               <th>Nama Barang</th>
-                              <th>QTY</th>
                               <th>Satuan</th>
+                              <th>QTY</th>
                               <th>Harga</th>
                               <th>Jumlah</th>
-                              <th>Status</th>
+                              <!-- <th>Status</th> -->
                               <th>Username</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
@@ -53,11 +53,11 @@
                             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                             <td><?php echo $key->id_barang ?></td>
                             <td><?php echo $key->nama_barang ?></td>
-                            <td><?php echo $key->qty ?></td>
                             <td><?php echo $key->satuan ?></td>
+                            <td><?php echo $key->qty ?></td>
                             <td><?php echo $key->harga ?></td>
                             <td><?php echo $key->subtotal ?></td>
-                            <td><span class="label label-danger pull-right"><?php echo $key->status ?></span></td>
+                            <!-- <td><span class="label label-danger pull-right"><?php echo $key->status ?></span></td> -->
                             <td><?php echo $key->username ?></td>
                            <td style="text-align:center">
                               <!-- <a href="<?=base_url()?>pembelian/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a> -->
