@@ -1,6 +1,6 @@
 <div class="x_panel">
   <div class="x_title">
-    <h2>Laporan Pembayaran <small>Bulanan</small></h2>
+    <h2>Laporan Market <small>Share</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -26,7 +26,7 @@
           <div class="input-group">
             <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
             <select class="form-control" id="tahun-market">
-              <option value="">--Pilih Tahun --</option>
+              <option value="" selected>--Pilih Tahun --</option>
               <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
                   echo '<option  value="'.$tahun.'">'.$tahun.'</option>';
               } ?>
