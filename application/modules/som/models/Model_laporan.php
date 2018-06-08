@@ -38,7 +38,9 @@ class Model_laporan extends CI_Model{
         wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
-    $this->db->where('wp_transaksi.tgl_transaksi', $day);
+    if ($day != 'semua') {
+      $this->db->where('wp_transaksi.tgl_transaksi', $day);
+    }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
     $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
@@ -58,9 +60,19 @@ class Model_laporan extends CI_Model{
         wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
-    $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
-    $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
-    $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    if ($from != 'semua'){
+      $this->db->where('month(wp_transaksi.tgl_transaksi)', $from);
+    }
+    if ($to != 'semua'){
+      $this->db->where('month(wp_transaksi.tgl_transaksi)', $to);
+    }
+    if ($from != 'semua' && $to != 'semua') {
+      $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
+      $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
+    }
+    if ($year != 'semua') {
+      $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
     $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
@@ -80,7 +92,9 @@ class Model_laporan extends CI_Model{
         wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
-    $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    if ($year != 'semua') {
+      $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+    }
     $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
     $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
     $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');

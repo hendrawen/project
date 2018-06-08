@@ -1,7 +1,7 @@
 
 <div class="x_panel">
   <div class="x_title">
-    <h2>Laporan Transaksi <small>Harian</small></h2>
+    <h2>Laporan Transaksi <small>Bulanan</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -26,6 +26,7 @@
         <div class="input-group">
           <span class="input-group-addon">Bulan dari</span>
           <select class="form-control" id="bulan_dari">
+          <option value="">Pilih Bulan</option>
             <?php $i = 1; foreach ($month as $key): ?>
               <option value="<?php echo $i++;?>"><?php echo $key?></option>
             <?php endforeach; ?>
@@ -36,6 +37,7 @@
         <div class="input-group">
           <span class="input-group-addon">Bulan ke</span>
           <select class="form-control" id="bulan_ke">
+          <option value="">Pilih Bulan</option>
             <?php $i = 1;  foreach ($month as $key): ?>
               <option value="<?php echo $i++;?>"><?php echo $key ?></option>
             <?php endforeach; ?>
@@ -46,8 +48,9 @@
         <div class="input-group">
           <span class="input-group-addon">Tahun</span>
           <select class="form-control" id="tahun">
+          <option value="">Tahun</option>
             <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-              echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+              echo '<option value="'.$tahun.'">'.$tahun.'</option>';
             } ?>
           </select>
         </div>
@@ -55,7 +58,7 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <button type="button" class="btn btn-success" id="btn-search_bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
         <button type="button" id="excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
       </div>
     </div>
     <div class="table-responsive">
