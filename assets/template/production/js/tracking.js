@@ -2,7 +2,10 @@ var table;
 var btn_excel = $("#excel-tracking");
  
 $(document).ready(function() {
- 
+    $('#filter-kota').select2();
+    $('#filter-kecamatan').select2();
+    $('#tahun-tracking').select2();
+    
     //datatables
     table = $('#table-tracking').DataTable({ 
 

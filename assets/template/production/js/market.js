@@ -2,7 +2,9 @@ var table;
 var btn_excel = $("#excel-market");
  
 $(document).ready(function() {
- 
+    $('#filter-kota').select2();
+    $('#filter-kecamatan').select2();
+    $('#tahun-market').select2();
     //datatables
     table = $('#table-market').DataTable({ 
 
