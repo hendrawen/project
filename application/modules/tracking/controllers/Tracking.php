@@ -14,10 +14,10 @@ class Tracking extends CI_Controller {
     function index()
     {
         $data = array(
-            'aktif'			=>'Market',
+            'aktif'			=>'Tracking',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Market Share',
+            'sub_judul'	=>'Tracking',
             'content'		=>'view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
@@ -245,4 +245,4 @@ class Tracking extends CI_Controller {
 
 }
 
-/* End of file Market.php */
+/* End of file Tracking.php */

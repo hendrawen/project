@@ -39,4 +39,8 @@ $(document).ready(function () {
     get_all_growth();
   });
 
+  $("#excel_gtransaksi_harian").click(function() {
+    t = $("#tahun").val();
+    window.location = base_url + 'gtransaksi/excelg/'+t;
+  });
 

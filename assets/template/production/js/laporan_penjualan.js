@@ -95,6 +95,9 @@ function get_all_tracking() {
   // download excel
   $("#excel_harian").click(function() {
     tgl = $("#tgl").val();
+    if (tgl == '') {
+      tgl = 'semua';
+    }
     window.location = base_url + 'som/excel/harian/'+tgl;
   });
   // bulan
@@ -102,11 +105,23 @@ function get_all_tracking() {
     b1 = $("#bulan_dari").val();
     b2 = $("#bulan_ke").val();
     t = $("#tahun").val();
+    if (b1 == '') {
+      b1 = 'semua';
+    }
+    if (b2 == '') {
+      b2 = 'semua';
+    }
+    if (t == '') {
+      t = 'semua';
+    }
     window.location = base_url + 'som/excel/bulanan/'+b1+'/'+b2+'/'+t;
   });
   // tahun
   $("#excel_tahunan").click(function() {
     t = $("#tahunan").val();
+    if (t == '') {
+      t = 'semua';
+    }
     window.location = base_url + 'som/excel/tahunan/'+t;
   });
 

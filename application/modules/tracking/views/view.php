@@ -44,7 +44,7 @@
 
 <div class="x_panel">
   <div class="x_title">
-    <h2>Laporan Pembayaran <small>Bulanan</small></h2>
+    <h2>Laporan Tracking <small>Pelanggan</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -65,7 +65,7 @@
 
   <div class="x_content">
     <div class="row">
-      <form action="" id="form-tracking">
+      <form action="#" id="form-tracking">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
           <div class="input-group">
             <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>

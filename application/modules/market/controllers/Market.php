@@ -38,9 +38,9 @@ class Market extends CI_Controller {
             $row[] = $record->kecamatan;
             $row[] = $record->kelurahan;
             for ($i=1; $i <= 12; $i++) { 
-                $row[] = $this->model->count_customer($record->kelurahan);
-                $row[] = $this->model->count_active($record->kelurahan, $i);
-                $row[] = $this->model->count_qty($record->kelurahan, $i);
+                $row[] = angka($this->model->count_customer($record->kelurahan));
+                $row[] = angka($this->model->count_active($record->kelurahan, $i));
+                $row[] = angka($this->model->count_qty($record->kelurahan, $i));
             }
             $data[] = $row;
         }

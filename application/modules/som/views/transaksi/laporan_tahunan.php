@@ -25,6 +25,7 @@
         <div class="input-group">
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="tahunan">
+            <option value="" selected>Pilih Tahun</option>
             <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
               echo '<option value="'.$tahun.'">'.$tahun.'</option>';
             } ?>
@@ -34,7 +35,7 @@
       <div class="col-md-4">
         <button type="button" id="btn-laporan-tahunan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_tahunan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
       </div>
       <div class="col-md-4 text-right">
 

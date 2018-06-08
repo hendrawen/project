@@ -317,7 +317,7 @@ $(document).ready(function () {
       }
     });
     $.ajax({
-      url: base_url+'som/laporan/load_pelanggan/',
+      url: base_url+'laporan/load_pelanggan/',
       type: 'POST',
       dataType: 'html',
       data: {from: from, to : to, tahun : tahun},
