@@ -68,7 +68,7 @@ class Model_laporan extends CI_Model{
     }
   }
 
-  // ambil cost and resp aktif
+  // ambil cost aktif
   function lap_pel_all($kelurahan)
   {
     $this->db->select('count(id) as jumlah');
