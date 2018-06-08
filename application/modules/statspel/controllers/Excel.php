@@ -96,11 +96,6 @@ class Excel extends CI_Controller{
         $custAktif = $this->mLap->lap_pel_all($data->kelurahan);
         $qtyAkt = $this->mLap->lap_pel($data->kelurahan);
 
-
-        // $c_pers = $custAktual / $custTarget;
-        // $r_pers = number_format($custAktual / $respTarget, 3);
-        // $q_pers = number_format($qtyAkt / $qtyTarget, 3);
-
         $jum_tar_c += $custTarget;
         $jum_c_act += $custAktual;
         $jum_c_akt += $custAktif;
