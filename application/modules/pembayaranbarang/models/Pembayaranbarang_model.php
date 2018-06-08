@@ -79,12 +79,12 @@ class Pembayaranbarang_model extends CI_Model{
      return $this->db->count_all_results();
  }
 
-  function cari_pelanggan($idpelanggan){
-		$this->db->like('id_pelanggan', $idpelanggan , 'both');
-		$this->db->order_by('id_pelanggan', 'ASC');
+  function cari_suplier($idsuplier){
+		$this->db->like('id_suplier', $idsuplier , 'both');
+		$this->db->order_by('id_suplier', 'ASC');
     $this->db->where('utang <=', 'bayar');
 		$this->db->limit(10);
-		return $this->db->get('v_detail_utang')->result();
+		return $this->db->get('wp_detail_transaksistok')->result();
 	}
 
   function update($id, $data)
@@ -97,11 +97,58 @@ class Pembayaranbarang_model extends CI_Model{
   function get_data(){
         $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, status, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_transaksistok.updated_at, wp_transaksistok.username, wp_suplier.id_suplier, wp_suplier.nama_suplier');
         $this->db->from($this->table);
-        $this->db->where('wp_transaksistok.status','Belum Bayar');
         $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
         $this->db->order_by('id_transaksi', $this->order);
         return $this->db->get()->result();
     }
 
+  function cek_bayar($idsuplier){
+		$this->db->like('id_suplier', $idsuplier , 'both');
+		$this->db->order_by('id_suplier', 'ASC');
+		$this->db->limit(10);
+		return $this->db->get('wp_suplier')->result();
+	}
+
+  function get_track($cari){
+    $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, status, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, subtotal, wp_suplier.id_suplier, wp_suplier.nama_suplier');
+    $this->db->from($this->table);
+    $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
+    $this->db->where('wp_suplier.id_suplier', $cari);
+    $hsl = $this->db->get();
+    if($hsl->num_rows() == 0){
+        echo '<tr><td colspan="9"><center><div class="alert alert-danger" role="alert">Suplier Dengan No. ID : '.$cari.' Tidak Memiliki Transaki</div></center></td></tr>';
+    } else {
+      return $hsl->result();
+    }
+  }
+
+  function sum_get_track($cari){
+    $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, status, wp_barang.id_barang, wp_barang.nama_barang, harga, qty, wp_transaksistok.satuan, sum(subtotal) as total, wp_suplier.id_suplier, wp_suplier.nama_suplier');
+    $this->db->from($this->table);
+    $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
+    $this->db->where('wp_suplier.id_suplier', $cari);
+    $hsl = $this->db->get();
+    return $hsl->result();
+  }
+
+  function get_min_track($cari){
+    $this->db->order_by('id_transaksi', 'ASC');
+    $this->db->select('wp_transaksistok.id, id_transaksi, tgl_transaksi, status, harga, qty, wp_transaksistok.satuan, sum(subtotal) as total, wp_barang.nama_barang, wp_suplier.id_suplier, wp_suplier.nama_suplier');
+    $this->db->from($this->table);
+    $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
+    $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
+    $this->db->where('wp_suplier.id_suplier', $cari);
+    $hsl = $this->db->get();
+    return $hsl->result();
+  }
+
+  function insert_pembayaran($data)
+  {
+    // code...
+    $this->db->insert('wp_pembayaranbarang', $data);
+  }
+  
 }

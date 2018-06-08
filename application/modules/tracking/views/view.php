@@ -8,15 +8,15 @@
   }
 
   .label-hijau {
-    background-color : #66AE42;
+    background-color : #16863D;
   }
 
   .label-kuning {
-    background-color : #FFDD11;
+    background-color : #FFC300;
   }
 
   .label-orange {
-    background-color : #DD9600;
+    background-color : #F5870A ;
   }
 
   .label-jingga {
@@ -24,7 +24,7 @@
   }
 
   .label-hijau-muda {
-    background-color : #B5E59F;
+    background-color : #0DD428;
   }
 
   .label-black {
@@ -116,8 +116,8 @@
               <th rowspan = 2>Nama Customer</th>
               <th rowspan = 2>Telpon</th>
               <th rowspan = 2>Kota</th>
-              <th rowspan = 2>Kelurahan</th>
               <th rowspan = 2>Kecamatan</th>
+              <th rowspan = 2>Kelurahan</th>
               <th rowspan = 2>Surveyor</th>
               <th rowspan = 2>Piutang</th>
               <th colspan = 2>Januari</th>
@@ -175,7 +175,7 @@
         <div class="col-md-4 col-md-4 col-sm-6 col-xs-12">
           <table class="table">
             <tr>
-                <td><span class="label-black label-hijau">Hijau</span></td>
+                <td><span class="label label-hijau">Hijau</span></td>
                 <td>:</td>
                 <td>Melakukan transaksi bulan ini</td>
             </tr>
@@ -185,22 +185,23 @@
                 <td>Tidak transaksi 1 bulan</td>
             </tr>
             <tr>
-                <td><span class="label-black label-kuning">Kuning</span></td>
+                <td><span class="label label-kuning">Kuning</span></td>
                 <td>:</td>
                 <td>Tidak transaksi 2 bulan</td>
             </tr>
+
             <tr>
-                <td><span class="label-black label-jingga">Jingga</span></td>
+                <td><span class="label label-warning">Orange</span></td>
                 <td>:</td>
                 <td>Tidak transaksi 3 bulan</td>
             </tr>
             <tr>
-                <td><span class="label-black label-hijau-muda">Hijau Muda</span></td>
+                <td><span class="label label-jingga">Jingga</span></td>
                 <td>:</td>
                 <td>Tidak transaksi 4 bulan</td>
             </tr>
             <tr>
-                <td><span class="label label-warning">Kuning</span></td>
+                <td><span class="label label-hijau-muda">Hijau Muda</span></td>
                 <td>:</td>
                 <td>Tidak transaksi 5 bulan</td>
             </tr>

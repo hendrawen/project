@@ -45,16 +45,17 @@
             </div>
             <div class="row">
               <div class="table-responsive">
-              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari" style="display: none;">
+              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_search" style="display: none;">
                     <thead>
                       <th>Tanggal Transaksi</th>
-                      <th>ID Pelanggan</th>
-                      <th>Nama Pelanggan</th>
-                      <th>ID Transaki</th>
-                      <th>Utang (Rp.)</th>
-                      <th>Tanggal Bayar</th>
-                      <th>Bayar (Rp.)</th>
-                      <th>Sisa Hutang (Rp.)</th>
+                      <th>ID Suplier</th>
+                      <th>Nama Suplier</th>
+                      <th>ID Transaksi</th>
+                      <th>Nama Barang</th>
+                      <th>Harga (Rp.)</th>
+                      <th>Satuan</th>
+                      <th>Qty</th>
+                      <th>Sub Total(Rp.)</th>
                     </thead>
                     <tbody id="result2">
                     </tbody>
@@ -89,7 +90,7 @@
         <div class="x_content">
 
           <!-- start form for validation -->
-          <form action="<?php echo base_url(). 'pembayaran/track_pembayaran'; ?>" method="post">
+          <form action="<?php echo base_url(). 'pembayaranbarang/track_pembayaran2'; ?>" method="post">
             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
               <label for="fullname">Tanggal Transaksi * :</label>
               <div class="controls">

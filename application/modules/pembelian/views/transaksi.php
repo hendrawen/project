@@ -78,7 +78,7 @@
   <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
   <!-- <input type="text" name="idpesan[]" value="<?php echo rand(1,10000);?>"> -->
     <!-- <input type="text" name="id" id="id" class="form-control"> -->
-    <!-- <input type="text" name="id_transaksi" value="<?php echo $generate_invoice; ?>"> -->
+    <!-- <input type="hidden" name="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>"> -->
     <input type="hidden" name="satuan[]" readonly value="<?php echo $items['satuan'];?>">
     <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
     <input type="hidden" name="wp_suplier_id[]" readonly value="<?php echo $items['wp_suplier_id'];?>">
