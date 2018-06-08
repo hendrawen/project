@@ -52,22 +52,67 @@ class Excel extends CI_Controller{
     xlsWriteLabel($tablehead, $kolomhead++, "Kota");
     xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
     xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
-    xlsWriteLabel($tablehead, $kolomhead++, "C(Target)");
-    xlsWriteLabel($tablehead, $kolomhead++, "C(Aktual)");
-    xlsWriteLabel($tablehead, $kolomhead++, "C(Aktif)");
-    xlsWriteLabel($tablehead, $kolomhead++, "C(Persen)");
-    xlsWriteLabel($tablehead, $kolomhead++, "R(Target)");
-    xlsWriteLabel($tablehead, $kolomhead++, "R(Aktual)");
-    xlsWriteLabel($tablehead, $kolomhead++, "R(Persen)");
-    xlsWriteLabel($tablehead, $kolomhead++, "Q(Target)");
-    xlsWriteLabel($tablehead, $kolomhead++, "Q(Aktual)");
-    xlsWriteLabel($tablehead, $kolomhead++, "Q(Persen)");
+    xlsWriteLabel(2, 4, "Customers");
+    xlsWriteLabel(2, 5, "Customers");
+    xlsWriteLabel(2, 6, "Customers");
+    xlsWriteLabel(2, 7, "Customers");
+    xlsWriteLabel($tablehead, $kolomhead++, "Target");
+    xlsWriteLabel($tablehead, $kolomhead++, "Aktual");
+    xlsWriteLabel($tablehead, $kolomhead++, "Aktif");
+    xlsWriteLabel($tablehead, $kolomhead++, "Persen");
+    xlsWriteLabel(2, 8, "Respondent");
+    xlsWriteLabel(2, 9, "Respondent");
+    xlsWriteLabel(2, 10, "Respondent");
+    xlsWriteLabel($tablehead, $kolomhead++, "Target");
+    xlsWriteLabel($tablehead, $kolomhead++, "Aktual");
+    xlsWriteLabel($tablehead, $kolomhead++, "Persen");
+    xlsWriteLabel(2, 11, "Qty");
+    xlsWriteLabel(2, 12, "Qty");
+    xlsWriteLabel(2, 13, "Qty");
+    xlsWriteLabel($tablehead, $kolomhead++, "Target");
+    xlsWriteLabel($tablehead, $kolomhead++, "Aktual");
+    xlsWriteLabel($tablehead, $kolomhead++, "Persen");
     $record = $this->mLap->laporan_tahunan($year);
     $total = 0;
-    foreach ($record as $data) {
-        // $aktual = $this->mLap->lap_pelanggan_all($record->kelurahan);
+    $custTarget = 20;
+    $respTarget = 30;
+    $qtyTarget = 40;
 
-        $custTarget = 20;
+    $jum_tar_c = 0;
+    $jum_c_act = 0;
+    $jum_c_akt = 0;
+    $jum_c_pers = 0;
+
+    $jum_tar_r = 0;
+    $jum_r_act = 0;
+    $jum_r_pers = 0;
+    
+    $jum_tar_q = 0;
+    $jum_q_act = 0;
+    $jum_q_pers = 0; 
+
+    foreach ($record as $data) {
+        $custAktual = $this->mLap->lap_pelanggan_all($data->kelurahan);
+        $custAktif = $this->mLap->lap_pel_all($data->kelurahan);
+        $qtyAkt = $this->mLap->lap_pel($data->kelurahan);
+
+
+        // $c_pers = $custAktual / $custTarget;
+        // $r_pers = number_format($custAktual / $respTarget, 3);
+        // $q_pers = number_format($qtyAkt / $qtyTarget, 3);
+
+        $jum_tar_c += $custTarget;
+        $jum_c_act += $custAktual;
+        $jum_c_akt += $custAktif;
+        $jum_c_pers += $custAktual / $custTarget;
+
+        $jum_tar_r += $respTarget;
+        $jum_r_act += $custAktual;
+        $jum_r_pers += $custAktual / $respTarget;
+        
+        $jum_tar_q += $qtyTarget;
+        $jum_q_act += $qtyAkt;
+        $jum_q_pers += $qtyAkt / $qtyTarget;
 
         $kolombody = 0;
         xlsWriteNumber($tablebody, $kolombody++, $nourut);
@@ -75,25 +120,31 @@ class Excel extends CI_Controller{
         xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
         xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
         xlsWriteLabel($tablebody, $kolombody++, $custTarget);
-        // xlsWriteLabel($tablebody, $kolombody++, $aktual);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-        // xlsWriteNumber($tablebody, $kolombody++, $data->qty);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->kota);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
-        // xlsWriteLabel($tablebody, $kolombody++, $data->username);
-        // xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+        xlsWriteLabel($tablebody, $kolombody++, $custAktual);
+        xlsWriteLabel($tablebody, $kolombody++, $custAktif);
+        xlsWriteNumber($tablebody, $kolombody++, $custAktual / $custTarget);
+        xlsWriteLabel($tablebody, $kolombody++, $respTarget);
+        xlsWriteLabel($tablebody, $kolombody++, $custAktual);
+        xlsWriteLabel($tablebody, $kolombody++, $custAktual / $respTarget);
+        xlsWriteLabel($tablebody, $kolombody++, $qtyTarget);
+        xlsWriteLabel($tablebody, $kolombody++, $qtyAkt);
+        xlsWriteLabel($tablebody, $kolombody++, $qtyAkt / $qtyTarget);
         $tablebody++;
         $nourut++;
-        $total += $data->subtotal;
+        
     }
-    xlsWriteLabel($tablebody+2, 0, 'Note :');
-    xlsWriteLabel($tablebody+3, 0, 'C = Customers');
-    xlsWriteLabel($tablebody+4, 0, 'R = Respondent');
-    xlsWriteLabel($tablebody+5, 0, 'Q = Quantity');
+    xlsWriteLabel($tablebody, 0, 'Jumlah');
+    xlsWriteLabel($tablebody, 4, $jum_tar_c);
+    xlsWriteLabel($tablebody, 5, $jum_c_act);
+    xlsWriteLabel($tablebody, 6, $jum_c_akt);
+    xlsWriteLabel($tablebody, 7, $jum_c_pers);
+    xlsWriteLabel($tablebody, 8, $jum_tar_r);
+    xlsWriteLabel($tablebody, 9, $jum_r_act);
+    xlsWriteLabel($tablebody, 10, $jum_r_pers);
+    xlsWriteLabel($tablebody, 11, $jum_tar_q);
+    xlsWriteLabel($tablebody, 12, $jum_q_act);
+    xlsWriteLabel($tablebody, 13, $jum_q_pers);
+    
     xlsEOF();
     exit();
 }

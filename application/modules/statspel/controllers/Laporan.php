@@ -90,14 +90,35 @@ class Laporan extends CI_Controller{
     $no = 1;
     $total = 0;
     $pesan = "";
+    $jum_tar_c = $jum_c_act = $jum_c_akt = $jum_c_pers = 0;
+    $jum_tar_r = $jum_r_act  = $jum_r_pers = 0;
+    $jum_tar_q = $jum_q_act  = $jum_q_pers = 0;
     if ($data) {
       foreach ($data as $row) {
         $custAktual = $this->mLap->lap_pelanggan_all($row->kelurahan);
         $custAktif = $this->mLap->lap_pel_all($row->kelurahan);
         $qtyAkt = $this->mLap->lap_pel($row->kelurahan);
+
         $custTarget = 20;
         $respTarget = 30;
         $qtyTarget = 40;
+
+        $c_pers = number_format($custAktual / $custTarget, 3);
+        $r_pers = number_format($custAktual / $respTarget, 3);
+        $q_pers = number_format($qtyAkt / $qtyTarget, 3);
+
+        $jum_tar_c += $custTarget; 
+        $jum_c_act += $custAktual;
+        $jum_c_akt += $custAktif;
+        $jum_c_pers += $c_pers;
+
+        $jum_tar_r += $respTarget;
+        $jum_r_act += $custAktual;
+        $jum_r_pers += $r_pers;
+        
+        $jum_tar_q += $qtyTarget;
+        $jum_q_act += $qtyAkt;
+        $jum_q_pers += $q_pers;
 
         $pesan .= '
         <tr>
@@ -108,15 +129,27 @@ class Laporan extends CI_Controller{
           <td>'.$custTarget.'</td>
           <td>'.$custAktual.'</td>
           <td>'.$custAktif.'</td>
-          <td>'.number_format($custAktual / $custTarget, 3).'</td>
+          <td>'.$c_pers.'</td>
           <td>'.$respTarget.'</td>
           <td>'.$custAktual.'</td>
-          <td>'.number_format($custAktif / $respTarget, 3).'</td>
+          <td>'.$r_pers.'</td>
           <td>'.$qtyTarget.'</td>
           <td>'.$qtyAkt.'</td>
-          <td>'.number_format($qtyAkt / $qtyTarget, 3).'</td>
+          <td>'.$q_pers.'</td>
         </tr>';
       }
+      $pesan .= '
+        <td colspan=4> Jumlah </td>
+        <td>'.$jum_tar_c.'</td>
+        <td>'.$jum_c_act.'</td>
+        <td>'.$jum_c_akt.'</td>
+        <td>'.$jum_c_pers.'</td>
+        <td>'.$jum_tar_r.'</td>
+        <td>'.$jum_r_act.'</td>
+        <td>'.$jum_r_pers.'</td>
+        <td>'.$jum_tar_q.'</td>
+        <td>'.$jum_q_act.'</td>
+        <td>'.$jum_q_pers.'</td>';
 
     } else {
       $pesan = '

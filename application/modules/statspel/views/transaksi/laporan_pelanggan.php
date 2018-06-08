@@ -37,7 +37,7 @@
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <button type="button" id="btn-lap-pel" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
-        <!-- <button type="button" id="exc-pel" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button> -->
+        <button type="button" id="exc-pel" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
