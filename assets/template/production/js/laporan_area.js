@@ -108,9 +108,29 @@ $("#berdasarkan-area").change(function() {
     });
   });
 
-  // area
-  $("#excel_area").click(function() {
-    t = $("#tahun-area").val();
+  // area hari
+  $("#excel_area_hari").click(function() {
+    t = $("#tgl").val();
+    p = $("#pilih-area").val();
+    b = $("#berdasarkan-area").val();
+    if (p == '') {
+      p = '-';
+    }
+    if (b == '') {
+      b = '-';
+    }
+    if(!t){
+      t = 'semua';
+    }
+    window.location = base_url + 'som/excel/area_harian/'+t+'/'+p+'/'+b;
+  });
+
+
+  // area bulan
+  $("#excel_area_bulan").click(function() {
+    bd = $("#bulan_dari").val();
+    bk = $("#bulan_ke").val();
+    t = $("#tahun").val();
     p = $("#pilih-area").val();
     b = $("#berdasarkan-area").val();
     if (p == '') {
@@ -120,9 +140,20 @@ $("#berdasarkan-area").change(function() {
       b = '-';
     }
 
-    window.location = base_url + 'som/excel/area/'+t+'/'+p+'/'+b;
+    window.location = base_url + 'som/excel/area_bulanan/'+bd+'/'+bk+'/'+t+'/'+p+'/'+b;
   });
 
-  $("#btn-refresh").click(function () {
-    get_all();
-  });
+// area tahun
+$("#excel_area_tahun").click(function() {
+  t = $("#tahun-area").val();
+  p = $("#pilih-area").val();
+  b = $("#berdasarkan-area").val();
+  if (p == '') {
+    p = '-';
+  }
+  if (b == '') {
+    b = '-';
+  }
+
+  window.location = base_url + 'som/excel/area/'+t+'/'+p+'/'+b;
+});

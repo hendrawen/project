@@ -372,21 +372,7 @@ $(document).ready(function () {
   /*
   --- end produk ---
   */
-
-  // area
-  $("#excel_area").click(function() {
-    t = $("#tahun-area").val();
-    p = $("#pilih-area").val();
-    b = $("#berdasarkan-area").val();
-    if (p == '') {
-      p = '-';
-    }
-    if (b == '') {
-      b = '-';
-    }
-
-    window.location = base_url + 'som/excel/area/'+t+'/'+p+'/'+b;
-  });
+  
   // marketing
   $("#excel_marketing").click(function() {
     t = $("#tahun-marketing").val();
