@@ -11,7 +11,7 @@ class Model_laporan extends CI_Model{
 
   function laporan_tahunan($year)
   {
-    $query = "SELECT * FROM `brajamarketindo`.`wp_pelanggan`, `wp_transaksi` where (YEAR(`wp_transaksi`.`tgl_transaksi`) = $year) group by kelurahan";
+    $query = "SELECT * FROM `wp_pelanggan`, `wp_transaksi` where (YEAR(`wp_transaksi`.`tgl_transaksi`) = $year) group by kelurahan";
     return $this->db->query($query)->result();
   }
 
@@ -49,7 +49,7 @@ class Model_laporan extends CI_Model{
   // get all
   function laporan_pelanggan_all()
   {
-    $query = "SELECT * FROM `brajamarketindo`.`wp_pelanggan` group by kelurahan";
+    $query = "SELECT * FROM wp_pelanggan group by kelurahan";
     return $this->db->query($query)->result();
   }
   // ambil cost and resp aktual
