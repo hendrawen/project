@@ -12,6 +12,7 @@ class Pembelian_model extends CI_Model{
   public $id   = 'id';
   public $order = 'DESC';
 
+
   function total_penjualan()
   {
     # code...
@@ -269,16 +270,16 @@ class Pembelian_model extends CI_Model{
   		return $result;
   	}
 
-    // public function generatekode_invoice() {
-    //  //$tahun = date("Y");
-    //  $kode = 'NP0';
-    //  $query = $this->db->query("SELECT MAX(id_transaksi) as max_id FROM wp_transaksistok");
-    //  $row = $query->row_array();
-    //  $max_id = $row['max_id'];
-    //  $max_id1 =(int) substr($max_id,9,5);
-    //  $kode_invoice = $max_id1 +1;
-    //  $maxkode_invoice = $kode.sprintf($kode_invoice);
-    //  return $maxkode_invoice;
-    // }
+    public function get_profile(){
+  		$result = $this->db->get('wp_profile')->result();
+  		return $result;
+  	}
+
+    function cari_suplier($idsuplier){
+  		$this->db->like('id_suplier', $idsuplier , 'both');
+  		$this->db->order_by('id_suplier', 'ASC');
+  		$this->db->limit(25);
+  		return $this->db->get('wp_suplier')->result();
+  	}
 
 }

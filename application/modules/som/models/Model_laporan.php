@@ -235,7 +235,9 @@ class Model_laporan extends CI_Model{
         wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
+    if($day !== 'semua'){
     $this->db->where('wp_transaksi.tgl_transaksi', $day);
+    }
     if ($berdasarkan) {
       $this->db->where('wp_pelanggan.'.$berdasarkan, $area);
     }

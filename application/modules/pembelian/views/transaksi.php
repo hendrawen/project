@@ -11,7 +11,7 @@
 
 <div class="row">
   <form action="#" id="form_barang" class="form-horizontal">
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+  <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group">
     <label for="varchar">Nama Suplier </label>
     <select name="wp_suplier_id" id="wp_suplier_id" class="e1 form-control" required>
     <option disabled selected>--Nama Suplier--</option>
@@ -25,11 +25,11 @@
           </option>
     <?php } ?>
     </select>
-  </div>
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-    <label for="varchar">Id Barang </label>
+  </div> -->
+  <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+    <!-- <label for="varchar">Id Barang </label> -->
     <select name="id_barang" id="id_barang" class="e1 form-control" required>
-    <option disabled selected>--ID Barang--</option>
+    <option disabled selected>--Pilih Nama Barang--</option>
         <?php
           $users = $this->db->query("SELECT * FROM wp_barang");
           foreach($users->result() as $value){
@@ -41,36 +41,35 @@
     <?php } ?>
     </select>
   </div>
-  <!-- <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $generate_invoice; ?>"> -->
   <input type="hidden" name="id" id="id" class="form-control">
   <input type="hidden" name="nama_barang" id="nama_barang" placeholder="Nama Barang" readonly class="form-control" required>
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <label for="varchar">Satuan </label>
+  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+      <!-- <label for="varchar">Satuan </label> -->
       <select class="form-control" name="satuan2" id="satuan2" required>
             <option disabled selected>--Pilih Satuan--</option>
             <option value="Krat" <?php if ($satuan=='Krat') {echo "selected";}?>>Krat</option>
             <option value="Dus" <?php if ($satuan=='Dus') {echo "selected";}?>>Dus</option>
       </select>
   </div>
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <label for="varchar">Harga </label>
+  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+      <!-- <label for="varchar">Harga </label> -->
       <input type="number" name="harga" id="harga" placeholder="Harga" class="form-control" onkeyup="isiSubtotal()" required>
   </div>
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <label for="varchar">QTY </label>
+  <div class="col-md-1 col-sm-12 col-xs-12 form-group">
+      <!-- <label for="varchar">QTY </label> -->
       <input type="number" name="qty" id="qty" value="1" placeholder="QTY" class="form-control" onkeyup="isiSubtotal()" required>
   </div>
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-      <label for="varchar">Jumlah </label>
+  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+      <!-- <label for="varchar">Jumlah </label> -->
       <input type="number" name="subtotal" id="subtotal" placeholder="subtotal" class="form-control" onloadstart="FormatCurrency(this)" readonly required>
   </div>
-  <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
+  <div class="col-md-2 col-sm-12 col-xs-12 form-group">
       <button type="button"  class="add_cart btn btn-success"><i class="fa fa-shopping-cart"></i> Tambah</button>
   </div>
 </form>
 </div>
 
-<form class="" action="<?php echo site_url('pembelian/checkout_action');?>" method="post">
+<form class="" action="<?php echo site_url('pembelian/checkout');?>" method="post">
   <?php $i = 1; ?>
   <?php foreach($this->cart->contents() as $items): ?>
 
@@ -144,7 +143,7 @@
                 <div class="row no-print">
 
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Simpan</button>
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Checkout</button>
                     <button type="button" class="hapus_cart btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
                     <a href="<?php echo site_url('pembelian') ?>" class="btn btn-danger pull-right">Kembali</a>
                   </div>

@@ -181,6 +181,8 @@ class Pembayaranbarang extends CI_Controller{
 
   public function track_pembayaran2()
   {
+    $status = 'lunas';
+    $status2 = 'belum lunas';
     $list = $this->session->userdata('id_transaksi');
     $id = $this->session->userdata('id');
     print_r($list);
@@ -195,20 +197,20 @@ class Pembayaranbarang extends CI_Controller{
             'bayar' => $jumlah_bayar,
             'kembali' => $kembali,
             'id_transaksi' => $list[$i]['id_transaksi'],
+            'status'  => $status,
             'id_suplier' => $list[$i]['id_suplier'],
             'username' => $this->session->identity,
           );
           $this->pembayaran->insert_pembayaran($data);
           $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
-          //echo 'utang lunas, sisa : '.$jumlah_bayar;
-          //update transaksi $list[$i]['id_transaksi'];
       } else if($jumlah_bayar < $list[$i]['total']) {
         $sisa = $jumlah_bayar-$list[$i]['total'];
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
           'sisa'  => $sisa,
-          'id_transaksi' => $list[$i]['id_transaksi'] ,
+          'id_transaksi' => $list[$i]['id_transaksi'],
+          'status'  => $status2,
           'id_suplier' => $list[$i]['id_suplier'],
           'username' => $this->session->identity,
         );
@@ -216,12 +218,11 @@ class Pembayaranbarang extends CI_Controller{
         $jumlah_bayar ='';
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
       } else if($jumlah_bayar = $list[$i]['total']) {
-        //$status = $this->pembayaran->status($list);
-        //$this->db->query("UPDATE wp_transaksistok set status='' WHERE id_transaksi='$list'");
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
           'id_transaksi' => $list[$i]['id_transaksi'] ,
+          'status' => $status,
           'id_suplier' => $list[$i]['id_suplier'],
           'username' => $this->session->identity,
         );

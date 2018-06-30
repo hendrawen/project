@@ -35,6 +35,21 @@ class Pembelian extends CI_Controller{
     $this->load->view('panel/dashboard',$data);
   }
 
+  public function checkout()
+  {
+    $data['aktif']			='Dashboard';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Dashboard';
+    $data['sub_judul']	='Pembelian';
+    $data['content']		= 'checkout';
+    $data['data']=$this->pembelian->get_all_product();
+    $data['profile']=$this->pembelian->get_profile();
+    //$data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
+		$data['generate_invoice'] = $this->pembelian->generatekode_invoice();
+		$data['get_total'] = $this->get_total();
+    $this->load->view('panel/dashboard', $data);
+  }
+
   function piutang()
   {
     $data['aktif']			='Dashboard';
@@ -70,15 +85,14 @@ class Pembelian extends CI_Controller{
 
   function get_autocomplete(){
 		if (isset($_GET['term'])) {
-		  	$result = $this->Pembelian->cari_pelanggan($_GET['term']);
+		  	$result = $this->pembelian->cari_suplier($_GET['term']);
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
-					'label'			=> $row->id_pelanggan,
-					'nama_pelanggan'	=> $row->nama_pelanggan,
+					'label'			=> $row->id_suplier,
+					'nama_suplier'	=> $row->nama_suplier,
           'alamat' => $row->alamat,
-          'nama_dagang' => $row->nama_dagang,
-          'no_telp' => $row->no_telp,
+          'id_suplier' => $row->id_suplier,
           'id' => $row->id,
 				);
 		     	echo json_encode($arr_result);
@@ -157,26 +171,6 @@ class Pembelian extends CI_Controller{
     $this->load->view('panel/dashboard', $data);
   }
 
-  // public function checkout()
-  // {
-  //   $data['aktif']			='transaksi';
-  //   $data['title']			='Transaksi';
-  //   $data['judul']			='Transaksi';
-  //   $data['sub_judul']		='Checkout';
-  //   $data['content']			= 'checkout';
-  //   $data['data']=$this->pesan->get_all_product();
-  //   $data['profile']=$this->pesan->get_profile();
-  //   $data['jenis_pembayaran']=$this->pesan->get_jenis_pembayaran();
-  //   $data['generate_invoice'] = $this->pesan->generatekode_invoice();
-  //   $cart = $this->cart->total() -  str_replace(".","", $this->input->post('diskon'));
-  //   $newdata = array(
-  //       'total_belanja'  => $cart,
-  //       'diskon'     =>  str_replace(".","", $this->input->post('diskon')),
-  //   );
-  //   $sesi = $this->session->set_userdata($newdata);
-  //   $this->load->view('panel/dashboard', $data);
-  // }
-
   function get_barang(){
 		$kode=$this->input->post('id_barang');
 		$data=$this->pembelian->get_data_barang_bykode($kode);
@@ -219,9 +213,19 @@ class Pembelian extends CI_Controller{
 	}
 
     function checkout_action() {
+      $this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
+      $this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
+      $this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
+      $this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
+      $this->form_validation->set_rules('id', '	wp_suplier_id', 'required|trim');
+
+      if ($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('message','Data belum lengkap !');
+        $this->checkout(); // tampilkan apabila ada error
+      }else{
           $id_transaksi = $this->pembelian->generatekode_invoice();
-  				// $wp_pelanggan_id = $this->input->post('id', true);
-  				// $wp_status_id = $this->input->post('wp_status_id', true);
+  				$wp_suplier_id = $this->input->post('id', true);
+
           $status = 'Belum Bayar';
           $tg = date('Y-m-d H-i-s');
   				$tg2 = date('Y-m-d');
@@ -234,21 +238,18 @@ class Pembelian extends CI_Controller{
   						"harga"       		=> $items['price'],
   						//"subtotal"       	=> $items['subtotal'][$key],
               "tgl_transaksi" => $tg2,
-  						"wp_suplier_id" 				=> $items['wp_suplier_id'],
+  						"wp_suplier_id" 				=> $wp_suplier_id,
   						"satuan"				=> $items['satuan'],
               "subtotal"        => $items['subtotal'],
               "status"      => $status,
               "username"      => $this->session->identity,
   					);
         }
-        $bayar = 0;
         $detail = array(
           'id_transaksi' => $id_transaksi,
           'utang' => $this->get_total(),
-          'bayar' => $bayar,
           'created_at' => date('Y-m-d'),
-          //'updated_at' => $this->input->post('updated_at',TRUE),
-          //'created_at' => mdate($datestring, $time),
+
          );
           $this->db->insert('wp_detail_transaksistok', $detail);
   				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
@@ -257,7 +258,8 @@ class Pembelian extends CI_Controller{
   					redirect('pembelian');
   				}else{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
-  		}
+  		    }
+        }
   }
 
   public function invoice()

@@ -472,7 +472,7 @@ class Excel extends CI_Controller{
   function area($tahun, $area, $berdasarkan)
   {
       $this->load->helper('exportexcel');
-      $namaFile = "transaksi_area.xls";
+      $namaFile = "trans_area_tahun.xls";
       $judul = "Transaksi";
       $tablehead = 4;
       $tablebody = 5;
@@ -486,8 +486,8 @@ class Excel extends CI_Controller{
       header("Content-Type: application/download");
       header("Content-Disposition: attachment;filename=" . $namaFile . "");
       header("Content-Transfer-Encoding: binary ");
-      $area2 = "";
-      $berdasarkan2 = "";
+      $area2 = $area;
+      $berdasarkan2 = $berdasarkan;
       if ($area == "-") {
         $area = "Semua";
         $area2 = "";
@@ -499,11 +499,11 @@ class Excel extends CI_Controller{
 
       xlsBOF();
       xlsWriteLabel(0, 0, "Laporan");
+      xlsWriteLabel(0, 1, "Per area");
       xlsWriteLabel(1, 0, "Tahun");
-      xlsWriteLabel(2, 0, "Nama");
-      xlsWriteLabel(0, 1, $berdasarkan);
       xlsWriteLabel(1, 1, $tahun);
-      xlsWriteLabel(2, 1, $area);
+      xlsWriteLabel(2, 0, "Berdasarkan");
+      xlsWriteLabel(2, 1, $berdasarkan.' '.$area);
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
       xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
@@ -552,10 +552,173 @@ class Excel extends CI_Controller{
       exit();
   }
 
+  function area_bulanan($bulanDari, $bulanKe, $tahun, $area, $berdasarkan)
+  {
+      $this->load->helper('exportexcel');
+      $namaFile = "trans_area_bulan.xls";
+      $judul = "Transaksi";
+      $tablehead = 4;
+      $tablebody = 5;
+      $nourut = 1;
+      //penulisan header
+      header("Pragma: public");
+      header("Expires: 0");
+      header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+      header("Content-Type: application/force-download");
+      header("Content-Type: application/octet-stream");
+      header("Content-Type: application/download");
+      header("Content-Disposition: attachment;filename=" . $namaFile . "");
+      header("Content-Transfer-Encoding: binary ");
+      $area2 = $area;
+      $berdasarkan2 = $berdasarkan;
+      if ($berdasarkan == "-") {
+          $area = '';
+        $berdasarkan = "Semua";
+        $berdasarkan2 = "";
+      }
+
+      xlsBOF();
+      xlsWriteLabel(0, 0, "Laporan");
+      xlsWriteLabel(0, 1, "Per area");
+      xlsWriteLabel(1, 0, "Bulan ke");
+      xlsWriteLabel(1, 1, $bulanDari.' - '.$bulanKe.' '.$tahun );
+      xlsWriteLabel(2, 0, "Berdasarkan");
+      xlsWriteLabel(2, 1, $berdasarkan.' '.$area);
+      $kolomhead = 0;
+      xlsWriteLabel($tablehead, $kolomhead++, "No");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
+      xlsWriteLabel($tablehead, $kolomhead++, "QTY");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+
+      $record = $this->mLap->laporan_area_bulanan($bulanDari, $bulanKe, $tahun, $area2, $berdasarkan2);
+      $total = 0;
+      foreach ($record as $data) {
+          $kolombody = 0;
+          xlsWriteNumber($tablebody, $kolombody++, $nourut);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
+          xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
+          xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+          $tablebody++;
+          $nourut++;
+          $total += $data->subtotal;
+      }
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
+      xlsEOF();
+      exit();
+  }
+
+  function area_harian($tgl, $area, $berdasarkan)
+  {
+      $this->load->helper('exportexcel');
+      $namaFile = "trans_area_harian.xls";
+      $judul = "Transaksi";
+      $tablehead = 4;
+      $tablebody = 5;
+      $nourut = 1;
+      //penulisan header
+      header("Pragma: public");
+      header("Expires: 0");
+      header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+      header("Content-Type: application/force-download");
+      header("Content-Type: application/octet-stream");
+      header("Content-Type: application/download");
+      header("Content-Disposition: attachment;filename=" . $namaFile . "");
+      header("Content-Transfer-Encoding: binary ");
+      $area2 = $area;
+      $berdasarkan2 = $berdasarkan;
+      if ($berdasarkan == "-") {
+          $area = '';
+        $berdasarkan = "Semua";
+        $berdasarkan2 = "";
+      }
+
+      xlsBOF();
+      xlsWriteLabel(0, 0, "Laporan");
+      xlsWriteLabel(0, 1, "Per area");
+      xlsWriteLabel(1, 0, "Tanggal");
+      xlsWriteLabel(1, 1, $tgl );
+      xlsWriteLabel(2, 0, "Berdasarkan");
+      xlsWriteLabel(2, 1, $berdasarkan.' '.$area);
+      $kolomhead = 0;
+      xlsWriteLabel($tablehead, $kolomhead++, "No");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
+      xlsWriteLabel($tablehead, $kolomhead++, "QTY");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+
+      $record = $this->mLap->laporan_area_harian($tgl, $area2, $berdasarkan2);
+      $total = 0;
+      foreach ($record as $data) {
+          $kolombody = 0;
+          xlsWriteNumber($tablebody, $kolombody++, $nourut);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+          xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
+          xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+          xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->username);
+          xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+          $tablebody++;
+          $nourut++;
+          $total += $data->subtotal;
+      }
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
+      xlsEOF();
+      exit();
+  }
 
   /* --------
-    area
+    end of area
   ----------*/
+  
+
+
+
   function marketing($tahun, $nama)
   {
       $this->load->helper('exportexcel');

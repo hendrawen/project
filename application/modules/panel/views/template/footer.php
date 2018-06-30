@@ -122,6 +122,13 @@
     <?php endif; ?>
     <?php if ($this->uri->segment(1) == 'produk'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/produkshare.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'penarikan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_penarikan.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(1) == 'gtransaksi'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/gtransaksi.js" charset="utf-8"></script>
     <?php endif; ?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

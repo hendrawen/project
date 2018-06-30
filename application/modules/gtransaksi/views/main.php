@@ -35,7 +35,7 @@
       <div class="col-lg-9 col-md-6 col-sm-6 col-xs-12 text-right">
         <button type="button" class="btn btn-success" id="btn-growth_transaksi"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
-        <button type="button" id="excel_marketing_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" id="excel_gtransaksi_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
         <button type="button" class="btn btn-warning" id="btn-refresh-gtransaksi"> <i class="fa fa-refresh"> Reload</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
       </div>
     </div>
@@ -44,11 +44,12 @@
           <thead>
             <tr>
                  <th class="wider_kecamatan">#</th>
-              <?php
+               <?php
                 foreach ($month as $value) {?>
                  <th><?php echo $value; ?></th>
                 <?php }
               ?>
+              <th>Jumlah</th>
             </tr>
           </thead>
           <tbody id="tbody-gtransaksi">

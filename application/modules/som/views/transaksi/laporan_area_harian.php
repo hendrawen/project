@@ -49,8 +49,7 @@
       <div class="col-lg-12 col-sm-6 col-xs-12">
         <button type="button" class="btn btn-success" id="btn-area-hari"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
-        <button type="button" id="excel_area" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+        <button type="button" id="excel_area_hari" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
       </div>
     </div>
     <div class="table-responsive">
