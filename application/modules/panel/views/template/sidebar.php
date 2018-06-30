@@ -28,15 +28,23 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
+
+                  
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
+
                   <li><a <?php echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php echo base_url();?>profile"><i class="fa fa-user"></i> Profile Perusahaan</a></li>
+                  
+                  <?php if (in_array("Karyawan", $menu)):?>
                   <li><a <?php echo ($aktif == 'Karyawan')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Karyawan <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>karyawan/jabatan">Jabatan</a></li>
                         <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
                       </ul>
                   </li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Master Data", $menu)):?>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
@@ -47,60 +55,59 @@
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
                     </ul>
                   </li>
+                  <?php endif ?>
 
-                  <!-- <li><a><i class="fa fa-newspaper-o"></i> Kebutuhan<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>kebutuhan">Kebutuhan</a></li>
-                      <li><a href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
-                    </ul>
-                  </li> -->
-                  <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembelian"> Pembelian Barang</a>
-                      </li>
-                      <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranbarang/barang"> Pembayaran Barang</a>
-                      </li>
-                      <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi"> Transaksi Penjualan</a>
-                      </li>
-                      <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>piutang"> Piutang</a>
-                      </li>
-                      <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <!-- <li><a <?php echo ($aktif == 'Jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar-o"></i> Jadwal </a></li>
-                  <li><a><i class="fa fa-cube"></i> Asset<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"> Transaksi ASET</a>
-                      </li>
-                      <li><a <?php echo ($aktif == 'muat')?'class="active"':"";?> href="<?php echo base_url();?>delivery/muat"> Muat</a>
-                      </li>
-                    </ul>
-                  </li> -->
-                  <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"><i class="fa fa-cube"></i> Aset</a>
-                      </li>
+                      <?php
+                        // foreach ($permit as $key) {
+                        //   echo "<li><a href=".base_url($key['link'])."><i class='fa fa-home'></i> ".$key['name']."</a>";
+                        // }
+                        // if (in_array("Input Transaksi", $os)) {
+                        //     echo "Got Irix";
+                        // }
+                      ?>
+                    <?php if (in_array("Transaksi", $menu)):?>
+                      <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembelian"> Pembelian Barang</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranbarang/barang"> Pembayaran Barang</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi"> Transaksi Penjualan</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>piutang"> Piutang</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <?php endif ?>
+                    <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"><i class="fa fa-cube"></i> Aset</a>
+                    </li>
                   <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
 
-                  <li><a><i class="fa fa-line-chart"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>laporan/penjualan/harian">Penjualan Harian</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/penjualan/bulanan">Penjualan Bulanan</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/penjualan/tahunan">Penjualan Tahunan</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/area/harian">Penjualan Harian Per Area</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/area/bulanan">Penjualan Bulanan Per Area</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/area/tahun">Penjualan Tahunan Per Area</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/marketing/harian_marketing">Penjualan Harian Marketing</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/marketing/bulanan_marketing">Penjualan Bulanan Marketing</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/marketing/tahunan_marketing">Penjualan Tahunan Marketing</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_bulanan">Pembayaran Bulanan</a></li>
-                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
-                    </ul>
-                  </li>
+                  <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/harian">Penjualan Harian</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/bulanan">Penjualan Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/tahunan">Penjualan Tahunan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area/harian">Penjualan Harian Per Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area/bulanan">Penjualan Bulanan Per Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area/tahun">Penjualan Tahunan Per Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing/harian_marketing">Penjualan Harian Marketing</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing/bulanan_marketing">Penjualan Bulanan Marketing</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing/tahunan_marketing">Penjualan Tahunan Marketing</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_bulanan">Pembayaran Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
                   <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
                   <li><a href="<?php echo base_url();?>market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
                   <li><a href="<?php echo base_url();?>produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>

@@ -17,14 +17,15 @@ class Auth extends CI_Controller {
 	public function index() {
         if (!$this->ion_auth->logged_in()) {//cek login ga?
             $this->load->view('login', $data);
-        }else{
-            if ($this->ion_auth->in_group('admin')) {
-                redirect('administrator','refresh');
-                 }elseif ($this->ion_auth->in_group('members')) {
+        } else {
+            // if ($this->ion_auth->in_group('admin')) {
+            //     redirect('administrator','refresh');
+			// } elseif ($this->ion_auth->in_group('members')) {
             	redirect('panel','refresh');
-	            }else{
-					$this->load->view('login');
-				}}
+			// } else {
+			// 	$this->load->view('login');
+			// }
+		}
 	}
 
 	public function cek_login() {
@@ -106,21 +107,21 @@ class Auth extends CI_Controller {
             {
 				//if the login is successful
 				//redirect them back to the home page
-				if ($this->ion_auth->in_group('admin')) {
-                redirect('panel','refresh');
-							}elseif ($this->ion_auth->in_group('marketing')) {
-            	redirect('marketing','refresh');
-							}elseif ($this->ion_auth->in_group('super user')) {
-							redirect('panel','refresh');
-							}elseif ($this->ion_auth->in_group('dev')) {
-							redirect('dep','refresh');
-							}elseif ($this->ion_auth->in_group('marketing')) {
-							redirect('marketing','refresh');
-							}elseif ($this->ion_auth->in_group('som')) {
-							redirect('som','refresh');
-	            }else{
-					redirect('login','refresh');
-				}
+				// if ($this->ion_auth->in_group('admin')) {
+                	redirect('panel','refresh');
+				// } elseif ($this->ion_auth->in_group('marketing')) {
+            	// 	redirect('marketing','refresh');
+				// } elseif ($this->ion_auth->in_group('super user')) {
+				// 	redirect('panel','refresh');
+				// } elseif ($this->ion_auth->in_group('dev')) {
+				// 	redirect('dep','refresh');
+				// } elseif ($this->ion_auth->in_group('marketing')) {
+				// 	redirect('marketing','refresh');
+				// } elseif ($this->ion_auth->in_group('som')) {
+				// 	redirect('som','refresh');
+	            // }else{
+				// 	redirect('login','refresh');
+				// }
 			}
 			else
 			{
