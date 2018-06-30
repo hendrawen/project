@@ -2,6 +2,8 @@
 
 class Auth extends CI_Controller {
 
+	private $permit;
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->library(array('ion_auth','form_validation'));
@@ -269,6 +271,7 @@ class Auth extends CI_Controller {
 		$user = $this->ion_auth->user($id)->row();
 		$groups=$this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		$this->permit = $this->ion_auth->permission($this->session->identity);
 
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
@@ -747,3 +750,4 @@ class Auth extends CI_Controller {
 }
 
 ?>
+
