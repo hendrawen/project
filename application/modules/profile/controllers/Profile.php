@@ -5,24 +5,30 @@ if (!defined('BASEPATH'))
 
 class Profile extends CI_Controller
 {
+    private $permit;
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $permit = $this->Ion_auth_model->permission($this->session->identity);
-        if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }else{
-            if (!$this->ion_auth->in_group($permit)) {//cek admin ga?
-                redirect('login','refresh');
-            }
-        }
+        // $this->load->model('Ion_auth_model');
+        // $permit = $this->Ion_auth_model->permission($this->session->identity);
+        // if (!$this->ion_auth->logged_in()) {//cek login ga?
+        //     redirect('login','refresh');
+        // }else{
+        //     if (!$this->ion_auth->in_group($permit)) {//cek admin ga?
+        //         redirect('login','refresh');
+        //     }
+        // }
         $this->load->model('profile_model');
         $this->load->library('form_validation');
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     }
 
     public function index()
     {
+        
+		
+		
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
 
@@ -53,7 +59,9 @@ class Profile extends CI_Controller
       		$data['title']			='Brajamarketindo';
       		$data['judul']			='Dashboard';
       		$data['sub_judul']	='Profile Perusahaan';
-      		$data['content']		='profile_list';
+            $data['content']		='profile_list';
+            $data['menu']			= $this->permit[0];
+		    $data['submenu']		= $this->permit[1];
           $this->load->view('panel/dashboard', $data);
     }
 
@@ -62,18 +70,22 @@ class Profile extends CI_Controller
         $row = $this->profile_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'nama_perusahaan' => $row->nama_perusahaan,
-		'alamat' => $row->alamat,
-		'no_telp' => $row->no_telp,
-		'email' => $row->email,
-		'website' => $row->website,
-	    );
+                'id' => $row->id,
+                'nama_perusahaan' => $row->nama_perusahaan,
+                'alamat' => $row->alamat,
+                'no_telp' => $row->no_telp,
+                'email' => $row->email,
+                'website' => $row->website,
+            );
             $data['aktif']			='profile';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
-            $data['sub_judul']	='Detail Profile';
-            $data['content']		='profile_read';;
+            $data['sub_judul']	    ='Detail Profile';
+            $data['content']		='profile_read';
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
+            $data['menu']			= $this->permit[0];
+		    $data['submenu']		= $this->permit[1];
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
@@ -98,6 +110,8 @@ class Profile extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Add Profile';
         $data['content']		='profile_form';
+        $data['menu']			= $this->permit[0];
+		    $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -143,6 +157,8 @@ class Profile extends CI_Controller
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit Profile';
             $data['content']		='profile_form';
+            $data['menu']			= $this->permit[0];
+		    $data['submenu']		= $this->permit[1];
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');

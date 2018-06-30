@@ -29,15 +29,14 @@ class Panel extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('Ion_auth_model');
-        $permit = $this->Ion_auth_model->permission($this->session->identity);
+		$permit = $this->Ion_auth_model->permission($this->session->identity);
+		$data['menu']			= $permit[0];
+		$data['submenu']		= $permit[1];
 		$data['aktif']			='Dashboard';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
 		$data['sub_judul']		='';
-		$data['menu']			= $permit[2];
-		$data['submenu']			= $permit[1];
-		print_r($data['submenu']);
-		exit();
+		
 		$data['content']		='content';
 		$data['pie_data']=$this->Main_model->GetPie();
 		$this->load->view('dashboard',$data);

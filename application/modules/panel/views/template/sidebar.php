@@ -33,8 +33,10 @@
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
 
+                  <?php if (in_array("Profile Perusahaan", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php echo base_url();?>profile"><i class="fa fa-user"></i> Profile Perusahaan</a></li>
-                  
+                  <?php endif ?>
+
                   <?php if (in_array("Karyawan", $menu)):?>
                   <li><a <?php echo ($aktif == 'Karyawan')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Karyawan <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
@@ -82,10 +84,19 @@
                       </ul>
                     </li>
                     <?php endif ?>
+                    
+                    <?php if (in_array("Aset", $submenu)):?>
                     <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"><i class="fa fa-cube"></i> Aset</a>
                     </li>
-                  <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
+                    <?php endif ?>
+
+                    <?php if (in_array("Effectif Call", $submenu)):?>
+                    <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
+                    <?php endif ?>  
+
+                    <?php if (in_array("Faktur", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
+                  <?php endif ?>  
 
                   <?php if (in_array("Report Transaksi", $menu)):?>
                     <li><a><i class="fa fa-line-chart"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
@@ -108,16 +119,43 @@
                       </ul>
                     </li>
                   <?php endif ?>
-                  <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
-                  <li><a href="<?php echo base_url();?>market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
-                  <li><a href="<?php echo base_url();?>produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>
-                  <li><a href="<?php echo base_url();?>statspel/laporan/pelanggan"><i class="fa fa-users"></i> Growth Pelanggan</a></li>
-                  <li><a href="<?php echo base_url();?>gtransaksi"><i class="fa fa-pie-chart"></i> Growth Transaksi</a></li>
-                  <li><a href="<?php echo base_url();?>#"><i class="fa fa-list-alt"></i> Report Debt & Delivery</a></li>
-                  <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
 
+                  <?php if (in_array("Tracking Pelanggan", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Market Share", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Produk Share", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Growth Pelanggan", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>statspel/laporan/pelanggan"><i class="fa fa-users"></i> Growth Pelanggan</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Growth Transaksi", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>gtransaksi"><i class="fa fa-pie-chart"></i> Growth Transaksi</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Debt & Delivery", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>#"><i class="fa fa-list-alt"></i> Report Debt & Delivery</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Penarikan ASET", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Users", $submenu)):?>
                   <li><a <?php echo ($aktif == 'User')?'class="active"':"";?> href="<?php echo base_url();?>users"><i class="fa fa-table"></i> Users </a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("User Groups", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Group')?'class="active"':"";?> href="<?php echo base_url();?>users/groups"><i class="fa fa-clone"></i> User Groups </a></li>
+                  <?php endif ?>
+
 
                 </ul>
               </div>

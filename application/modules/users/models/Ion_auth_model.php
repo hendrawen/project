@@ -2379,19 +2379,13 @@ class Ion_auth_model extends CI_Model
 		$this->db->join('users', 'users.id = users_groups.user_id', 'inner');
 		$this->db->where('users.username', $username);
 		$data = $this->db->get('users_groups');
-		$permit = array();
-		$permit2 = array();
-		$permit3 = array();
+		$submenu = array();
+		$menu = array();
 		foreach ($data->result_array() as $row) {
-			$permit[] = $row['name'];
-			$permit2[] = array(
-				'name' => $row['name'],
-				'menu' => $row['description'],
-				'link' => $row['link'],
-			);
-			$permit3[] = $row['description'];
+			$submenu[] = $row['name'];
+			$menu[] = $row['description'];
 		}
-		$permis = array($permit, $permit2, $permit3);
+		$permis = array($menu, $submenu);
 		return $permis;
 	}
 }
