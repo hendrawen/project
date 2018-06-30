@@ -5,11 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Laporan extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
 
-    
+    private $permit;
     public function __construct()
     {
         parent::__construct();
         //Do your magic here
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('Models_laporan', 'laporan');
         $this->load->model('som/Model_laporan', 'mLap');
         $this->load->model('som/Model_dep', 'dep');
@@ -18,7 +20,11 @@ class Laporan extends CI_Controller {
     }
 
     function tracking()
-    {
+    {   
+        $cek = get_permission('Report Transaksi', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $to = date('n');
         $from = $to - 1 ;
         $year = date('Y');
@@ -36,12 +42,17 @@ class Laporan extends CI_Controller {
             'to'  => set_value('to', $to),
             'year'  => set_value('year', $year)
         );
-
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
   function load_pelanggan()
-  {
+  { 
+    $cek = get_permission('Report Transaksi', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
     $from = $this->input->post('from');
     $to = $this->input->post('to');
     $tahun = $this->input->post('tahun');
@@ -82,7 +93,11 @@ class Laporan extends CI_Controller {
   }
 
   function load_pelanggan_all()
-  {
+  { 
+    $cek = get_permission('Report Transaksi', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
     $data = $this->mLap->laporan_pelanggan_all();
     $no = 1;
     $total = 0;

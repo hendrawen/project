@@ -5,11 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Area extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    
+    private $permit;
     public function __construct()
     {
         parent::__construct();
         //Do your magic here
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('som/Model_laporan', 'mLap');
         $this->load->model('Models_laporan', 'area');
         
@@ -17,7 +19,11 @@ class Area extends CI_Controller {
     }
 
     function tahun()
-  {
+  {   
+    $cek = get_permission('Penjualan Tahunan Per Area', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -25,11 +31,13 @@ class Area extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_area',
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
   function load_area()
-  {
+  { 
     $tahun = $this->input->post('tahun');
     $area = $this->input->post('area');
     $berdasarkan = $this->input->post('berdasarkan');
@@ -72,7 +80,11 @@ class Area extends CI_Controller {
   }
 
   function bulanan()
-  {
+  {   
+    $cek = get_permission('Penjualan Bulanan Per Area', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -81,6 +93,8 @@ class Area extends CI_Controller {
           'content'		=>'som/transaksi/laporan_area_bulanan',
           'month'     =>$this->month,
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -130,7 +144,11 @@ class Area extends CI_Controller {
   }//load_area_bulan
 
   function harian()
-  {
+  {   
+    $cek = get_permission('Penjualan Harian Per Area', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -138,11 +156,13 @@ class Area extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_area_harian',
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
   function load_area_harian()
-  {
+  { 
     $day = $this->input->post('tgl');
     $berdasarkan = $this->input->post('berdasarkan');
     $area = $this->input->post('area');
@@ -185,7 +205,7 @@ class Area extends CI_Controller {
   }
 
   function load_area_all()
-  {
+  { 
     $day = $this->input->post('tgl');
     $berdasarkan = $this->input->post('berdasarkan');
     $area = $this->input->post('area');

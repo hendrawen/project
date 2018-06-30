@@ -5,16 +5,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Marketing extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
+    private $permit;
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('Models_laporan', 'laporan');
         $this->load->library('table');
         //Do your magic here
     }
 
     function harian_marketing()
-    {
+    {   
+        $cek = get_permission('Penjualan Harian Per Marketing', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',
@@ -22,6 +29,8 @@ class Marketing extends CI_Controller {
             'sub_judul'	=>'Report Harian Marketing',
             'content'		=>'laporan/marketing_harian',
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -67,7 +76,11 @@ class Marketing extends CI_Controller {
     }
 
     function bulanan_marketing()
-    {
+    {   
+        $cek = get_permission('Penjualan Bulanan Per Marketing', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',
@@ -76,11 +89,13 @@ class Marketing extends CI_Controller {
             'content'		=>'laporan/marketing_bulanan',
             'month'         => $this->month,
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
     function load_bulanan_marketing()
-    {
+    {   
         $from = $this->input->post('from');
         $to = $this->input->post('to');
         $tahun = $this->input->post('tahun');
@@ -123,7 +138,11 @@ class Marketing extends CI_Controller {
     }
 
     function tahunan_marketing()
-    {
+    {   
+        $cek = get_permission('Penjualan Tahunan Per Marketing', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',
@@ -131,6 +150,8 @@ class Marketing extends CI_Controller {
             'sub_judul'	=>'Report Tahunan Marketing',
             'content'		=>'laporan/marketing_tahunan',
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
