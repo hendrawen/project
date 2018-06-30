@@ -30,7 +30,6 @@ class Panel extends CI_Controller {
 
 	public function index()
 	{
-
 		$data['aktif']			='Dashboard';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';

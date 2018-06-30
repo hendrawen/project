@@ -54,7 +54,7 @@ class Profile extends CI_Controller
           $data['aktif']			='profile';
       		$data['title']			='Brajamarketindo';
       		$data['judul']			='Dashboard';
-      		$data['sub_judul']	='Profile Perusahaan';
+      		$data['sub_judul']	    ='Profile Perusahaan';
             $data['content']		='profile_list';
             $data['menu']			= $this->permit[0];
 		    $data['submenu']		= $this->permit[1];
@@ -82,8 +82,6 @@ class Profile extends CI_Controller
             $data['judul']			='Dashboard';
             $data['sub_judul']	    ='Detail Profile';
             $data['content']		='profile_read';
-            $data['menu']			= $this->permit[0];
-            $data['submenu']		= $this->permit[1];
             $data['menu']			= $this->permit[0];
 		    $data['submenu']		= $this->permit[1];
             $this->load->view('panel/dashboard', $data);
@@ -179,7 +177,8 @@ class Profile extends CI_Controller
     }
 
     public function update_action()
-    {
+    {   
+        
         $cek = get_permission('Profile Perusahaan', $this->permit[1]);
         if (!$cek) {//cek admin ga?
             redirect('panel','refresh');

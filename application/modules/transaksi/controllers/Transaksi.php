@@ -4,17 +4,21 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Transaksi extends CI_Controller
-{
+{   
+    private $permit;
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         if (!$this->ion_auth->logged_in()) {//cek login ga?
                 redirect('login','refresh');
-            }else{
-                if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-                    redirect('login','refresh');
-                }
             }
+            // else{
+            //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
+            //         redirect('login','refresh');
+            //     }
+            // }
         $this->load->model('Transaksi_model');
         $this->load->library('form_validation');
     }
@@ -25,7 +29,11 @@ class Transaksi extends CI_Controller
 
     }
     public function index()
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
 
@@ -56,6 +64,8 @@ class Transaksi extends CI_Controller
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Transaksi';
+        $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
         $data['content']		='transaksi_list';
         $data['transaksi']    =$this->Transaksi_model->get_data();
 
@@ -64,7 +74,11 @@ class Transaksi extends CI_Controller
     }
 
     public function read($id)
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $row = $this->Transaksi_model->get_by_id($id);
         if ($row) {
             $data = array(
@@ -84,6 +98,8 @@ class Transaksi extends CI_Controller
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Detail Transaksi';
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
             $data['content']		='transaksi_read';
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -93,7 +109,11 @@ class Transaksi extends CI_Controller
     }
 
     public function create()
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $data = array(
             'button' => 'Simpan',
             'action' => site_url('transaksi/create_action'),
@@ -113,12 +133,18 @@ class Transaksi extends CI_Controller
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Tambah Transaksi';
+        $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
         $data['content']		='transaksi_form';
         $this->load->view('panel/dashboard', $data);
     }
 
     public function create_action()
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -143,7 +169,11 @@ class Transaksi extends CI_Controller
     }
 
     public function update($id)
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $row = $this->Transaksi_model->get_by_id($id);
 
         if ($row) {
@@ -166,6 +196,8 @@ class Transaksi extends CI_Controller
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit Transaksi';
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
             $data['content']		='transaksi_form';
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -175,7 +207,11 @@ class Transaksi extends CI_Controller
     }
 
     public function update_action()
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -201,7 +237,11 @@ class Transaksi extends CI_Controller
     }
 
     public function delete($id)
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $row = $this->Transaksi_model->get_by_id($id);
 
         if ($row) {
@@ -232,7 +272,11 @@ class Transaksi extends CI_Controller
     }
 
     public function excel()
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
         $this->load->helper('exportexcel');
         $namaFile = "transaksi.xls";
         $judul = "transaksi";
@@ -289,7 +333,11 @@ class Transaksi extends CI_Controller
     }
 
     public function word()
-    {
+    {   
+        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=transaksi.doc");
 

@@ -2,20 +2,29 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Effectifcall extends CI_Controller{
-
+  
+  private $permit;
   public function __construct()
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     $this->load->model('Activecall_model', 'effectif');
   }
 
   function index()
-  {
+  { 
+    $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
     $data['aktif']			='Active Call';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
-		$data['sub_judul']		='List Effectif Call';
+        $data['sub_judul']		='List Effectif Call';
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
     $statuse = $this->effectif->get_list_status();
 
@@ -62,7 +71,11 @@ class Effectifcall extends CI_Controller{
     }
 
     public function tambah()
-    {
+    {   
+        $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
               'button' => 'Tambah',
               'action' => site_url('effectifcall/aksi_tambah'),
@@ -80,7 +93,9 @@ class Effectifcall extends CI_Controller{
           $data['aktif']			='Active Call';
       		$data['title']			='Brajamarketindo';
       		$data['judul']			='Dashboard';
-      		$data['sub_judul']		='List Effectif Call';
+              $data['sub_judul']		='List Effectif Call';
+              $data['menu']			= $this->permit[0];
+              $data['submenu']		= $this->permit[1];
           $data['content']			= 'form';
           $this->load->view('panel/dashboard', $data);
     }
@@ -88,6 +103,10 @@ class Effectifcall extends CI_Controller{
     public function aksi_tambah()
     {
       # code...
+      $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
       $this->_rules();
 
       if ($this->form_validation->run() == FALSE) {
@@ -113,7 +132,11 @@ class Effectifcall extends CI_Controller{
     }
 
     public function update($id)
-    {
+    {   
+        $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->effectif->get_by_id($id);
         if ($row) {
             $data = array(
@@ -132,7 +155,9 @@ class Effectifcall extends CI_Controller{
             $data['aktif']			='Active Call';
         		$data['title']			='Brajamarketindo';
         		$data['judul']			='Dashboard';
-        		$data['sub_judul']		='List Effectif Call';
+                $data['sub_judul']		='List Effectif Call';
+                $data['menu']			= $this->permit[0];
+                $data['submenu']		= $this->permit[1];
             $data['content']			= 'form';
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -142,7 +167,11 @@ class Effectifcall extends CI_Controller{
     }
 
     public function update_action()
-    {
+    {   
+        $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -166,7 +195,11 @@ class Effectifcall extends CI_Controller{
     }
 
     public function ajax_delete($id)
-    {
+    {   
+        $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->effectif->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }

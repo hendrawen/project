@@ -2,16 +2,23 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jenis_kebutuhan extends CI_Controller{
-
+  
+  private $permit;
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     $this->load->model('Model_jkebutuhan');
     //Codeigniter : Write Less Do More
   }
 
   public function index()
-  {
+  {   
+    $cek = get_permission('Jenis Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $q = urldecode($this->input->get('q', TRUE));
       $start = intval($this->input->get('start'));
 
@@ -41,13 +48,19 @@ class Jenis_kebutuhan extends CI_Controller{
       $data['aktif']			='Master';
   		$data['title']			='Kebuthan Pelanggan';
   		$data['judul']			='Data Kebutuhan Pelanggan';
-  		$data['sub_judul']		='';
+          $data['sub_judul']		='';
+        $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
       $data['content']			= 'jenis';
       $this->load->view('panel/dashboard', $data);
   }
 
   public function tambah()
-  {
+  {   
+    $cek = get_permission('Jenis Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $data = array(
           'button' => 'Tambah',
           'action' => site_url('jenis_kebutuhan/create_action'),
@@ -57,15 +70,21 @@ class Jenis_kebutuhan extends CI_Controller{
           'updated_at' => set_value('updated_at'),
           );
           $data['aktif']			='Master';
-      		$data['title']			='Kebuthan Pelanggan';
-      		$data['judul']			='Data Kebutuhan Pelanggan';
-      		$data['sub_judul']		='';
+          $data['title']			='Kebuthan Pelanggan';
+          $data['judul']			='Data Kebutuhan Pelanggan';
+          $data['sub_judul']		='';
+          $data['menu']			= $this->permit[0];
+          $data['submenu']		= $this->permit[1];
           $data['content']			= 'form';
           $this->load->view('panel/dashboard', $data);
   }
 
   public function create_action()
-  {
+  {   
+    $cek = get_permission('Jenis Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $this->_rules();
 
       if ($this->form_validation->run() == FALSE) {
@@ -75,7 +94,8 @@ class Jenis_kebutuhan extends CI_Controller{
           'jenis' => $this->input->post('jenis',TRUE),
           'created_at' => date('Y-m-d H:i:s'),
             );
-
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
           $this->Model_jkebutuhan->insert($data);
           $this->session->set_flashdata('message', 'Create Record Success');
           redirect(site_url('jenis_kebutuhan'));
@@ -83,7 +103,11 @@ class Jenis_kebutuhan extends CI_Controller{
   }
 
   public function update($id)
-  {
+  {   
+    $cek = get_permission('Jenis Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $row = $this->Model_jkebutuhan->get_by_id($id);
 
       if ($row) {
@@ -96,9 +120,11 @@ class Jenis_kebutuhan extends CI_Controller{
               'updated_at' => set_value('updated_at', $row->updated_at),
             );
             $data['aktif']			='Master';
-        		$data['title']			='Kebuthan Pelanggan';
-        		$data['judul']			='Data Kebutuhan Pelanggan';
-        		$data['sub_judul']		='';
+            $data['title']			='Kebuthan Pelanggan';
+            $data['judul']			='Data Kebutuhan Pelanggan';
+            $data['sub_judul']		='';
+            $data['menu']			= $this->permit[0];
+	        $data['submenu']		= $this->permit[1];
             $data['content']			= 'form';
             $this->load->view('panel/dashboard', $data);
           } else {
@@ -108,7 +134,11 @@ class Jenis_kebutuhan extends CI_Controller{
   }
 
   public function update_action()
-  {
+  {   
+    $cek = get_permission('Jenis Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $this->_rules();
 
       if ($this->form_validation->run() == FALSE) {
@@ -126,7 +156,11 @@ class Jenis_kebutuhan extends CI_Controller{
   }
 
   public function delete($id)
-  {
+  {   
+    $cek = get_permission('Jenis Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $row = $this->Model_jkebutuhan->get_by_id($id);
 
       if ($row) {

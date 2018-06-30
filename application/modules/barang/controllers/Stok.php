@@ -4,16 +4,27 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Stok extends CI_Controller
-{
+{   
+    private $permit;
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }
         $this->load->model('stok_model');
         $this->load->library('form_validation');
     }
 
     public function index()
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
 
@@ -44,13 +55,19 @@ class Stok extends CI_Controller
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Stok Barang';
+        $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
         $data['content']		='stok_list';
         $data['stok']    		= $this->stok_model->get_data();
         $this->load->view('panel/dashboard', $data);
     }
 
     public function read($id)
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->stok_model->get_by_id($id);
         if ($row) {
             $data = array(
@@ -64,6 +81,8 @@ class Stok extends CI_Controller
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Detail Stok Barang';
+            $data['menu']			= $this->permit[0];
+	        $data['submenu']		= $this->permit[1];
             $data['content']		='stok_read';
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -73,7 +92,11 @@ class Stok extends CI_Controller
     }
 
     public function create()
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'button' => 'Simpan',
             'action' => site_url('barang/stok/create_action'),
@@ -86,13 +109,19 @@ class Stok extends CI_Controller
 				$data['aktif']			='Master';
 				$data['title']			='Brajamarketindo';
 				$data['judul']			='Dashboard';
-				$data['sub_judul']	='Stok Barang';
+                $data['sub_judul']	='Stok Barang';
+                $data['menu']			= $this->permit[0];
+	            $data['submenu']		= $this->permit[1];
 				$data['content']		='stok_form';
 				$this->load->view('panel/dashboard', $data);
     }
 
     public function create_action()
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 				$datestring = '%Y-%m-%d %h:%i:%s';
         $time = time();
@@ -113,7 +142,11 @@ class Stok extends CI_Controller
     }
 
     public function update($id)
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->stok_model->get_by_id($id);
 
         if ($row) {
@@ -129,7 +162,9 @@ class Stok extends CI_Controller
 						$data['aktif']			='Master';
 						$data['title']			='Brajamarketindo';
 						$data['judul']			='Dashboard';
-						$data['sub_judul']	='Edit Stok Barang';
+                        $data['sub_judul']	='Edit Stok Barang';
+                        $data['menu']			= $this->permit[0];
+	                    $data['submenu']		= $this->permit[1];
 						$data['content']		='stok_form';
 						$this->load->view('panel/dashboard', $data);
         } else {
@@ -139,7 +174,11 @@ class Stok extends CI_Controller
     }
 
     public function update_action()
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 				$datestring = '%Y-%m-%d %h:%i:%s';
         $time = time();
@@ -160,7 +199,11 @@ class Stok extends CI_Controller
     }
 
     public function delete($id)
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->stok_model->get_by_id($id);
 
         if ($row) {
@@ -184,7 +227,11 @@ class Stok extends CI_Controller
     }
 
     public function excel()
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->load->helper('exportexcel');
         $namaFile = "stok.xls";
         $judul = "stok";
@@ -228,7 +275,11 @@ class Stok extends CI_Controller
         exit();
     }
     public function word()
-    {
+    {   
+        $cek = get_permission('Stok', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=wp_stok.doc");
 

@@ -3,36 +3,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Piutang extends CI_Controller{
 
+  private $permit;
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
-        }else{
-            if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-                redirect('login','refresh');
-            }
         }
+        // else{
+        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
+        //         redirect('login','refresh');
+        //     }
+        // }
     //Codeigniter : Write Less Do More
     $this->load->model('Piutang_model' ,'piutang');
   }
 
   function index()
-  {
+  { 
+    $cek = get_permission('Piutang', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
     $data['aktif']			='Piutang';
 		$data['title']			='Piutang Pelanggan';
 		$data['judul']			='Data Piutang Pelanggan';
-		$data['sub_judul']		='';
+    $data['sub_judul']		='';
+    $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
     $this->load->view('panel/dashboard', $data);
   }
 
   function pembayaran()
-  {
+  { 
+    $cek = get_permission('Piutang', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
     $data['aktif']			='Piutang';
 		$data['title']			='Piutang Pelanggan';
 		$data['judul']			='Data Piutang Pelanggan';
-		$data['sub_judul']		='';
+    $data['sub_judul']		='';
+    $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
     $data['content']			= 'form';
     $this->load->view('panel/dashboard', $data);
   }

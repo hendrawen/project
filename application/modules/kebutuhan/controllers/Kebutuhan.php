@@ -2,27 +2,40 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kebutuhan extends CI_Controller{
-
+  
+  private $permit;
   public function __construct()
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     $this->load->model('Model_kebutuhan','kebutuhan');
   }
 
   function index()
-  {
+  { 
+    $cek = get_permission('Kebutuhan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Master';
-		$data['title']			='Kebutuhan Pelanggan';
-		$data['judul']			='Data Kebutuhan Pelanggan';
-		$data['sub_judul']		='';
+    $data['title']			='Kebutuhan Pelanggan';
+    $data['judul']			='Data Kebutuhan Pelanggan';
+    $data['sub_judul']		='';
+    $data['menu']			= $this->permit[0];
+	$data['submenu']		= $this->permit[1];
     $data['content']			= 'kebutuhan';
     $data['kebutuhan'] = $this->kebutuhan->show_kebutuhan();
     $this->load->view('panel/dashboard', $data);
   }
 
   public function ajax_list()
-    {
+    {   
+        $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $list = $this->kebutuhan->get_datatables();
         $data = array();
         $no = $_POST['start'];
@@ -48,7 +61,11 @@ class Kebutuhan extends CI_Controller{
         echo json_encode($output);
     }
     public function tambah()
-    {
+    {   
+        $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'button' => 'Tambah',
             'action' => site_url('kebutuhan/create_action'),
@@ -62,17 +79,25 @@ class Kebutuhan extends CI_Controller{
         $data['title']			='Data Kebutuhan';
         $data['judul']			='Kebutuhan';
         $data['sub_judul']		='';
+        $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
         $data['content']			= 'form';
         $this->load->view('panel/dashboard', $data);
     }
 
     public function presentasi()
-    {
+    {   
       # code...
+      $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
       $data['aktif']			='Master/presentasi';
       $data['title']			='Data Kebutuhan';
       $data['judul']			='Report Kebutuhan';
       $data['sub_judul']		='';
+      $data['menu']			= $this->permit[0];
+	  $data['submenu']		= $this->permit[1];
       $data['content']			= 'presentasi';
       $this->load->view('panel/dashboard', $data);
 
@@ -81,6 +106,10 @@ class Kebutuhan extends CI_Controller{
     public function proses_laporan()
     {
       # code...
+      $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
        $date1 = $this->input->post('awal');
        $date2 = $this->input->post('akhir');
        $date3 = $this->input->post('tahun');
@@ -113,6 +142,8 @@ class Kebutuhan extends CI_Controller{
        // $sum = $this->Report_model->sum2($data);
        // $data['sum'] = $sum;
        $data['show_table'] = $this->view_table();
+       $data['menu']			= $this->permit[0];
+	   $data['submenu']		= $this->permit[1];
        $this->load->view('panel/dashboard', $data);
     }
 
@@ -126,7 +157,11 @@ class Kebutuhan extends CI_Controller{
     }
 
     public function create_action()
-    {
+    {   
+        $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -147,7 +182,11 @@ class Kebutuhan extends CI_Controller{
     }
 
     public function update($id)
-    {
+    {   
+        $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->Model_kebutuhan->get_by_id($id);
 
         if ($row) {
@@ -159,7 +198,9 @@ class Kebutuhan extends CI_Controller{
             		'wp_jkebutuhan_id' => set_value('wp_jkebutuhan_id', $row->wp_jkebutuhan_id),
             		'jumlah' => set_value('jumlah', $row->jumlah),
             		'tgl' => set_value('tgl', $row->tgl),
-	    );
+        );
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
             $this->load->view('kebutuhan/wp_kebutuhan_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -168,7 +209,11 @@ class Kebutuhan extends CI_Controller{
     }
 
     public function update_action()
-    {
+    {   
+        $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -189,7 +234,11 @@ class Kebutuhan extends CI_Controller{
     }
 
     public function delete($id)
-    {
+    {   
+        $cek = get_permission('Kebutuhan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->Model_kebutuhan->get_by_id($id);
 
         if ($row) {

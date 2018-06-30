@@ -3,28 +3,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pelanggan extends CI_Controller{
 
+  private $permit;
   public function __construct()
-  {
+  { 
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
-        }else{
-            if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members') AND
-            !$this->ion_auth->in_group('som')) {//cek admin ga?
-                redirect('login','refresh');
-            }
         }
+        // else{
+        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members') AND
+        //     !$this->ion_auth->in_group('som')) {//cek admin ga?
+        //         redirect('login','refresh');
+        //     }
+        // }
     $this->load->model('Model_pelanggan','pelanggan');
     $this->load->model('Daerah_model','daerah');
   }
 
   function index()
-  {
+  { 
+    $cek = get_permission('Pelanggan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
     $data['aktif']			='Pelanggan';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
-		$data['sub_judul']		='Data Pelanggan';
+    $data['sub_judul']		='Data Pelanggan';
+    $data['menu']			= $this->permit[0];
+	  $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
     // $kotas = $this->pelanggan->get_list_kota();
 
@@ -84,7 +95,11 @@ class Pelanggan extends CI_Controller{
   }
 
   public function ajax_list()
-  {
+  {   
+      $cek = get_permission('Pelanggan', $this->permit[1]);
+      if (!$cek) {//cek admin ga?
+          redirect('panel','refresh');
+      }
       $list = $this->pelanggan->get_datatables();
       $data = array();
       $no = $_POST['start'];
@@ -145,6 +160,10 @@ class Pelanggan extends CI_Controller{
     public function test()
     {
       # code...
+      $cek = get_permission('Pelanggan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
       $this->load->library('Googlemap');
       $data['aktif']			='Pelanggan';
   		$data['title']			='Brajamarketindo';
@@ -171,12 +190,17 @@ class Pelanggan extends CI_Controller{
         $this->googlemap->add_marker($marker);
       }
       $data['map'] = $this->googlemap->create_map();
-
+      $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
     }
 
     public function tambah()
-    {
+    {   
+        $cek = get_permission('Pelanggan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'list_kategori' => $this->pelanggan->get_kategori(),
               'button' => 'Tambah',
@@ -205,7 +229,9 @@ class Pelanggan extends CI_Controller{
           $data['aktif']			='Pelanggan';
       		$data['title']			='Brajamarketindo';
       		$data['judul']			='Dashboard';
-      		$data['sub_judul']		='Pelanggan';
+          $data['sub_judul']		='Pelanggan';
+          $data['menu']			= $this->permit[0];
+	        $data['submenu']		= $this->permit[1];
           $data['content']			= 'form';
           $data['id_pelanggan'] = $this->pelanggan->get_kode_pelanggan();
           $this->load->view('panel/dashboard', $data);
@@ -214,6 +240,10 @@ class Pelanggan extends CI_Controller{
     public function aksi_tambah()
     {
       # code...
+        $cek = get_permission('Pelanggan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
       $this->_rules();
 
       if ($this->form_validation->run() == FALSE) {
@@ -285,7 +315,11 @@ class Pelanggan extends CI_Controller{
     }
 
     public function update($id)
-    {
+    {   
+      $cek = get_permission('Pelanggan', $this->permit[1]);
+      if (!$cek) {//cek admin ga?
+          redirect('panel','refresh');
+      }
         $row = $this->pelanggan->get_by_id($id);
         if ($row) {
             $data = array(
@@ -314,7 +348,9 @@ class Pelanggan extends CI_Controller{
             $data['aktif']			='Pelanggan';
         		$data['title']			='Edit Data Pelanggan';
         		$data['judul']			='Edit Data Pelanggan';
-        		$data['sub_judul']		='';
+            $data['sub_judul']		='';
+            $data['menu']			= $this->permit[0];
+	          $data['submenu']		= $this->permit[1];
             $data['content']			= 'form';
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -324,7 +360,11 @@ class Pelanggan extends CI_Controller{
     }
 
     public function update_action()
-    {
+    {   
+        $cek = get_permission('Pelanggan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -395,7 +435,11 @@ class Pelanggan extends CI_Controller{
     }
 
     public function ajax_delete($id)
-    {
+    {   
+        $cek = get_permission('Pelanggan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        } 
         $this->pelanggan->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }

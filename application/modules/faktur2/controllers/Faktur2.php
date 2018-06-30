@@ -3,19 +3,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Faktur2 extends CI_Controller{
 
+  private $permit;
   function __construct()
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     $this->load->model('Faktur2_model','faktur2');
   }
 
   public function index()
-  {
+  {   
+    $cek = get_permission('Faktur', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $data['aktif']			='Faktur';
       $data['title']			='Brajamarketindo';
       $data['judul']			='Cetak Faktur';
       $data['sub_judul']		='';
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $data['content']    = 'main';
       $data['profile']= $this->faktur2->get_profile();
       $data['query'] = $this->faktur2->get_data_faktur();
@@ -55,6 +64,10 @@ class Faktur2 extends CI_Controller{
 	}
 
   public function cari_faktur(){
+    $cek = get_permission('Faktur', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $cari = $this->input->post('judul',TRUE);
      // if ($cari == '') {
      //     echo '<script>(‘#tabel_cari’).hide();</script>';

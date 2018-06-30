@@ -2,25 +2,33 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pembelian extends CI_Controller{
+  private $permit;
   private $temb_bayar;
   public function __construct()
   {
     $temb_bayar = array();
     parent::__construct();
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
-        }else{
-            if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('dev')) {//cek admin ga?
-                redirect('login','refresh');
-            }
         }
+        // else{
+        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('dev')) {//cek admin ga?
+        //         redirect('login','refresh');
+        //     }
+        // }
     //Codeigniter : Write Less Do More
     $this->load->model('Pembelian_model', 'pembelian');
     //$this->load->model('pesan/Pesan_model', 'pesan');
   }
 
   function index()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
@@ -32,11 +40,17 @@ class Pembelian extends CI_Controller{
     $data['total_penjualan'] = $this->pembelian->total_penjualan();
     $data['penjualan_bulanan'] = $this->pembelian->penjualan_bulanan();
     $data['total_jadwal'] = $this->pembelian->gettotaljadwal();
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $this->load->view('panel/dashboard',$data);
   }
 
   public function checkout()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
@@ -46,16 +60,24 @@ class Pembelian extends CI_Controller{
     $data['profile']=$this->pembelian->get_profile();
     //$data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
 		$data['generate_invoice'] = $this->pembelian->generatekode_invoice();
-		$data['get_total'] = $this->get_total();
+    $data['get_total'] = $this->get_total();
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $this->load->view('panel/dashboard', $data);
   }
 
   function piutang()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Piutang';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $data['content']		='content';
     $data['jadwal'] = $this->pembelian->getbydriver();
     $this->load->view('panel/dashboard',$data);
@@ -63,21 +85,33 @@ class Pembelian extends CI_Controller{
   public function jadwal()
   {
     # code...
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Jadwal';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $data['content']		='jadwal';
     $data['jadwal'] = $this->pembelian->getbydriver();
     $this->load->view('panel/dashboard',$data);
   }
 
   function list()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='List';
     $data['sub_judul']	='Transaksi';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $data['content']		='list';
     $data['list'] = $this->pembelian->gettransaksiharian();
     $this->load->view('panel/dashboard',$data);
@@ -134,18 +168,28 @@ class Pembelian extends CI_Controller{
   public function detail()
   {
     # code...
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $id = $this->uri->segment(3);
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Rincian';
     $data['sub_judul']	='Pengiriman';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $data['content']		='detail';
     $data['detail'] = $this->pembelian->getdetail($id);
     $this->load->view('panel/dashboard',$data);
   }
 
   public function barang()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data = array(
             'button' => 'Simpan',
             'action' => site_url('pembelian/create_action'),
@@ -164,6 +208,8 @@ class Pembelian extends CI_Controller{
     $data['title']			='Pembelian';
     $data['judul']			='Form';
     $data['sub_judul']		='Pembelian';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $data['content']			= 'transaksi';
     //$data['data']=$this->pesan->get_all_product();
     //$data['profile']=$this->pesan->get_profile();
@@ -213,6 +259,10 @@ class Pembelian extends CI_Controller{
 	}
 
     function checkout_action() {
+      $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
       $this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
       $this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
@@ -265,11 +315,17 @@ class Pembelian extends CI_Controller{
   public function invoice()
   {
     # code...
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $id = $this->uri->segment(3);
     $data['aktif']			='transaksi';
     $data['title']			='Transaksi';
     $data['judul']			='Transaksi';
     $data['sub_judul']		='Invoice';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $data['content']			= 'invoice';
     $data['profile']=$this->pesan->get_profile();
     $data['jenis_pembayaran']=$this->pesan->get_jenis_pembayaran();
@@ -353,7 +409,11 @@ class Pembelian extends CI_Controller{
   }
 
   public function hapus($id)
-  {
+  {   
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $row = $this->Pembelian->get_by_id($id);
 
       if ($row) {
@@ -367,7 +427,11 @@ class Pembelian extends CI_Controller{
   }
 
   public function update_action()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $test = str_replace(".","", $this->input->post('bayar'));
     $test2 = $this->input->post('sudah');
     $hasil = $test+$test2;
@@ -382,6 +446,10 @@ class Pembelian extends CI_Controller{
   }
 
   public function track_transaksi(){
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $cari = $this->input->post('judul');
       $this->session->unset_userdata('id_transaksi');
       $total = 0;
@@ -425,7 +493,11 @@ class Pembelian extends CI_Controller{
   }
 
   public function track_pembayaran()
-  {
+  { 
+    $cek = get_permission('Pembelian Barang', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $list = $this->session->userdata('id_transaksi');
     print_r($list);
     echo '<br />';
@@ -464,7 +536,11 @@ class Pembelian extends CI_Controller{
   }
 
   public function delete($id)
-     {
+     {  
+      $cek = get_permission('Pembelian Barang', $this->permit[1]);
+      if (!$cek) {//cek admin ga?
+          redirect('panel','refresh');
+      }
        $row = $this->pembelian->get_by_id($id);
 
        if ($row) {
