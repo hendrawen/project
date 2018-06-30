@@ -2371,4 +2371,18 @@ class Ion_auth_model extends CI_Model
 		// just return the string IP address now for better compatibility
 		return $ip_address;
 	}
+
+	public function permission($username)
+	{
+		$this->db->select('groups.name');
+		$this->db->join('groups', 'groups.id = users_groups.group_id', 'inner');
+		$this->db->join('users', 'users.id = users_groups.user_id', 'inner');
+		$this->db->where('users.username', $username);
+		$data = $this->db->get('users_groups');
+		$permit = array();
+		foreach ($data->result_array() as $row) {
+			$permit[] = $row['name'];
+		}
+		return $permit;
+	}
 }
