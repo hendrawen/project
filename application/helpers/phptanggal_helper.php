@@ -192,3 +192,12 @@ function terbilang($x){
           return number_format($value);
       }
   }
+
+  function get_permission($value, $permit)
+  {
+      if (in_array($value, $permit)){
+          return TRUE;
+      } else {
+          return FALSE;
+      }
+  }

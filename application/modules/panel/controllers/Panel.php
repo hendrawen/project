@@ -13,11 +13,12 @@ class Panel extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
 		} 
-		else {
-            if (!$this->ion_auth->in_group($this->permit[1])) {//cek admin ga?
-                redirect('login','refresh');
-            }
-        }
+		// else {
+			// $cek = get_permission('Barang',$this->permit[1]);
+            // if (!$this->ion_auth->in_group($this->permit[1])) {//cek admin ga?
+            //     redirect('login','refresh');
+            // }
+        // }
 		// if (!$this->ion_auth->logged_in()) {//cek login ga?
         //     redirect('login','refresh');
         // }else{

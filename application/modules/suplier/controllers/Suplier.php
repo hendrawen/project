@@ -5,33 +5,43 @@ if (!defined('BASEPATH'))
 
 class Suplier extends CI_Controller
 {
+    private $permit;
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-                redirect('login','refresh');
-            }else{
-                if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-                    redirect('login','refresh');
-                }
-            }
+            redirect('login','refresh');
+        }
         $this->load->model('suplier_model');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-          $data['aktif']			='Master';
-          $data['title']			='Brajamarketindo';
-          $data['judul']			='Dashboard';
-          $data['sub_judul']	='Suplier';
-          $data['content']		='suplier_list';
-          $data['suplier']    =$this->suplier_model->get_all();
-          $this->load->view('panel/dashboard', $data);
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
+        $data['aktif']			='Master';
+        $data['title']			='Brajamarketindo';
+        $data['judul']			='Dashboard';
+        $data['sub_judul']	='Suplier';
+        $data['content']		='suplier_list';
+        $data['suplier']    =$this->suplier_model->get_all();
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
+        $this->load->view('panel/dashboard', $data);
     }
 
     public function read($id)
     {
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->suplier_model->get_by_id($id);
         if ($row) {
             $data = array(
@@ -45,6 +55,8 @@ class Suplier extends CI_Controller
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Detail Suplier';
             $data['content']		='suplier_read';
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
@@ -54,6 +66,10 @@ class Suplier extends CI_Controller
 
     public function create()
     {
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'button' => 'Simpan',
             'action' => site_url('suplier/create_action'),
@@ -67,11 +83,17 @@ class Suplier extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Tambah Suplier';
         $data['content']		='suplier_form';
+        $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
     public function create_action()
     {
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -92,6 +114,10 @@ class Suplier extends CI_Controller
 
     public function update($id)
     {
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->suplier_model->get_by_id($id);
 
         if ($row) {
@@ -108,6 +134,8 @@ class Suplier extends CI_Controller
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit Suplier';
             $data['content']		='suplier_form';
+            $data['menu']			= $this->permit[0];
+            $data['submenu']		= $this->permit[1];
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Tidak Ada Data');
@@ -117,6 +145,10 @@ class Suplier extends CI_Controller
 
     public function update_action()
     {
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -137,6 +169,10 @@ class Suplier extends CI_Controller
 
     public function delete($id)
     {
+        $cek = get_permission('Suplier', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         //$row = $this->suplier_model->get_by_id($id);
         $row = $this->suplier_model->cek_kode_suplier($id);
         if ($row) {

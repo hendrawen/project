@@ -14,13 +14,14 @@ class Login extends CI_Controller
     	if (!$this->ion_auth->logged_in()) {//cek login ga?
             $this->load->view('login');
         } else {
-            if ($this->ion_auth->in_group('admin')) {
-                redirect('administrator','refresh');
-                 }elseif ($this->ion_auth->in_group('members')) {
+            // if ($this->ion_auth->in_group('admin')) {
+            //     redirect('administrator','refresh');
+            // } elseif ($this->ion_auth->in_group('members')) {
             	redirect('panel','refresh');
-	        }else{
-				$this->load->view('login');
-			}}
+	        // } else {
+			// 	$this->load->view('login');
+            // }
+        }
     }
 
 

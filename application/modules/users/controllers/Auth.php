@@ -254,12 +254,14 @@ class Auth extends CI_Controller {
                 'type'  => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
-						$this->data['aktif']		  ='User';
-						$this->data['judul']      ='Dashboard';
-						$this->data['sub_judul']	='User';
-						$this->data['content']    ='user/table_user_form';
-						$this->_render_page('administrator/dashboard', $this->data);
-            //$this->_render_page('user/table_user_form', $this->data);
+			$this->permit = $this->ion_auth->permission($this->session->identity);
+			$this->data['menu']			= $this->permit[0];
+			$this->data['submenu']		= $this->permit[1];
+			$this->data['aktif']		  ='User';
+			$this->data['judul']      ='Dashboard';
+			$this->data['sub_judul']	='User';
+			$this->data['content']    ='user/table_user_form';
+			$this->_render_page('panel/dashboard', $this->data);
         }
     }
 
@@ -421,11 +423,14 @@ class Auth extends CI_Controller {
 			'id'   => 'password_confirm',
 			'type' => 'password'
 		);
+		$this->permit = $this->ion_auth->permission($this->session->identity);
+			$this->data['menu']			= $this->permit[0];
+			$this->data['submenu']		= $this->permit[1];
 		$this->data['aktif']		  ='User';
 		$this->data['judul']      ='Dashboard';
 		$this->data['sub_judul']	='User';
 		$this->data['content']    ='user/table_edit_form';
-		$this->_render_page('administrator/dashboard', $this->data);
+		$this->_render_page('panel/dashboard', $this->data);
 	}
 
     public function logout() {
@@ -726,7 +731,7 @@ class Auth extends CI_Controller {
 			$this->data['judul']      ='Dashboard';
 			$this->data['sub_judul']	='Non Aktifkan User';
 			$this->data['content']    = 'deactivate_user';
-			$this->_render_page('administrator/dashboard', $this->data);
+			$this->_render_page('panel/dashboard', $this->data);
 		}
 		else
 		{

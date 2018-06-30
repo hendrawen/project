@@ -28,7 +28,7 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-
+                
                   
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
@@ -45,12 +45,14 @@
                       </ul>
                   </li>
                   <?php endif ?>
-
+                
                   <?php if (in_array("Master Data", $menu)):?>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
+                      <?php if (in_array("Suplier", $submenu)):?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>suplier">Suplier</a></li>
+                      <?php endif ?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang">Barang</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kebutuhan">Kebutuhan</a></li>
@@ -70,7 +72,7 @@
                     <?php if (in_array("Transaksi", $menu)):?>
                       <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        
+
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembelian"> Pembelian Barang</a>
                         </li>
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranbarang/barang"> Pembayaran Barang</a>
