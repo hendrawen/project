@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Laporan extends CI_Controller{
   private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
 
+  private $permit;
   public function __construct()
   {
     parent::__construct();
@@ -17,6 +18,12 @@ class Laporan extends CI_Controller{
     $this->load->model('Model_laporan', 'mLap');
     $this->load->model('Model_dep', 'dep');
     $this->load->library('table');
+
+    $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+		}
   }
 
   // function get_all()
@@ -64,7 +71,12 @@ class Laporan extends CI_Controller{
   */
 
   function pelanggan()
-  {
+  { 
+    
+    $cek = get_permission('Growth Pelanggan', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $to = date('n');
     $from = $to - 1 ;
     $year = date('Y');
@@ -79,7 +91,8 @@ class Laporan extends CI_Controller{
         'month'     => $this->month,
         'year'  => set_value('year', $year)
     );
-
+    $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
     $this->load->view('panel/dashboard', $data);
   }
 

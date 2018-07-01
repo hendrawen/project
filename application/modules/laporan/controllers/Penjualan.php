@@ -4,18 +4,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Penjualan extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
-    
+  
+  private $permit;
   public function __construct()
   {
       parent::__construct();
       //Do your magic here
+      $this->load->model('Ion_auth_model');
+      $this->permit = $this->Ion_auth_model->permission($this->session->identity);
       $this->load->model('som/Model_laporan', 'mLap');
       $this->load->library('table');
   }
   
 
   function harian()
-  {
+  {   
+    $cek = get_permission('Pembayaran Harian', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -23,6 +30,8 @@ class Penjualan extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_harian',
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -109,7 +118,10 @@ class Penjualan extends CI_Controller {
 
   function bulanan()
   {
-
+      $cek = get_permission('Pembayaran Bulanan', $this->permit[1]);
+      if (!$cek) {//cek admin ga?
+          redirect('panel','refresh');
+      }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -118,6 +130,8 @@ class Penjualan extends CI_Controller {
           'content'		=>'som/transaksi/laporan_bulanan',
           'month'     => $this->month,
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -165,7 +179,11 @@ class Penjualan extends CI_Controller {
   }
 
   function tahunan()
-  {
+  {   
+      $cek = get_permission('Pembayaran Tahunan', $this->permit[1]);
+      if (!$cek) {//cek admin ga?
+          redirect('panel','refresh');
+      }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -173,6 +191,8 @@ class Penjualan extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_tahunan',
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 

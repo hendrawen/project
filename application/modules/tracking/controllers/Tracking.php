@@ -3,12 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tracking extends CI_Controller {
 
+    private $permit;
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('Model','model');
         $this->load->model('pelanggan/Daerah_model','daerah');
         
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+		} 
     }
 
     function index()
@@ -22,6 +28,8 @@ class Tracking extends CI_Controller {
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 

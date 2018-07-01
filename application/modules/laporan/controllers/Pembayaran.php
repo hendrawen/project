@@ -5,10 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pembayaran extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
+    private $permit;
     public function __construct()
     {
         parent::__construct();
         //Do your magic here
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('Models_laporan', 'laporan');
         $this->load->library('table');
     }
@@ -17,6 +20,10 @@ class Pembayaran extends CI_Controller {
     function pembayaran_harian()
     {
         # code...
+        $cek = get_permission('Pembayaran Harian', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'laporan',
             'title'			=>'Brajamarketindo',
@@ -24,6 +31,8 @@ class Pembayaran extends CI_Controller {
             'sub_judul'	    =>'Pembayaran',
             'content'		=>'pembayaran_harian',
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -149,6 +158,10 @@ class Pembayaran extends CI_Controller {
     function pembayaran_bulanan()
     {
         # code...
+        $cek = get_permission('Pembayaran Bulanan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'laporan',
             'title'			=>'Brajamarketindo',
@@ -157,6 +170,8 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_bulanan',
             'month'         => $this->month,
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -225,6 +240,10 @@ class Pembayaran extends CI_Controller {
     function pembayaran_tahunan()
     {
         # code...
+        $cek = get_permission('Pembayaran Tahunan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'laporan',
             'title'			=>'Brajamarketindo',
@@ -233,6 +252,8 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_tahunan',
             'month'         => $this->month,
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 

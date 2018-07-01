@@ -11,6 +11,10 @@ class Effectifcall extends CI_Controller{
     $this->load->model('Ion_auth_model');
         $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     $this->load->model('Activecall_model', 'effectif');
+    
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+        redirect('login','refresh');
+    }
   }
 
   function index()

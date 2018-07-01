@@ -49,10 +49,6 @@ class Laporan extends CI_Controller {
 
   function load_pelanggan()
   { 
-    $cek = get_permission('Report Transaksi', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $from = $this->input->post('from');
     $to = $this->input->post('to');
     $tahun = $this->input->post('tahun');
@@ -94,10 +90,6 @@ class Laporan extends CI_Controller {
 
   function load_pelanggan_all()
   { 
-    $cek = get_permission('Report Transaksi', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data = $this->mLap->laporan_pelanggan_all();
     $no = 1;
     $total = 0;

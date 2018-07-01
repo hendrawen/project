@@ -5,13 +5,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Produk extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    
+    private $permit;
     public function __construct()
     {
         parent::__construct();
         //Do your magic here
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('som/Model_laporan', 'mLap');
         $this->load->library('table');
+
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+          redirect('login','refresh');
+        } 
     }
 
     function get_all()
@@ -59,7 +65,11 @@ class Produk extends CI_Controller {
   --------------*/
   //harian
   function produk_harian()
-  {
+  { 
+    $cek = get_permission('Penjualan Harian Per Produk', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $this->load->model('barang/Barang_model');
       $data = array(
           'aktif'			=>'transaksi',
@@ -69,6 +79,8 @@ class Produk extends CI_Controller {
           'content'		=>'som/produk/harian',
           'list_barang' => $this->Barang_model->get_all(),
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -116,7 +128,11 @@ class Produk extends CI_Controller {
 
   //bulanan
   function produk_bulanan()
-  {
+  { 
+    $cek = get_permission('Penjualan Bulanan Per Produk', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $this->load->model('barang/Barang_model');
       $data = array(
           'aktif'			=>'som',
@@ -127,6 +143,8 @@ class Produk extends CI_Controller {
           'list_barang' => $this->Barang_model->get_all(),
           'month'     => $this->month,
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -176,7 +194,11 @@ class Produk extends CI_Controller {
 
   //tahun
   function produk_tahun()
-  {
+  { 
+    $cek = get_permission('Penjualan Tahunan Per Produk', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $this->load->model('barang/Barang_model');
       $data = array(
           'aktif'			=>'som',
@@ -186,6 +208,8 @@ class Produk extends CI_Controller {
           'content'		=>'som/produk/tahun',
           'list_barang' => $this->Barang_model->get_all(),
       );
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 

@@ -5,18 +5,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Gtransaksi extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    
+    private $permit;
     public function __construct()
     {
         parent::__construct();
         //Do your magic here
         $this->load->model('Model_gtransaksi', 'gtransaksi');
-        
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+		}
     }
     
 
     public function index()
-    {
+    {   
+        $cek = get_permission('Growth Transaksi', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'gtransaksi',
             'title'			=>'Brajamarketindo',
@@ -25,6 +33,8 @@ class Gtransaksi extends CI_Controller {
             'content'		=>'main',
             'month'         => $this->month,
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);   
     }
 

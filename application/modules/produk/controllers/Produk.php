@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Produk extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
+    private $permit;
     public function __construct()
     {
         parent::__construct();
@@ -12,10 +13,19 @@ class Produk extends CI_Controller {
         $this->load->model('Models_share', 'produk');
         $this->load->model('pelanggan/Daerah_model','daerah');
         
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+		}
     }
     
     public function index()
-    {
+    {   
+        $cek = get_permission('Produk Share', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $to = date('n');
         $from = $to - 1 ;
         $year = date('Y');
@@ -36,6 +46,8 @@ class Produk extends CI_Controller {
         $data['list_kota'] = $this->daerah->get_kota();
         // $data['kelurahan'] = $this->produk->kelurahan_all();
         $data['barang']    = $this->produk->get_barang();
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
