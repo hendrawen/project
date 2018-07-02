@@ -201,3 +201,22 @@ function terbilang($x){
           return FALSE;
       }
   }
+
+  function get_list_day($month, $year)
+  {
+    $count = cal_days_in_month(CAL_GREGORIAN,$month, $year);
+    $list_day = array();
+    if ($month < 10){
+        $month = '0'.$month;
+    }
+    for ($i=1; $i <= $count ; $i++) {
+        $j = $i;
+        if ($i < 10) {
+            $j = '0'.$i;
+        }
+        
+
+        $list_day[] = $year.'-'.$month.'-'.$j;
+    }
+    return $list_day;
+  }
