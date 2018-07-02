@@ -86,7 +86,10 @@
                       </ul>
                     </li>
                     <?php endif ?>
-                    
+                    <?php if (in_array("Jadwal", $submenu)):?>
+                    <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar"></i> Jadwal</a>
+                    </li>
+                    <?php endif ?>
                     <?php if (in_array("Aset", $submenu)):?>
                     <li><a <?php echo ($aktif == 'delivery')?'class="active"':"";?> href="<?php echo base_url();?>delivery"><i class="fa fa-cube"></i> Aset</a>
                     </li>

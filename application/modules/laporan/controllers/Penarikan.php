@@ -4,10 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Penarikan extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
-    
+    private $permit;
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        }
         //Do your magic here
         $this->load->model('Models_laporan', 'laporan');
         $this->load->model('som/Model_laporan', 'mLap');
@@ -18,6 +24,10 @@ class Penarikan extends CI_Controller {
 
     function bulanan()
     {
+        $cek = get_permission('Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         # code...
         $data = array(
             'aktif'			=>'laporan',
@@ -27,11 +37,17 @@ class Penarikan extends CI_Controller {
             'content'		=>'penarikan_bulanan',
             'month'         => $this->month,
         );
+        $data['menu']			= $this->permit[0];
+		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
     function load_penarikan_bulanan()
     {
+        $cek = get_permission('Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $from = $this->input->post('from');
         $to = $this->input->post('to');
         $tahun = $this->input->post('tahun');
@@ -79,6 +95,10 @@ class Penarikan extends CI_Controller {
 
     function load_penarikan_all()
     {
+        $cek = get_permission('Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = $this->laporan->penarikan_bulanan_all();
         $pesan = "";
         $total = 0;
@@ -124,6 +144,10 @@ class Penarikan extends CI_Controller {
 
     function template_table()
     {
+        $cek = get_permission('Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $template = array(
             'table_open'            => ' <table id="datatable" class="table table-striped table-bordered">',
             // 'table_open'            => '<table id="example" class="table table-striped jambo_table table-bordered dt-responsive nowrap">',
