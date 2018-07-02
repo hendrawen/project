@@ -193,6 +193,21 @@ function terbilang($x){
       }
   }
 
+  function persen($value)
+  {
+      if ($value == '0' || $value == '') {
+          return '-';
+      } else {
+          if ($value < 100) {
+                return number_format($value, 2, ".", ",").'%';
+            } else {
+                return number_format($value).'%';
+          }
+
+      }
+  }
+
+  
   function get_permission($value, $permit)
   {
       if (in_array($value, $permit)){
