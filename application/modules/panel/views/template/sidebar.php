@@ -153,6 +153,14 @@
                   <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
                   <?php endif ?>
 
+                  <?php if (in_array("Master Data", $menu)):?>
+                  <li><a><i class="fa fa-edit"></i> KPI <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/effectivecall">Effectif Call</a></li>
+                    </ul>
+                  </li>
+                  <?php endif ?>
+
                   <?php if (in_array("Users", $submenu)):?>
                   <li><a <?php echo ($aktif == 'User')?'class="active"':"";?> href="<?php echo base_url();?>users"><i class="fa fa-table"></i> Users </a></li>
                   <?php endif ?>
