@@ -1,4 +1,8 @@
-
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Selamat Datang </strong>di Sistem Informasi Brajamarketindo !
+                  </div>
             <div class="row top_tiles">
               <a href="<?php echo base_url('karyawan');?>">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -42,7 +46,7 @@
               </div></a>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -456,7 +460,7 @@
               </div>
             </div>
             <!--js google chart-->
-            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <!-- <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
        //load package
        google.load('visualization', '1', {packages: ['corechart']});
@@ -490,4 +494,4 @@
     } ?>
     </script><br>
             <div id="visualization"></div>
-            <?php print_r($num_results); ?>
+            <?php print_r($num_results); ?> --> 

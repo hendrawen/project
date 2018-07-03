@@ -97,6 +97,17 @@
                     </select>
           </div>
           <div class="form-group">
+            <label>Sumber Data</label>
+            <select name="sumber_data" id="sumber_data" class="form-control">
+              <option selected>--Sumber Data--</option>
+              <option value="Due Date">Due Date</option>
+              <option value="Biru">Biru</option>
+              <option value="Kuning">Kuning</option>
+              <option value="Ijo">Ijo</option>
+              <option value="Pink">Pink</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label>Keterangan</label>
             <textarea name="keterangan" class="form-control"><?php echo $keterangan; ?></textarea>
           </div>

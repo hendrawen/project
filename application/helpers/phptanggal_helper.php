@@ -193,6 +193,21 @@ function terbilang($x){
       }
   }
 
+  function persen($value)
+  {
+      if ($value == '0' || $value == '') {
+          return '-';
+      } else {
+          if ($value < 100) {
+                return number_format($value, 2, ".", ",").'%';
+            } else {
+                return number_format($value).'%';
+          }
+
+      }
+  }
+
+  
   function get_permission($value, $permit)
   {
       if (in_array($value, $permit)){
@@ -200,4 +215,42 @@ function terbilang($x){
       } else {
           return FALSE;
       }
+  }
+
+  function get_list_day($month, $year)
+  {
+    $count = cal_days_in_month(CAL_GREGORIAN,$month, $year);
+    $list_day = array();
+    if ($month < 10){
+        $month = '0'.$month;
+    }
+    for ($i=1; $i <= $count ; $i++) {
+        $j = $i;
+        if ($i < 10) {
+            $j = '0'.$i;
+        }
+        
+
+        $list_day[] = $year.'-'.$month.'-'.$j;
+    }
+    return $list_day;
+  }
+
+  function get_list_month()
+  {
+    $month = array(
+        array ('key' => 1, 'month' => 'Januari'),
+        array ('key' => 2, 'month' => 'Februari'),
+        array ('key' => 3, 'month' => 'Maret'),
+        array ('key' => 4, 'month' => 'April'),
+        array ('key' => 5, 'month' => 'Mei'),
+        array ('key' => 6, 'month' => 'Juni'),
+        array ('key' => 7, 'month' => 'Juli'),
+        array ('key' => 8, 'month' => 'Agustus'),
+        array ('key' => 9, 'month' => 'September'),
+        array ('key' => 10, 'month' => 'Oktober'),
+        array ('key' => 11, 'month' => 'November'),
+        array ('key' => 12, 'month' => 'Desember'),
+    );
+    return $month;
   }

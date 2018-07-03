@@ -3,15 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Groups extends CI_Controller
 {
+    private $permit;
    public function __construct()
     {
         parent::__construct();
+        $this->load->model('Ion_auth_model');
+        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+
         if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
-        }else{
-            if (!$this->ion_auth->in_group('admin')) {//cek admin ga?
-                redirect('login','refresh');
-            }
         }
         $this->load->model('modelgroup','group');
         $this->load->library('form_validation');
@@ -20,16 +20,26 @@ class Groups extends CI_Controller
 
     public function index()
     {
+        $cek = get_permission('admin', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data['aktif']		  ='Group';
     		$data['judul']      ='Dashboard';
     		$data['sub_judul']	='Group';
         $data['groups']      = $this->group->get_all();
         $data['content']    = 'group/groups';
-        $this->load->view('administrator/dashboard',$data);
+        $data['menu']			= $this->permit[0];
+		$data['submenu']		= $this->permit[1];
+        $this->load->view('panel/dashboard',$data);
     }
 
     public function create()
     {
+       $cek = get_permission('admin', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+       }
       $data = array(
           'button' => 'Save',
           'action' => site_url('users/groups/create_action'),
@@ -41,11 +51,17 @@ class Groups extends CI_Controller
     		$data['judul']      ='Dashboard';
     		$data['sub_judul']	='Group';
         $data['content']    ='group/table_group_form';
-        $this->load->view('administrator/dashboard',$data);
+        $data['menu']			= $this->permit[0];
+		$data['submenu']		= $this->permit[1];
+        $this->load->view('panel/dashboard',$data);
     }
 
     public function create_action()
     {
+        $cek = get_permission('admin', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -64,6 +80,10 @@ class Groups extends CI_Controller
 
     public function update($id)
     {
+        $cek = get_permission('admin', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->group->get_by_id($id);
 
         if ($row) {
@@ -77,8 +97,10 @@ class Groups extends CI_Controller
             $data['aktif']		  ='Group';
             $data['judul']      ='Dashboard';
             $data['sub_judul']	='Edit Group';
+            $data['menu']			= $this->permit[0];
+		    $data['submenu']		= $this->permit[1];
             $data['content']    ='group/table_group_form';
-            $this->load->view('administrator/dashboard',$data);
+            $this->load->view('panel/dashboard',$data);
         } else {
             $this->session->set_flashdata('message', 'Tidak Ada Data');
             redirect(site_url('users/groups'));
@@ -87,6 +109,10 @@ class Groups extends CI_Controller
 
     public function update_action()
     {
+        $cek = get_permission('admin', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -106,6 +132,10 @@ class Groups extends CI_Controller
 
     public function delete($id)
     {
+        $cek = get_permission('admin', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $row = $this->group->get_by_id($id);
         //$row = $this->suplier_model->cek_kode_suplier($id);
         if ($row) {

@@ -52,6 +52,7 @@
             ?>
             </select>
         </div>
+        <input type="hidden" name="akses" id="akses" value="<?php echo $this->session->userdata('username'); ?>">
         <div class="col-md-3 col-sm-12 col-xs-12 form-group">
           <div class="text-right">
             <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
@@ -74,7 +75,8 @@
               <th>Qty</th>
               <th>Satuan</th>
               <th>Tanggal Kirim</th>
-              <th>Staus</th>
+              <th>Status</th>
+              <th>Sumber Data</th>
               <th>Keterangan</th>
               <th>Aksi</th>
           </tr>
@@ -90,7 +92,8 @@
           <th>Qty</th>
           <th>Satuan</th>
           <th>Tanggal Kirim</th>
-          <th>Staus</th>
+          <th>Status</th>
+          <th>Sumber Data</th>
           <th>Keterangan</th>
           <th>Aksi</th>
         </tr>

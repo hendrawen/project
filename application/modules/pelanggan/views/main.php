@@ -27,10 +27,15 @@
                     <div class="col-md-2 col-sm-12 col-xs-12 form-group">
                       <?php echo $form_status; ?>
                     </div>
-
-                    <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-                      <?php echo $form_surveyor; ?>
-                    </div>
+                    <?php
+                      $cek = get_permission('Admin', $submenu);
+                      if ($cek) {//cek admin ga?
+                          echo '<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                           '.$form_surveyor.'
+                        </div>';
+                      }
+                    ?>
+                    
                     <div class="col-md-1 col-sm-12 col-xs-12 form-group">
                       <select class="form-control select2" data-width="100%" name="created_at" id="created_at">
                          <option value="" readonly>Bulan</option>

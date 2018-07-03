@@ -11,4 +11,5 @@ tr > th {
 .wider_kecamatan{
     padding-left: 70px !important;
     padding-right: 70px !important;
+    vertical-align: middle !important;
 }
