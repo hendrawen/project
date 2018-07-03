@@ -42,6 +42,10 @@ class Debt extends CI_Controller {
         $days = get_list_day($bulan, $tahun);
         $result = '';
         $target = $this->model->get_target();
+        $count['jadwal'] = 0; $count['actual'] = 0;
+        $count['muat'] = 0; $count['terkirim'] = 0; $count['kembali'] = 0; $count['return'] = 0; $count['rusak'] = 0;
+        $count['target'] = 0; $count['qty'] = 0;
+        $count['krat'] = 0; $count['botol'] = 0;$count['value'] = 0;
         for ($i=0; $i < sizeof($days); $i++) { 
             $cust_jadwal = $this->model->get_customer_jadwal($days[$i], $id_karyawan);
             $cust_actual = $this->model->get_customer_actual($days[$i], $id_karyawan);
@@ -50,6 +54,15 @@ class Debt extends CI_Controller {
             $qty = $this->model->get_qty($days[$i], $id_karyawan);
             $penarikan = $this->model->get_penarikan($days[$i], $id_karyawan);
             // $cust_persen = 0;
+
+            $count['jadwal'] += $cust_jadwal; $count['actual'] += $cust_actual;
+            $count['muat'] += $barang['muat']; $count['terkirim'] += $barang['terkirim'];
+            $count['kembali'] += $barang['kembali']; $count['return'] += $barang['return']; $count['rusak'] += $barang['rusak'];
+            $count['target'] += $target; $count['qty'] += $qty;
+            $count['krat'] += $penarikan['krat']; 
+            $count['botol'] += $penarikan['botol'];
+            $count['value'] += $penarikan['value'];
+            
             $result .= 
             "<tr>
                 <td>".tgl_indo($days[$i])."</td>
@@ -70,8 +83,28 @@ class Debt extends CI_Controller {
                 <td>".angka($penarikan['krat'])."</td>
                 <td>".angka($penarikan['botol'])."</td>
                 <td>".angka($penarikan['value'])."</td>
-            </tr>";
+            </tr>
+            ";
         }
+        $result .= "
+            <tr>
+                <th>JUMLAH</th>
+                <th>".angka($count['jadwal'])."</th>
+                <th>".angka($count['actual'])."</th>
+                <th>".$this->persentase($count['actual'], $count['jadwal'])."</th>
+                <th>".angka($count['muat'])."</th>
+                <th>".angka($count['terkirim'])."</th>
+                <th>".angka($count['kembali'])."</th>
+                <th>".angka($count['return'])."</th>
+                <th>".angka($count['rusak'])."</th>
+                <th>".angka($count['target'])."</th>
+                <th>".angka($count['qty'])."</th>
+                <th>".$this->persentase($count['qty'], $count['target'])."</th>
+                <th>".angka($count['krat'])."</th>
+                <th>".angka($count['botol'])."</th>
+                <th>".angka($count['value'])."</th>
+            </tr>
+        ";
         /*
         
 
@@ -84,7 +117,7 @@ class Debt extends CI_Controller {
         if ($a <= 0 || $b <= 0){
             return angka(0);
         } else {
-            $c = $a / $b;
+            $c = ($a / $b) * 100;
             return persen($c);
         }
     }

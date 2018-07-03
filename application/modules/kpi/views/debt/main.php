@@ -88,7 +88,6 @@
             </tr>
           </thead>
           <tbody id="tbody-kpi-debt">
-            
           </tbody>
       </table>
     </div>
