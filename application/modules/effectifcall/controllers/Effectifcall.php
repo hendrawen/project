@@ -55,6 +55,7 @@ class Effectifcall extends CI_Controller{
             $row[] = $lists->satuan;
             $row[] = tgl_indo($lists->tgl_kirim);
             $row[] = $lists->status;
+            $row[] = $lists->sumber_data;
             $row[] = $lists->keterangan;
             $row[] = '
             <a href="'.base_url('effectifcall/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
@@ -90,16 +91,17 @@ class Effectifcall extends CI_Controller{
         	    'qty' => set_value('qty'),
         	    'tgl_kirim' => set_value('tgl_kirim'),
         	    'keterangan' => set_value('keterangan'),
+        	    'sumber_data' => set_value('sumber_data'),
         	    'wp_status_effectif_id' => set_value('wp_status_effectif_id'),
         	    'created_at' => set_value('created_at'),
         	    'updated_at' => set_value('updated_at'),
           );
           $data['aktif']			='Active Call';
-      		$data['title']			='Brajamarketindo';
-      		$data['judul']			='Dashboard';
-              $data['sub_judul']		='List Effectif Call';
-              $data['menu']			= $this->permit[0];
-              $data['submenu']		= $this->permit[1];
+      	  $data['title']			='Brajamarketindo';
+      	  $data['judul']			='Dashboard';
+          $data['sub_judul']		='List Effectif Call';
+          $data['menu']			    = $this->permit[0];
+          $data['submenu']		    = $this->permit[1];
           $data['content']			= 'form';
           $this->load->view('panel/dashboard', $data);
     }
@@ -125,6 +127,7 @@ class Effectifcall extends CI_Controller{
                       'satuan'  => $this->input->post('satuan', true),
                       'tgl_kirim' => $this->input->post('tgl_kirim', true),
                       'keterangan' => $this->input->post('keterangan', true),
+                      'sumber_data' => $this->input->post('sumber_data', true),
                       'wp_status_effectif_id' => $this->input->post('wp_status_effectif_id', true),
                       'created_at' => date('Y-m-d H:i:s'),
                       'username' => $this->session->identity,
@@ -153,6 +156,7 @@ class Effectifcall extends CI_Controller{
             		'satuan' => set_value('satuan', $row->satuan),
             		'tgl_kirim' => set_value('tgl_kirim', $row->tgl_kirim),
             		'keterangan' => set_value('keterangan', $row->keterangan),
+            		'sumber_data' => set_value('sumber_data', $row->sumber_data),
             		'wp_status_effectif_id' => set_value('wp_status_effectif_id', $row->wp_status_effectif_id),
                 'username' => $this->session->identity,
 	          );
@@ -188,6 +192,7 @@ class Effectifcall extends CI_Controller{
                 'satuan'  => $this->input->post('satuan', true),
                 'tgl_kirim' => $this->input->post('tgl_kirim', true),
                 'keterangan' => $this->input->post('keterangan', true),
+                'sumber_data' => $this->input->post('sumber_data', true),
                 'wp_status_effectif_id' => $this->input->post('wp_status_effectif_id', true),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'username' => $this->session->identity,
@@ -213,6 +218,7 @@ class Effectifcall extends CI_Controller{
       # code...
     	$this->form_validation->set_rules('wp_pelanggan_id', 'ID Pelanggan', 'trim|required');
     	$this->form_validation->set_rules('wp_status_effectif_id', 'Status', 'trim|required');
+    	$this->form_validation->set_rules('sumber_data', 'sumber_data', 'trim|required');
     	$this->form_validation->set_rules('id', 'id', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

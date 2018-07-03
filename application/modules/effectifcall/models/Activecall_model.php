@@ -6,7 +6,7 @@ class Activecall_model extends CI_Model{
   public $id = 'id';
   var $table = 'v_activecall';
   var $table2 = 'wp_list_effectif';
-  var $column_order = array('tanggal','id_pelanggan','nama_pelanggan','barang','qty','satuan','tgl_kirim','status','keterangan', null); //set column field database for datatable orderable
+  var $column_order = array('tanggal','id_pelanggan','nama_pelanggan','barang','qty','satuan','tgl_kirim','status', 'sumber_data', 'keterangan', null); //set column field database for datatable orderable
   var $column_search = array('tanggal','id_pelanggan','nama_pelanggan','status','tgl_kirim'); //set column field database for datatable searchable
   var $order = array('tanggal' => 'DESC'); // default order
 
@@ -29,6 +29,11 @@ class Activecall_model extends CI_Model{
      if($this->input->post('tahun'))
      {
          $this->db->like('year(tanggal)', $this->input->post('tahun'));
+     }
+     $akses = $this->input->post('akses');
+     if ($akses !== 'administrator') {
+         # code...
+        $this->db->where('username', $akses);
      }
      $this->db->from($this->table);
      $i = 0;
