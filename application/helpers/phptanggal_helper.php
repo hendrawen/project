@@ -235,3 +235,22 @@ function terbilang($x){
     }
     return $list_day;
   }
+
+  function get_list_month()
+  {
+    $month = array(
+        array ('key' => 1, 'month' => 'Januari'),
+        array ('key' => 2, 'month' => 'Februari'),
+        array ('key' => 3, 'month' => 'Maret'),
+        array ('key' => 4, 'month' => 'April'),
+        array ('key' => 5, 'month' => 'Mei'),
+        array ('key' => 6, 'month' => 'Juni'),
+        array ('key' => 7, 'month' => 'Juli'),
+        array ('key' => 8, 'month' => 'Agustus'),
+        array ('key' => 9, 'month' => 'September'),
+        array ('key' => 10, 'month' => 'Oktober'),
+        array ('key' => 11, 'month' => 'November'),
+        array ('key' => 12, 'month' => 'Desember'),
+    );
+    return $month;
+  }

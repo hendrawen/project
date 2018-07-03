@@ -5,12 +5,12 @@ $(document).ready(function() {
     $('#filter-bulan').select2();
     $('#filter-tahun').select2();
     $('#filter-karyawan').select2();
-    // $('#table-kpi-debt').DataTable();
-    get_now();
+    // $('#table-kpi-marketing').DataTable();
+    // get_now();
     
 });
 
-$('#btn-filter-kpi-debt').click(function () { 
+$('#btn-filter-kpi-marketing').click(function () { 
     get();        
 });
 
@@ -29,7 +29,7 @@ function get() {
     }
     $("#loading").show();
     $.ajax({
-        url: base_url+'kpi/debt/list',
+        url: base_url+'kpi/marketing/list',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -39,7 +39,7 @@ function get() {
         },
         success : function (data) {
             $("#loading").hide();
-            $("#tbody-kpi-debt").html(data);
+            $("#tbody-kpi-marketing").html(data);
         }
     });
 }
@@ -51,7 +51,7 @@ function get_now() {
 
     $("#loading").show();
     $.ajax({
-        url: base_url+'kpi/debt/list',
+        url: base_url+'kpi/marketing/list',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -61,12 +61,12 @@ function get_now() {
         },
         success : function (data) {
             $("#loading").hide();
-            $("#tbody-kpi-debt").html(data);
+            $("#tbody-kpi-marketing").html(data);
         }
     });
 }
 
-$("#btn-reset-kpi-debt").click(function () { 
+$("#btn-reset-kpi-marketing").click(function () { 
     month = (new Date).getMonth() + 1;
     year = (new Date).getFullYear();
     $("#filter-bulan").val(month).trigger('change');;
