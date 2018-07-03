@@ -57,18 +57,18 @@
               <th colspan = 4>Costumers</th>
               <th colspan = 3>Responden</th>
               <th colspan = 3>Quantity</th>
-              
+
             </tr>
             <tr>
               <th>Target</th>
               <th>Aktual</th>
               <th>Aktif</th>
               <th>Persen</th>
-            
+
               <th>Target</th>
               <th>Aktual</th>
               <th>Persen</th>
-            
+
               <th>Target</th>
               <th>Aktual</th>
               <th>Persen</th>
@@ -81,4 +81,3 @@
     </div>
   </div>
 </div>
-
