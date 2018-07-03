@@ -56,7 +56,8 @@
         	    'nama_pel'   => set_value('nama_pel'),
         	    'validator'  => set_value('validator'),
         	    'tanggal'    => set_value('tanggal'),
-        	    'ket'        => set_value('ket'),
+                'sumber_data'  => set_value('sumber_data'),
+                'ket'        => set_value('ket'),
               'aktif'      => 'Jadwal Kunjungan',
               'menu'       => $this->permit[0],
               'submenu'	   => $this->permit[1],
@@ -86,7 +87,8 @@
                 $data = array(
             		'id_pelanggan' => $this->input->post('nama_pel',TRUE),
             		'id_karyawan' => $this->input->post('validator',TRUE),
-            		'tanggal_kunjungan' => $this->input->post('tanggal',TRUE),
+                    'tanggal_kunjungan' => $this->input->post('tanggal',TRUE),
+                    'sumber_data' => $this->input->post('sumber_data',TRUE),
             		'keterangan' => $this->input->post('ket',TRUE),
             	  );
 
@@ -111,7 +113,8 @@
           	    'id_jadwal'  => set_value('id_jadwal', $row->id_jadwal),
           	    'nama_pel'   => set_value('nama_pel', $row->id_pelanggan),
           	    'validator'  => set_value('validator', $row->id_karyawan),
-          	    'tanggal'    => set_value('tanggal', $row->tanggal_kunjungan),
+                  'tanggal'    => set_value('tanggal', $row->tanggal_kunjungan),
+                  'sumber_data'    => set_value('sumber_data', $row->sumber_data),
           	    'ket'        => set_value('ket', $row->keterangan),
                 'aktif'      => 'Jadwal Kunjungan',
                 'menu'       => $this->permit[0],
@@ -146,6 +149,7 @@
               'id_pelanggan' => $this->input->post('nama_pel',TRUE),
               'id_karyawan' => $this->input->post('validator',TRUE),
               'tanggal_kunjungan' => $this->input->post('tanggal',TRUE),
+              'sumber_data' => $this->input->post('sumber_data',TRUE),
               'keterangan' => $this->input->post('ket',TRUE),
               );
 
@@ -178,7 +182,8 @@
         	$this->form_validation->set_rules('nama_pel', 'nama_pel', 'trim|required');
         	$this->form_validation->set_rules('validator', 'validator', 'trim|required');
         	// $this->form_validation->set_rules('tanggal', 'tanggal', 'regex_match[(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]'); 
-        	$this->form_validation->set_rules('ket', 'ket', 'trim');
+            $this->form_validation->set_rules('ket', 'ket', 'trim|required');
+            $this->form_validation->set_rules('sumber_data', 'sumber_data', 'trim|required');
         	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         }
 

@@ -27,6 +27,7 @@
           <th>Pelanggan</th>
           <th>Validator</th>
           <th>Tanggal Kunjungan</th>
+          <th>Sumber Data</th>
           <th>Keterangan</th>
           <th style="text-align:center" >Action</th>
         </tr>
@@ -37,9 +38,10 @@
           foreach($jadwal as $key){ ?>
          <tr>
               <td><?php echo $no++ ?></td>
-              <td><?php echo $key->nama_pelanggan ?></td>
+              <td><?php echo $key->id_pelanggan ?> - <?php echo $key->nama_pelanggan ?></td>
               <td><?php echo $key->nama ?></td>
               <td><?php echo $key->tanggal_kunjungan ?></td>
+              <td><?php echo $key->sumber_data ?></td>
               <td><?php echo $key->keterangan ?></td>
               <td style="text-align:center">
                 <a href="<?=site_url()?>jadwalkunjungan/update/<?=$key->id_jadwal ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>

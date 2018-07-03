@@ -8,7 +8,7 @@
           public $order = 'DESC';
 
         function getall(){
-            $this->db->select('id_jadwal, nama_pelanggan, nama, tanggal_kunjungan, jadwal_kunjungan.keterangan');
+            $this->db->select('id_jadwal, nama_pelanggan, nama, tanggal_kunjungan, sumber_data, jadwal_kunjungan.keterangan, wp_pelanggan.id_pelanggan, wp_karyawan.id_karyawan');
             $this->db->from('jadwal_kunjungan');
             $this->db->join('wp_pelanggan', 'wp_pelanggan.id = jadwal_kunjungan.id_pelanggan');
             $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = jadwal_kunjungan.id_karyawan');
