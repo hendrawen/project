@@ -26,9 +26,9 @@
           <div class="input-group">
             <span class="input-group-addon">Bulan <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
             <select class="form-control" id="filter-bulan" >
-              <option value="" selected>--Semua Bulan--</option>
+              <option value="" selected>--Pilih Bulan--</option>
               <?php foreach ($list_bulan as $row): ?>
-                <option id-bulan="<?=$row['key'] ?>" value="<?=$row['key'] ?>"><?=$row['month'] ?></option>
+                <option <?=($row['key'] == date('n'))?'selected':'';?> value="<?=$row['key'] ?>"><?=$row['month'] ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -39,16 +39,28 @@
             <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
             <select class="form-control" id="filter-tahun">
               <option value="" selected>--Pilih Tahun --</option>
-              <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-                  echo '<option  value="'.$tahun.'">'.$tahun.'</option>';
-              } ?>
+              <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) :?>
+                  <option <?=($tahun == date('Y'))?'selected':'' ?> value="<?=$tahun?>"><?=$tahun?></option>
+              <?php endfor?>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+          <div class="input-group">
+            <span class="input-group-addon">Karyawan <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+            <select class="form-control" id="filter-karyawan">
+              <option value="" selected>--Semua Karyawan --</option>
+              <?php foreach ($list_karyawan as $k):?>
+              <option value="<?=$k->id_karyawan?>"><?=$k->nama?></option>
+              <?php endforeach?>
             </select>
           </div>
         </div>
       
-        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6 text-right">
+        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
           <button type="button" id="btn-filter-kpi-debt" class="btn btn-success btn-sm"><i class="fa fa-search"></i> Filter</button>
-          <button type="button" id="excel-kpi-debt" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Excel</button>
+          <!-- <button type="button" id="excel-kpi-debt" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Excel</button> -->
           <button type="button" id="btn-reset-kpi-debt" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i> Reload</button>
         </div>
       </form>
