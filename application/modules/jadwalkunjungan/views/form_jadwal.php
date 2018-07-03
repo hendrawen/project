@@ -29,6 +29,7 @@
                   ?>
                   <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
                   <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
+                  <?php echo $value->id_pelanggan.' - '.$value->nama_pelanggan; ?>
                   </option>
             <?php } ?>
             </select>
@@ -47,14 +48,18 @@
                     }
                     ?>
                     <option value="<?php echo $value->id_karyawan; ?>"  <?php echo $selected;?> >
+<<<<<<< HEAD
                     <?php echo $value->id_karyawan; ?> - <?php echo $value->nama; ?>
+=======
+                    <?php echo $value->id_karyawan.' - '.$value->nama; ?>
+>>>>>>> 593868ef7de619cc13135e0dee1b8eaf1e5a22d7
                     </option>
               <?php } ?>
               </select>
           </div>
 
     	    <div class="form-group">
-                <label for="varchar">Tanggal <?php echo form_error('tanggal') ?></label>
+                <label for="varchar">Tanggal Kunjungan <?php echo form_error('tanggal') ?></label>
                 <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?php echo $tanggal; ?>" />
             </div>
           <div class="form-group">

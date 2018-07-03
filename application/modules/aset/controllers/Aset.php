@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Aset extends CI_Controller
-{   
+{
     private $permit;
     function __construct()
     {
@@ -19,7 +19,7 @@ class Aset extends CI_Controller
     }
 
     public function index()
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -61,7 +61,7 @@ class Aset extends CI_Controller
     }
 
     public function create()
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -94,7 +94,7 @@ class Aset extends CI_Controller
     }
 
     public function create_action()
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -124,7 +124,7 @@ class Aset extends CI_Controller
     }
 
     public function update($id)
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -164,7 +164,7 @@ class Aset extends CI_Controller
     }
 
     public function update_action()
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -193,7 +193,7 @@ class Aset extends CI_Controller
     }
 
     public function delete($id)
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -223,7 +223,7 @@ class Aset extends CI_Controller
     }
 
     public function excel()
-    {   
+    {
         $cek = get_permission('Aset', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
@@ -248,7 +248,7 @@ class Aset extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-        xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");    
+        xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
 	xlsWriteLabel($tablehead, $kolomhead++, "Tanggal");
 	xlsWriteLabel($tablehead, $kolomhead++, "Jam");
 	xlsWriteLabel($tablehead, $kolomhead++, "Turun Krat");
@@ -266,7 +266,7 @@ class Aset extends CI_Controller
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);    
+            xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->tanggal);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->jam);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->turun_krat);
