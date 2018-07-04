@@ -39,16 +39,14 @@
           <thead>
             <tr>
                 <th>No</th>
+                <th>Id Transaksi</th>
                 <th>Tanggal</th>
                 <th>Jam</th>
+                <th>Nama Barang</th>
                 <th>Turun Krat</th>
-                <th>Turun Btl</th>
-                <th>Naik Krat</th>
-                <th>Naik Btl</th>
-                <th>Aset Krat</th>
-                <th>Aset Btl</th>
-                <th>Bayar</th>
-                <th>Keterangan</th>
+                <th>Bayar Krat</th>
+                <th>Bayar Uang</th>
+                <th>Piutang</th>
                 <th>Username</th>
                 <th>Pelanggan</th>
                 <th>Action</th>
@@ -61,23 +59,26 @@
                 ?>
                 <tr>
                   <td width="80px"><?php echo ++$start ?></td>
+                  <td><?php echo $aset->id_transaksi ?></td>
                   <td><?php echo $aset->tanggal ?></td>
                   <td><?php echo $aset->jam ?></td>
+                  <td><?php echo $aset->nama_barang?></td>
                   <td><?php echo $aset->turun_krat ?></td>
-                  <td><?php echo $aset->turun_btl ?></td>
-                  <td><?php echo $aset->naik_krat ?></td>
-                  <td><?php echo $aset->naik_btl ?></td>
-                  <td><?php echo $aset->aset_krat ?></td>
-                  <td><?php echo $aset->aset_btl ?></td>
-                  <td><?php echo $aset->bayar ?></td>
-                  <td><?php echo $aset->keterangan ?></td>
+                  <td><?php echo $aset->bayar_krat ?></td>
+                  <td><?php echo $aset->bayar_uang ?></td>
+                  <td><?php echo $aset->piutang ?></td>
                   <td><?php echo $aset->username ?></td>
                   <td><?php echo $aset->nama_pelanggan ?></td>
                   <td style="text-align:center" width="200px">
                     <?php
-                    echo anchor(site_url('aset/update/'.$aset->id), '<button type="button" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update</button>');
-                    echo '&nbsp;';
-                    echo anchor(site_url('aset/delete/'.$aset->id),'<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+                    // if ($submenu) {
+                      echo anchor(site_url('aset/update/'.$aset->id), '<button type="button" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update</button>');
+                      echo '&nbsp;';
+                      echo anchor(site_url('aset/delete/'.$aset->id),'<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+                    // } elseif ($submenu2) {
+                    //   echo "No Action";
+                    // }
+
                     ?>
                   </td>
                 </tr>
@@ -88,14 +89,14 @@
       </table>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <a href="#" class="btn btn-primary">Total Record : <?php echo $total_rows ?></a>
-    <?php echo anchor(site_url('aset/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-      </div>
+            <?php echo anchor(site_url('aset/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+        </div> -->
             <div class="col-md-6 text-right">
                 <?php echo $pagination ?>
             </div>
-        </div>
+    </div>
 
       </div>
     </div>

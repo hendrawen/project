@@ -8,13 +8,6 @@ class Laporan extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    // if (!$this->ion_auth->logged_in()) {//cek login ga?
-    //         redirect('login','refresh');
-    //     }else{
-    //         if (!$this->ion_auth->in_group('som') AND !$this->ion_auth->in_group('admin')) {//cek admin ga?
-    //             redirect('login','refresh');
-    //         }
-    //     }
     $this->load->model('Model_laporan', 'mLap');
     $this->load->model('Model_dep', 'dep');
     $this->load->library('table');
@@ -26,53 +19,8 @@ class Laporan extends CI_Controller{
 		}
   }
 
-  // function get_all()
-  // {
-  //   $data = $this->mLap->get_all();
-  //   $pesan = "";
-  //   $no = 1;
-  //   $total = 0;
-  //   if ($data) {
-  //     foreach ($data as $row) {
-  //       $pesan .= '<tr>
-  //         <td>'.$no++.'</td>
-  //         <td>'.$row->id_transaksi.'</td>
-  //         <td>'.$row->tgl_transaksi.'</td>
-  //         <td>'.$row->jatuh_tempo.'</td>
-  //         <td>'.$row->id_pelanggan.'</td>
-  //         <td>'.$row->nama_pelanggan.'</td>
-  //         <td>'.$row->nama_barang.'</td>
-  //         <td>'.$row->qty.'</td>
-  //         <td>'.$row->satuan.'</td>
-  //         <td>'.$row->kota.'</td>
-  //         <td>'.$row->kecamatan.'</td>
-  //         <td>'.$row->kelurahan.'</td>
-  //         <td>'.$row->no_telp.'</td>
-  //         <td>'.$row->nama_karyawan.'</td>
-  //         <td>'.$row->username.'</td>
-  //         <td>'.number_format($row->subtotal).'</td>
-  //       </tr>';
-  //       $total += $row->subtotal;
-  //     }
-  //     $pesan .= '<tr>
-  //     <td colspan=14 class=text-right>Total</td>
-  //     <td colspan=2>'.number_format($total).'</td>
-  //     </tr>';
-  //   } else {
-  //     $pesan .= '<tr>
-  //       <td colspan=16>Record not found</td>
-  //     </tr>';
-  //   }
-  //   echo $pesan;
-  // }
-
-  /*
-    pelanggan
-  */
-
   function pelanggan()
   { 
-    
     $cek = get_permission('Growth Pelanggan', $this->permit[1]);
     if (!$cek) {//cek admin ga?
         redirect('panel','refresh');
@@ -81,7 +29,6 @@ class Laporan extends CI_Controller{
     $from = $to - 1 ;
     $year = date('Y');
 
-    // $record = $this->mLap->laporan_pelanggan($from, $to, $year);
     $data = array(
         'aktif'			=>'som',
         'title'			=>'Brajamarketindo',

@@ -23,7 +23,7 @@ class Delivery extends CI_Controller
 
     public function index()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
+        $cek = get_permission('Aset', $this->permit[1]);
         if (!$cek) {//cek admin ga?
             redirect('panel','refresh');
         }
@@ -43,7 +43,7 @@ class Delivery extends CI_Controller
 
     public function penarikan()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
+        $cek = get_permission('Aset', $this->permit[1]);
         if (!$cek) {//cek admin ga?
             redirect('panel','refresh');
         }
