@@ -1,5 +1,4 @@
 
-
 <div class="x_panel">
   <div class="x_title">
     <h2><?php echo ($button == "Create")?"Form Tambah Aset":"Form Update Aset" ?></h2>
@@ -26,11 +25,31 @@
       <div class="row form-group">
           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Nama Pelanggan <?php echo form_error('wp_pelanggan_id') ?></label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            <select class="form-control js-example-basic-single" name="wp_pelanggan_id" id="wp_pelanggan_id">
+            <select class="form-control" name="wp_pelanggan_id" id="wp_pelanggan_id">
               <option value="" disabled selected>-- Pilih Pelanggan --</option>
               <?php foreach ($pelanggan_list as $key): ?>
                 <option <?php echo ($key->id == $wp_pelanggan_id)?'selected':'' ?> value="<?php echo $key->id ?>"><?php echo $key->id_pelanggan.' - '. $key->nama_pelanggan ?></option>
               <?php endforeach; ?>
+            </select>
+          </div>
+      </div>
+      <div class="row form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Nama Barang <?php echo form_error('wp_barang_id') ?></label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <select class="form-control" name="wp_barang_id" id="wp_barang_id">
+            <option disabled selected>--Pilih Barang--</option>
+            <?php
+                  $users = $this->db->query("SELECT * FROM wp_barang");
+                  foreach($users->result() as $value){
+                  $selected= '';
+                  if($wp_barang_id == $value->id){
+                    $selected = 'selected="selected"';
+                  }
+                  ?>
+                  <option  value="<?php echo $value->id; ?>" <?php echo $selected;?>>
+                  <?php echo $value->id; ?> - <?php echo $value->nama_barang; ?>
+                  </option>
+                <?php } ?>
             </select>
           </div>
       </div>
@@ -40,48 +59,28 @@
           <input type="number" class="form-control" name="turun_krat" id="turun_krat" placeholder="Turun Krat" value="<?php echo $turun_krat; ?>" />
         </div>
       </div>
+      
       <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Turun Botol <?php echo form_error('turun_btl') ?></label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Bayar Krat <?php echo form_error('bayar_krat') ?></label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="turun_btl" id="turun_btl" placeholder="Turun Botol" value="<?php echo $turun_btl; ?>" />
+          <input type="number" min="0" class="form-control" name="bayar_krat" id="bayar_krat" placeholder="Naik Krat" value="<?php echo $bayar_krat; ?>" />
         </div>
       </div>
+      
       <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Naik Krat <?php echo form_error('naik_krat') ?></label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Bayar Uang <?php echo form_error('bayar_uang') ?></label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="naik_krat" id="naik_krat" placeholder="Naik Krat" value="<?php echo $naik_krat; ?>" />
+          <input type="number" min="0" class="form-control" name="bayar_uang" id="bayar_uang" placeholder="Bayar Uang" value="<?php echo $bayar_uang; ?>" />
         </div>
       </div>
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Naik Botol <?php echo form_error('naik_btl') ?></label>
+
+       <div class="row form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Piutang <?php echo form_error('piutang') ?></label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="naik_btl" id="naik_btl" placeholder="Naik Botol" value="<?php echo $naik_btl; ?>" />
-        </div>
+            <input type="number" min="0" class="form-control" name="piutang" placeholder="Piutang" value="<?php echo $piutang; ?>" />
+          </div>
       </div>
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Aset Krat <?php echo form_error('aset_krat') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="aset_krat" id="aset_krat" placeholder="Aset Krat" value="<?php echo $aset_krat; ?>" />
-        </div>
-      </div>
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Aset Botol <?php echo form_error('aset_btl') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="aset_btl" id="aset_btl" placeholder="Aset Botol" value="<?php echo $aset_btl; ?>" />
-        </div>
-      </div>
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Bayar <?php echo form_error('bayar') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="bayar" id="bayar" placeholder="Bayar" value="<?php echo $bayar; ?>" />
-        </div>
-      </div>
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="keterangan">Keterangan <?php echo form_error('keterangan') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-          <textarea class="form-control" rows="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea>
-        </div>
-      </div>
+
       <div class="row">
         <div class="col-md-3 col-sm-3 col-xs-12"></div>
         <div class="col-md-9 col-sm-9 col-xs-12">

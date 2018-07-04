@@ -102,6 +102,7 @@ class Lap_dep extends CI_Controller{
           'sub_judul'	=>'SOM',
           'content'		=>'dep/laporan_bulanan',
           'month'     => $this->month,
+          'bulanan'    =>$this->dep->get_harian(),
       );
       $data['menu']			= $this->permit[0];
 		  $data['submenu']		= $this->permit[1];
@@ -165,6 +166,7 @@ class Lap_dep extends CI_Controller{
           'judul'			=>'Dashboard',
           'sub_judul'	=>'SOM',
           'content'		=>'dep/laporan_tahunan',
+          'tahunan'    =>$this->dep->get_harian(),
       );
       $data['menu']			= $this->permit[0];
 		  $data['submenu']		= $this->permit[1];
