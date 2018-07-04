@@ -28,7 +28,8 @@
                   }
                   ?>
                   <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
-                  <?php echo $value->nama_pelanggan; ?>
+                  <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
+                  <?php echo $value->id_pelanggan.' - '.$value->nama_pelanggan; ?>
                   </option>
             <?php } ?>
             </select>
@@ -47,7 +48,11 @@
                     }
                     ?>
                     <option value="<?php echo $value->id_karyawan; ?>"  <?php echo $selected;?> >
-                    <?php echo $value->nama; ?>
+<<<<<<< HEAD
+                    <?php echo $value->id_karyawan; ?> - <?php echo $value->nama; ?>
+=======
+                    <?php echo $value->id_karyawan.' - '.$value->nama; ?>
+>>>>>>> 593868ef7de619cc13135e0dee1b8eaf1e5a22d7
                     </option>
               <?php } ?>
               </select>
@@ -56,6 +61,17 @@
     	    <div class="form-group">
                 <label for="varchar">Tanggal Kunjungan <?php echo form_error('tanggal') ?></label>
                 <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?php echo $tanggal; ?>" />
+            </div>
+          <div class="form-group">
+          <label>Sumber Data <?php echo form_error('sumber_data') ?></label>
+          <select name="sumber_data" id="sumber_data" class="form-control">
+            <option disabled selected>--Sumber Data--</option>
+            <option <?php if ($sumber_data=="Due Date") {echo "selected";}?> value="Due Date">Due Date</option>
+            <option <?php if ($sumber_data=="Biru") {echo "selected";}?> value="Biru">Biru</option>
+            <option <?php if ($sumber_data=="Kuning") {echo "selected";}?> value="Kuning">Kuning</option>
+            <option <?php if ($sumber_data=="Ijo") {echo "selected";}?> value="Ijo">Ijo</option>
+            <option <?php if ($sumber_data=="Pink") {echo "selected";}?> value="Pink">Pink</option>
+          </select>
             </div>
     	    <div class="form-group">
                 <label for="alamat">Keterangan <?php echo form_error('ket') ?></label>

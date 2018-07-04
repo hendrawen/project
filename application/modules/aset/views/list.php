@@ -71,9 +71,14 @@
                   <td><?php echo $aset->nama_pelanggan ?></td>
                   <td style="text-align:center" width="200px">
                     <?php
-                    echo anchor(site_url('aset/update/'.$aset->id), '<button type="button" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update</button>');
-                    echo '&nbsp;';
-                    echo anchor(site_url('aset/delete/'.$aset->id),'<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+                    // if ($submenu) {
+                      echo anchor(site_url('aset/update/'.$aset->id), '<button type="button" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update</button>');
+                      echo '&nbsp;';
+                      echo anchor(site_url('aset/delete/'.$aset->id),'<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Delete</button>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+                    // } elseif ($submenu2) {
+                    //   echo "No Action";
+                    // }
+
                     ?>
                   </td>
                 </tr>

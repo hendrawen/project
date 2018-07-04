@@ -49,7 +49,8 @@
         	    'nama_pel'   => set_value('nama_pel'),
         	    'validator'  => set_value('validator'),
         	    'tanggal'    => set_value('tanggal'),
-        	    'ket'        => set_value('ket'),
+                'sumber_data'  => set_value('sumber_data'),
+                'ket'        => set_value('ket'),
               'aktif'      => 'Jadwal Kunjungan',
               'menu'       => $this->permit[0],
               'submenu'	   => $this->permit[1],
@@ -78,7 +79,8 @@
                 $data = array(
             		'id_pelanggan' => $this->input->post('nama_pel',TRUE),
             		'id_karyawan' => $this->input->post('validator',TRUE),
-            		'tanggal_kunjungan' => $this->input->post('tanggal',TRUE),
+                    'tanggal_kunjungan' => $this->input->post('tanggal',TRUE),
+                    'sumber_data' => $this->input->post('sumber_data',TRUE),
             		'keterangan' => $this->input->post('ket',TRUE),
             	  );
 
@@ -103,7 +105,8 @@
           	    'id_jadwal'  => set_value('id_jadwal', $row->id_jadwal),
           	    'nama_pel'   => set_value('nama_pel', $row->id_pelanggan),
           	    'validator'  => set_value('validator', $row->id_karyawan),
-          	    'tanggal'    => set_value('tanggal', $row->tanggal_kunjungan),
+                  'tanggal'    => set_value('tanggal', $row->tanggal_kunjungan),
+                  'sumber_data'    => set_value('sumber_data', $row->sumber_data),
           	    'ket'        => set_value('ket', $row->keterangan),
                 'aktif'      => 'Jadwal Kunjungan',
                 'menu'       => $this->permit[0],
@@ -138,6 +141,7 @@
               'id_pelanggan' => $this->input->post('nama_pel',TRUE),
               'id_karyawan' => $this->input->post('validator',TRUE),
               'tanggal_kunjungan' => $this->input->post('tanggal',TRUE),
+              'sumber_data' => $this->input->post('sumber_data',TRUE),
               'keterangan' => $this->input->post('ket',TRUE),
               );
 
@@ -169,9 +173,66 @@
         {
         	$this->form_validation->set_rules('nama_pel', 'nama pelanggan', 'trim|required');
         	$this->form_validation->set_rules('validator', 'validator', 'trim|required');
+            $this->form_validation->set_rules('sumber_data', 'sumber_data', 'trim|required');
         	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
         	$this->form_validation->set_rules('ket', 'ket', 'trim');
         	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         }
+
+        public function excel()
+        {
+            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
+            if (!$cek) {//cek admin ga?
+                redirect('panel','refresh');
+            }
+            $this->load->helper('exportexcel');
+            $namaFile = "Jadwal_kunjungan.xls";
+            $judul = "Jadwal Kunjungan";
+            $tablehead = 3;
+            $tablebody = 4;
+            $nourut = 1;
+            //penulisan header
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+            header("Content-Type: application/force-download");
+            header("Content-Type: application/octet-stream");
+            header("Content-Type: application/download");
+            header("Content-Disposition: attachment;filename=" . $namaFile . "");
+            header("Content-Transfer-Encoding: binary ");
+
+            xlsBOF();
+
+            xlsWriteLabel(0, 0, "Data");
+            xlsWriteLabel(0, 1, ": ".$judul);
+            xlsWriteLabel(1, 0, "Tanggal");
+            xlsWriteLabel(1, 1, ": ".date('Y-m-d'));
+
+            $kolomhead = 0;
+            xlsWriteLabel($tablehead, $kolomhead++, "No");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Id jadwal");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Validator");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kunjungan");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Keterangan");
+
+    	      foreach ($this->m_jadwal->getall() as $data) {
+                $kolombody = 0;
+                //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
+                xlsWriteNumber($tablebody, $kolombody++, $nourut);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->id_jadwal);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->nama);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->tanggal_kunjungan);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->keterangan);
+
+    	          $tablebody++;
+                $nourut++;
+            }
+
+            xlsEOF();
+            exit();
+        }
+
 
     }

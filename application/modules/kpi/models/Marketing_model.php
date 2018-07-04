@@ -24,10 +24,10 @@ class Marketing_model extends CI_Model {
 
     function get_count_qty($date, $id_karyawan)
     {
-        // if($id_karyawan != 'semua')
-        // {
-        //     $this->db->where('username', $id_karyawan);
-        // }
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
         $this->db->select('qty');
         $this->db->where('tanggal', $date);
         $cek = $this->db->get('wp_list_effectif')->row();
@@ -35,6 +35,22 @@ class Marketing_model extends CI_Model {
             return $cek->qty;
         } else {
             return 0;
+        }
+    }
+
+    function get_tgl_kirim($date, $id_karyawan)
+    {
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->select('tgl_kirim, keterangan');
+        $this->db->where('tanggal', $date);
+        $cek = $this->db->get('wp_list_effectif')->row();
+        if ($cek) {
+            return $cek;
+        } else {
+            return null;
         }
     }
 

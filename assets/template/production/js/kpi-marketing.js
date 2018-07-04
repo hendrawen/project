@@ -6,7 +6,7 @@ $(document).ready(function() {
     $('#filter-tahun').select2();
     $('#filter-karyawan').select2();
     // $('#table-kpi-marketing').DataTable();
-    // get_now();
+    get_now();
     
 });
 
