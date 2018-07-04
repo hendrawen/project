@@ -34,6 +34,8 @@ class Pembayaran extends CI_Controller{
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Pembayaran';
     $data['content']		='main';
+    $data['menu']			= $this->permit[0];
+    $data['submenu']		= $this->permit[1];
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -48,6 +50,8 @@ class Pembayaran extends CI_Controller{
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Piutang';
     $data['content']		='piutang';
+    $data['menu']			= $this->permit[0];
+    $data['submenu']		= $this->permit[1];
     $this->load->view('panel/dashboard',$data);
   }
 
@@ -98,6 +102,8 @@ class Pembayaran extends CI_Controller{
     $data['judul']			='Pembayaran';
     $data['sub_judul']	='Form';
     $data['content']		='form';
+    $data['menu']			= $this->permit[0];
+    $data['submenu']		= $this->permit[1];
     $this->load->view('panel/dashboard', $data);
   }
 

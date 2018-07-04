@@ -140,6 +140,10 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kpieffectifecall.js" charset="utf-8"></script>
     <?php endif; ?>
 
+    <?php if ($this->uri->segment(1) == 'harian'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/hariandebt.js" charset="utf-8"></script>
+    <?php endif; ?>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
