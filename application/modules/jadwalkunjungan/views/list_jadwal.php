@@ -44,8 +44,8 @@
               <td style="text-align:center">
                 <a href="<?=site_url()?>jadwalkunjungan/update/<?=$key->id_jadwal ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                 <a class="btn btn-default btn-sm" onclick="return swal({
-                                        title: 'Yakin akan hapus data ini?',
-                                        text: 'Anda tidak akan melihat data ini lagi!',
+                                        title: 'Apakah Anda yakin untuk menghapus data ini?',
+                                        text: 'Data yang terhapus tidak dapat dikembalikan!',
                                         type: 'warning',
                                         showCancelButton: true,
                                         confirmButtonColor: '#d9534f',
@@ -69,13 +69,12 @@
     </table>
 
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-6">
-        <a></a>
         <?php echo anchor(site_url('jadwalkunjungan/excel'), 'Excel', 'class="btn btn-primary"'); ?>
         <?php echo anchor(site_url('jadwalkunjungan/word'), 'Word', 'class="btn btn-primary"'); ?>
   </div>
-</div>
+</div> -->
 </div>
 
 

@@ -54,7 +54,7 @@
           </div>
 
     	    <div class="form-group">
-                <label for="varchar">Tanggal <?php echo form_error('tanggal') ?></label>
+                <label for="varchar">Tanggal Kunjungan <?php echo form_error('tanggal') ?></label>
                 <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?php echo $tanggal; ?>" />
             </div>
     	    <div class="form-group">

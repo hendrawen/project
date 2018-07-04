@@ -18,6 +18,11 @@
         }
 
         function index(){
+
+          $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
+          if (!$cek) {//cek admin ga?
+              redirect('panel','refresh');
+          }
             $data = array(
                 'aktif'      => 'Jadwal Kunjungan',
                 'menu'       => $this->permit[0],
@@ -28,18 +33,6 @@
                 'jadwal'     => $this->m_jadwal->getall()
             );
 
-            $this->load->view('panel/dashboard', $data);
-        }
-
-        function form(){
-            $data = array(
-                'aktif'      => 'Jadwal Kunjungan',
-                'menu'       => $this->permit[0],
-                'submenu'	   => $this->permit[1],
-                'content'    => 'form_jadwal',
-                'judul'      => 'Dashboard',
-                'sub_judul'  => 'Jadwal Kunjungan'
-            );
             $this->load->view('panel/dashboard', $data);
         }
 
@@ -80,7 +73,6 @@
 
             if ($this->form_validation->run() == FALSE) {
                 $this->create();
-                echo 'gagal';
             } else {
 
                 $data = array(
@@ -175,9 +167,9 @@
 
         public function _rules()
         {
-        	$this->form_validation->set_rules('nama_pel', 'nama_pel', 'trim|required');
+        	$this->form_validation->set_rules('nama_pel', 'nama pelanggan', 'trim|required');
         	$this->form_validation->set_rules('validator', 'validator', 'trim|required');
-        	// $this->form_validation->set_rules('tanggal', 'tanggal', 'regex_match[(0[1-9]|1[0-9]|2[0-9]|3(0|1))-(0[1-9]|1[0-2])-\d{4}]'); 
+        	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
         	$this->form_validation->set_rules('ket', 'ket', 'trim');
         	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         }
