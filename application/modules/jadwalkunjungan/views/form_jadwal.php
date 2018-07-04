@@ -28,7 +28,7 @@
                   }
                   ?>
                   <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
-                  <?php echo $value->nama_pelanggan; ?>
+                  <?php echo $value->id_pelanggan.' - '.$value->nama_pelanggan; ?>
                   </option>
             <?php } ?>
             </select>
@@ -47,7 +47,7 @@
                     }
                     ?>
                     <option value="<?php echo $value->id_karyawan; ?>"  <?php echo $selected;?> >
-                    <?php echo $value->nama; ?>
+                    <?php echo $value->id_karyawan.' - '.$value->nama; ?>
                     </option>
               <?php } ?>
               </select>
