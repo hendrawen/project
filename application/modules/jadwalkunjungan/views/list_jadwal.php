@@ -69,12 +69,12 @@
     </table>
 
 </div>
-<!-- <div class="row">
+<div class="row">
     <div class="col-md-6">
         <?php echo anchor(site_url('jadwalkunjungan/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-        <?php echo anchor(site_url('jadwalkunjungan/word'), 'Word', 'class="btn btn-primary"'); ?>
+        <!-- <?php echo anchor(site_url('jadwalkunjungan/word'), 'Word', 'class="btn btn-primary"'); ?> -->
   </div>
-</div> -->
+</div>
 </div>
 
 

@@ -174,4 +174,60 @@
         	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
         }
 
+        public function excel()
+        {
+            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
+            if (!$cek) {//cek admin ga?
+                redirect('panel','refresh');
+            }
+            $this->load->helper('exportexcel');
+            $namaFile = "Jadwal_kunjungan.xls";
+            $judul = "Jadwal Kunjungan";
+            $tablehead = 3;
+            $tablebody = 4;
+            $nourut = 1;
+            //penulisan header
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+            header("Content-Type: application/force-download");
+            header("Content-Type: application/octet-stream");
+            header("Content-Type: application/download");
+            header("Content-Disposition: attachment;filename=" . $namaFile . "");
+            header("Content-Transfer-Encoding: binary ");
+
+            xlsBOF();
+
+            xlsWriteLabel(0, 0, "Data");
+            xlsWriteLabel(0, 1, ": ".$judul);
+            xlsWriteLabel(1, 0, "Tanggal");
+            xlsWriteLabel(1, 1, ": ".date('Y-m-d'));
+
+            $kolomhead = 0;
+            xlsWriteLabel($tablehead, $kolomhead++, "No");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Id jadwal");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Validator");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kunjungan");
+          	xlsWriteLabel($tablehead, $kolomhead++, "Keterangan");
+
+    	      foreach ($this->m_jadwal->getall() as $data) {
+                $kolombody = 0;
+                //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
+                xlsWriteNumber($tablebody, $kolombody++, $nourut);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->id_jadwal);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->nama);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->tanggal_kunjungan);
+          	    xlsWriteLabel($tablebody, $kolombody++, $data->keterangan);
+
+    	          $tablebody++;
+                $nourut++;
+            }
+
+            xlsEOF();
+            exit();
+        }
+
+
     }
