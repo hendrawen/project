@@ -88,6 +88,10 @@
                     <?php if (in_array("Effectif Call", $submenu)):?>
                     <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
                     <?php endif ?>  
+                    
+                    <?php if (in_array("Jadwal Kunjungan", $submenu)):?>
+                    <li><a <?php echo ($aktif == 'Jadwal Kunjungan')?'class="active"':"";?> href="<?php echo base_url();?>jadwalkunjungan"><i class="fa fa-tty"></i> Jadwal Kunjungan </a></li>
+                    <?php endif ?>  
 
                     <?php if (in_array("Faktur", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
