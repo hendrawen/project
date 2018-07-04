@@ -76,7 +76,7 @@
               <th colspan=3 class="text-center">Quantity</th>
               <th colspan=3 class="text-center">Penarikan Aset</th>
               <th colspan=2 class="text-center">Actual Value</th>
-              <th colspan=2 class="text-center">Keterangan</th>
+              <th rowspan=2 class="text-center">Keterangan</th>
             </tr>
             <tr>
                 <th>Jadwal</th><th>Actual</th><th>Percent</th>
@@ -84,7 +84,6 @@
                 <th>Target</th><th>Actual</th><th>Percent</th>
                 <th>Krat</th><th>Botol</th><th>Value</th>
                 <th>Pendapatan</th><th>Pengeluaran</th>
-                <th>Return</th><th>Rusak</th>
             </tr>
           </thead>
           <tbody id="tbody-kpi-debt">
