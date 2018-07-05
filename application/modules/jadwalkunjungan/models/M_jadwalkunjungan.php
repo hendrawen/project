@@ -17,6 +17,17 @@
             return $data->result();
         }
 
+        function get_per_validator(){
+            $this->db->select('id_jadwal, nama_pelanggan, nama, tanggal_kunjungan, sumber_data, jadwal_kunjungan.keterangan, wp_pelanggan.id_pelanggan, jadwal_kunjungan.id_karyawan');
+            $this->db->from('jadwal_kunjungan');
+            $this->db->join('wp_pelanggan', 'wp_pelanggan.id = jadwal_kunjungan.id_pelanggan');
+            $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = jadwal_kunjungan.id_karyawan');
+            $this->db->where('jadwal_kunjungan.id_karyawan', $this->session->identity);
+            $data = $this->db->get();
+
+            return $data->result();
+        }
+
         // get data by id
         function get_by_id($id)
         {
@@ -28,8 +39,15 @@
           return $this->db->get('wp_pelanggan')->result();
         }
 
-        function get_data_karyawan(){
-          return $this->db->get('wp_karyawan')->result();
+        function get_data_validator(){
+          $this->db->select('*');
+          $this->db->from('wp_karyawan');
+          $this->db->join('wp_jabatan', 'wp_jabatan.id = wp_karyawan.wp_jabatan_id');
+          $this->db->where('nama_jabatan', 'Validator' );
+          $data = $this->db->get();
+
+          return $data->result();
+
         }
 
         // insert data

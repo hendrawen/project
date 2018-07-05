@@ -13,7 +13,7 @@
       </div>
           <div class="row">
             <div class="col-md-6">
-                <a href="<?php echo site_url('jadwalkunjungan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo site_url('jadwalkunjungan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus" ></i> Tambah</a>
                 </div>
           </div>
             <div class="col-md-6 text-right">
