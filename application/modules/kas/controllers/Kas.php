@@ -16,8 +16,10 @@ class Kas extends CI_Controller {
 
     public function index()
     {
-        // $this->load->model('karyawan/karyawan_model','mkar');
-        // 'list_karyawan' => $this->mkar->get_all(),
+        $cek = get_permission('Keuangan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = array(
             'aktif'			=>'Kas',
             'title'			=>'Brajamarketindo',
@@ -51,7 +53,7 @@ class Kas extends CI_Controller {
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $bm->tanggal;
+            $row[] = tgl_indo($bm->tanggal);
             $row[] = $bm->nama_gudang;
             $row[] = $bm->nama;
             $row[] = $bm->keterangan;
@@ -76,6 +78,10 @@ class Kas extends CI_Controller {
 
     public function ajax_edit($id)
     {
+        $cek = get_permission('Keuangan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $data = $this->model->get_by_id($id);
         $data->tanggal = ($data->tanggal == '0000-00-00') ? '' : $data->tanggal; // if 0000-00-00 set tu empty for datepicker compatibility
         echo json_encode($data);
@@ -83,15 +89,20 @@ class Kas extends CI_Controller {
  
     public function ajax_add()
     {
+        $cek = get_permission('Keuangan', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->_validate();
         $data = array(
-                'tanggal' => $this->input->post('tanggal'),
-                'id_kantor' => $this->input->post('id_kantor'),
-                'id_karyawan' => $this->input->post('id_karyawan'),
-                'keterangan' => $this->input->post('keterangan'),
-                'pendapatan' => $this->input->post('pendapatan'),
-                'pengeluaran' => $this->input->post('pengeluaran'),
-            );
+            'tanggal' => $this->input->post('tanggal'),
+            'id_kantor' => $this->input->post('id_kantor'),
+            'id_karyawan' => $this->input->post('id_karyawan'),
+            'keterangan' => $this->input->post('keterangan'),
+            'pendapatan' => $this->input->post('pendapatan'),
+            'pengeluaran' => $this->input->post('pengeluaran'),
+            'username' => $this->session->identity,
+        );
         $insert = $this->model->save($data);
         echo json_encode(array("status" => TRUE));
     }
@@ -106,6 +117,7 @@ class Kas extends CI_Controller {
             'keterangan' => $this->input->post('keterangan'),
             'pendapatan' => $this->input->post('pendapatan'),
             'pengeluaran' => $this->input->post('pengeluaran'),
+            'username' => $this->session->identity,
         );
         $this->model->update(array('id_kas' => $this->input->post('id_kas')), $data);
         echo json_encode(array("status" => TRUE));
@@ -171,6 +183,11 @@ class Kas extends CI_Controller {
             echo json_encode($data);
             exit();
         }
+    }
+
+    function get_saldo()
+    {
+        echo json_encode("Saldo : ".number_format($this->model->get_saldo()));
     }
 
 }

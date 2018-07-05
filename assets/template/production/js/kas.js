@@ -18,7 +18,7 @@ $(document).ready(function() {
         //Set column definition initialisation properties.
         "columnDefs": [
         { 
-            "targets": [ 0 ], //first column / numbering column
+            "targets": [ 0, 7 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
         ],
@@ -35,6 +35,11 @@ $(document).ready(function() {
     });
  
     //set input/textarea/select event when change value, remove class error and remove text help block 
+    remove_parent();
+    saldo();
+});
+
+function remove_parent() {
     $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
@@ -47,11 +52,11 @@ $(document).ready(function() {
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
     });
-
-});
+}
 
 function tambah()
 {
+    remove_parent();
     isi_karyawan();
     isi_kantor();
     save_method = 'add';
@@ -66,6 +71,7 @@ function tambah()
  
 function ubah(id)
 {
+    remove_parent();
     isi_karyawan();
     isi_kantor();
     save_method = 'update';
@@ -103,6 +109,7 @@ function ubah(id)
 function reload_table()
 {
     table.ajax.reload(null,false); //reload datatable ajax 
+    saldo();
 }
  
 function simpan()
@@ -125,7 +132,6 @@ function simpan()
         dataType: "JSON",
         success: function(data)
         {
- 
             if(data.status) //if success close modal and reload ajax table
             {
                 $('#modal-kas').modal('hide');
@@ -147,7 +153,6 @@ function simpan()
             alert('Error adding / update data');
             $('#btnSave').text('Simpan'); //change button text
             $('#btnSave').attr('disabled',false); //set button enable 
- 
         }
     });
 }
@@ -202,14 +207,22 @@ function isi_kantor() {
         url: base_url+"kas/get_kantor",
         dataType: "json",
         success: function (response) {
-            console.log(response);
-            
             $.each(response, function(key, value) {
                 $('#id_kantor')
                     .append($("<option></option>")
                     .attr("value",value.id)
                     .text(value.nama_gudang));
            });
+        }
+    });
+}
+
+function saldo() {
+    $.ajax({
+        url: base_url+"kas/get_saldo",
+        dataType: "json",
+        success: function (response) {
+            $(".saldo").html(response);
         }
     });
 }

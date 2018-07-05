@@ -43,6 +43,10 @@
                       </ul>
                   </li>
                   <?php endif ?>
+
+                  <?php if (in_array("Keuangan", $menu)):?>
+                  <li><a <?php echo ($aktif == 'kas')?'class="active"':"";?> href="<?php echo base_url();?>kas"><i class="fa fa-money"></i> Keuangan </a></li>
+                  <?php endif ?>
                 
                   <?php if (in_array("Master Data", $menu)):?>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
@@ -80,7 +84,7 @@
                     <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar"></i> Jadwal</a>
                     </li>
                     <?php endif ?>
-                    <?php if (in_array("Aset", $submenu)):?>
+                    <?php if (in_array("Aset", $menu)):?>
                     <li><a <?php echo ($aktif == 'aset')?'class="active"':"";?> href="<?php echo base_url();?>aset"><i class="fa fa-cube"></i> Aset</a>
                     </li>
                     <?php endif ?>
@@ -153,13 +157,21 @@
                   <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
                   <?php endif ?>
 
-                  <?php if (in_array("Master Data", $menu)):?>
+                  <?php if (in_array("KPI", $menu)):?>
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <?php if (in_array("KPI - Sumber Data EC", $submenu)):?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/sumberdata">Sumber Data Effectif Call</a></li>
+                      <?php endif ?>
+                      <?php if (in_array("KPI - Effective Call", $submenu)):?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/effectivecall">Activity Effectif Call</a></li>
+                      <?php endif ?>
+                      <?php if (in_array("KPI - Debt", $submenu)):?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/debt">Debt & Delivery</a></li>
+                      <?php endif ?>
+                      <?php if (in_array("KPI - Marketing", $submenu)):?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/marketing">Marketing</a></li>   
+                      <?php endif ?>
                     </ul>
                   </li>
                   <?php endif ?>

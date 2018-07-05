@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Kas_model extends CI_Model {
 
     var $table = 'wp_kas';
-    var $column_order = array(null, 'tanggal','nama_gudang','karyawan.nama','keterangan','pendapatan','pengeluaran','saldo'); //set column field database for datatable orderable
-    var $column_search = array('tanggal','nama_gudang','karyawan.nama','keterangan','pendapatan','pengeluaran','saldo'); //set column field database for datatable searchable 
+    var $column_order = array(null, 'tanggal','nama_gudang','wp_karyawan.nama','keterangan','pendapatan','pengeluaran','saldo'); //set column field database for datatable orderable
+    var $column_search = array('tanggal','nama_gudang','wp_karyawan.nama','keterangan','pendapatan','pengeluaran','saldo'); //set column field database for datatable searchable 
     var $order = array('id' => 'asc'); // default order 
  
     public function __construct()
@@ -111,6 +111,13 @@ class Kas_model extends CI_Model {
     {
         $this->db->where('id_kas', $id);
         return $this->db->get($this->table)->row();
+    }
+
+    function get_saldo()
+    {
+        $this->db->select('sum(pendapatan) - sum(pengeluaran) as saldo');
+        $result = $this->db->get('wp_kas')->row();
+        return $result->saldo;
     }
 
 }

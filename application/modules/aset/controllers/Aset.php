@@ -14,15 +14,15 @@ class Aset extends CI_Controller
         $this->load->model('Ion_auth_model');
         $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-                redirect('login','refresh');
+            redirect('login','refresh');
         }
     }
 
     public function index()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
-          if (!$cek) {//cek admin ga?
-              redirect('panel','refresh');
+        $cek = get_permission('Aset', $this->permit[0]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
         }
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
@@ -55,14 +55,16 @@ class Aset extends CI_Controller
             'sub_judul'	=>'Aset',
             'content'		=>'list',
         );
+        
         $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
+        $data['submenu']		= $this->permit[1];
+        
         $this->load->view('panel/dashboard', $data);
     }
 
     public function create()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
+        $cek = get_permission('Aset', $this->permit[0]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
         }
@@ -95,7 +97,11 @@ class Aset extends CI_Controller
 
     public function create_action()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
+        $cek = get_permission('Aset', $this->permit[0]);
+          if (!$cek) {//cek admin ga?
+              redirect('panel','refresh');
+        }
+        $cek = get_permission('Full Akses', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
         }
@@ -125,7 +131,7 @@ class Aset extends CI_Controller
 
     public function update($id)
     {
-        $cek = get_permission('Aset', $this->permit[1]);
+        $cek = get_permission('Full Akses', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
         }
@@ -165,7 +171,7 @@ class Aset extends CI_Controller
 
     public function update_action()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
+        $cek = get_permission('Full Akses', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
         }
@@ -194,7 +200,7 @@ class Aset extends CI_Controller
 
     public function delete($id)
     {
-        $cek = get_permission('Aset', $this->permit[1]);
+        $cek = get_permission('Full Akses', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
         }
@@ -224,7 +230,7 @@ class Aset extends CI_Controller
 
     public function excel()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
+        $cek = get_permission('Full Akses', $this->permit[1]);
           if (!$cek) {//cek admin ga?
               redirect('panel','refresh');
         }
