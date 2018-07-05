@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '192.168.1.64',
 	'username' => 'rfun',
 	'password' => 'qwerty',
 	'database' => 'brajamarketindo',

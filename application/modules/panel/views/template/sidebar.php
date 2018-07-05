@@ -43,6 +43,10 @@
                       </ul>
                   </li>
                   <?php endif ?>
+
+                  <?php if (in_array("Keuangan", $submenu)):?>
+                  <li><a <?php echo ($aktif == 'kas')?'class="active"':"";?> href="<?php echo base_url();?>kas"><i class="fa fa-money"></i> Keuangan </a></li>
+                  <?php endif ?>
                 
                   <?php if (in_array("Master Data", $menu)):?>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>

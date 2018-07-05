@@ -1,13 +1,13 @@
 <div class="x_panel">
   <div class="x_title">
-    <h2>Pendapatan dan Pengeluaran <small></small></h2>
+    <h2 class="green saldo"></h2>
     <div class="nav navbar-right panel_toolbox">
-        <h2>Saldo</h2>
+        <button type="button" onClick="tambah()" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</button>
     </div>
     <div class="clearfix"></div>
   </div>
 
-    <button type="button" onClick="tambah()" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</button>
+    
     <div class="x_content">
         <div class="table-responsive">
             <table id="table-kas" class="table table-striped jambo_table table-bordered nowrap">

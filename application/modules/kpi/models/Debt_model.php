@@ -61,7 +61,7 @@ class Debt_model extends CI_Model {
         $this->db->select('
         (muat_krat + muat_dust) as muat,
         (terkirim_krat + terkirim_btl) as terkirim,
-        (kembali_krat + kembali_btl) as kembali, retur_krat
+        (kembali_krat + kembali_btl) as kembali, retur_krat, keterangan
         ');
         if($id_karyawan != 'semua')
         {
@@ -76,6 +76,7 @@ class Debt_model extends CI_Model {
                 'terkirim' => $result->terkirim,
                 'kembali' => $result->kembali,
                 'return' => $result->retur_krat,
+                'keterangan' => $result->keterangan,
                 'rusak' => 0,
             );
         } else {
@@ -84,6 +85,7 @@ class Debt_model extends CI_Model {
                 'terkirim' => 0,
                 'kembali' => 0,
                 'return' => 0,
+                'keterangan' => null,
                 'rusak' => 0,
             );
         }
@@ -142,6 +144,30 @@ class Debt_model extends CI_Model {
                 'krat' => 0,
                 'botol' => 0,
                 'value' => 0,
+            );
+        }
+        return $resArray;
+    }
+
+    function get_value($date, $id_karyawan)
+    {
+        $this->db->select('sum(pendapatan) as debet, sum(pengeluaran) as kredit');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('tanggal', $date);
+        $result = $this->db->get('wp_kas')->row();
+        $resArray = array();
+        if ($result) {
+            $resArray = array(
+                'debet' => $result->debet,
+                'kredit' => $result->kredit,
+            );
+        } else {
+            $resArray = array(
+                'debet' => 0,
+                'kredit' => 0,
             );
         }
         return $resArray;

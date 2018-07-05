@@ -46,6 +46,7 @@ class Debt extends CI_Controller {
         $count['muat'] = 0; $count['terkirim'] = 0; $count['kembali'] = 0; $count['return'] = 0; $count['rusak'] = 0;
         $count['target'] = 0; $count['qty'] = 0;
         $count['krat'] = 0; $count['botol'] = 0;$count['value'] = 0;
+        $count['debet'] = 0; $count['kredit'] = 0;
         for ($i=0; $i < sizeof($days); $i++) { 
             $cust_jadwal = $this->model->get_customer_jadwal($days[$i], $id_karyawan);
             $cust_actual = $this->model->get_customer_actual($days[$i], $id_karyawan);
@@ -53,7 +54,8 @@ class Debt extends CI_Controller {
 
             $qty = $this->model->get_qty($days[$i], $id_karyawan);
             $penarikan = $this->model->get_penarikan($days[$i], $id_karyawan);
-            // $cust_persen = 0;
+
+            $kas = $this->model->get_value($days[$i], $id_karyawan);
 
             $count['jadwal'] += $cust_jadwal; $count['actual'] += $cust_actual;
             $count['muat'] += $barang['muat']; $count['terkirim'] += $barang['terkirim'];
@@ -62,6 +64,8 @@ class Debt extends CI_Controller {
             $count['krat'] += $penarikan['krat']; 
             $count['botol'] += $penarikan['botol'];
             $count['value'] += $penarikan['value'];
+            $count['debet'] += $kas['debet'];
+            $count['kredit'] += $kas['kredit'];
             
             $result .= 
             "<tr>
@@ -83,6 +87,10 @@ class Debt extends CI_Controller {
                 <td>".angka($penarikan['krat'])."</td>
                 <td>".angka($penarikan['botol'])."</td>
                 <td>".angka($penarikan['value'])."</td>
+
+                <td>".angka($kas['debet'])."</td>
+                <td>".angka($kas['kredit'])."</td>
+                <td>".$barang['keterangan']."</td>
             </tr>
             ";
         }
@@ -103,10 +111,11 @@ class Debt extends CI_Controller {
                 <th>".angka($count['krat'])."</th>
                 <th>".angka($count['botol'])."</th>
                 <th>".angka($count['value'])."</th>
+                <th>".angka($count['debet'])."</th>
+                <th>".angka($count['kredit'])."</th>
             </tr>
         ";
         /*
-        
 
         */
         echo $result;
@@ -124,12 +133,10 @@ class Debt extends CI_Controller {
 
     function tes()
     {
-        $barang = $this->model->get_barang('2018-04-12','semua');
-        
+        $barang = $this->model->get_value('2018-07-14','semua');
         echo "<pre>";
         print_r ($barang);
         echo "</pre>";
-        echo date('N');
     }
 }
 

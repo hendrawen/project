@@ -51,7 +51,7 @@ class Kas extends CI_Controller {
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $bm->tanggal;
+            $row[] = tgl_indo($bm->tanggal);
             $row[] = $bm->nama_gudang;
             $row[] = $bm->nama;
             $row[] = $bm->keterangan;
@@ -85,13 +85,14 @@ class Kas extends CI_Controller {
     {
         $this->_validate();
         $data = array(
-                'tanggal' => $this->input->post('tanggal'),
-                'id_kantor' => $this->input->post('id_kantor'),
-                'id_karyawan' => $this->input->post('id_karyawan'),
-                'keterangan' => $this->input->post('keterangan'),
-                'pendapatan' => $this->input->post('pendapatan'),
-                'pengeluaran' => $this->input->post('pengeluaran'),
-            );
+            'tanggal' => $this->input->post('tanggal'),
+            'id_kantor' => $this->input->post('id_kantor'),
+            'id_karyawan' => $this->input->post('id_karyawan'),
+            'keterangan' => $this->input->post('keterangan'),
+            'pendapatan' => $this->input->post('pendapatan'),
+            'pengeluaran' => $this->input->post('pengeluaran'),
+            'username' => $this->session->identity,
+        );
         $insert = $this->model->save($data);
         echo json_encode(array("status" => TRUE));
     }
@@ -106,6 +107,7 @@ class Kas extends CI_Controller {
             'keterangan' => $this->input->post('keterangan'),
             'pendapatan' => $this->input->post('pendapatan'),
             'pengeluaran' => $this->input->post('pengeluaran'),
+            'username' => $this->session->identity,
         );
         $this->model->update(array('id_kas' => $this->input->post('id_kas')), $data);
         echo json_encode(array("status" => TRUE));
@@ -171,6 +173,11 @@ class Kas extends CI_Controller {
             echo json_encode($data);
             exit();
         }
+    }
+
+    function get_saldo()
+    {
+        echo json_encode("Saldo : ".number_format($this->model->get_saldo()));
     }
 
 }
