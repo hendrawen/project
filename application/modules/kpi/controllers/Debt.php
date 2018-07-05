@@ -17,6 +17,10 @@ class Debt extends CI_Controller {
     
     public function index()
     {
+        $cek = get_permission('KPI - Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $this->load->model('karyawan/karyawan_model','mkar');
         
         $data = array(
@@ -35,6 +39,10 @@ class Debt extends CI_Controller {
 
     function list()
     {
+        $cek = get_permission('KPI - Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
         $bulan = $this->input->post('month');
         $tahun = $this->input->post('year');
         $id_karyawan = $this->input->post('id_karyawan');
