@@ -84,7 +84,7 @@
                     <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar"></i> Jadwal</a>
                     </li>
                     <?php endif ?>
-                    <?php if (in_array("Aset", $submenu)):?>
+                    <?php if (in_array("Aset", $menu)):?>
                     <li><a <?php echo ($aktif == 'aset')?'class="active"':"";?> href="<?php echo base_url();?>aset"><i class="fa fa-cube"></i> Aset</a>
                     </li>
                     <?php endif ?>
