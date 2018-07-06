@@ -64,6 +64,7 @@
           <th>Pelanggan</th>
           <th>Validator</th>
           <th>Tanggal Kunjungan</th>
+          <th>Sumber Data</th>
           <th>Keterangan</th>
           <th style="text-align:center" >Action</th>
         </tr>
