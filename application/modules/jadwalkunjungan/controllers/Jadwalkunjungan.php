@@ -18,7 +18,8 @@
         }
 
         function test(){
-          echo $this->m_jadwal->get_per_validator();
+          $data = $this->m_jadwal->test();
+
         }
 
         function index(){
@@ -35,10 +36,11 @@
                 'judul'      => 'Dashboard',
                 'sub_judul'  => 'Jadwal Kunjungan'
             );
-            if($this->session->identity == 'administrator'){
+            if(($this->session->identity == 'administrator') || ($this->session->identity == 'som')){
               $data['jadwal'] = $this->m_jadwal->getall();
             }else {
               $data['jadwal'] = $this->m_jadwal->get_per_validator();
+              $data['test'] = 'admin';
             }
 
 

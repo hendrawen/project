@@ -70,4 +70,15 @@
             $this->db->delete($this->table);
         }
 
+        function test(){
+          $query = $this->db->query('select * from jadwal_kunjungan');
+
+          $data = $query->result();
+          foreach ($data as $key => $value) {
+            // code...
+            echo $key.$value->id_jadwal.'<br />';
+
+          }
+        }
+
     }

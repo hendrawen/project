@@ -11,7 +11,7 @@
             </ul>
             <div class="clearfix"></div>
       </div>
-          <div class="row">
+          <div class="row" style="<?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som')  ?:  'display:none' ?>">
             <div class="col-md-6">
                 <a href="<?php echo site_url('jadwalkunjungan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus" ></i> Tambah</a>
                 </div>
@@ -29,7 +29,7 @@
           <th>Tanggal Kunjungan</th>
           <th>Sumber Data</th>
           <th>Keterangan</th>
-          <th style="text-align:center" >Action</th>
+          <th style="text-align:center; <?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som')  ?:  'display:none' ?>" >Action</th>
         </tr>
       </thead>
         <tbody>
@@ -40,10 +40,10 @@
               <td><?php echo $no++ ?></td>
               <td><?php echo $key->id_pelanggan ?> - <?php echo $key->nama_pelanggan ?></td>
               <td><?php echo $key->nama ?></td>
-              <td><?php echo $key->tanggal_kunjungan ?></td>
+              <td><?php echo tgl_indo($key->tanggal_kunjungan) ?></td>
               <td><?php echo $key->sumber_data ?></td>
               <td><?php echo $key->keterangan ?></td>
-              <td style="text-align:center">
+              <td style="text-align:center; <?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som') ?:  'display:none' ?>">
                 <a href="<?=site_url()?>jadwalkunjungan/update/<?=$key->id_jadwal ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                 <a class="btn btn-default btn-sm" onclick="return swal({
                                         title: 'Apakah Anda yakin untuk menghapus data ini?',
@@ -74,7 +74,6 @@
 <div class="row">
     <div class="col-md-6">
         <?php echo anchor(site_url('jadwalkunjungan/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-        <!-- <?php echo anchor(site_url('jadwalkunjungan/word'), 'Word', 'class="btn btn-primary"'); ?> -->
   </div>
 </div>
 </div>
