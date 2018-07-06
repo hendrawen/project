@@ -52,44 +52,70 @@ class Debt extends CI_Controller {
     {
       $cari = $this->input->post('judul');
       $total = 0;
+      $pesan = "";
       $i = 0;
          $query = $this->debt->get_track($cari);
-          foreach ($query as $key) {
-            $data = array(
-                  'id'              => $key->id_transaksi,
-                  'id_pelanggan'    => $key->id_pelanggan,
-                  'name'            => $key->nama_pelanggan,
-                  'nama_barang'     => $key->nama_barang,
-                  'qty'             => $key->qty,
-                  'satuan'          => $key->satuan,
-                  'nama'            => $key->nama,
-                  'price'        => $key->subtotal,
-            ); 
-            $list_faktur =  $this->cart->insert($data);
-            ?>
-         <?php }
-            foreach ($this->cart->contents() as $row) {?>
-                <tr>
-                    <td><?php echo $row->id ?></td>
-                    <td><?php echo $row->id_pelanggan ?></td>
-                    <td><?php echo $row->name ?></td>
-                    <td><?php echo $row->nama_barang ?></td>
-                    <td><?php echo $row->qty ?></td>
-                    <td><?php echo $row->satuan ?></td>
-                    <td><?php echo $row->nama ?></td>
-                    <td><?php echo $row->price ?></td>
-                    <td></td>
-                    <td></td>
-                <tr>;
-            <input type="hidden" id="autofakturdebt" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="autofakturdebt" required="">
-         <?php }
-         ;
+         if ($query->num_rows() !== 0) {
+             # code...
+            foreach ($query->result() as $key) {
+                $data = array(
+                    'id'              => $key->id_transaksi,
+                    'id_pelanggan'    => $key->id_pelanggan,
+                    'name'            => $key->nama_pelanggan,
+                    'nama_barang'     => $key->nama_barang,
+                    'qty'             => $key->qty,
+                    'satuan'          => $key->satuan,
+                    'nama'            => $key->nama,
+                    'price'        => $key->subtotal,
+                ); 
+                $this->cart->insert($data);
+            }
+         }
+    }
+
+    function get_list()
+    {
+        $total = 0;
+        $pesan = "";
+        foreach ($this->cart->contents() as $row) {
+            $pesan .='
+            <tr>
+                <td>'.$row['id'].'</td>
+                <td>'.$row['id_pelanggan'].'</td>
+                <td>'.$row['name'].'</td>
+                <td>'.$row['nama_barang'].'</td>
+                <td>'.$row['qty'].'</td>
+                <td>'.$row['satuan'].'</td>
+                <td>'.$row['nama'].'</td>
+                <td>'.$row['price'].'</td>
+                <td></td>
+                <td></td>
+            <tr>
+        ';
+        $total +=$row['price'];
+        }
+        $pesan .='
+        <tr>
+                <td colspan="7"><b>Jumlah</b></td>
+                <td>'.$total .'
+                </td>
+                <td></td>
+                <td></td>
+        </tr>
+        ';
+        echo $pesan;
     }
 
     function cek()
     {
         # code...
         print_r($this->cart->contents());
+    }
+
+    function hapus()
+    {
+        # code...
+        $this->cart->destroy();
     }
 
 }
