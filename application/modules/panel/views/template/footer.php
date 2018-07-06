@@ -130,9 +130,6 @@
     <?php if ($this->uri->segment(1) == 'gtransaksi'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/gtransaksi.js" charset="utf-8"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(1) == 'jadwalkunjungan'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/jadwalKunjungan.js" charset="utf-8"></script>
-    <?php endif; ?>
     <?php if ($this->uri->segment(2) == 'sumberdata'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/sumberdata.js" charset="utf-8"></script>
     <?php endif; ?>
@@ -140,12 +137,10 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kpieffectifecall.js" charset="utf-8"></script>
     <?php endif; ?>
 
-<<<<<<< HEAD
     <?php if ($this->uri->segment(1) == 'harian'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/hariandebt.js" charset="utf-8"></script>
     <?php endif; ?>
 
-=======
     <?php if ($this->uri->segment(1) == 'kpi' && $this->uri->segment(2) == 'debt'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kpi-debt.js" charset="utf-8"></script>
     <?php endif; ?>
@@ -159,7 +154,6 @@
     <?php endif; ?>
 
 
->>>>>>> 2149a44f4eb28736350f5f346a6b08faeba1c30c
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>

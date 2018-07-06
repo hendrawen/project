@@ -17,10 +17,15 @@
             }
         }
 
+        function test(){
+          $data = $this->m_jadwal->test();
+
+        }
+
         function index(){
 
           $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-          if (!$cek) {//cek admin ga?
+          if (!$cek) {
               redirect('panel','refresh');
           }
             $data = array(
@@ -29,9 +34,16 @@
                 'submenu'	   => $this->permit[1],
                 'content'    => 'list_jadwal',
                 'judul'      => 'Dashboard',
-                'sub_judul'  => 'Jadwal Kunjungan',
-                'jadwal'     => $this->m_jadwal->getall()
+                'sub_judul'  => 'Jadwal Kunjungan'
             );
+            if(($this->session->identity == 'administrator') || ($this->session->identity == 'som')){
+              $data['jadwal'] = $this->m_jadwal->getall();
+            }else {
+              $data['jadwal'] = $this->m_jadwal->get_per_validator();
+              $data['test'] = 'admin';
+            }
+
+
 
             $this->load->view('panel/dashboard', $data);
         }
@@ -58,7 +70,7 @@
               'judul'      => 'Dashboard',
               'sub_judul'  => 'Jadwal Kunjungan',
               'pelanggan'  => $this->m_jadwal->get_data_pelanggan(),
-              'm_validator'  => $this->m_jadwal->get_data_karyawan()
+              'm_validator'  => $this->m_jadwal->get_data_validator()
     	       );
 
             $this->load->view('panel/dashboard', $data);
@@ -115,7 +127,7 @@
                 'judul'      => 'Dashboard',
                 'sub_judul'  => 'Jadwal Kunjungan',
                 'pelanggan'  => $this->m_jadwal->get_data_pelanggan(),
-                'm_validator'  => $this->m_jadwal->get_data_karyawan()
+                'm_validator'  => $this->m_jadwal->get_data_validator()
       	       );
 
                 $this->load->view('panel/dashboard', $data);
