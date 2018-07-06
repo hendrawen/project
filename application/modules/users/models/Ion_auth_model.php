@@ -1655,6 +1655,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->db->order_by($this->_ion_order_by, $this->_ion_order);
 		}
+		$this->db->order_by('description', 'asc');
 
 		$this->response = $this->db->get($this->tables['groups']);
 

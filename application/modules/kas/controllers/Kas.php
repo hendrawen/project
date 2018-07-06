@@ -44,6 +44,12 @@ class Kas extends CI_Controller {
         echo json_encode($list_kantor);
     }
 
+    function get_kategori()
+    {
+        $kategori = $this->model->get_kategori();
+        echo json_encode($kategori);
+    }
+
     public function ajax_list()
     {
         $list = $this->model->get_datatables();
@@ -56,7 +62,7 @@ class Kas extends CI_Controller {
             $row[] = tgl_indo($bm->tanggal);
             $row[] = $bm->nama_gudang;
             $row[] = $bm->nama;
-            $row[] = $bm->keterangan;
+            $row[] = $bm->nama_kategori;
             $row[] = angka($bm->pendapatan);
             $row[] = angka($bm->pengeluaran);
             $row[] = '
@@ -98,9 +104,9 @@ class Kas extends CI_Controller {
             'tanggal' => $this->input->post('tanggal'),
             'id_kantor' => $this->input->post('id_kantor'),
             'id_karyawan' => $this->input->post('id_karyawan'),
-            'keterangan' => $this->input->post('keterangan'),
-            'pendapatan' => $this->input->post('pendapatan'),
-            'pengeluaran' => $this->input->post('pengeluaran'),
+            'id_kategori' => $this->input->post('id_kategori'),
+            'pendapatan' => hapus_titik($this->input->post('pendapatan')),
+            'pengeluaran' => hapus_titik($this->input->post('pengeluaran')),
             'username' => $this->session->identity,
         );
         $insert = $this->model->save($data);
@@ -114,9 +120,9 @@ class Kas extends CI_Controller {
             'tanggal' => $this->input->post('tanggal'),
             'id_kantor' => $this->input->post('id_kantor'),
             'id_karyawan' => $this->input->post('id_karyawan'),
-            'keterangan' => $this->input->post('keterangan'),
-            'pendapatan' => $this->input->post('pendapatan'),
-            'pengeluaran' => $this->input->post('pengeluaran'),
+            'id_kategori' => $this->input->post('id_kategori'),
+            'pendapatan' => hapus_titik($this->input->post('pendapatan')),
+            'pengeluaran' => hapus_titik($this->input->post('pengeluaran')),
             'username' => $this->session->identity,
         );
         $this->model->update(array('id_kas' => $this->input->post('id_kas')), $data);
@@ -157,10 +163,10 @@ class Kas extends CI_Controller {
             $data['status'] = FALSE;
         }
  
-        if($this->input->post('keterangan') == '')
+        if($this->input->post('id_kategori') == '')
         {
-            $data['inputerror'][] = 'keterangan';
-            $data['error_string'][] = 'Keterangan harus diisi';
+            $data['inputerror'][] = 'Kategori';
+            $data['error_string'][] = 'Pilih Kategori';
             $data['status'] = FALSE;
         }
  
@@ -188,6 +194,11 @@ class Kas extends CI_Controller {
     function get_saldo()
     {
         echo json_encode("Saldo : ".number_format($this->model->get_saldo()));
+    }
+
+    function tes()
+    {
+        echo str_replace(".","","100.000");
     }
 
 }

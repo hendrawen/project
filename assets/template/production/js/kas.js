@@ -59,6 +59,7 @@ function tambah()
     remove_parent();
     isi_karyawan();
     isi_kantor();
+    isi_kategori();
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
@@ -74,6 +75,7 @@ function ubah(id)
     remove_parent();
     isi_karyawan();
     isi_kantor();
+    isi_kategori();
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
@@ -90,7 +92,7 @@ function ubah(id)
             $('[name="tanggal"]').val(data.tanggal);
             $('[name="id_kantor"]').val(data.id_kantor);
             $('[name="id_karyawan"]').val(data.id_karyawan);
-            $('[name="keterangan"]').val(data.keterangan);
+            $('[name="id_kategori"]').val(data.id_kategori);
             $('[name="pendapatan"]').val(data.pendapatan);
             $('[name="pengeluaran"]').val(data.pengeluaran);
             // $('[name="pendapatan"]').datepicker('update',data.pendapatan);
@@ -116,6 +118,7 @@ function simpan()
 {
     $('#btnSave').text('saving...'); //change button text
     $('#btnSave').attr('disabled',true); //set button disable 
+    HapusTitik
     var url;
  
     if(save_method == 'add') {
@@ -217,6 +220,24 @@ function isi_kantor() {
     });
 }
 
+function isi_kategori() {
+    $('#id_kategori')
+        .empty()
+        .append('<option selected="selected" value="">-- Select One --</option>');
+    $.ajax({
+        url: base_url+"kas/get_kategori",
+        dataType: "json",
+        success: function (response) {
+            $.each(response, function(key, value) {
+                $('#id_kategori')
+                    .append($("<option></option>")
+                    .attr("value",value.id)
+                    .text(value.nama));
+           });
+        }
+    });
+}
+
 function saldo() {
     $.ajax({
         url: base_url+"kas/get_saldo",
@@ -225,4 +246,45 @@ function saldo() {
             $(".saldo").html(response);
         }
     });
+}
+
+
+function FormatCurrency(objNum)
+  {
+   var num = objNum.value
+   var ent, dec;
+   if (num != '' && num != objNum.oldvalue)
+   {
+     num = HapusTitik(num);
+     if (isNaN(num))
+     {
+       objNum.value = (objNum.oldvalue)?objNum.oldvalue:'';
+     } else {
+       var ev = (navigator.appName.indexOf('Netscape') != -1)?Event:event;
+       if (ev.keyCode == 190 || !isNaN(num.split('.')[1]))
+       {
+         alert(num.split('.')[1]);
+         objNum.value = TambahTitik(num.split('.')[0])+'.'+num.split('.')[1];
+       }
+       else
+       {
+         objNum.value = TambahTitik(num.split('.')[0]);
+       }
+       objNum.oldvalue = objNum.value;
+     }
+   }
+}
+function HapusTitik(num)
+{
+   return (num.replace(/\./g, ''));
+}
+
+function TambahTitik(num)
+{
+   numArr=new String(num).split('').reverse();
+   for (i=3;i<numArr.length;i+=3)
+   {
+     numArr[i]+='.';
+   }
+   return numArr.reverse().join('');
 }
