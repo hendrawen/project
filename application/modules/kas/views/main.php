@@ -16,7 +16,7 @@
                     <th>Tanggal</th>
                     <th>Kantor</th>
                     <th>Debt / Delivery</th>
-                    <th>Keterangan</th>
+                    <th>Kategori</th>
                     <th>Pendapatan</th>
                     <th>Pengeluaran</th>
                     <th>Action</th>
@@ -30,7 +30,7 @@
 
 
 <!-- Bootstrap modal -->
-<div class="modal fade" id="modal-kas" role="dialog">
+<div class="modal fade" id="modal-kas" role="dialog" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -63,20 +63,22 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="keterangan">Keterangan</label>
-                        <textarea name="keterangan" name="keterangan" id="keterangan" class="form-control" placeholder= "Keterangan" rows="3" required="required"></textarea>
+                        <label for="id_kategori">Kategori</label>
+                        <select name="id_kategori" id="id_kategori" class="form-control">
+                            <option value="">-- Select One --</option>
+                        </select>
                         <span class="help-block"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="pendapatan">Pendapatan</label>
-                        <input type="number" class="form-control" id="pendapatan" name="pendapatan" min=0 placeholder="Pendapatan">
+                        <input type="text" onKeyUp="FormatCurrency(this)" class="form-control" id="pendapatan" name="pendapatan" min=0 placeholder="Pendapatan">
                         <span class="help-block"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="pengeluaran">Pengeluaran</label>
-                        <input type="number" class="form-control" id="pengeluaran" name="pengeluaran" min=0 placeholder="Pengeluaran">
+                        <input type="text" onKeyUp="FormatCurrency(this)" class="form-control" id="pengeluaran" name="pengeluaran" min=0 placeholder="Pengeluaran">
                         <span class="help-block"></span>
                     </div>
                 </form>

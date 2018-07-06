@@ -61,7 +61,7 @@ class Debt_model extends CI_Model {
         $this->db->select('
         (muat_krat + muat_dust) as muat,
         (terkirim_krat + terkirim_btl) as terkirim,
-        (kembali_krat + kembali_btl) as kembali, retur_krat, keterangan
+        (kembali_krat + kembali_btl) as kembali, retur_krat, keterangan, rusak
         ');
         if($id_karyawan != 'semua')
         {
@@ -77,7 +77,7 @@ class Debt_model extends CI_Model {
                 'kembali' => $result->kembali,
                 'return' => $result->retur_krat,
                 'keterangan' => $result->keterangan,
-                'rusak' => 0,
+                'rusak' => $result->rusak,
             );
         } else {
             $resArray = array(

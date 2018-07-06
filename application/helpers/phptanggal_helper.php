@@ -229,8 +229,6 @@ function terbilang($x){
         if ($i < 10) {
             $j = '0'.$i;
         }
-        
-
         $list_day[] = $year.'-'.$month.'-'.$j;
     }
     return $list_day;
@@ -253,4 +251,13 @@ function terbilang($x){
         array ('key' => 12, 'month' => 'Desember'),
     );
     return $month;
+  }
+
+  function hapus_titik($var = null)
+  {
+        if ($var != null) {
+            return str_replace(".","",$var);
+        } else {
+            return '0';
+        }
   }
