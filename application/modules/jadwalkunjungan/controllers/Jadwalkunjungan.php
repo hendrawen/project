@@ -17,11 +17,6 @@
             }
         }
 
-        function test(){
-          $data = $this->m_jadwal->test();
-
-        }
-
         function index(){
 
           $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
@@ -42,8 +37,6 @@
               $data['jadwal'] = $this->m_jadwal->get_per_validator();
               $data['test'] = 'admin';
             }
-
-
 
             $this->load->view('panel/dashboard', $data);
         }
