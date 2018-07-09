@@ -14,7 +14,8 @@ $(document).ready(function () {
         }
       })
     }
-    $("#btn-laporan-tahunan").click(function() {
+    
+    $("#btn-penarikan-tahunan").click(function() {
       tahun = $("#tahunan").val();
       $("#loading").show();
       $.ajaxSetup({
@@ -23,13 +24,13 @@ $(document).ready(function () {
           }
       });
       $.ajax({
-        url: base_url+'som/laporan/load_tahunan/',
+        url: base_url+'laporan/penarikan/load_penarikan_tahunan/',
         type: 'POST',
         dataType: 'html',
         data: {tahun: tahun},
         success : function (data) {
           $("#loading").hide();
-          $("#tbody").html(data);
+          $("#tbody-penarikan").html(data);
         }
       });
     });

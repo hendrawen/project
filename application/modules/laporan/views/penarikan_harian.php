@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table id="transaksilist datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
+      <table id="transaksilist_penarikan datatable-buttons_wrapper" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
           <thead>
             <tr>
               <th>No Faktur</th>
@@ -52,14 +52,16 @@
               <th>Surveyor</th>
               <th>Debt</th>
               <th>Jumlah</th>
-              <th>Tgl Bayar</th>
+              <th>Tgl Penarikan</th>
               <th>Bayar</th>
-              <th>Jumlah Bayar</th>
-              <th>Sisa Hutang</th>
-              <th class"wider">Status</th>
+              <th>Tgl Penarikan</th>
+              <th>Bayar</th>
+              <th>Jumlah</th>
+              <th>Sisa ASET</th>
+              <th class="wider">Status</th>
             </tr>
           </thead>
-          <tbody id="tbody">
+          <tbody id="tbody-penarikan">
           </tbody>
       </table>
     </div>

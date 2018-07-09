@@ -161,6 +161,75 @@ class Penarikan extends CI_Controller {
         echo $pesan;
     }
 
+    function tahunan()
+    {
+        $cek = get_permission('Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
+        # code...
+        $data = array(
+            'aktif'			=>'laporan',
+            'title'			=>'Brajamarketindo',
+            'judul'			=>'Dashboard',
+            'sub_judul'	    =>'Aset',
+            'content'		=>'penarikan_tahunan',
+            'month'         => $this->month,
+        );
+        $data['menu']			= $this->permit[0];
+		$data['submenu']		= $this->permit[1];
+        $this->load->view('panel/dashboard', $data);
+    }
+
+    function load_penarikan_tahunan()
+    {
+        $cek = get_permission('Debt', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
+        $tahun = $this->input->post('tahun');
+        $data = $this->laporan->penarikan_tahunan($tahun);
+        $pesan = "";
+        $total = 0;
+        if ($data) {
+        foreach ($data as $row) {
+            $pesan .= '<tr>
+            <td>'.$row->id_transaksi.'</td>
+            <td>'.tgl_indo($row->tgl_transaksi).'</td>
+            <td>'.tgl_indo($row->jatuh_tempo).'</td>
+            <td>'.$row->id_pelanggan.'</td>
+            <td>'.$row->nama_pelanggan.'</td>
+            <td>'.$row->nama_barang.'</td>
+            <td>'.$row->qty.'</td>
+            <td>'.$row->satuan.'</td>
+            <td>'.$row->kecamatan.'</td>
+            <td>'.$row->kelurahan.'</td>
+            <td>'.$row->no_telp.'</td>
+            <td>'.$row->nama.'</td>
+            <td>'.$row->username.'</td>
+            <td>'.$row->jumlah.'</td>
+            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.$row->bayar_krat.'</td>
+            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.$row->bayar_uang.'</td>
+            <td>'.$row->jumlah.'</td>
+            <td>'.$row->sisa.'</td>
+            <td>'.$row->status.'</td>
+            </tr>';
+            $total += $row->sisa;
+        }
+        $pesan .= '<tr>
+        <td colspan=19 class=text-right><b>total sisa aset</b></td>
+        <td colspan=2><b>'.$total.'</b></td>
+        </tr>';
+        } else {
+        $pesan .= '<tr>
+            <td colspan=16>Record not found</td>
+        </tr>';
+        }
+        echo $pesan;
+    }
+
     function load_penarikan_all()
     {
         $cek = get_permission('Debt', $this->permit[1]);
