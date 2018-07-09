@@ -14,7 +14,50 @@ $(document).ready(function () {
         }
       })
     }
-
+    $("#btn-laporan-tahunan").click(function() {
+      tahun = $("#tahunan").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'som/laporan/load_tahunan/',
+        type: 'POST',
+        dataType: 'html',
+        data: {tahun: tahun},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      });
+    });
+  
+    /* -------------
+    ----- penarikan aset ---
+    --------------*/
+    // harian
+    $("#btn-laporan-penarikan-harian").click(function() {
+      tgl = $("#tgl").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'laporan/penarikan/load_penarikan_harian/',
+        type: 'POST',
+        dataType: 'html',
+        data: {tgl: tgl},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      });
+    });
+  
 //laporan penarikan aset
 $("#btn-search_bulan_aset").click(function() {
     bulan_dari = $("#bulan_dari").val();
@@ -49,3 +92,4 @@ $("#btn-search_bulan_aset").click(function() {
   $("#btn-refresh-penarikan").click(function() {
     get_all_penarikan();
   });
+

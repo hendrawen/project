@@ -1,5 +1,7 @@
-<a href="<?php echo base_url('kebutuhan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
-<a href="<?php echo base_url('kebutuhan/presentasi')?>" type="button" class="btn btn-info" ><i class="fa fa-bar-chart"></i> Analisa Kebutuhan</a>
+<a href="<?php echo base_url('kebutuhan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah Kebutuhan</a>
+<a href="<?php echo base_url('jenis_kebutuhan')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Jenis Kebutuhan</a>
+<a href="<?php echo base_url('kebutuhan/presentasi')?>" type="button" class="btn btn-info" ><i class="fa fa-bar-chart"></i>Persentasi Kebutuhan</a>
+<a href="<?php echo base_url('pelanggan')?>" type="button" class="btn btn-danger text-right">Kembali</a>
 <div class="x_panel">
   <div class="x_title">
     <h2><i class="fa fa-bar-chart"></i> Progres Kebutuhan Pelanggan</h2>

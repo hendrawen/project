@@ -3,21 +3,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Som extends CI_Controller{
 
+  private $permit;
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('Ion_auth_model');
+    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
-        }else{
-            if (!$this->ion_auth->in_group('som')) {//cek admin ga?
-                redirect('login','refresh');
-            }
         }
     //Codeigniter : Write Less Do More
   }
 
   function index()
   {
+    $cek = get_permission('som', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data = array(
         'aktif'			=>'som',
         'title'			=>'Brajamarketindo',
@@ -25,37 +28,57 @@ class Som extends CI_Controller{
         'sub_judul'	=>'SOM',
         'content'		=>'content',
     );
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $this->load->view('som/dashboard', $data);
   }
 
   public function jadwal()
-  {
+  { 
+    $cek = get_permission('som', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Jadwal';
     $data['title']			='Jadwal';
     $data['judul']			='Daftar Jadwal';
     $data['sub_judul']		='Pengiriman';
     $data['content']			= 'jadwal/main';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $this->load->view('som/dashboard', $data);
   }
 
   public function validator()
   {
+    $cek = get_permission('som', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='validator';
     $data['title']			='Validator';
     $data['judul']			='Daftar Validator';
     $data['sub_judul']		='Pengiriman';
     $data['content']			= 'jadwal/main';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $this->load->view('som/dashboard', $data);
   }
 
   public function pelanggan()
-  {
+  { 
+    $cek = get_permission('som', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $this->load->model('pelanggan/Model_pelanggan', 'pelanggan');
     $data['aktif']			='Pelanggan';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
 		$data['sub_judul']		='Data Pelanggan';
     $data['content']			= 'pelanggan/main';
+    $data['menu']			= $this->permit[0];
+	    $data['submenu']		= $this->permit[1];
     $kotas = $this->pelanggan->get_list_kota();
 
     $opt = array('' => 'Semua Kota');
@@ -112,7 +135,11 @@ class Som extends CI_Controller{
   }
 
   public function report()
-  {
+  { 
+    $cek = get_permission('som', $this->permit[1]);
+    if (!$cek) {//cek admin ga?
+        redirect('panel','refresh');
+    }
     $data['aktif']			='Report';
     $data['title']			='Report';
     $data['judul']			='Daftar Report';

@@ -291,7 +291,7 @@ class Pembelian extends CI_Controller{
   						"wp_suplier_id" 				=> $wp_suplier_id,
   						"satuan"				=> $items['satuan'],
               "subtotal"        => $items['subtotal'],
-              "status"      => $status,
+              //"status"      => $status,
               "username"      => $this->session->identity,
   					);
         }

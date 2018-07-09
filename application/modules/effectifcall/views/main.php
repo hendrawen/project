@@ -2,7 +2,7 @@
 
 <div class="x_panel">
   <div class="x_title">
-    <h2><i class="fa fa-group"></i> List Effectif Call</h2>
+    <h2><i class="fa fa-group"></i> List <?php echo $judul_list; ?></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>

@@ -15,6 +15,7 @@
                     <th>#</th>
                     <th>Tanggal</th>
                     <th>Kantor</th>
+                    <th>Creator</th>
                     <th>Debt / Delivery</th>
                     <th>Kategori</th>
                     <th>Pendapatan</th>

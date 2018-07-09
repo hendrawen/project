@@ -61,6 +61,7 @@ class Kas extends CI_Controller {
             $row[] = $no;
             $row[] = tgl_indo($bm->tanggal);
             $row[] = $bm->nama_gudang;
+            $row[] = $bm->username;
             $row[] = $bm->nama;
             $row[] = $bm->nama_kategori;
             $row[] = angka($bm->pendapatan);
@@ -165,7 +166,7 @@ class Kas extends CI_Controller {
  
         if($this->input->post('id_kategori') == '')
         {
-            $data['inputerror'][] = 'Kategori';
+            $data['inputerror'][] = 'id_kategori';
             $data['error_string'][] = 'Pilih Kategori';
             $data['status'] = FALSE;
         }

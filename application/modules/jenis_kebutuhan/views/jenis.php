@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('jenis_kebutuhan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
+<a href="<?php echo base_url('jenis_kebutuhan/tambah')?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah Jenis Kebutuhan</a>
 <div class="x_panel">
   <div class="x_title">
     <h2><i class="fa fa-group"></i> Data Jenis Kebutuhan</h2>

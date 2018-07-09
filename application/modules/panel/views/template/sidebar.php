@@ -27,9 +27,126 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-
-                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
+                <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
+                <!-- master Data -->
+                  <?php if (in_array("Master Data", $menu)):?>
+                  <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>suplier">Suplier</a></li>
+                      <?php endif ?>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang">Barang</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
+                      <?php if (in_array("Suplier", $submenu)):?>
+                      <!-- <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li> -->
+                    </ul>
+                  </li>
+                  <?php endif ?>
+                  <?php if (in_array("Transaksi", $menu)):?>
+                      <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembelian"> Pembelian Barang</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranbarang/barang"> Pembayaran Barang</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi">Penjualan</a>
+                        </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>delivery/penarikan"> Penarikan Aset</a>
+                        <!-- <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>piutang"> Piutang</a> -->
+                        </li>
+                        </li>
+                      </ul>
+                    </li>
+                    <?php endif ?>
+                  <?php if (in_array("Transaksi", $menu)):?>
+                      <li><a><i class="fa fa-clone"></i> Manage Pelanggan<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>status_pelanggan"> SOM </a>
+                        <li><a href="<?php echo base_url();?>effectifcall">Customer Service</a></li>
+                        <li><a href="<?php echo base_url();?>effectifcall/validator">Validator</a></li>
+                      </ul>
+                  </li>
+                  <?php endif ?>
+
+                   <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report Penjualan <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/harian">Penjualan Harian</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/bulanan">Penjualan Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/tahunan">Penjualan Tahunan</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report Pembayaran <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_bulanan">Pembayaran Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
+                  
+                  <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report ASET <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>laporan/penarikan/harian">Penarikan Harian</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan">Penarikan Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penarikan/tahunan">Penarikan Tahunan</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Penarikan ASET", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan"><i class="fa fa-truck"></i> Report </a></li>
+                  <?php endif ?>
+
+                   <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report Trx Produk <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li> 
+                      </ul>
+                    </li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report Trx Area <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/area/harian">Penjualan Harian Per Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area/bulanan">Penjualan Bulanan Per Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area/tahun">Penjualan Tahunan Per Area</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Transaksi", $menu)):?>
+                    <li><a><i class="fa fa-line-chart"></i> Report Trx Marketing <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/marketing/harian_marketing">Penjualan Harian Marketing</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing/bulanan_marketing">Penjualan Bulanan Marketing</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing/tahunan_marketing">Penjualan Tahunan Marketing</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Report Debt & Delivery", $submenu)):?>
+                  <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url();?>lap_dep/harian">Laporan Transaksi Harian</a></li>
+                        <li><a href="<?php echo base_url();?>lap_dep/bulanan">Laporan Transaksi Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>lap_dep/tahunan">Laporan Transaksi Tahunan</a></li>
+                      </ul>
+                    </li>
+                  <?php endif ?>
+
+          <!-- batas -->
+
 
                   <?php if (in_array("Profile Perusahaan", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Profile')?'class="active"':"";?> href="<?php echo base_url();?>profile"><i class="fa fa-user"></i> Profile Perusahaan</a></li>
@@ -48,38 +165,9 @@
                   <li><a <?php echo ($aktif == 'kas')?'class="active"':"";?> href="<?php echo base_url();?>kas"><i class="fa fa-money"></i> Keuangan </a></li>
                   <?php endif ?>
 
-                  <?php if (in_array("Master Data", $menu)):?>
-                  <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
-                      <?php if (in_array("Suplier", $submenu)):?>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>suplier">Suplier</a></li>
-                      <?php endif ?>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang">Barang</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kebutuhan">Kebutuhan</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>jenis_kebutuhan">Jenis Kebutuhan</a></li>
-                    </ul>
-                  </li>
-                  <?php endif ?>
+                 
 
-                    <?php if (in_array("Transaksi", $menu)):?>
-                      <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-
-                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembelian"> Pembelian Barang</a>
-                        </li>
-                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranbarang/barang"> Pembayaran Barang</a>
-                        </li>
-                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi"> Transaksi Penjualan</a>
-                        </li>
-                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>piutang"> Piutang</a>
-                        </li>
-                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <?php endif ?>
+                   
                     <?php if (in_array("Jadwal", $submenu)):?>
                     <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo base_url();?>jadwal"><i class="fa fa-calendar"></i> Jadwal</a>
                     </li>
@@ -101,27 +189,7 @@
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
                   <?php endif ?>
 
-                  <?php if (in_array("Report Transaksi", $menu)):?>
-                    <li><a><i class="fa fa-line-chart"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/harian">Penjualan Harian</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/bulanan">Penjualan Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/tahunan">Penjualan Tahunan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/area/harian">Penjualan Harian Per Area</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/area/bulanan">Penjualan Bulanan Per Area</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/area/tahun">Penjualan Tahunan Per Area</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/marketing/harian_marketing">Penjualan Harian Marketing</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/marketing/bulanan_marketing">Penjualan Bulanan Marketing</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/marketing/tahunan_marketing">Penjualan Tahunan Marketing</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_bulanan">Pembayaran Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
-                      </ul>
-                    </li>
-                  <?php endif ?>
+                 
 
                   <?php if (in_array("Tracking Pelanggan", $submenu)):?>
                   <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
@@ -143,19 +211,9 @@
                   <li><a href="<?php echo base_url();?>gtransaksi"><i class="fa fa-pie-chart"></i> Growth Transaksi</a></li>
                   <?php endif ?>
 
-                  <?php if (in_array("Report Debt & Delivery", $submenu)):?>
-                  <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>lap_dep/harian">Laporan Transaksi Harian</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/bulanan">Laporan Transaksi Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/tahunan">Laporan Transaksi Tahunan</a></li>
-                      </ul>
-                    </li>
-                  <?php endif ?>
+                  
 
-                  <?php if (in_array("Report Penarikan ASET", $submenu)):?>
-                  <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan"><i class="fa fa-truck"></i> Report Penarikan ASET</a></li>
-                  <?php endif ?>
+                 
 
                   <?php if (in_array("KPI", $menu)):?>
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
@@ -187,8 +245,8 @@
                   <?php if (in_array("Kas", $menu)):?>
                   <li><a <?php echo ($aktif == 'Kas')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Kas <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>kas/kategorikas">Kas</a></li>
-                        <li><a href="<?php echo base_url();?>kas">Kategori Kas</a></li>
+                        <li><a href="<?php echo base_url();?>kas">Kas</a></li>
+                        <li><a href="<?php echo base_url();?>kas/kategorikas">Kategori Kas</a></li>
                       </ul>
                   </li>
                   <?php endif ?>

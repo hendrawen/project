@@ -231,8 +231,8 @@ function isi_kategori() {
             $.each(response, function(key, value) {
                 $('#id_kategori')
                     .append($("<option></option>")
-                    .attr("value",value.id)
-                    .text(value.nama));
+                    .attr("value",value.id_kategori)
+                    .text(value.nama_kategori));
            });
         }
     });

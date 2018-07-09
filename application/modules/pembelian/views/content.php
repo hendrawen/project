@@ -102,7 +102,7 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
               <label for="bayar">Bayar (Rp.) *</label>
-              <input type="text" name="bayar" id="bayar" class="form-control" onkeyup="FormatCurrency(this)" placeholder="Masukkan jumlah bayar" required>
+              <input type="text" name="bayar" id="bayar" class="form-control" onkeyup="FormatCurrency(this)" autocomplete="off" placeholder="Masukkan jumlah bayar" required>
             </div>
             <!-- <input type="hidden" name="sudah" id="sudah"> -->
             <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">

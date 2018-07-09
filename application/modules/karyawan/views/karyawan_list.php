@@ -94,7 +94,8 @@
                   <div class="row">
                     <div class="col-md-6">
                         <!-- <?php echo anchor(site_url('karyawan/create'),'Tambah', 'class="btn btn-primary"'); ?> -->
-                        <a href="<?php echo base_url('karyawan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                        <a href="<?php echo base_url('karyawan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah Karyawan</a>
+                        <a href="<?php echo base_url('karyawan/jabatan'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah Jabatan</a>
                         </div>
                   </div>
                     <div class="col-md-6 text-right">

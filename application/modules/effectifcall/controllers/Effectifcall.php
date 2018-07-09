@@ -27,6 +27,7 @@ class Effectifcall extends CI_Controller{
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
         $data['sub_judul']		='List Effectif Call';
+        $data['judul_list']		='Effectif Call';
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
@@ -39,6 +40,31 @@ class Effectifcall extends CI_Controller{
     $data['form_status'] = form_dropdown('',$opt,'','id="status" class="form-control"');
     $this->load->view('panel/dashboard', $data);
   }
+
+  function validator()
+  { 
+    $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
+    $data['aktif']			='Active Call';
+		$data['title']			='Brajamarketindo';
+		$data['judul']			='Dashboard';
+        $data['sub_judul']		='List Validator';
+        $data['judul_list']		='Validator';
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
+    $data['content']			= 'main';
+    $statuse = $this->effectif->get_list_status();
+
+    $opt = array('' => 'Semua Status');
+        foreach ($statuse as $status) {
+            $opt[$status] = $status;
+    }
+    $data['form_status'] = form_dropdown('',$opt,'','id="status" class="form-control"');
+    $this->load->view('panel/dashboard', $data);
+  }
+
 
   public function ajax_list()
     {
