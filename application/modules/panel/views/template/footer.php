@@ -155,6 +155,7 @@
 
     <?php if ($this->uri->segment(1) == 'status_pelanggan'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/status_pelanggan.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <?php endif; ?>
 
 

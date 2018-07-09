@@ -41,6 +41,9 @@ $(document).ready(function() {
 
     $('#btn-reset-tracking').click(function(){ 
         $('#form-tracking')[0].reset();
+        $('#tahun-tracking').val("").trigger('change');
+        $('#filter-kota').val("").trigger('change');
+        $('#filter-kecamatan').val("").trigger('change');
         reload_table_tracking();
     });
 });
