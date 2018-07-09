@@ -27,12 +27,7 @@ class Model_debt extends CI_Model {
         $this->db->join('wp_karyawan', 'wp_transaksi.username = wp_karyawan.id_karyawan');
         $this->db->where('wp_pelanggan.id_pelanggan', $cari);
         $this->db->where('(wp_detail_transaksi.utang - wp_detail_transaksi.bayar) >', '0');
-        $hsl = $this->db->get('');
-        if($hsl->num_rows() == 0){
-            echo '<tr><td colspan="9"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Memiliki Utang</div></center></td></tr>';
-        } else {
-          return $hsl->result();
-        }
+        return $this->db->get();
     }
     
     

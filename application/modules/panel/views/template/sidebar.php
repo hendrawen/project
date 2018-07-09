@@ -27,7 +27,7 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                
+
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
 
@@ -47,7 +47,7 @@
                   <?php if (in_array("Keuangan", $menu)):?>
                   <li><a <?php echo ($aktif == 'kas')?'class="active"':"";?> href="<?php echo base_url();?>kas"><i class="fa fa-money"></i> Keuangan </a></li>
                   <?php endif ?>
-                
+
                   <?php if (in_array("Master Data", $menu)):?>
                   <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -62,7 +62,7 @@
                     </ul>
                   </li>
                   <?php endif ?>
-                  
+
                     <?php if (in_array("Transaksi", $menu)):?>
                       <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
@@ -91,15 +91,15 @@
 
                     <?php if (in_array("Effectif Call", $submenu)):?>
                     <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo base_url();?>effectifcall"><i class="fa fa-tty"></i> Effectif Call </a></li>
-                    <?php endif ?>  
-                    
+                    <?php endif ?>
+
                     <?php if (in_array("Jadwal Kunjungan", $submenu)):?>
                     <li><a <?php echo ($aktif == 'Jadwal Kunjungan')?'class="active"':"";?> href="<?php echo base_url();?>jadwalkunjungan"><i class="fa fa-tty"></i> Jadwal Kunjungan </a></li>
-                    <?php endif ?>  
+                    <?php endif ?>
 
                     <?php if (in_array("Faktur", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
-                  <?php endif ?>  
+                  <?php endif ?>
 
                   <?php if (in_array("Report Transaksi", $menu)):?>
                     <li><a><i class="fa fa-line-chart"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
@@ -170,7 +170,7 @@
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/debt">Debt & Delivery</a></li>
                       <?php endif ?>
                       <?php if (in_array("KPI - Marketing", $submenu)):?>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/marketing">Marketing</a></li>   
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/marketing">Marketing</a></li>
                       <?php endif ?>
                     </ul>
                   </li>
@@ -182,6 +182,15 @@
 
                   <?php if (in_array("User Groups", $submenu)):?>
                   <li><a <?php echo ($aktif == 'Group')?'class="active"':"";?> href="<?php echo base_url();?>users/groups"><i class="fa fa-clone"></i> User Groups </a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Kas", $menu)):?>
+                  <li><a <?php echo ($aktif == 'Kas')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Kas <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>kas/kategorikas">Kas</a></li>
+                        <li><a href="<?php echo base_url();?>kas">Kategori Kas</a></li>
+                      </ul>
+                  </li>
                   <?php endif ?>
 
                 </ul>
@@ -208,4 +217,3 @@
             <!-- /menu footer buttons -->
           </div>
         </div>
-

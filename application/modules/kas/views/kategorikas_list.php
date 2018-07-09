@@ -1,6 +1,6 @@
 <div class="x_panel">
       <div class="x_title">
-            <h2>Jadwal Kunjungan List</h2>
+            <h2>Kategori kas list</h2>
             <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -11,40 +11,37 @@
             </ul>
             <div class="clearfix"></div>
       </div>
-          <div class="row" style="<?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som')  ?:  'visibility:hidden;' ?>">
-            <div class="col-md-6">
-                <a href="<?php echo site_url('jadwalkunjungan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus" ></i> Tambah</a>
+                <div class="row">
+                    <div class="col-xs-12">
+                      <?php echo form_open_multipart($action);?>
+                      <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>
+                      <a href="<?php echo site_url('kas/kategorikas') ?>" class="btn btn-danger" style="display:<?php echo $display ?>">Cancel</a>
+                          <div class="form-group">
+                                <input type="text" class="form-control inline" name="nama" id="nama" placeholder="Nama Kategori Kas" value="<?php echo $nama; ?>" required/>
+                            </div>
+                            <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                      </form>
+                  </div>
                 </div>
-          </div>
-            <div class="col-md-6 text-right">
-            </div>
 
             <div class="x_content">
     <table class="table jambo_table table-striped table-bordered dt-responsive nowrap" id="datatable">
       <thead>
         <tr>
           <th>No</th>
-          <th>Pelanggan</th>
-          <th>Validator</th>
-          <th>Tanggal Kunjungan</th>
-          <th>Sumber Data</th>
-          <th>Keterangan</th>
+          <th>Nama</th>
           <th style="text-align:center;">Action</th>
         </tr>
       </thead>
         <tbody>
           <?php
           $no = 1;
-          foreach($jadwal as $key){ ?>
+          foreach($kategorikas as $key){ ?>
          <tr>
               <td><?php echo $no++ ?></td>
-              <td><?php echo $key->id_pelanggan ?> - <?php echo $key->nama_pelanggan ?></td>
               <td><?php echo $key->nama ?></td>
-              <td><?php echo tgl_indo($key->tanggal_kunjungan) ?></td>
-              <td><?php echo $key->sumber_data ?></td>
-              <td><?php echo $key->keterangan ?></td>
-              <td style="text-align:center; <?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som') ?: 'visibility:hidden;' ?>">
-                <a href="<?=site_url()?>jadwalkunjungan/update/<?=$key->id_jadwal ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+              <td style="text-align:center;">
+                <a href="<?=site_url()?>kas/kategorikas/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                 <a class="btn btn-default btn-sm" onclick="return swal({
                                         title: 'Apakah Anda yakin untuk menghapus data ini?',
                                         text: 'Data yang terhapus tidak dapat dikembalikan!',
@@ -52,7 +49,7 @@
                                         showCancelButton: true,
                                         confirmButtonColor: '#d9534f',
                                            }, function(){
-                                              window.location.href ='<?=site_url()?>jadwalkunjungan/delete/<?=$key->id_jadwal ?>';
+                                              window.location.href ='<?=site_url()?>kas/kategorikas/delete/<?=$key->id ?>';
                                                          });"><i class="glyphicon glyphicon-trash"></i></a>
              </td>
         </tr>
@@ -61,22 +58,14 @@
       <tfoot>
         <tr>
           <th>No</th>
-          <th>Pelanggan</th>
-          <th>Validator</th>
-          <th>Tanggal Kunjungan</th>
-          <th>Sumber Data</th>
-          <th>Keterangan</th>
+          <th>Nama</th>
           <th style="text-align:center;">Action</th>
         </tr>
       </tfoot>
     </table>
 
 </div>
-<div class="row">
-    <div class="col-md-6">
-        <?php echo anchor(site_url('jadwalkunjungan/excel'), 'Download Excel', 'class="btn btn-primary"'); ?>
-  </div>
-</div>
+
 </div>
 
 

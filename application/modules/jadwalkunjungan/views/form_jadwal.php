@@ -1,4 +1,3 @@
-
   <div class="x_panel">
       <div class="x_title">
         <h2><?php echo $button ?> Jadwal Kunjungan </h2>

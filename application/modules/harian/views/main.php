@@ -27,11 +27,13 @@
               </div>
               <div class="col-md-4 col-sm-12 col-xs-12 form-group text-right">
                 <button id="button_track_faktur" class="btn btn-success"><i class="fa fa-plus-square"></i> Tambah</button>
+                <button id="button_reset_faktur" class="btn btn-warning"><i class="fa fa-refresh"></i> Ulang</button>
+                <button id="button_cetak_faktur" class="btn btn-danger"><i class="fa fa-print"></i> Cetak</button>
               </div>
             </div>
 
     <div class="table-responsive">
-      <table class="table table-striped jambo_table table-bordered nowrap" id="table_faktur" style="display: none;">
+      <table class="table table-striped jambo_table table-bordered nowrap" id="table_faktur">
         <thead>
             <tr>
                 <th colspan = 4 class="text-center">List Faktur Customer Jatuh Tempo</th>
