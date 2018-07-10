@@ -137,18 +137,19 @@
                         <li><a href="<?php echo base_url();?>lap_dep/harian">Penjualan Harian</a></li>
                         <li><a href="<?php echo base_url();?>lap_dep/bulanan">Penjualan Bulanan</a></li>
                         <li><a href="<?php echo base_url();?>lap_dep/tahunan">Penjualan Tahunan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/harian">Penarikan Aset Harian</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/bulanan">Penarikan Aset Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/tahunan">Penarikan Aset Tahunan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/lap_pembayaran/harian">Pembayaran Harian</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/lap_pembayaran/bulanan">Pembayaran Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/lap_pembayaran/tahunan">Pembayaran Tahunan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_harian">Pembayaran Harian</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_bulanan">Pembayaran Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_tahunan">Pembayaran Tahunan</a></li>
                       </ul>
                     </li>
                   <?php endif ?>
 
                   <?php if (in_array("Tracking Pelanggan", $submenu)):?>
                   <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
+                  <?php endif ?>
+
+                  <?php if (in_array("Tracking Pelanggan", $submenu)):?>
+                  <li><a href="<?php echo base_url();?>tracking_aset"><i class="fa fa-search"></i> Tracking Aset</a></li>
                   <?php endif ?>
 
                   <?php if (in_array("Market Share", $submenu)):?>

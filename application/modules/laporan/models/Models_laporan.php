@@ -305,6 +305,72 @@ class Models_laporan extends CI_Model {
         return $data->result();
     }
 
+    // laporan pembayaran debt harian
+    function laporan_debtharian($day, $nama)
+    {
+        $this->db->select('wp_pembayaran.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as `jatuh_tempo`, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, wp_transaksi.qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_pelanggan.kecamatan, wp_pelanggan.no_telp, wp_karyawan.nama, wp_transaksi.username, wp_transaksi.subtotal, wp_pembayaran.tgl_bayar, wp_pembayaran.bayar, wp_detail_transaksi.bayar as `jumlah_bayar`, (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) as `sisa_hutang`, wp_status.nama_status');
+        $this->db->from('wp_pembayaran');
+        if ($nama !== 'semua') {
+            $this->db->where('wp_transaksi.username', $nama);
+          }
+          if ($day !== 'semua') {
+            $this->db->where('wp_transaksi.tgl_transaksi', $day);
+          }
+        $this->db->where('wp_pembayaran.bayar >=', 0);
+        $this->db->join('wp_transaksi', 'wp_pembayaran.id_transaksi = wp_transaksi.id_transaksi');
+        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
+        $this->db->join('wp_barang', 'wp_transaksi.wp_barang_id = wp_barang.id');
+        $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
+        $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
+        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+        $data = $this->db->get();
+        return $data->result();
+    }
+
+    // laporan pembayaran debt bulanan
+    function laporan_debtbulanan($from, $to, $year, $nama)
+    {
+        $this->db->select('wp_pembayaran.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as `jatuh_tempo`, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, wp_transaksi.qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_pelanggan.kecamatan, wp_pelanggan.no_telp, wp_karyawan.nama, wp_transaksi.username, wp_transaksi.subtotal, wp_pembayaran.tgl_bayar, wp_pembayaran.bayar, wp_detail_transaksi.bayar as `jumlah_bayar`, (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) as `sisa_hutang`, wp_status.nama_status');
+        $this->db->from('wp_pembayaran');
+        $this->db->where('year(wp_transaksi.tgl_transaksi)', $year);
+        if ($nama !== 'semua') {
+        $this->db->where('wp_karyawan.id_karyawan', $nama);
+        }
+        $this->db->where('wp_pembayaran.bayar >=', 0);
+        $this->db->join('wp_transaksi', 'wp_pembayaran.id_transaksi = wp_transaksi.id_transaksi');
+        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
+        $this->db->join('wp_barang', 'wp_transaksi.wp_barang_id = wp_barang.id');
+        $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
+        $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
+        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+        $data = $this->db->get();
+        return $data->result();
+    }
+    
+    // laporan pembayaran debt harian
+    function laporan_debtahunan($year, $nama)
+    {
+        $this->db->select('wp_pembayaran.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as `jatuh_tempo`, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, wp_transaksi.qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_pelanggan.kecamatan, wp_pelanggan.no_telp, wp_karyawan.nama, wp_transaksi.username, wp_transaksi.subtotal, wp_pembayaran.tgl_bayar, wp_pembayaran.bayar, wp_detail_transaksi.bayar as `jumlah_bayar`, (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) as `sisa_hutang`, wp_status.nama_status');
+        $this->db->from('wp_pembayaran');
+        if ($nama !== 'semua') {
+            $this->db->where('wp_transaksi.username', $nama);
+          }
+          if ($day !== 'semua') {
+            $this->db->where('wp_transaksi.tgl_transaksi', $year);
+          }
+        $this->db->where('wp_pembayaran.bayar >=', 0);
+        $this->db->join('wp_transaksi', 'wp_pembayaran.id_transaksi = wp_transaksi.id_transaksi');
+        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
+        $this->db->join('wp_barang', 'wp_transaksi.wp_barang_id = wp_barang.id');
+        $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
+        $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
+        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+        $data = $this->db->get();
+        return $data->result();
+    }
     
 
 }
