@@ -309,3 +309,26 @@ $("#btn-kas-harian").click(function() {
       }
     });
   });
+
+  $("#btn-kas-bulanan").click(function() {
+    from = $("#kas-from").val();
+    to = $("#kas-to").val();
+    year = $("#kas-year").val();
+    kantor = $("#kantor").val();
+    $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url: base_url+'kas/load_kas_bulanan/',
+      type: 'POST',
+      dataType: 'html',
+      data: {from: from, to : to, year : year, kantor : kantor},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tbody").html(data);
+      }
+    });
+  });

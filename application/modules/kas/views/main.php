@@ -6,31 +6,71 @@
     </div>
     <div class="clearfix"></div>
   </div>
-
-
-    <div class="x_content">
-      <div class="row">
+    <!-- field kantor -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon">Kantor </span>
+          <select class="form-control" id="kantor">
+            <?php foreach ($list_kantor as $row): ?>
+              <option value="<?php echo $row->id;?>"><?php echo $row->nama_gudang;?></option>
+            <?php endforeach; ?>
+            </select>
+        </div>
+      </div>
+      <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
+      </div>
+        <!-- filter harian -->
+      <div class="row" id="search-harian" style="display:none;">
         <div class="col-md-4">
           <div class="input-group">
-            <span class="input-group-addon">Tanggal <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+            <span class="input-group-addon">Tanggal</span>
             <input type="date" class="form-control" id="kas-hari" placeholder="" value="<?php echo date('m/d/Y')?>">
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="input-group">
-            <span class="input-group-addon">Kantor </span>
-            <select class="form-control" id="kantor">
-              <?php foreach ($list_kantor as $row): ?>
-                <option value="<?php echo $row->id;?>"><?php echo $row->nama_gudang;?></option>
-              <?php endforeach; ?>
-              </select>
-          </div>
-        </div>
+
         <div class="col-md-4">
           <button type="button" class="btn btn-success" id="btn-kas-harian"><i class="fa fa-search"></i> Search</button>
-          <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
         </div>
       </div>
+
+      <!-- filter bulanan -->
+      <div class="row" id="search_bulanan">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group">
+              <span class="input-group-addon">Bulan dari</span>
+              <select class="form-control" id="kas-from">
+                <?php $i = 1; foreach ($month as $key): ?>
+                  <option value="<?php echo $i++;?>"><?php echo $key?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group">
+              <span class="input-group-addon">Bulan ke</span>
+              <select class="form-control" id="kas-to">
+                <?php $i = 1;  foreach ($month as $key): ?>
+                  <option value="<?php echo $i++;?>"><?php echo $key ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group">
+              <span class="input-group-addon">Tahun</span>
+              <select class="form-control" id="kas-year">
+                <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
+                  echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+                } ?>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-xs-12">
+          <button type="button" class="btn btn-success" id="btn-kas-bulanan"><i class="fa fa-search"></i> Search</button>
+          </div>
+        </div>
 
         <div class="table-responsive">
             <table id="table-kas" class="table table-striped jambo_table table-bordered nowrap">
@@ -49,7 +89,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
 </div>
 
 

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kas extends CI_Controller {
 
+  private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     public function __construct()
     {
         parent::__construct();
@@ -12,6 +13,7 @@ class Kas extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
 		}
+
     }
 
     public function index()
@@ -28,7 +30,9 @@ class Kas extends CI_Controller {
             'content'		=>'main',
             'menu'			=> $this->permit[0],
             'submenu'		=> $this->permit[1],
-            'list_kantor' => $this->model->get_kantor()
+            'list_kantor' => $this->model->get_kantor(),
+            'month'     => $this->month,
+
         );
         $this->load->view('panel/dashboard', $data);
     }
@@ -38,6 +42,40 @@ class Kas extends CI_Controller {
       $day = $this->input->post('day');
       $kantor = $this->input->post('kantor');
       $data = $this->model->laporan_kas_harian($day, $kantor);
+      $pesan = "";
+      $total = 0;
+      $no = 1;
+      if ($data) {
+        foreach ($data as $row) {
+          $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->tanggal.'</td>
+          <td>'.$row->nama_gudang.'</td>
+          <td>'.$row->username.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.$row->nama_kategori.'</td>
+          <td>'.$row->pendapatan.'</td>
+          <td>'.$row->pengeluaran.'</td>
+          <td><a class="btn btn-xs btn-primary" href="javascript:void(0)" title="Edit" onclick="ubah('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+          <a class="btn btn-xs btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+          </td>
+          </tr>';
+        }
+      } else {
+        $pesan .= '<tr>
+          <td colspan=16>Record not found</td>
+        </tr>';
+      }
+      echo $pesan;
+    }
+
+    function load_kas_bulanan()
+    {
+      $from = $this->input->post('from');
+      $to = $this->input->post('to');
+      $year = $this->input->post('year');
+      $id_barang = $this->input->post('kantor');
+      $data = $this->model->laporan_kas_bulanan($from, $to, $year, $id_barang);
       $pesan = "";
       $total = 0;
       $no = 1;
