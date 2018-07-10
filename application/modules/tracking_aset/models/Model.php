@@ -179,9 +179,9 @@ class Model extends CI_Model {
         $hasil = $this->db->get('wp_transaksi')->row();
 
         if ($hasil->qty != 0) {
-        return $hasil->qty;
+            return $hasil->qty;
         } else {
-        return '0';
+            return '0';
         }
     }
 
@@ -201,34 +201,56 @@ class Model extends CI_Model {
         return $this->db->get($this->table)->result();
     }
 
-    function get_last_transaction($id, $tahun)
+    function get_krat($id, $month, $tahun)
     {
-        $this->db->select('tgl_transaksi, nama_barang, qty');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+        $this->db->select('turun_krat, bayar_krat, bayar_uang');
         $this->db->where('wp_pelanggan.id_pelanggan', $id);
+        $this->db->where('MONTH(wp_asis_debt.tanggal)', $month);
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
         if ($tahun != 'semua') {
-            $this->db->where('YEAR(tgl_transaksi)', $tahun);
+            $this->db->where('YEAR(wp_asis_debt.tanggal)', $tahun);
         }
-        $this->db->order_by('tgl_transaksi', 'desc');
-        $this->db->from('wp_transaksi');
-        $this->db->limit(1);
-        return $this->db->get()->row();
+        $result = $this->db->get('wp_asis_debt')->row();
+        if ($result) {
+            $turun = $result->turun_krat;
+            $krat = $result->bayar_krat;
+            $uang = $result->bayar_uang;
+            $harga_krat = $this->get_harga_krat();
+
+            $uang2 = 0;
+            if ($uang <= 0) {
+                $uang2 = 0;
+            } else {
+                $uang2 = $uang / $harga_krat;
+            }
+            
+            $sisa = ($krat + $uang2) - $turun;
+
+            $resArray = array(
+                'turun_krat' => $turun,
+                'bayar_krat' => $krat,
+                'bayar_uang' => $uang,
+                'sisa' => $sisa,
+                // 'sisa' => 0,
+            );
+            return $resArray;
+        } else {
+            $resArray = array(
+                'turun_krat' => 0,
+                'bayar_krat' => 0,
+                'bayar_uang' => 0,
+                'sisa' => 0,
+            );
+            return $resArray;
+        }
     }
 
-    function get_follow_up($id, $tahun)
+    function get_harga_krat()
     {
-        $this->db->select('wp_list_effectif.tanggal, wp_status_effectif.status');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_list_effectif.wp_pelanggan_id', 'inner');
-        $this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id', 'inner');
-        if ($tahun != 'semua') {
-            $this->db->where('YEAR(tanggal)', $tahun);
-        }
-        $this->db->where('wp_pelanggan.id_pelanggan', $id);
-        $this->db->order_by('tanggal', 'desc');
-        $this->db->from('wp_list_effectif');
-        $this->db->limit(1);
-        return $this->db->get()->row();
+        $this->db->select('harga');
+        $result = $this->db->get('wp_krat_kosong')->row();
+        return $result->harga;
+        
     }
 
 

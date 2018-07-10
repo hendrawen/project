@@ -1,7 +1,7 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Status_pelanggan extends CI_Controller {
+class Tracking_aset extends CI_Controller {
 
     private $permit;
     function __construct()
@@ -20,10 +20,10 @@ class Status_pelanggan extends CI_Controller {
     function index()
     {
         $data = array(
-            'aktif'			=>'Status Pelanggan',
-            'title'			=>'Status Pelanggan',
+            'aktif'			=>'Tracking',
+            'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Status Pelanggan',
+            'sub_judul'	=>'Tracking Aset',
             'content'		=>'view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
@@ -86,28 +86,17 @@ class Status_pelanggan extends CI_Controller {
             $row[5] = $record->kecamatan;
             $row[6] = $record->kelurahan;
             $row[7] = $record->nama;
-            $last_transaction = $this->model->get_last_transaction($record->id_pelanggan, $tahun);
-            $last_followup = $this->model->get_follow_up($record->id_pelanggan, $tahun);
-            if ($last_transaction) {
+            $row[8] = angka($utang);
+
+            for ($i=1; $i <= 12; $i++) { 
+                // $count_trx = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $i, $tahun);
+                $krat = $this->model->get_krat($record->id_pelanggan, $i, $tahun);
                 
-                $row[8] = tgl_indo($last_transaction->tgl_transaksi);//terakhir trx
-                $row[9] = $last_transaction->nama_barang; // barang
-                $row[10] = angka($last_transaction->qty); // qty
-            } else {
-                $row[8] = "-";//terakhir trx
-                $row[9] = "-"; // barang
-                $row[10] = "-"; // qty
+                $row[] = angka($krat['bayar_krat']);
+                $row[] = angka($krat['bayar_uang']);
+                $row[] = angka($krat['turun_krat']);
+                $row[] = angka($krat['sisa']);
             }
-            
-            $row[11] = angka($utang);
-            if ($last_followup) {
-                $row[12] = tgl_indo($last_followup->tanggal); // tgl folow up
-                $row[13] = $last_followup->status; // status
-            } else {
-                $row[12] = "-"; // tgl folow up
-                $row[13] = "-"; // status
-            }
-            
             $data[] = $row;
         }
  
@@ -132,8 +121,8 @@ class Status_pelanggan extends CI_Controller {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
         $this->load->helper('exportexcel');
-        $namaFile = "status_pelanggan.xls";
-        $judul = "StatusPelanggan";
+        $namaFile = "tracking_aset.xls";
+        $judul = "TrackingAset";
         $tablehead = 5;
         $tablebody = 6;
         $nourut = 1;
@@ -150,7 +139,7 @@ class Status_pelanggan extends CI_Controller {
 
         xlsBOF();
         xlsWriteLabel(0, 0, "Laporan");
-        xlsWriteLabel(0, 1, "Status Pelanggan");
+        xlsWriteLabel(0, 1, "Tracking Aset");
 
         xlsWriteLabel(1, 0, "Tahun");
         xlsWriteLabel(1, 1, $year);
@@ -170,13 +159,28 @@ class Status_pelanggan extends CI_Controller {
         xlsWriteLabel($tablehead, $kolomhead++, "KECAMATAN");
         xlsWriteLabel($tablehead, $kolomhead++, "KELURAHAN");
         xlsWriteLabel($tablehead, $kolomhead++, "SURVEYOUR");
-        xlsWriteLabel($tablehead, $kolomhead++, "TRANSAKSI TERAKHIR");
-        xlsWriteLabel($tablehead, $kolomhead++, "NAMA BARANG");
-        xlsWriteLabel($tablehead, $kolomhead++, "QTY");
         xlsWriteLabel($tablehead, $kolomhead++, "PIUTANG");
-        xlsWriteLabel($tablehead, $kolomhead++, "TGL FOLLOWUP");
-        xlsWriteLabel($tablehead, $kolomhead++, "STATUS");
         
+        $i = 0;
+        $j = 3;
+
+        for ($i == 0; $i < 12 ; $i++) {
+            if ($i == 0) {
+                xlsWriteLabel($tablehead, ($kolomhead++), $bulan[$i]['month']);
+            } else {
+                xlsWriteLabel($tablehead, (($kolomhead++) + $j), $bulan[$i]['month']);
+                $j+=3;
+            }
+        }
+        $kolomhead = 9;
+        
+        for ($i = 0; $i < 12; $i++) {
+            xlsWriteLabel($tablehead+1, $kolomhead++, 'Naik Krat');
+            xlsWriteLabel($tablehead+1, $kolomhead++, 'Naik Bayar');
+            xlsWriteLabel($tablehead+1, $kolomhead++, 'Turun');
+            xlsWriteLabel($tablehead+1, $kolomhead++, 'Sisa');
+        }
+            
         $tablebody++;
         $record = $this->model->get_laporan_excel($kota, $kecamatan);
         if ($record){
@@ -192,28 +196,14 @@ class Status_pelanggan extends CI_Controller {
                 xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
                 xlsWriteLabel($tablebody, $kolombody++, $data->nama);
                 xlsWriteLabel($tablebody, $kolombody++, $utang);
-                $last_transaction = $this->model->get_last_transaction($data->id_pelanggan, $year);
-                $last_followup = $this->model->get_follow_up($data->id_pelanggan, $year);
-                if ($last_transaction) {
-                    
-                    xlsWriteLabel($tablebody, $kolombody++, $last_transaction->tgl_transaksi);
-                    xlsWriteLabel($tablebody, $kolombody++, $last_transaction->nama_barang);
-                    xlsWriteNumber($tablebody, $kolombody++, $last_transaction->qty);
-                } else {
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteNumber($tablebody, $kolombody++, '-');
-                }
+                for ($i=1; $i <= 12; $i++) { 
+                    $krat = $this->model->get_krat($data->id_pelanggan, $i, $year);
                 
-                $row[11] = angka($utang);
-                if ($last_followup) {
-                    xlsWriteLabel($tablebody, $kolombody++, $last_followup->tanggal);
-                    xlsWriteLabel($tablebody, $kolombody++, $last_followup->status);
-                } else {
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
+                    xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_krat']);
+                    xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_uang']);
+                    xlsWriteNumber($tablebody, $kolombody++, $krat['turun_krat']);
+                    xlsWriteNumber($tablebody, $kolombody++, floor($krat['sisa']));
                 }
-
                 $tablebody++;
                 $nourut++;
             }
@@ -224,8 +214,9 @@ class Status_pelanggan extends CI_Controller {
 
     function tes()
     {
+
         echo '<pre>';
-        print_r($this->model->get_last_transaction(4));
+        print_r($this->model->get_laporan_excel("KOTA BANDA ACEH","all"));
         echo '</pre>';
     }
     
@@ -265,8 +256,6 @@ class Status_pelanggan extends CI_Controller {
         }
         return $result;
     }
-
-    
 
 }
 
