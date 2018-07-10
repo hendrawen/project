@@ -2,7 +2,14 @@
   <div class="x_title">
     <h2 class="green saldo"></h2>
     <div class="nav navbar-right panel_toolbox">
+      <div class="form-inline">
         <button type="button" onClick="tambah()" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</button>
+        <select class="form-control btn-danger" name="filter-by" id="filter-by">
+          <option value="hari">Harian</option>
+          <option value="bulan">Bulanan</option>
+          <option value="tahun">Tahunan</option>
+        </select>
+        </div>
     </div>
     <div class="clearfix"></div>
   </div>
@@ -21,7 +28,7 @@
       <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
       </div>
         <!-- filter harian -->
-      <div class="row" id="search-harian" style="display:none;">
+      <div class="row" id="filter-harian" style="display:none;">
         <div class="col-md-4">
           <div class="input-group">
             <span class="input-group-addon">Tanggal</span>
@@ -35,7 +42,7 @@
       </div>
 
       <!-- filter bulanan -->
-      <div class="row" id="search_bulanan">
+      <div class="row" id="filter-bulanan" style="display:none;">
           <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
             <div class="input-group">
               <span class="input-group-addon">Bulan dari</span>
@@ -71,6 +78,24 @@
           <button type="button" class="btn btn-success" id="btn-kas-bulanan"><i class="fa fa-search"></i> Search</button>
           </div>
         </div>
+
+        <!-- filter tahunan -->
+        <div class="row" id="filter-tahunan" style="display:none;">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="input-group">
+                <span class="input-group-addon">Tahun</span>
+                <select class="form-control" id="tahun">
+                  <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
+                    echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+                  } ?>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+            <button type="button" class="btn btn-success" id="btn-kas-tahunan"><i class="fa fa-search"></i> Search</button>
+            </div>
+          </div>
 
         <div class="table-responsive">
             <table id="table-kas" class="table table-striped jambo_table table-bordered nowrap">

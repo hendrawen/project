@@ -103,6 +103,38 @@ class Kas extends CI_Controller {
       echo $pesan;
     }
 
+    function load_kas_tahunan()
+    {
+      $tahun = $this->input->post('tahun');
+      $kantor = $this->input->post('kantor');
+      $data = $this->model->laporan_kas_tahunan($tahun, $kantor);
+      $pesan = "";
+      $total = 0;
+      $no = 1;
+      if ($data) {
+        foreach ($data as $row) {
+          $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->tanggal.'</td>
+          <td>'.$row->nama_gudang.'</td>
+          <td>'.$row->username.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.$row->nama_kategori.'</td>
+          <td>'.$row->pendapatan.'</td>
+          <td>'.$row->pengeluaran.'</td>
+          <td><a class="btn btn-xs btn-primary" href="javascript:void(0)" title="Edit" onclick="ubah('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+          <a class="btn btn-xs btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+          </td>
+          </tr>';
+        }
+      } else {
+        $pesan .= '<tr>
+          <td colspan=16>Record not found</td>
+        </tr>';
+      }
+      echo $pesan;
+    }
+
     function get_karyawan()
     {
         $list_karyawan = $this->model->get_karyawan();
