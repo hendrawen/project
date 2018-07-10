@@ -49,7 +49,7 @@ class Kas extends CI_Controller {
         foreach ($data as $row) {
           $pesan .= '<tr>
           <td>'.$no++.'</td>
-          <td>'.$row->tanggal.'</td>
+          <td>'.tgl_indo($row->tanggal).'</td>
           <td>'.$row->nama_gudang.'</td>
           <td>'.$row->username.'</td>
           <td>'.$row->nama.'</td>
@@ -83,7 +83,7 @@ class Kas extends CI_Controller {
         foreach ($data as $row) {
           $pesan .= '<tr>
           <td>'.$no++.'</td>
-          <td>'.$row->tanggal.'</td>
+          <td>'.tgl_indo($row->tanggal).'</td>
           <td>'.$row->nama_gudang.'</td>
           <td>'.$row->username.'</td>
           <td>'.$row->nama.'</td>
@@ -115,7 +115,7 @@ class Kas extends CI_Controller {
         foreach ($data as $row) {
           $pesan .= '<tr>
           <td>'.$no++.'</td>
-          <td>'.$row->tanggal.'</td>
+          <td>'.tgl_indo($row->tanggal).'</td>
           <td>'.$row->nama_gudang.'</td>
           <td>'.$row->username.'</td>
           <td>'.$row->nama.'</td>

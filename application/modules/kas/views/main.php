@@ -28,7 +28,7 @@
       <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
       </div>
         <!-- filter harian -->
-      <div class="row" id="filter-harian" style="display:none;">
+      <div class="row" id="filter-harian">
         <div class="col-md-4">
           <div class="input-group">
             <span class="input-group-addon">Tanggal</span>
