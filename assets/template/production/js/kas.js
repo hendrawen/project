@@ -18,7 +18,7 @@ $(document).ready(function() {
         //Set column definition initialisation properties.
         "columnDefs": [
         { 
-            "targets": [ 0, 7 ], //first column / numbering column
+            "targets": [ 0, -1 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
         ],

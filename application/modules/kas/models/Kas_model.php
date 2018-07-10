@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Kas_model extends CI_Model {
 
     var $table = 'wp_kas';
-    var $column_order = array(null, 'tanggal','nama_gudang','username','wp_karyawan.nama','wp_kategori.nama_kategori','keterangan','pendapatan','pengeluaran','saldo'); //set column field database for datatable orderable
-    var $column_search = array('tanggal','nama_gudang','username','wp_karyawan.nama','wp_kategori.nama_kategori','keterangan','pendapatan','pengeluaran','saldo'); //set column field database for datatable searchable
+    var $column_order = array(null, 'tanggal','nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori.nama_kategori','pendapatan','pengeluaran'); //set column field database for datatable orderable
+    var $column_search = array('tanggal','nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori.nama_kategori','pendapatan','pengeluaran'); //set column field database for datatable searchable
     var $order = array('id' => 'asc'); // default order
 
     public function __construct()
