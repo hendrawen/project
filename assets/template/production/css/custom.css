@@ -13,3 +13,16 @@ tr > th {
     padding-right: 70px !important;
     vertical-align: middle !important;
 }
+
+.wider_harian{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    vertical-align: middle !important;
+}
+
+.wider_kosong{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 20px !important;
+    vertical-align: middle !important;
+}

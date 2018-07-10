@@ -7,8 +7,31 @@
     <div class="clearfix"></div>
   </div>
 
-    
+
     <div class="x_content">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-addon">Tanggal <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
+            <input type="date" class="form-control" id="kas-hari" placeholder="" value="<?php echo date('m/d/Y')?>">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-addon">Kantor </span>
+            <select class="form-control" id="kantor">
+              <?php foreach ($list_kantor as $row): ?>
+                <option value="<?php echo $row->id;?>"><?php echo $row->nama_gudang;?></option>
+              <?php endforeach; ?>
+              </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-success" id="btn-kas-harian"><i class="fa fa-search"></i> Search</button>
+          <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
+        </div>
+      </div>
+
         <div class="table-responsive">
             <table id="table-kas" class="table table-striped jambo_table table-bordered nowrap">
                 <thead>
@@ -22,7 +45,7 @@
                     <th>Pengeluaran</th>
                     <th>Action</th>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                 </tbody>
             </table>
         </div>

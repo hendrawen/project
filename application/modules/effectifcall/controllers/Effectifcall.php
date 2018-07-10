@@ -118,6 +118,7 @@ class Effectifcall extends CI_Controller{
         	    'tgl_kirim' => set_value('tgl_kirim'),
         	    'keterangan' => set_value('keterangan'),
         	    'sumber_data' => set_value('sumber_data'),
+        	    'by_status' => set_value('by_status'),
         	    'wp_status_effectif_id' => set_value('wp_status_effectif_id'),
         	    'created_at' => set_value('created_at'),
         	    'updated_at' => set_value('updated_at'),
@@ -154,6 +155,7 @@ class Effectifcall extends CI_Controller{
                       'tgl_kirim' => $this->input->post('tgl_kirim', true),
                       'keterangan' => $this->input->post('keterangan', true),
                       'sumber_data' => $this->input->post('sumber_data', true),
+                      'by_status' => $this->input->post('by_status', true),
                       'wp_status_effectif_id' => $this->input->post('wp_status_effectif_id', true),
                       'created_at' => date('Y-m-d H:i:s'),
                       'username' => $this->session->identity,
@@ -183,6 +185,7 @@ class Effectifcall extends CI_Controller{
             		'tgl_kirim' => set_value('tgl_kirim', $row->tgl_kirim),
             		'keterangan' => set_value('keterangan', $row->keterangan),
             		'sumber_data' => set_value('sumber_data', $row->sumber_data),
+            		'by_status' => set_value('by_status', $row->by_status),
             		'wp_status_effectif_id' => set_value('wp_status_effectif_id', $row->wp_status_effectif_id),
                 'username' => $this->session->identity,
 	          );
@@ -219,6 +222,7 @@ class Effectifcall extends CI_Controller{
                 'tgl_kirim' => $this->input->post('tgl_kirim', true),
                 'keterangan' => $this->input->post('keterangan', true),
                 'sumber_data' => $this->input->post('sumber_data', true),
+                'by_status' => $this->input->post('by_status', true),
                 'wp_status_effectif_id' => $this->input->post('wp_status_effectif_id', true),
                 'updated_at' => date('Y-m-d H:i:s'),
                 'username' => $this->session->identity,
@@ -244,6 +248,7 @@ class Effectifcall extends CI_Controller{
       # code...
     	$this->form_validation->set_rules('wp_pelanggan_id', 'ID Pelanggan', 'trim|required');
     	$this->form_validation->set_rules('wp_status_effectif_id', 'Status', 'trim|required');
+    	$this->form_validation->set_rules('by_status', 'Status', 'trim|required');
     	$this->form_validation->set_rules('sumber_data', 'sumber_data', 'trim|required');
     	$this->form_validation->set_rules('id', 'id', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
