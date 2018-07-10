@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kas extends CI_Controller {
@@ -28,8 +28,41 @@ class Kas extends CI_Controller {
             'content'		=>'main',
             'menu'			=> $this->permit[0],
             'submenu'		=> $this->permit[1],
+            'list_kantor' => $this->model->get_kantor()
         );
         $this->load->view('panel/dashboard', $data);
+    }
+
+    function load_kas_harian()
+    {
+      $day = $this->input->post('day');
+      $kantor = $this->input->post('kantor');
+      $data = $this->model->laporan_kas_harian($day, $kantor);
+      $pesan = "";
+      $total = 0;
+      $no = 1;
+      if ($data) {
+        foreach ($data as $row) {
+          $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->tanggal.'</td>
+          <td>'.$row->nama_gudang.'</td>
+          <td>'.$row->username.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.$row->nama_kategori.'</td>
+          <td>'.$row->pendapatan.'</td>
+          <td>'.$row->pengeluaran.'</td>
+          <td><a class="btn btn-xs btn-primary" href="javascript:void(0)" title="Edit" onclick="ubah('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+          <a class="btn btn-xs btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+          </td>
+          </tr>';
+        }
+      } else {
+        $pesan .= '<tr>
+          <td colspan=16>Record not found</td>
+        </tr>';
+      }
+      echo $pesan;
     }
 
     function get_karyawan()
@@ -72,7 +105,7 @@ class Kas extends CI_Controller {
                 ';
             $data[] = $row;
         }
- 
+
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->model->count_all(),
@@ -93,7 +126,7 @@ class Kas extends CI_Controller {
         $data->tanggal = ($data->tanggal == '0000-00-00') ? '' : $data->tanggal; // if 0000-00-00 set tu empty for datepicker compatibility
         echo json_encode($data);
     }
- 
+
     public function ajax_add()
     {
         $cek = get_permission('Keuangan', $this->permit[1]);
@@ -113,7 +146,7 @@ class Kas extends CI_Controller {
         $insert = $this->model->save($data);
         echo json_encode(array("status" => TRUE));
     }
- 
+
     public function ajax_update()
     {
         $this->_validate();
@@ -129,48 +162,48 @@ class Kas extends CI_Controller {
         $this->model->update(array('id_kas' => $this->input->post('id_kas')), $data);
         echo json_encode(array("status" => TRUE));
     }
- 
+
     public function ajax_delete($id)
     {
         $this->model->delete($id);
         echo json_encode(array("status" => TRUE));
     }
- 
+
     private function _validate()
     {
         $data = array();
         $data['error_string'] = array();
         $data['inputerror'] = array();
         $data['status'] = TRUE;
- 
+
         if($this->input->post('tanggal') == '')
         {
             $data['inputerror'][] = 'tanggal';
             $data['error_string'][] = 'Tanggal harus diisi';
             $data['status'] = FALSE;
         }
- 
+
         if($this->input->post('id_kantor') == '')
         {
             $data['inputerror'][] = 'id_kantor';
             $data['error_string'][] = 'Pilih Kantor';
             $data['status'] = FALSE;
         }
- 
+
         if($this->input->post('id_karyawan') == '')
         {
             $data['inputerror'][] = 'id_karyawan';
             $data['error_string'][] = 'Pilih Debt / Delivery';
             $data['status'] = FALSE;
         }
- 
+
         if($this->input->post('id_kategori') == '')
         {
             $data['inputerror'][] = 'id_kategori';
             $data['error_string'][] = 'Pilih Kategori';
             $data['status'] = FALSE;
         }
- 
+
         if($this->input->post('pendapatan') == '')
         {
             $data['inputerror'][] = 'pendapatan';
@@ -184,7 +217,7 @@ class Kas extends CI_Controller {
             $data['error_string'][] = 'Pengeluaran harus diisi';
             $data['status'] = FALSE;
         }
- 
+
         if($data['status'] === FALSE)
         {
             echo json_encode($data);

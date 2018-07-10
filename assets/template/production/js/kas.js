@@ -1,23 +1,23 @@
 var table;
-var save_method; 
+var save_method;
 $(document).ready(function() {
- 
+
     //datatables
-    table = $('#table-kas').DataTable({ 
- 
+    table = $('#table-kas').DataTable({
+
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
- 
+
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": base_url + "kas/ajax_list",
             "type": "POST"
         },
- 
+
         //Set column definition initialisation properties.
         "columnDefs": [
-        { 
+        {
             "targets": [ 0, 7 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
@@ -31,10 +31,10 @@ $(document).ready(function() {
         todayHighlight: true,
         orientation: "top auto",
         todayBtn: true,
-        todayHighlight: true,  
+        todayHighlight: true,
     });
- 
-    //set input/textarea/select event when change value, remove class error and remove text help block 
+
+    //set input/textarea/select event when change value, remove class error and remove text help block
     remove_parent();
     saldo();
 });
@@ -69,7 +69,7 @@ function tambah()
     $("#modal-kas").modal("show"); // show bootstrap modal
     $('.modal-title').text('Tambah Pendapatan dan Pengeluaran'); // Set Title to Bootstrap modal title
 }
- 
+
 function ubah(id)
 {
     remove_parent();
@@ -80,7 +80,7 @@ function ubah(id)
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
- 
+
     //Ajax Load data from ajax
     $.ajax({
         url : base_url+"kas/ajax_edit/" + id,
@@ -99,7 +99,7 @@ function ubah(id)
             // $('[name="pengeluaran"]').datepicker('update',data.pengeluaran);
             $('#modal-kas').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
- 
+
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
@@ -107,26 +107,26 @@ function ubah(id)
         }
     });
 }
- 
+
 function reload_table()
 {
-    table.ajax.reload(null,false); //reload datatable ajax 
+    table.ajax.reload(null,false); //reload datatable ajax
     saldo();
 }
- 
+
 function simpan()
 {
     $('#btnSave').text('saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable 
+    $('#btnSave').attr('disabled',true); //set button disable
     HapusTitik
     var url;
- 
+
     if(save_method == 'add') {
         url = base_url+"kas/ajax_add";
     } else {
         url = base_url+"kas/ajax_update";
     }
- 
+
     // ajax adding data to database
     $.ajax({
         url : url,
@@ -142,24 +142,24 @@ function simpan()
             }
             else
             {
-                for (var i = 0; i < data.inputerror.length; i++) 
+                for (var i = 0; i < data.inputerror.length; i++)
                 {
                     $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
                     $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
                 }
             }
             $('#btnSave').text('Simpan'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
+            $('#btnSave').attr('disabled',false); //set button enable
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
             alert('Error adding / update data');
             $('#btnSave').text('Simpan'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
+            $('#btnSave').attr('disabled',false); //set button enable
         }
     });
 }
- 
+
 function hapus(id)
 {
     if(confirm('Are you sure delete this data?'))
@@ -180,7 +180,7 @@ function hapus(id)
                 alert('Error deleting data');
             }
         });
- 
+
     }
 }
 
@@ -288,3 +288,24 @@ function TambahTitik(num)
    }
    return numArr.reverse().join('');
 }
+
+$("#btn-kas-harian").click(function() {
+    day = $("#kas-hari").val();
+    kantor = $("#kantor").val();
+    $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url: base_url+'kas/load_kas_harian/',
+      type: 'POST',
+      dataType: 'html',
+      data: {day: day, kantor : kantor},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tbody").html(data);
+      }
+    });
+  });
