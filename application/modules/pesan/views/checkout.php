@@ -216,7 +216,12 @@
 
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
-                  <div class="col-xs-12">
+                  <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                    <input type="text" class="form-control has-feedback-left" id="single_cal3" name="tgltransaksi" placeholder="Tanggal Transaksi" aria-describedby="inputSuccess2Status3">
+                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                  </div>
+                  <div class="col-sm-6 col-xs-6">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
                     <a href="<?php echo base_url('pesan')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
                   </div>
