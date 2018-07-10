@@ -11,21 +11,6 @@
 
 <div class="row">
   <form action="#" id="form_barang" class="form-horizontal">
-  <!-- <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-    <label for="varchar">Nama Suplier </label>
-    <select name="wp_suplier_id" id="wp_suplier_id" class="e1 form-control" required>
-    <option disabled selected>--Nama Suplier--</option>
-        <?php
-          $users = $this->db->query("SELECT * FROM wp_suplier");
-          foreach($users->result() as $value){
-          $selected= '';
-          ?>
-          <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
-          <?php echo $value->id_suplier; ?> - <?php echo $value->nama_suplier; ?>
-          </option>
-    <?php } ?>
-    </select>
-  </div> -->
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
     <!-- <label for="varchar">Id Barang </label> -->
     <select name="id_barang" id="id_barang" class="e1 form-control" required>
@@ -141,8 +126,14 @@
                 <!-- /.row -->
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
-
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="col-md-4 col-sm-4 col-xs-12">
+                      <div class="col-md-12 xdisplay_inputx form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" id="single_cal3" name="tgl_bayar" placeholder="Tanggal Transaksi" aria-describedby="inputSuccess2Status3">
+                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                        <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                      </div>
+                  </div>
+                  <div class="col-md-8 col-sm-8 col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Checkout</button>
                     <button type="button" class="hapus_cart btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
                     <a href="<?php echo site_url('pembelian') ?>" class="btn btn-danger pull-right">Kembali</a>
