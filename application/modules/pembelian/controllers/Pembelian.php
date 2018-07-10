@@ -13,14 +13,7 @@ class Pembelian extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
         }
-        // else{
-        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('dev')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
-    //Codeigniter : Write Less Do More
     $this->load->model('Pembelian_model', 'pembelian');
-    //$this->load->model('pesan/Pesan_model', 'pesan');
   }
 
   function index()
@@ -55,6 +48,7 @@ class Pembelian extends CI_Controller{
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Pembelian';
+    $data['tgl_bayar']	=tgl_simpan2($this->input->post('tgl_bayar'));
     $data['content']		= 'checkout';
     $data['data']=$this->pembelian->get_all_product();
     $data['profile']=$this->pembelian->get_profile();
@@ -62,7 +56,9 @@ class Pembelian extends CI_Controller{
 		$data['generate_invoice'] = $this->pembelian->generatekode_invoice();
     $data['get_total'] = $this->get_total();
     $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
+      $data['submenu']		= $this->permit[1];
+      
+      
     $this->load->view('panel/dashboard', $data);
   }
 
@@ -211,8 +207,6 @@ class Pembelian extends CI_Controller{
     $data['menu']			= $this->permit[0];
 	    $data['submenu']		= $this->permit[1];
     $data['content']			= 'transaksi';
-    //$data['data']=$this->pesan->get_all_product();
-    //$data['profile']=$this->pesan->get_profile();
     $data['generate_invoice'] = $this->pembelian->generatekode_invoice();
     $this->load->view('panel/dashboard', $data);
   }
@@ -278,7 +272,9 @@ class Pembelian extends CI_Controller{
 
           $status = 'Belum Bayar';
           $tg = date('Y-m-d H-i-s');
-  				$tg2 = date('Y-m-d');
+          $tg2 = date('Y-m-d');
+
+          $tgl_bayar = $this->input->post('tgl_bayar', true);
   				$result = array();
          foreach ($this->cart->contents() as $items) {
   					$result[] = array(
@@ -287,7 +283,7 @@ class Pembelian extends CI_Controller{
   						"wp_barang_id"    => $items['wp_barang_id'],
   						"harga"       		=> $items['price'],
   						//"subtotal"       	=> $items['subtotal'][$key],
-              "tgl_transaksi" => $tg2,
+              "tgl_transaksi" => $tgl_bayar,
   						"wp_suplier_id" 				=> $wp_suplier_id,
   						"satuan"				=> $items['satuan'],
               "subtotal"        => $items['subtotal'],

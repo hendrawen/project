@@ -93,7 +93,7 @@
                     <br>
                     <b>Tanggal Transaksi # </b> <?php
                                           $date = Date("Y-m-d");
-                                          Echo tgl_indo($date);
+                                          Echo tgl_indo($tgl_bayar);
                                         ?>
                     <br>
                   </div>
@@ -107,6 +107,7 @@
 							  <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
 							  <!-- <input type="text" name="idpesan[]" value="<?php echo rand(1,10000);?>"> -->
 							    <input type="hidden" name="id" id="id" class="form-control">
+                  <input type="hidden" name="tgl_bayar" id="tgl_bayar" value="<?php echo $tgl_bayar ?>">
 							    <!-- <input type="hidden" name="id_transaksi_hutang" value="<?php echo $generate_invoice; ?>"> -->
 							    <input type="hidden" name="satuan[]" readonly value="<?php echo $items['satuan'];?>">
 							    <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
