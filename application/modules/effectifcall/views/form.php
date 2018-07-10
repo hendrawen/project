@@ -100,11 +100,19 @@
             <label>Sumber Data</label>
             <select name="sumber_data" id="sumber_data" class="form-control">
               <option selected>--Sumber Data--</option>
-              <option value="Due Date">Due Date</option>
-              <option value="Biru">Biru</option>
-              <option value="Kuning">Kuning</option>
-              <option value="Ijo">Ijo</option>
-              <option value="Pink">Pink</option>
+              <option <?php if( $sumber_data=='Due Date'){echo "selected"; } ?> value="Due Date">Due Date</option>
+              <option <?php if( $sumber_data=='Biru'){echo "selected"; } ?> value="Biru">Biru</option>
+              <option <?php if( $sumber_data=='Kuning'){echo "selected"; } ?> value="Kuning">Kuning</option>
+              <option <?php if( $sumber_data=='Ijo'){echo "selected"; } ?> value="Ijo">Ijo</option>
+              <option <?php if( $sumber_data=='Pink'){echo "selected"; } ?> value="Pink">Pink</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Melalui</label>
+            <select name="by_status" id="by_status" class="form-control">
+              <option selected>--Pilih--</option>
+              <option <?php if( $by_status=='Call'){echo "selected"; } ?>  value="Call">Call</option>
+              <option <?php if( $by_status=='Kunjungan'){echo "selected"; } ?> value="Kunjungan">Kunjungan</option>
             </select>
           </div>
           <div class="form-group">
