@@ -37,7 +37,7 @@ class Lap_dep extends CI_Controller{
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
-          'sub_judul'	=>'SOM',
+          'sub_judul'	=>'Debt & Delivery',
           'content'		=>'dep/laporan_harian',
           'harian'    =>$this->dep->get_harian(),
       );
@@ -99,7 +99,7 @@ class Lap_dep extends CI_Controller{
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
-          'sub_judul'	=>'SOM',
+          'sub_judul'	=>'Debt & Delivery',
           'content'		=>'dep/laporan_bulanan',
           'month'     => $this->month,
           'bulanan'    =>$this->dep->get_harian(),
@@ -164,7 +164,7 @@ class Lap_dep extends CI_Controller{
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
-          'sub_judul'	=>'SOM',
+          'sub_judul'	=>'Debt & Delivery',
           'content'		=>'dep/laporan_tahunan',
           'tahunan'    =>$this->dep->get_harian(),
       );
@@ -227,7 +227,7 @@ class Lap_dep extends CI_Controller{
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
-          'sub_judul'	=>'SOM',
+          'sub_judul'	=>'Debt & Delivery',
           'content'		=>'dep/laporan_per_produk',
           'list_barang' => $this->Barang_model->get_all(),
       );
@@ -289,7 +289,7 @@ class Lap_dep extends CI_Controller{
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
-          'sub_judul'	=>'SOM',
+          'sub_judul'	=>'Debt & Delivery',
           'content'		=>'dep/laporan_area',
       );
       $data['menu']			= $this->permit[0];
@@ -365,7 +365,7 @@ class Lap_dep extends CI_Controller{
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
           'judul'			=>'Dashboard',
-          'sub_judul'	=>'SOM',
+          'sub_judul'	=>'Debt & Delivery',
           'content'		=>'dep/laporan_marketing',
       );
       $data['menu']			= $this->permit[0];
@@ -459,7 +459,7 @@ class Lap_dep extends CI_Controller{
         'aktif'			=>'som',
         'title'			=>'Brajamarketindo',
         'judul'			=>'Dashboard',
-        'sub_judul'	=>'SOM',
+        'sub_judul'	=>'Debt & Delivery',
         'content'		=>'dep/laporan_pelanggan',
         'month'     => $this->month,
         // 'record'    => $record,
