@@ -32,6 +32,7 @@ class Debt extends CI_Controller {
         $data['content']		='main';
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
+        $data['getbarang']         = $this->debt->get_barang();
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -42,6 +43,32 @@ class Debt extends CI_Controller {
                 foreach ($result as $row)
                     $arr_result[] = array(
                         'label'			=> $row->id_pelanggan,
+                    );
+                    echo json_encode($arr_result);
+            }
+        }
+    }
+
+    function get_autocomplete_driver(){
+		if (isset($_GET['term'])) {
+            $result = $this->debt->cari_driver($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = array(
+                        'label'			=> $row->nama,
+                    );
+                    echo json_encode($arr_result);
+            }
+        }
+    }
+
+    function get_autocomplete_debt(){
+		if (isset($_GET['term'])) {
+            $result = $this->debt->cari_debt($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = array(
+                        'label'			=> $row->nama,
                     );
                     echo json_encode($arr_result);
             }
@@ -66,7 +93,7 @@ class Debt extends CI_Controller {
                     'qty'             => $key->qty,
                     'satuan'          => $key->satuan,
                     'nama'            => $key->nama,
-                    'price'        => $key->subtotal,
+                    'price'           => $key->jumlah,
                 ); 
                 $this->cart->insert($data);
             }
@@ -106,6 +133,42 @@ class Debt extends CI_Controller {
         echo $pesan;
     }
 
+    function get_list_belakang()
+    {
+        $total = 0;
+        $pesan = "";
+        foreach ($this->cart->contents() as $row) {
+            $pesan .='
+            <tr>
+                <td>'.$row['id_pelanggan'].'</td>
+                <td>'.$row['name'].'</td>
+                <td>'.$row['nama_barang'].'</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            <tr>
+        ';
+        $total +=$row['price'];
+        }
+        $pesan .='
+        <tr>
+                <td colspan="3"><b>Jumlah</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+        </tr>
+        ';
+        echo $pesan;
+    }
+
     function cek()
     {
         # code...
@@ -116,6 +179,23 @@ class Debt extends CI_Controller {
     {
         # code...
         $this->cart->destroy();
+    }
+
+    function belakang()
+    {
+        # code...
+        $cek = get_permission('Effectif Call', $this->permit[1]);
+        if (!$cek) {//cek admin ga?
+            redirect('panel','refresh');
+        }
+        $data['aktif']			='Master';
+        $data['title']			='Brajamarketindo';
+        $data['judul']			='Dashboard';
+        $data['sub_judul']	    ='Report Harian Debt';
+        $data['content']		='belakang';
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
+        $this->load->view('panel/dashboard', $data);
     }
 
 }

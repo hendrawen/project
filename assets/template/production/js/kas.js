@@ -18,7 +18,7 @@ $(document).ready(function() {
         //Set column definition initialisation properties.
         "columnDefs": [
         {
-            "targets": [ 0, 7 ], //first column / numbering column
+            "targets": [ 0, -1 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
         ],
@@ -98,7 +98,7 @@ function ubah(id)
             // $('[name="pendapatan"]').datepicker('update',data.pendapatan);
             // $('[name="pengeluaran"]').datepicker('update',data.pengeluaran);
             $('#modal-kas').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Edit Pendapatan dan Pengeluaran'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
