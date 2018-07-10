@@ -153,7 +153,8 @@ class Pesan extends CI_Controller{
   				$wp_pelanggan_id = $this->input->post('id', true);
   				$wp_status_id = $this->input->post('wp_status_id', true);
   				$tg = date('Y-m-d H-i-s');
-  				$tg2 = date('Y-m-d');
+					$tg2 = date('Y-m-d');
+					$tg3 = $this->input->post('tgltransaksi', true);
   				$result = array();
   				foreach($kp AS $key => $val){
   					$result[] = array(
@@ -163,9 +164,9 @@ class Pesan extends CI_Controller{
   						"harga"       		=> $_POST['harga'][$key],
   						"subtotal"       	=> $_POST['subtotal'][$key],
               "wp_pelanggan_id" => $wp_pelanggan_id,
-  						"tgl_transaksi" 				=> $tg,
+  						"tgl_transaksi" 				=> tgl_simpan2($tg3),
   						"wp_status_id"				=> $wp_status_id,
-              "diskon"        => $this->input->post('diskon'),
+							"diskon"        => $this->input->post('diskon'),
               "username"      => $this->session->identity
   					);
 					}
@@ -181,7 +182,7 @@ class Pesan extends CI_Controller{
 						'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
 						'id_pelanggan' => $wp_pelanggan_id,
 						'bayar' => $this->get_total(),
-						'tgl_bayar' => $tg,
+						'tgl_bayar' => tgl_simpan2($tg3),
 						'username' => $this->session->identity
 					);
 					$this->db->insert('wp_detail_transaksi', $detail);
@@ -200,7 +201,8 @@ class Pesan extends CI_Controller{
   				$wp_pelanggan_id = $this->input->post('id', true);
   				$wp_status_id = $this->input->post('wp_status_id', true);
   				$tg = date('Y-m-d H-i-s');
-  				$tg2 = date('Y-m-d');
+					$tg2 = date('Y-m-d');
+					$tg3 = $this->input->post('tgltransaksi', true);
   				$result = array();
   				foreach($kp AS $key => $val){
   					$result[] = array(
@@ -210,7 +212,7 @@ class Pesan extends CI_Controller{
   						"harga"       		=> $_POST['harga'][$key],
   						"subtotal"       	=> $_POST['subtotal'][$key],
               "wp_pelanggan_id" => $wp_pelanggan_id,
-  						"tgl_transaksi" 				=> $tg,
+  						"tgl_transaksi" 				=> tgl_simpan2($tg3),
   						"wp_status_id"				=> $wp_status_id,
               "diskon"        => $this->input->post('diskon'),
               "username"    => $this->session->identity
@@ -228,7 +230,7 @@ class Pesan extends CI_Controller{
 						'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
 						'id_pelanggan' => $wp_pelanggan_id,
 						'bayar' => $this->input->post('bayar', true),
-						'tgl_bayar' => $tg,
+						'tgl_bayar' => tgl_simpan2($tg3),
 						'username' => $this->session->identity
 					);
 					$this->db->insert('wp_detail_transaksi', $data);
