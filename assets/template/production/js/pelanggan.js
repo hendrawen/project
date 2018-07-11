@@ -1,6 +1,9 @@
 var save_method; //for save method string
 var table;
      $(document).ready(function () {
+        $('#kota').select2();
+        $('#kecamatan').select2();
+        $('#kelurahan').select2();
           table = $('#table').dataTable({
            "processing": true, //Feature control the processing indicator.
            "serverSide": true, //Feature control DataTables' server-side processing mode.
