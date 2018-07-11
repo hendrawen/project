@@ -3,7 +3,7 @@ $(document).ready(function () {
   get_all_tracking();
 });
 
-  function get_all() {
+function get_all() {
     $("#loading").show();
     $.ajax({
       url: base_url+'som/laporan/get_all/',

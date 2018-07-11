@@ -28,6 +28,36 @@ class Kas_model extends CI_Model {
       return $data->result();
     }
 
+    function laporan_kas_bulanan($from, $to, $year, $id_kantor)
+    {
+      $this->db->select('*');
+      $this->db->from('wp_kas');
+      $this->db->where('month(wp_kas.tanggal) >=', $from);
+      $this->db->where('month(wp_kas.tanggal) <=', $to);
+      $this->db->where('year(wp_kas.tanggal)', $year);
+      $this->db->where('wp_kas.id_kantor', $id_kantor);
+      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
+      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
+      $this->db->join('wp_kategori', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->order_by('wp_kas.id_kas', 'DESC');
+      $data = $this->db->get();
+      return $data->result();
+    }
+
+    function laporan_kas_tahunan($year, $id_kantor)
+    {
+      $this->db->select('*');
+      $this->db->from('wp_kas');
+      $this->db->where('year(wp_kas.tanggal)', $year);
+      $this->db->where('wp_kas.id_kantor', $id_kantor);
+      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
+      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
+      $this->db->join('wp_kategori', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->order_by('wp_kas.id_kas', 'DESC');
+      $data = $this->db->get();
+      return $data->result();
+    }
+
     private function _get_datatables_query()
     {
 

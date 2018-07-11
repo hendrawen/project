@@ -67,7 +67,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
-            <td>'.$row->jumlah.'</td>
+            <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
@@ -138,7 +138,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
-            <td>'.$row->jumlah.'</td>
+            <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
@@ -207,7 +207,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
-            <td>'.$row->jumlah.'</td>
+            <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
@@ -255,7 +255,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
-            <td>'.$row->jumlah.'</td>
+            <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>

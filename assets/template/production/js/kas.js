@@ -1,7 +1,6 @@
 var table;
 var save_method;
 $(document).ready(function() {
-
     //datatables
     table = $('#table-kas').DataTable({
 
@@ -37,6 +36,23 @@ $(document).ready(function() {
     //set input/textarea/select event when change value, remove class error and remove text help block
     remove_parent();
     saldo();
+
+      $('#filter-by').change(function(){
+        if($(this).val() == 'hari'){
+          $('#filter-harian').show()
+          $('#filter-bulanan').hide()
+          $('#filter-tahunan').hide()
+        }else if ($(this).val() == 'bulan') {
+          $('#filter-harian').hide()
+          $('#filter-bulanan').show()
+          $('#filter-tahunan').hide()
+        }else if ($(this).val() == 'tahun') {
+          $('#filter-harian').hide()
+          $('#filter-bulanan').hide()
+          $('#filter-tahunan').show()
+        }
+      })
+
 });
 
 function remove_parent() {
@@ -303,6 +319,50 @@ $("#btn-kas-harian").click(function() {
       type: 'POST',
       dataType: 'html',
       data: {day: day, kantor : kantor},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tbody").html(data);
+      }
+    });
+  });
+
+  $("#btn-kas-bulanan").click(function() {
+    from = $("#kas-from").val();
+    to = $("#kas-to").val();
+    year = $("#kas-year").val();
+    kantor = $("#kantor").val();
+    $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url: base_url+'kas/load_kas_bulanan/',
+      type: 'POST',
+      dataType: 'html',
+      data: {from: from, to : to, year : year, kantor : kantor},
+      success : function (data) {
+        $("#loading").hide();
+        $("#tbody").html(data);
+      }
+    });
+  });
+
+  $("#btn-kas-tahunan").click(function() {
+    tahun = $("#tahun").val();
+    kantor = $("#kantor").val();
+    $("#loading").show();
+    $.ajaxSetup({
+        data: {
+            csrf_test_name: $.cookie('csrf_cookie_name')
+        }
+    });
+    $.ajax({
+      url: base_url+'kas/load_kas_tahunan/',
+      type: 'POST',
+      dataType: 'html',
+      data: {tahun: tahun, kantor : kantor},
       success : function (data) {
         $("#loading").hide();
         $("#tbody").html(data);

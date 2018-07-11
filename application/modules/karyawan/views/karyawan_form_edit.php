@@ -18,7 +18,7 @@
       <?php echo form_open_multipart($action);?>
             <div class="form-group">
                 <label for="varchar">ID Karyawan <?php echo form_error('id_karyawan') ?></label>
-                <input type="text" class="form-control" name="id_karyawan" id="id_karyawan" placeholder="ID Karyawan" value="<?php echo $id_karyawan; ?>" />
+                <input type="text" class="form-control" name="id_karyawan" id="id_karyawan" placeholder="ID Karyawan" value="<?php echo $id_karyawan; ?>" readonly/>
             </div>
     	    <div class="form-group">
                 <label for="varchar">Nama <?php echo form_error('nama') ?></label>

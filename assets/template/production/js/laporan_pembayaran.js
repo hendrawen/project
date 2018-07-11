@@ -2,6 +2,95 @@ $(document).ready(function() {
   load_Pembayaran();
 });
 
+    $("#berdasarkan").change(function() {
+      berdasarkan = $("#berdasarkan").val();
+      $("#loading-combo").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'laporan/pembayaran/isi_dept/'+berdasarkan,
+        type: 'POST',
+        dataType: 'html',
+        success : function (data) {
+          $("#loading-combo").hide();
+          $("#nama").html(data);
+          $("#nama").focus();
+        }
+      });
+    });
+    
+    $("#debtharian").click(function() {
+      tgl = $("#tgl").val();
+      berdasarkan = $("#berdasarkan").val();
+      nama = $("#nama").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'laporan/pembayaran/load_debt_harian/',
+        type: 'POST',
+        dataType: 'html',
+        data: {tgl: tgl, nama : nama, berdasarkan : berdasarkan},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      });
+    });
+
+    $("#btn-debtbulan").click(function() {
+      bulan_dari = $("#bulan_dari").val();
+      bulan_ke = $("#bulan_ke").val();
+      tahun = $("#tahun").val();
+      berdasarkan = $("#berdasarkan-dept").val();
+      nama = $("#nama-dept").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'laporan/pembayaran/load_debt_bulanan/',
+        type: 'POST',
+        dataType: 'html',
+        data: {from : bulan_dari, to : bulan_ke, tahun : tahun, nama : nama, berdasarkan : berdasarkan},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      })
+    });
+
+    $("#btn-tahunan").click(function() {
+      tahun = $("#tahunan").val();
+      berdasarkan = $("#berdasarkan-dept").val();
+      nama = $("#nama-dept").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'som/lap_dep/load_tahunan/',
+        type: 'POST',
+        dataType: 'html',
+        data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      });
+    });
+
+
     $("#btn-laporan-pembayaran-harian").click(function() {
       tgl = $("#tgl").val();
       $("#loading").show();

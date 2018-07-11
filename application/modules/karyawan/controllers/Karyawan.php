@@ -159,7 +159,7 @@ class Karyawan extends CI_Controller
         $photo = $result['file_name'];
 
             $data = array(
-            'id_karyawan' => $this->karyawan_model->buat_kode(),
+                'id_karyawan' => $this->input->post('id_karyawan',TRUE),
         		'nama' => $this->input->post('nama',TRUE),
         		'alamat' => $this->input->post('alamat',TRUE),
         		'no_telp' => $this->input->post('no_telp',TRUE),
@@ -200,7 +200,7 @@ class Karyawan extends CI_Controller
             $data['sub_judul']	='Edit Karyawan';
             $data['menu']			= $this->permit[0];
 		    $data['submenu']		= $this->permit[1];
-            $data['content']		='karyawan_form';
+            $data['content']		='karyawan_form_edit';
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
