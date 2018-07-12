@@ -207,6 +207,7 @@ class Model extends CI_Model {
         $this->db->where('wp_pelanggan.id_pelanggan', $id);
         $this->db->where('MONTH(wp_asis_debt.tanggal)', $month);
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
+        $this->db->join('wp_transaksi', 'wp_transaksi.id = wp_asis_debt.id_transaksi', 'inner');
         if ($tahun != 'semua') {
             $this->db->where('YEAR(wp_asis_debt.tanggal)', $tahun);
         }
@@ -242,6 +243,28 @@ class Model extends CI_Model {
                 'sisa' => 0,
             );
             return $resArray;
+        }
+    }
+
+    function get_turun_krat($id, $month, $tahun)
+    {
+        $this->db->select('wp_transaksi.qty');
+        
+        $this->db->where('wp_pelanggan.id_pelanggan', $id);
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+        
+        $this->db->where('MONTH(wp_transaksi.tgl_transaksi)', $month);
+        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+        $this->db->where('wp_barang.satuan', 'Krat');
+        
+        if ($tahun != 'semua') {
+            $this->db->where('YEAR(wp_transaksi.tgl_transaksi)', $tahun);
+        }
+        $result = $this->db->get('wp_transaksi')->row();
+        if ($result) {
+            return $result->qty;
+        } else {
+            return 0;
         }
     }
 

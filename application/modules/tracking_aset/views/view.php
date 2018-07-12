@@ -135,9 +135,9 @@
             </tr>
             <tr>
               <?php for ($i = 0 ; $i < 12 ; $i++): ?>
+                <th>Turun</th>
                 <th>Naik Krat</th>
                 <th>Naik Bayar</th>
-                <th>Turun</th>
                 <th>Sisa</th>
               <?php endfor ?>
             </tr>

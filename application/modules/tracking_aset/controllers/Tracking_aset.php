@@ -89,12 +89,12 @@ class Tracking_aset extends CI_Controller {
             $row[8] = angka($utang);
 
             for ($i=1; $i <= 12; $i++) { 
-                // $count_trx = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $i, $tahun);
                 $krat = $this->model->get_krat($record->id_pelanggan, $i, $tahun);
+                $turun = $this->model->get_turun_krat($record->id_pelanggan, $i, $tahun);
                 
+                $row[] = angka($turun);
                 $row[] = angka($krat['bayar_krat']);
                 $row[] = angka($krat['bayar_uang']);
-                $row[] = angka($krat['turun_krat']);
                 $row[] = angka($krat['sisa']);
             }
             $data[] = $row;
@@ -175,9 +175,9 @@ class Tracking_aset extends CI_Controller {
         $kolomhead = 9;
         
         for ($i = 0; $i < 12; $i++) {
+            xlsWriteLabel($tablehead+1, $kolomhead++, 'Turun');
             xlsWriteLabel($tablehead+1, $kolomhead++, 'Naik Krat');
             xlsWriteLabel($tablehead+1, $kolomhead++, 'Naik Bayar');
-            xlsWriteLabel($tablehead+1, $kolomhead++, 'Turun');
             xlsWriteLabel($tablehead+1, $kolomhead++, 'Sisa');
         }
             
@@ -199,9 +199,9 @@ class Tracking_aset extends CI_Controller {
                 for ($i=1; $i <= 12; $i++) { 
                     $krat = $this->model->get_krat($data->id_pelanggan, $i, $year);
                 
+                    xlsWriteNumber($tablebody, $kolombody++, $krat['turun_krat']);
                     xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_krat']);
                     xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_uang']);
-                    xlsWriteNumber($tablebody, $kolombody++, $krat['turun_krat']);
                     xlsWriteNumber($tablebody, $kolombody++, floor($krat['sisa']));
                 }
                 $tablebody++;
