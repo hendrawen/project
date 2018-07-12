@@ -14,7 +14,7 @@ class Model_gtransaksi extends CI_Model {
     function count_transaksi($bulan)
     {
         # code...
-        $this->db->select('count(wp_transaksi.id_transaksi) as jumlah');
+        $this->db->select('count(DISTINCT(wp_transaksi.id_transaksi)) as jumlah');
         $this->db->where('month(wp_transaksi.tgl_transaksi)', $bulan);
         $result = $this->db->get('wp_transaksi')->row();
         if ($result) {

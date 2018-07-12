@@ -79,7 +79,7 @@
               <th>Tgl Penarikan</th>
               <th>Bayar</th>
               <th>Tgl Penarikan</th>
-              <th>Bayar</th>
+              <th>Bayar (Rp.)</th>
               <th>Jumlah</th>
               <th>Sisa ASET</th>
               <th class="wider">Status</th>

@@ -89,13 +89,13 @@ class Laporan extends CI_Controller{
           <td>'.$custTarget.'</td>
           <td>'.$custAktual.'</td>
           <td>'.$custAktif.'</td>
-          <td>'.$c_pers.'</td>
+          <td>'.$c_pers.' %</td>
           <td>'.$respTarget.'</td>
           <td>'.$custAktual.'</td>
-          <td>'.$r_pers.'</td>
+          <td>'.$r_pers.' %</td>
           <td>'.$qtyTarget.'</td>
           <td>'.$qtyAkt.'</td>
-          <td>'.$q_pers.'</td>
+          <td>'.$q_pers.' %</td>
         </tr>';
       }
       $pesan .= '
@@ -103,13 +103,13 @@ class Laporan extends CI_Controller{
         <td>'.$jum_tar_c.'</td>
         <td>'.$jum_c_act.'</td>
         <td>'.$jum_c_akt.'</td>
-        <td>'.$jum_c_pers.'</td>
+        <td>'.$jum_c_pers.' %</td>
         <td>'.$jum_tar_r.'</td>
         <td>'.$jum_r_act.'</td>
-        <td>'.$jum_r_pers.'</td>
+        <td>'.$jum_r_pers.' %</td>
         <td>'.$jum_tar_q.'</td>
         <td>'.$jum_q_act.'</td>
-        <td>'.$jum_q_pers.'</td>';
+        <td>'.$jum_q_pers.' %</td>';
 
     } else {
       $pesan = '
@@ -165,13 +165,13 @@ class Laporan extends CI_Controller{
           <td>'.$custTarget.'</td>
           <td>'.$custAktual.'</td>
           <td>'.$custAktif.'</td>
-          <td>'.$c_pers.'</td>
+          <td>'.$c_pers.' %</td>
           <td>'.$respTarget.'</td>
           <td>'.$custAktual.'</td>
-          <td>'.$r_pers.'</td>
+          <td>'.$r_pers.' %</td>
           <td>'.$qtyTarget.'</td>
           <td>'.$qtyAkt.'</td>
-          <td>'.$q_pers.'</td>
+          <td>'.$q_pers.' %</td>
         </tr>';
       }
       $pesan .= '
@@ -179,13 +179,13 @@ class Laporan extends CI_Controller{
         <td>'.$jum_tar_c.'</td>
         <td>'.$jum_c_act.'</td>
         <td>'.$jum_c_akt.'</td>
-        <td>'.$jum_c_pers.'</td>
+        <td>'.$jum_c_pers.' %</td>
         <td>'.$jum_tar_r.'</td>
         <td>'.$jum_r_act.'</td>
-        <td>'.$jum_r_pers.'</td>
+        <td>'.$jum_r_pers.' %</td>
         <td>'.$jum_tar_q.'</td>
         <td>'.$jum_q_act.'</td>
-        <td>'.$jum_q_pers.'</td>';
+        <td>'.$jum_q_pers.' %</td>';
 
     } else {
       $pesan = '

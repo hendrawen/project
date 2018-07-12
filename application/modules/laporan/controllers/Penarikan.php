@@ -259,7 +259,7 @@ class Penarikan extends CI_Controller {
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
-            <td>'.$row->bayar_uang.'</td>
+            <td>'.number_format($row->bayar_uang).'</td>
             <td>'.$row->jumlah.'</td>
             <td>'.$row->sisa.'</td>
             <td>'.$row->status.'</td>

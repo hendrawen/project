@@ -69,7 +69,7 @@ class Produk extends CI_Controller {
             foreach ($id_barang as $key) {
                 # code...
             $pesan .= '
-            <td>'.$this->produk->count_produk($row->kecamatan, $key->id).'</td>';
+            <td>'.$this->produk->count_produk($row->kelurahan, $key->id).'</td>';
             }
             $pesan .= '
             </tr>';
@@ -107,7 +107,7 @@ class Produk extends CI_Controller {
             foreach ($id_barang as $key) {
                 # code...
             $pesan .= '
-            <td>'.$this->produk->count_produk($row->kecamatan, $key->id).'</td>';
+            <td>'.$this->produk->count_produk($row->kelurahan, $key->id).'</td>';
             }
             $pesan .= '
             </tr>';

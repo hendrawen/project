@@ -138,7 +138,7 @@ class Market_model extends CI_Model {
 
     function count_qty($kelurahan, $month)
     {
-        $this->db->select('count(wp_transaksi.id) as `jumlah`');
+        $this->db->select('sum(wp_transaksi.qty) as `jumlah`');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
         $this->db->where('wp_pelanggan.kelurahan', $kelurahan);
         $this->db->where('month(wp_transaksi.tgl_transaksi)', $month);

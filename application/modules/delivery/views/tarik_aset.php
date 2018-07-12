@@ -52,7 +52,7 @@
                       <th>Piutang</th>
                       <th>Tanggal Penarikan</th>
                       <th>Bayar Krat</th>
-                      <th>Bayar Uang</th>
+                      <th>Bayar Uang (Rp.)</th>
                     </thead>
                     <tbody id="result_aset">
                     </tbody>

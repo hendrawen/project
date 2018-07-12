@@ -91,7 +91,7 @@
           <!-- start form for validation -->
           <form action="<?php echo base_url(). 'pembayaran/track_pembayaran'; ?>" method="post">
             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-              <label for="fullname">Tanggal Transaksi * :</label>
+              <label for="fullname">Tanggal Pembayaran * :</label>
               <div class="controls">
                   <div class="col-md-12 xdisplay_inputx form-group has-feedback">
                     <input type="text" class="form-control has-feedback-left" id="single_cal3" name="tgl_bayar" placeholder="Tanggal Transaksi" aria-describedby="inputSuccess2Status3">
