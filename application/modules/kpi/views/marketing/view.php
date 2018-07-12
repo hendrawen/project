@@ -9,9 +9,9 @@ foreach ($days as $d):?>
 <tr>
     <td><?php echo tgl_indo($d)?></td>
     <?php
-        $responden = $this->model->get_count_kategori($d, '4', $id_karyawan);
-        $user = $this->model->get_count_kategori($d, '1', $id_karyawan);
-        $retail = $this->model->get_count_kategori($d, '2', $id_karyawan);
+        $responden = $this->model->get_kategori($d, $id_karyawan, 0);
+        $retail = $this->model->get_kategori($d, $id_karyawan, 1);
+        $user = $this->model->get_kategori($d, $id_karyawan, 4);
         $qty = $this->model->get_count_qty($d, $id_karyawan);
         $tgl_kirim = $this->model->get_tgl_kirim($d, $id_karyawan);
 

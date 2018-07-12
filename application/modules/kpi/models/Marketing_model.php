@@ -9,6 +9,21 @@ class Marketing_model extends CI_Model {
         //Do your magic here
     }
 
+    function get_kategori($date, $id_karyawan, $id_kategori)
+    {
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('wp_karyawan_id_karyawan', $id_karyawan);
+        }
+        $this->db->select('count(id) as t');
+        if ($id_kategori != 0) {
+            $this->db->where('id_kategori', $id_kategori);
+        }
+        $this->db->where('DATE(created_at)', $date);
+        $cek = $this->db->get('wp_pelanggan')->row();
+        return $cek->t;
+    }
+
     function get_count_kategori($date, $id_kategori, $id_karyawan)
     {
         if($id_karyawan != 'semua')
