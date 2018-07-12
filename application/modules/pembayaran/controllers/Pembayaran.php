@@ -185,7 +185,7 @@ class Pembayaran extends CI_Controller{
                  <td><?php echo $key->nama_pelanggan ?></td>
                  <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
                  <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
-                 <td><?php echo tgl_indo($key->tgl_bayar) ?></td>
+                 <td><?php echo ($key->bayar > 0)? tgl_indo($key->tgl_bayar):'' ?></td>
                  <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td>
                  <td>Rp. <?php echo number_format($key->sisa,2,",",".") ?></td>
 

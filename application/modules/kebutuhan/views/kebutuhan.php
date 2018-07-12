@@ -24,6 +24,7 @@
   </div>
   <div class="x_content">
     <?php
+    if ($kebutuhan){
     foreach ($kebutuhan as $value) {
     echo '<div class="widget_summary">
       <div class="w_left w_20">
@@ -41,7 +42,7 @@
       </div>
       <div class="clearfix"></div>
     </div>';
-    }
+    }}
     ?>
   </div>
 </div>

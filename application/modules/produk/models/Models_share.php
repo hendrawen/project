@@ -16,7 +16,7 @@ class Models_share extends CI_Model {
     function kelurahan_all()
     {
         # code...
-        $this->db->select('wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, COUNT(wp_transaksi.wp_barang_id) as jumlah');
+        $this->db->select('wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, sum(wp_transaksi.qty) as jumlah');
         $this->db->from('wp_transaksi');
         $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
         $this->db->group_by('wp_pelanggan.kelurahan');
@@ -29,7 +29,7 @@ class Models_share extends CI_Model {
     function kelurahan_filter($kota, $kecamatan, $from, $to, $year)
     {
         # code...
-        $this->db->select('wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, COUNT(wp_transaksi.wp_barang_id) as jumlah');
+        $this->db->select('wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, sum(wp_transaksi.qty) as jumlah');
         $this->db->from('wp_transaksi');
         $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
         if ($kota !== '') { 
@@ -113,13 +113,13 @@ class Models_share extends CI_Model {
         // $query = "SELECT count(wp_barang_id) as `jumlah` FROM `wp_transaksi` JOIN wp_pelanggan
         // WHERE EXISTS (SELECT * from wp_transaksi WHERE wp_transaksi.wp_pelanggan_id = wp_pelanggan.id )
         // and `wp_pelanggan`.`kecamatan` = '$kelurahan' AND wp_transaksi.wp_barang_id = '1' GROUP BY wp_pelanggan.kecamatan";
-        $this->db->select('COUNT(wp_transaksi.wp_barang_id) as jumlah');
+        $this->db->select('sum(wp_transaksi.qty) as jumlah');
         $this->db->from('wp_transaksi');
         $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
         $this->db->join('wp_barang', 'wp_transaksi.wp_barang_id = wp_barang.id', 'left');  
-        $this->db->where('wp_pelanggan.kecamatan', $kelurahan);
+        $this->db->where('wp_pelanggan.kelurahan', $kelurahan);
         $this->db->where('wp_transaksi.wp_barang_id', $id);
-        $this->db->group_by('wp_pelanggan.kecamatan');
+        $this->db->group_by('wp_pelanggan.kelurahan');
         $result =  $this->db->get()->row();
         if ($result) {
             # code...

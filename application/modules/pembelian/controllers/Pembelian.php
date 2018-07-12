@@ -245,7 +245,7 @@ class Pembelian extends CI_Controller{
 		$total = 0;
 		if ($this->cart->contents()) {
 			foreach ($this->cart->contents() as $items) {
-				$subtotal = $items['subtotal'] * $items['qty'];
+				$subtotal = $items['price'] * $items['qty'];
 				$total += $subtotal;
 			}
 		}

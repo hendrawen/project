@@ -105,7 +105,7 @@ class Barang_model extends CI_Model
            $kode = 1;
           }
           $kodemax = str_pad($kode, 2, "0", STR_PAD_LEFT); // angka 2 menunjukkan jumlah digit angka 0
-          $kodejadi = "BR0".$kodemax;    // hasilnya ODJ-9921-0001 dst.
+          $kodejadi = "NB0".$kodemax;    // hasilnya ODJ-9921-0001 dst.
           return $kodejadi;
     }
 

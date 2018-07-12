@@ -23,7 +23,7 @@
     <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- bootstrap-datetimepicker -->
 
-    <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet"> -->
 
     <link href="<?php echo base_url()?>assets/template/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
@@ -37,7 +37,7 @@
     <!-- starrr -->
     <link href="<?php echo base_url()?>assets/template/vendors/starrr/dist/starrr.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
-    <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url()?>assets/template/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"> -->
     <link href="<?php echo base_url()?>assets/template/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url()?>assets/template/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">

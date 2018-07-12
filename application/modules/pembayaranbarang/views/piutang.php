@@ -51,11 +51,10 @@
                       <th>ID Suplier</th>
                       <th>Nama Suplier</th>
                       <th>ID Transaksi</th>
-                      <th>Nama Barang</th>
-                      <th>Satuan</th>
-                      <th>Harga (Rp.)</th>
-                      <th>Qty</th>
-                      <th>Sub Total(Rp.)</th>
+                      <th>Utang (Rp.)</th>
+                      <th>Tanggal Bayar</th>
+                      <th>Bayar (Rp.)</th>
+                      <th>Sisa (Rp.)</th>
                     </thead>
                     <tbody id="result2">
                     </tbody>

@@ -390,14 +390,15 @@ class Delivery extends CI_Controller
                     'bayar' => $row->bayar_krat,
                     'bayar' => $row->bayar_uang,
                 );
+                $tgl = ($row->bayar_krat > 0 ) ? $row->tgl_penarikan: '';
                 $pesan .= '
                     <tr>
                         <td>'.$row->id_pelanggan.'</td>
                         <td>'.$row->nama_pelanggan.'</td>
                         <td>'.$row->turun_krat.'</td>
-                        <td>'.$row->tgl_penarikan.'</td>
+                        <td>'.$tgl.'</td>
                         <td>'.$row->bayar_krat.'</td>
-                        <td>'.$row->bayar_uang.'</td>
+                        <td>'.number_format($row->bayar_uang).'</td>
                     </tr>';
             }
             $sisa = $piutang-$bayar;
@@ -466,9 +467,9 @@ class Delivery extends CI_Controller
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
-                    'bayar_krat' => $record_debt[$i]['turun_krat'],
+                    // 'bayar_krat' => $record_debt[$i]['turun_krat'],
                     'piutang' => $record_debt[$i]['piutang'] + $record_debt[$i]['turun_krat'],
-                    'bayar_uang' => $record_debt[$i]['turun_krat'] * $harga_krat,
+                    // 'bayar_uang' => $record_debt[$i]['turun_krat'] * $harga_krat,
                 );
                 if ($jenis == 'krat') {
                     unset($penarikan[$i]['bayar_uang']);
@@ -490,9 +491,8 @@ class Delivery extends CI_Controller
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
-                    'bayar_krat' => $jumlah_bayar,
+                    // 'bayar_krat' => $jumlah_bayar,
                     'piutang' => $record_debt[$i]['piutang'] + $jumlah_bayar,
-                    'bayar_uang' => $sisa * $harga_krat,
                 );
                 if ($jenis == 'krat') {
                     unset($penarikan[$i]['bayar_uang']);

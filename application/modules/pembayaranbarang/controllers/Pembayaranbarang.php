@@ -171,7 +171,7 @@ class Pembayaranbarang extends CI_Controller{
          $query2 = $this->pembayaran->get_min_track($cari);
             foreach ($query2 as $key) {
               $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
-              $this->temb_bayar[$i]['total']= $key->total;
+              $this->temb_bayar[$i]['sisa']= $key->sisa;
               $this->temb_bayar[$i]['id_suplier']= $key->id_suplier;
               $i++;
             ?>
@@ -180,24 +180,22 @@ class Pembayaranbarang extends CI_Controller{
            ;
           foreach ($query as $key) { ?>
              <tr>
-                 <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
+             <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                  <td><?php echo $key->id_suplier ?></td>
                  <td><?php echo $key->nama_suplier ?></td>
-                 <td><?php echo $key->id_transaksi ?></td>
-                 <td><?php echo $key->nama_barang ?></td>
-                 <td><?php echo $key->satuan ?></td>
-                 <td>Rp. <?php echo number_format($key->harga,2,",",".") ?></td>
-                 <td><?php echo $key->qty ?></td>
-                  <td>Rp. <?php echo number_format($key->subtotal,2,",",".") ?></td>
-                 <!-- <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td> -->
+                 <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
+                 <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
+                 <td><?php echo ($key->bayar > 0)? tgl_indo($key->tgl_bayar):'' ?></td>
+                 <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td>
+                 <td>Rp. <?php echo number_format($key->sisa,2,",",".") ?></td>
              <tr>;
                <input type="hidden" id="id_track_suplier" class="form-control" value="<?php echo $key->wp_suplier_id?>" name="id_track_suplier" required="">
          <?php }
          ;
          foreach ($sum as $key) { ?>
             <tr>
-             <th colspan="8">Total</th>
-                <th colspan="1">Rp. <?php echo number_format($key->total,2,",",".") ?> </th>
+             <th colspan="7">Total</th>
+                <th colspan="1">Rp. <?php echo number_format($key->sisa,2,",",".") ?> </th>
             </tr>
             <?php }
   }
@@ -223,8 +221,8 @@ class Pembayaranbarang extends CI_Controller{
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
     $sisa = '';
     for ($i=0; $i < sizeof($list); $i++) {
-      if ($jumlah_bayar > $list[$i]['total']) {
-          $kembali = $jumlah_bayar-$list[$i]['total'];
+      if ($jumlah_bayar > $list[$i]['sisa']) {
+          $kembali = $jumlah_bayar-$list[$i]['sisa'];
           $data = array(
             'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
             'bayar' => $jumlah_bayar,
@@ -236,8 +234,8 @@ class Pembayaranbarang extends CI_Controller{
           );
           $this->pembayaran->insert_pembayaran($data);
           $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
-      } else if($jumlah_bayar < $list[$i]['total']) {
-        $sisa = $jumlah_bayar-$list[$i]['total'];
+      } else if($jumlah_bayar < $list[$i]['sisa']) {
+        $sisa = $jumlah_bayar-$list[$i]['sisa'];
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
@@ -250,7 +248,7 @@ class Pembayaranbarang extends CI_Controller{
         $this->pembayaran->insert_pembayaran($data);
         $jumlah_bayar ='';
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
-      } else if($jumlah_bayar = $list[$i]['total']) {
+      } else if($jumlah_bayar = $list[$i]['sisa']) {
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,

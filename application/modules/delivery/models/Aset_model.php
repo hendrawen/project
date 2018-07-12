@@ -93,7 +93,7 @@ class Aset_model extends CI_Model
     function get_penarikan($id_pelanggan)
     {
         $this->db->select('wp_asis_debt.id, wp_asis_debt.turun_krat, wp_asis_debt.piutang, 
-            wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_penarikan.tgl_penarikan, wp_penarikan.bayar_krat, wp_penarikan.bayar_uang');
+            wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_asis_debt.tanggal as tgl_penarikan, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang');
         $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
         $this->db->where("wp_asis_debt.piutang <> wp_asis_debt.turun_krat");
 

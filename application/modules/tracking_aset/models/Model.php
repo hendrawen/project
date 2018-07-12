@@ -203,7 +203,7 @@ class Model extends CI_Model {
 
     function get_krat($id, $month, $tahun)
     {
-        $this->db->select('turun_krat, bayar_krat, bayar_uang');
+        $this->db->select('sum(turun_krat) as turun_krat, sum(bayar_krat) as bayar_krat, sum(bayar_uang) as bayar_uang');
         $this->db->where('wp_pelanggan.id_pelanggan', $id);
         $this->db->where('MONTH(wp_asis_debt.tanggal)', $month);
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
@@ -225,7 +225,7 @@ class Model extends CI_Model {
                 $uang2 = $uang / $harga_krat;
             }
             
-            $sisa = ($krat + $uang2) - $turun;
+            $sisa = $turun - ($krat + $uang2);
 
             $resArray = array(
                 'turun_krat' => $turun,
@@ -248,7 +248,7 @@ class Model extends CI_Model {
 
     function get_turun_krat($id, $month, $tahun)
     {
-        $this->db->select('wp_transaksi.qty');
+        $this->db->select('sum(wp_transaksi.qty) as qty');
         
         $this->db->where('wp_pelanggan.id_pelanggan', $id);
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
