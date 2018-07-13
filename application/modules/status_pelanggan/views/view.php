@@ -45,6 +45,7 @@
 <div class="x_panel">
 <a class="btn btn-primary" href="<?php echo base_url();?>jadwal">Jadwal Pengiriman</a>
 <a class="btn btn-success" href="<?php echo base_url();?>jadwalkunjungan">Jadwal Kunjungan</a>
+<a class="btn btn-warning" href="<?php echo base_url();?>effectifcall/tambah">Tambah</a>
   <div class="x_title">
     <h2>Laporan Status <small>Pelanggan</small></h2>
     <ul class="nav navbar-right panel_toolbox">

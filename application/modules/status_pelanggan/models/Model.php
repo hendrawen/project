@@ -5,7 +5,7 @@ class Model extends CI_Model {
 
     var $table = 'wp_pelanggan';
     var $column_order = array(null, 'id_pelanggan','nama_pelanggan','wp_pelanggan.no_telp','nama','kota','kecamatan','kelurahan'); //set column field database for datatable orderable
-    var $column_search = array('id_pelanggan','nama_pelanggan','wp_pelanggan.no_telp','nama','kota','kecamatan','kelurahan'); //set column field database for datatable searchable 
+    var $column_search = array('id_pelanggan','nama_pelanggan','wp_pelanggan.no_telp','nama','kota','kecamatan','kelurahan', 'wp_status_effectif.status'); //set column field database for datatable searchable 
     var $order = array('wp_pelanggan.id' => 'asc'); // default order 
 
     function __construct()
@@ -15,7 +15,7 @@ class Model extends CI_Model {
 
     private function _get_datatables_query()
     {
-        $this->db->select('id_pelanggan, nama_pelanggan, wp_pelanggan.no_telp, kota, kecamatan, kelurahan, wp_karyawan.nama');
+        $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.no_telp, wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, wp_karyawan.nama, wp_status_effectif.status');
         if($this->input->post('kota'))
         {
             $this->db->where('kota', $this->input->post('kota'));
@@ -24,6 +24,8 @@ class Model extends CI_Model {
         {
             $this->db->where('kecamatan', $this->input->post('kecamatan'));
         }
+        $this->db->join('wp_list_effectif', 'wp_pelanggan_id = wp_pelanggan.id', 'left');
+        $this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id', 'left');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
         $this->db->where('wp_pelanggan.status', 'Pelanggan');
         

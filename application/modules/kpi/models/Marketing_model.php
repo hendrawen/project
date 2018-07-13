@@ -82,11 +82,14 @@ class Marketing_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->select('count(tgl_transaksi) as t');
-        $this->db->where('tgl_transaksi', $date);
-        $cek = $this->db->get('wp_transaksi')->row();
+        $this->db->select('min(wp_transaksi.tgl_transaksi)');
+        $this->db->from('wp_transaksi');
+        $this->db->where('wp_transaksi.tgl_transaksi', $date);
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'left');
+        $this->db->group_by('wp_transaksi.tgl_transaksi');
+        $cek = $this->db->count_all_results();
         if ($cek) {
-            return $cek->t;
+            return $cek;
         } else {
             return null;
         }

@@ -378,8 +378,10 @@ class Pelanggan extends CI_Controller{
           $stat2 = $this->input->post('id_pelanggan');
           if (($stat != "Responden" && $stat2 == "")){
           $test = $this->pelanggan->get_kode_pelanggan();
-          }else{
-          $test = '';
+          }else if ($stat2 !== ""){
+          $test = $stat2;
+          } else {
+            $test = '';
           }
           $hasil2 = $this->upload->data();
           if ($hasil1['file_name']=='' && $hasil2['file_name']==''){

@@ -44,7 +44,7 @@ class Debt_model extends CI_Model {
 
     function get_customer_actual($date, $id_karyawan)
     {
-        $this->db->select('count(wp_transaksi.id) as t');
+        $this->db->select('count(distinct(wp_transaksi.wp_pelanggan_id)) as t');
         if($id_karyawan != 'semua')
         {
             $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
@@ -102,7 +102,7 @@ class Debt_model extends CI_Model {
 
     function get_qty($date, $id_karyawan)
     {
-        $this->db->select('count(qty) as t');
+        $this->db->select('sum(qty) as t');
         $this->db->where('DATE(tgl_transaksi)', $date);
         if($id_karyawan != 'semua')
         {
@@ -116,14 +116,15 @@ class Debt_model extends CI_Model {
 
     function get_penarikan($date, $id_karyawan)
     {
-        $this->db->select('wp_penarikan.bayar_krat as krat, wp_penarikan.bayar_uang as value');
-        $this->db->where('tgl_penarikan', $date);
+        $this->db->select('sum(wp_asis_debt.bayar_krat) as krat, sum(wp_asis_debt.bayar_uang) as value');
+        $this->db->where('tanggal', $date);
         if($id_karyawan != 'semua')
         {
             $this->db->join('wp_asis_debt', 'wp_asis_debt.id = wp_penarikan.wp_asis_debt_id', 'inner');
             $this->db->where('wp_asis_debt.username', $id_karyawan);
         }
-        $this->db->from('wp_penarikan');
+        $this->db->group_by('tanggal');
+        $this->db->from('wp_asis_debt');
         $result = $this->db->get()->row();
         $resArray = array();
         if ($result) {

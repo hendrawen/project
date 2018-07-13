@@ -154,8 +154,8 @@ class Kas_model extends CI_Model {
 
     function get_kategori()
     {
-        $this->db->select('id_kategori, nama_kategori');
-        return $this->db->get('wp_kategori')->result();
+        $this->db->select('id as id_kategori,nama as nama_kategori');
+        return $this->db->get('wp_kategori_kas')->result();
     }
 
     function get_by_id($id)
