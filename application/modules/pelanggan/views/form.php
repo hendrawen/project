@@ -29,7 +29,7 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                     <form action="<?php echo $action; ?>" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
                       <div class="class-row">
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
-                          <input name="id_pelanggan" type="hidden" value="<?php echo $id_pelanggan; ?>">
+                          <input name="id_pelanggan" type="text" value="<?php echo $id_pelanggan; ?>">
                           <div class="form-group">
                             <label>Nama Pelanggan</label>
                             <input type="text" class="form-control" name="nama_pelanggan" placeholder="Masukkan nama pelanggan" value="<?php echo $nama_pelanggan; ?>" required="required">

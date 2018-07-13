@@ -83,21 +83,6 @@
       </thead>
       <tbody>
       </tbody>
-      <tfoot>
-        <tr>
-          <th>Tanggal</th>
-          <th>ID Pelanggan</th>
-          <th>Nama Pelanggan</th>
-          <th>Nama Barang</th>
-          <th>Qty</th>
-          <th>Satuan</th>
-          <th>Tanggal Kirim</th>
-          <th>Status</th>
-          <th>Sumber Data</th>
-          <th>Keterangan</th>
-          <th>Aksi</th>
-        </tr>
-      </tfoot>
   </table>
   </div>
 </div>

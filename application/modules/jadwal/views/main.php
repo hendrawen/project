@@ -106,7 +106,7 @@
                             <option value="" selected>--Pilih--</option>
                                 <?php
                                   $users = $this->db->query("SELECT * FROM wp_karyawan join wp_jabatan where wp_karyawan.wp_jabatan_id = wp_jabatan.id AND
-                                  wp_jabatan.id = '3'");
+                                  wp_jabatan.nama_jabatan = 'Debt & Delivery'");
                                   foreach($users->result() as $value){
                                   $selected= '';
                                   if($wp_karyawan_id_karyawan == $value->id_karyawan){
