@@ -35,11 +35,9 @@
                     <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>suplier">Suplier</a></li>
-                      <?php endif ?>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang">Barang</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
-                      <?php if (in_array("Suplier", $submenu)):?>
-                      <!-- <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li> -->
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>gudang">Gudang</a></li>
                     </ul>
                   </li>
                   <?php endif ?>
