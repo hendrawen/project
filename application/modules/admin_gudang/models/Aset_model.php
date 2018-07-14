@@ -25,6 +25,8 @@ class Aset_model extends CI_Model
         $this->db->join('wp_pelanggan', 'wp_asis_debt.wp_pelanggan_id = wp_pelanggan.id', 'left');
         $this->db->join('wp_barang', 'wp_asis_debt.wp_barang_id = wp_barang.id', 'left');
         $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan', 'left');
+        $this->db->where('wp_asis_debt.username', $this->session->identity);
+        
         $this->db->group_by('wp_asis_debt.wp_pelanggan_id');
         return $this->db->get()->result();
      
@@ -36,6 +38,7 @@ class Aset_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->select('wp_asis_debt.*, wp_pelanggan.id as `id_pel`, wp_pelanggan.nama_pelanggan');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
+        $this->db->where('wp_asis_debt.username', $this->session->identity);
         return $this->db->get($this->table)->row();
     }
 
@@ -99,6 +102,7 @@ class Aset_model extends CI_Model
 
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
         $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
+        $this->db->where('wp_asis_debt.username', $this->session->identity);
         $this->db->group_by('wp_asis_debt.id');
         
         $this->db->order_by('wp_asis_debt.id', 'asc');

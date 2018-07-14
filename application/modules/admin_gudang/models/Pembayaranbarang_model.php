@@ -23,6 +23,7 @@ class Pembayaranbarang_model extends CI_Model{
 
      //add custom filter here
      $this->db->from($this->table);
+     $this->db->where('wp_transaksistok.username', $this->session->identity);
      $i = 0;
 
      foreach ($this->column_search as $item) // loop column
@@ -99,6 +100,7 @@ class Pembayaranbarang_model extends CI_Model{
         $this->db->from($this->table);
         $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
         $this->db->join('wp_barang', 'wp_barang.id = wp_transaksistok.wp_barang_id');
+        $this->db->where('wp_transaksistok.username', $this->session->identity);
         $this->db->order_by('id_transaksi', $this->order);
         return $this->db->get()->result();
     }
