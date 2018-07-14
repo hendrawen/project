@@ -71,13 +71,12 @@ $('#detail_faktur').load(base_url+"faktur/load_cart");
     });
   });
 
-  $('#id_transaksi').autocomplete({
+  $('#id_pelanggan2').autocomplete{
           source: (base_url+"faktur2/get_autocomplete"),
           select: function (event, ui) {
-              $('[name="id_transaksi"]').val(ui.item.label);
-              document.getElementById('id_pelanggan').innerHTML = ui.item.id_pelanggan;
+              $('[name="id_pelanggan2"]').val(ui.item.label;
+              document.getElementById('id_pelanggan2').innerHTML = ui.item.id_pelanggan2;
               document.getElementById('nama_pelanggan').innerHTML = ui.item.nama_pelanggan;
-              //$('[name="id"]').val(ui.item.id);
               document.getElementById('alamat').innerHTML = ui.item.alamat;
               document.getElementById('nama_dagang').innerHTML = ui.item.nama_dagang;
               document.getElementById('no_telp').innerHTML = ui.item.no_telp;

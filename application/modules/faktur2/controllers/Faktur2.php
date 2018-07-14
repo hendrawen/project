@@ -44,9 +44,9 @@ class Faktur2 extends CI_Controller{
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
-					'label' => $row->id_transaksi,
+          'label' => $row->id_pelanggan2,
           'tgl_transaksi' => tgl_indo($row->tgl_transaksi),
-          'id_pelanggan' => $row->id_pelanggan,
+          'id_transaksi' => $row->id_transaksi,
 					'nama_pelanggan' => $row->nama_pelanggan,
           'nama_dagang' => $row->nama_dagang,
           'alamat' => $row->alamat,

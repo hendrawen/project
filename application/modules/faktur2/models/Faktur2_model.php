@@ -92,21 +92,20 @@ class Faktur2_model extends CI_Model{
     }
   }
 
-  function cari_transaksi($idtransaksi){
+  function cari_transaksi($idpelanggan){
     $kosong = 0;
     $where = "wp_detail_transaksi.utang <> wp_detail_transaksi.bayar";
-		$this->db->like('wp_detail_transaksi.id_transaksi', $idtransaksi, 'both');
-    $this->db->select('DISTINCT(wp_detail_transaksi.id_transaksi), wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.no_telp, wp_pelanggan.nama_dagang, wp_pelanggan.alamat, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, wp_pelanggan.lat, wp_pelanggan.long, v_detail.jatuh_tempo, wp_karyawan.nama');
-    //$this->db->from('wp_detail_transaksi');
+		$this->db->like('wp_pelanggan.id_pelanggan', $idpelanggan, 'both');
+    $this->db->select('DISTINCT(wp_detail_transaksi.id_transaksi), wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.no_telp, nama_dagang, wp_pelanggan.alamat, kecamatan, kelurahan, lat, wp_pelanggan.long, v_detail.jatuh_tempo, wp_karyawan.nama');
+    $this->db->join('wp_transaksi','wp_transaksi.wp_pelanggan_id=wp_pelanggan.id','left');
     $this->db->join('wp_transaksi','wp_transaksi.id_transaksi=wp_detail_transaksi.id_transaksi','left');
-    $this->db->join('wp_pelanggan','wp_pelanggan.id=wp_transaksi.wp_pelanggan_id','left');
     $this->db->join('wp_karyawan','wp_karyawan.id_karyawan=wp_pelanggan.wp_karyawan_id_karyawan','left');
     $this->db->join('v_detail','v_detail.id_pelanggan=wp_pelanggan.id_pelanggan','left');
 		$this->db->order_by('wp_detail_transaksi.id_transaksi', 'DESC');
     $this->db->where($where);
     //$this->db->where('wp_detail_transaksi.bayar',$kosong);
 		//$this->db->limit(10);
-		return $this->db->get('wp_detail_transaksi')->result();
+		return $this->db->get('wp_pelanggan')->result();
 	}
 
 }

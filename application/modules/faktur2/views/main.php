@@ -23,23 +23,9 @@
 
                   <div class="col-sm-12">
 
-                      <!-- <input type="search" name="keyword" id="keyword" oninput="ambildata()" class="form-control"> -->
-                      <!-- <input type="text" name="cetak" id="search" class="form-control input-sm" style="text-align: center; "> -->
-                      <!-- <select name="id_transaksi" id="id_transaksi" class="e1 form-control js-example-basic-single">
-                      <option disabled selected>--Pilih Id Transaksi--</option>
-                          <?php
-                              foreach ($query as $value) {
-                              $selected= '';
-                            ?>
-                            <option  value="<?php echo $value->id_transaksi; ?>"  <?php echo $selected;?> >
-                            <?php echo $value->id_transaksi; ?> - <?php echo $value->nama_pelanggan; ?>
-                            </option>
-                      <?php } ?>
-                    </select> &nbsp; -->
-
                       <div class="col-md-8 col-sm-12 col-xs-12 form-group">
                         <div class="input-group">
-                           <input type="text" id="id_transaksi" name="id_transaksi" class="form-control" placeholder="Input Id Transaksi" required>
+                           <input type="text" id="id_pelanggan2" name="id_pelanggan2" class="form-control" placeholder="Input Id Pelanggan" required>
                            <span class="input-group-btn">
                                <button type="button" id="button" class="btn btn-primary">Add</button>
                            </span>
