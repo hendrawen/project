@@ -1,6 +1,6 @@
 <?php
     $this->load->view('panel/template/header');
-    $this->load->view('panel/template/sidebar');
+    $this->load->view('template/sidebar');
     $this->load->view('panel/template/navbar');
 ?>
 

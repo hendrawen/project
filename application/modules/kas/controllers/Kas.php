@@ -7,29 +7,25 @@ class Kas extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-        $this->load->model('Kas_model','model');
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
 		}
+        $this->load->model('Kas_model','model');
 
     }
 
     public function index()
     {
-        $cek = get_permission('Keuangan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'aktif'			=>'Kas',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
             'sub_judul'	    =>'Pendapatan Pengeluaran',
             'content'		=>'main',
-            'menu'			=> $this->permit[0],
-            'submenu'		=> $this->permit[1],
             'list_kantor' => $this->model->get_kantor(),
             'month'     => $this->month,
 
@@ -188,10 +184,6 @@ class Kas extends CI_Controller {
 
     public function ajax_edit($id)
     {
-        $cek = get_permission('Keuangan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = $this->model->get_by_id($id);
         $data->tanggal = ($data->tanggal == '0000-00-00') ? '' : $data->tanggal; // if 0000-00-00 set tu empty for datepicker compatibility
         echo json_encode($data);
@@ -199,10 +191,6 @@ class Kas extends CI_Controller {
 
     public function ajax_add()
     {
-        $cek = get_permission('Keuangan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_validate();
         $data = array(
             'tanggal' => $this->input->post('tanggal'),

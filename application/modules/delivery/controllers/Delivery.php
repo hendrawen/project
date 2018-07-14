@@ -11,22 +11,18 @@ class Delivery extends CI_Controller
         parent::__construct();
         $this->load->model('Aset_model');
         $this->load->model('dep/Dep_model', 'dep');
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
-        
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $aset = $this->Aset_model->get_all();
         $data = array(
             'aset_data' => $aset,
@@ -43,10 +39,6 @@ class Delivery extends CI_Controller
 
     public function penarikan()
     {
-        $cek = get_permission('Aset', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $aset = $this->Aset_model->get_all();
         $data = array(
             'aset_data' => $aset,
@@ -79,10 +71,6 @@ class Delivery extends CI_Controller
     }
     
     public function track_aset(){
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $cari = $this->input->post('judul');
         $this->session->unset_userdata('id_transaksi');
         $total = 0;
@@ -130,10 +118,6 @@ class Delivery extends CI_Controller
 
     public function create()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'button' => 'Create',
             'action' => site_url('delivery/create_action'),
@@ -164,10 +148,6 @@ class Delivery extends CI_Controller
 
     public function create_action()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -196,10 +176,6 @@ class Delivery extends CI_Controller
 
     public function update($id)
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->Aset_model->get_by_id($id);
 
         if ($row) {
@@ -237,10 +213,6 @@ class Delivery extends CI_Controller
 
     public function update_action()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -269,10 +241,6 @@ class Delivery extends CI_Controller
 
     public function delete($id)
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->Aset_model->get_by_id($id);
 
         if ($row) {
@@ -363,10 +331,6 @@ class Delivery extends CI_Controller
 
     function cek_data()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $id_pelanggan = $this->input->post('id_pelanggan');
         $record = $this->Aset_model->get_penarikan($id_pelanggan);
         $pesan = '';
@@ -417,20 +381,12 @@ class Delivery extends CI_Controller
 
     function get_idpelanggan($id_pelanggan)
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $id = $this->Aset_model->get_id_pelanggan($id_pelanggan);
         echo json_encode($id->id);
     }
 
     function bayar_aset()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $id_pelanggan = $this->input->post('id');
         $record_debt = $this->input->post('record');
         $jenis = $this->input->post('jenis');

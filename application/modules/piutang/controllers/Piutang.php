@@ -7,26 +7,18 @@ class Piutang extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('Ion_auth_model');
-    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
-        // else{
-        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
-    //Codeigniter : Write Less Do More
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
     $this->load->model('Piutang_model' ,'piutang');
   }
 
   function index()
   { 
-    $cek = get_permission('Piutang', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Piutang';
 		$data['title']			='Piutang Pelanggan';
 		$data['judul']			='Data Piutang Pelanggan';
@@ -39,10 +31,6 @@ class Piutang extends CI_Controller{
 
   function pembayaran()
   { 
-    $cek = get_permission('Piutang', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Piutang';
 		$data['title']			='Piutang Pelanggan';
 		$data['judul']			='Data Piutang Pelanggan';

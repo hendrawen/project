@@ -9,13 +9,13 @@ class Effectivecall extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
-        //Do your magic here
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         $this->load->model('Effective_model', 'call');
         
     }
@@ -23,10 +23,6 @@ class Effectivecall extends CI_Controller {
 
     function index()
     {
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
@@ -42,11 +38,6 @@ class Effectivecall extends CI_Controller {
 
     function load_all()
     {
-        # code...
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $pesan = "";
         $total = 0;
         $barang = $this->call->get_barang();        
@@ -87,11 +78,6 @@ class Effectivecall extends CI_Controller {
 
     function load_filter()
     {
-        # code...
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $bulan = $this->input->post('bulan');
         $berdasarkan = $this->input->post('berdasarkan');
         $nama = $this->input->post('nama');

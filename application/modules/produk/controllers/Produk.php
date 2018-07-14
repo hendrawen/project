@@ -13,19 +13,17 @@ class Produk extends CI_Controller {
         $this->load->model('Models_share', 'produk');
         $this->load->model('pelanggan/Daerah_model','daerah');
         
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
 		}
     }
     
     public function index()
     {   
-        $cek = get_permission('Produk Share', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $to = date('n');
         $from = $to - 1 ;
         $year = date('Y');

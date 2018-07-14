@@ -8,12 +8,13 @@ class Penarikan extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         //Do your magic here
         $this->load->model('Models_laporan', 'laporan');
         $this->load->model('som/Model_laporan', 'mLap');
@@ -23,10 +24,6 @@ class Penarikan extends CI_Controller {
     
     function harian()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         # code...
         $data = array(
             'aktif'			=>'laporan',
@@ -43,10 +40,6 @@ class Penarikan extends CI_Controller {
 
     function load_penarikan_harian()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $day = $this->input->post('tgl');
         $data = $this->laporan->penarikan_harian($day);
         $pesan = "";
@@ -92,10 +85,6 @@ class Penarikan extends CI_Controller {
 
     function bulanan()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         # code...
         $data = array(
             'aktif'			=>'laporan',
@@ -112,10 +101,6 @@ class Penarikan extends CI_Controller {
 
     function load_penarikan_bulanan()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $from = $this->input->post('from');
         $to = $this->input->post('to');
         $tahun = $this->input->post('tahun');
@@ -163,11 +148,6 @@ class Penarikan extends CI_Controller {
 
     function tahunan()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
-        # code...
         $data = array(
             'aktif'			=>'laporan',
             'title'			=>'Brajamarketindo',
@@ -183,10 +163,6 @@ class Penarikan extends CI_Controller {
 
     function load_penarikan_tahunan()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $tahun = $this->input->post('tahun');
         $data = $this->laporan->penarikan_tahunan($tahun);
         $pesan = "";
@@ -232,10 +208,6 @@ class Penarikan extends CI_Controller {
 
     function load_penarikan_all()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = $this->laporan->penarikan_bulanan_all();
         $pesan = "";
         $total = 0;
@@ -281,10 +253,6 @@ class Penarikan extends CI_Controller {
 
     function template_table()
     {
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $template = array(
             'table_open'            => ' <table id="datatable" class="table table-striped table-bordered">',
             // 'table_open'            => '<table id="example" class="table table-striped jambo_table table-bordered dt-responsive nowrap">',

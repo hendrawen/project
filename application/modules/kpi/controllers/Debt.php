@@ -6,21 +6,18 @@ class Debt extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('Debt_model','model');
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
 		}
-        
     }
     
     public function index()
     {
-        $cek = get_permission('KPI - Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->load->model('karyawan/karyawan_model','mkar');
         
         $data = array(
@@ -39,10 +36,6 @@ class Debt extends CI_Controller {
 
     function list()
     {
-        $cek = get_permission('KPI - Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $bulan = $this->input->post('month');
         $tahun = $this->input->post('year');
         $id_karyawan = $this->input->post('id_karyawan');

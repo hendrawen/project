@@ -7,14 +7,15 @@ class Tracking_aset extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
         $this->load->model('Model','model');
         $this->load->model('pelanggan/Daerah_model','daerah');
-        
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-		} 
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
     }
 
     function index()

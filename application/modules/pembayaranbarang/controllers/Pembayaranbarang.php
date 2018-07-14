@@ -7,16 +7,13 @@ class Pembayaranbarang extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
-    $this->load->model('Ion_auth_model');
-    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
-        // else{
-        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
     $this->load->model('Pembayaranbarang_model', 'pembayaran');
     $this->load->model('dep/Dep_model', 'dep');
 
@@ -24,10 +21,6 @@ class Pembayaranbarang extends CI_Controller{
 
   function index()
   { 
-    $cek = get_permission('Pembayaran Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $data['aktif']			='aset';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
@@ -41,10 +34,6 @@ class Pembayaranbarang extends CI_Controller{
 
   function barang()
   { 
-    $cek = get_permission('Pembayaran Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
@@ -93,10 +82,6 @@ class Pembayaranbarang extends CI_Controller{
 
   function transaksi()
   { 
-    $cek = get_permission('Pembayaran Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $data['aktif']			='aset';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Pembayaran';
@@ -127,10 +112,6 @@ class Pembayaranbarang extends CI_Controller{
 
   public function update_action()
   { 
-    $cek = get_permission('Pembayaran Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $test = str_replace(".","", $this->input->post('bayar'));
     $test2 = $this->input->post('sudah');
     $hasil = $test+$test2;
@@ -158,10 +139,6 @@ class Pembayaranbarang extends CI_Controller{
 	}
 
   public function track_pembayaran(){
-    $cek = get_permission('Pembayaran Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
       $cari = $this->input->post('judul');
       $this->session->unset_userdata('id_transaksi');
       $total = 0;
@@ -208,10 +185,6 @@ class Pembayaranbarang extends CI_Controller{
 
   public function track_pembayaran2()
   { 
-    $cek = get_permission('Pembayaran Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $status = 'lunas';
     $status2 = 'belum lunas';
     $list = $this->session->userdata('id_transaksi');

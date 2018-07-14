@@ -7,25 +7,13 @@ class Panel extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Main_model');
-		$this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-	
-        if (!$this->ion_auth->logged_in()) {//cek login ga?
+		if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
-		} 
-		// else {
-			// $cek = get_permission('Barang',$this->permit[1]);
-            // if (!$this->ion_auth->in_group($this->permit[1])) {//cek admin ga?
-            //     redirect('login','refresh');
-            // }
-        // }
-		// if (!$this->ion_auth->logged_in()) {//cek login ga?
-        //     redirect('login','refresh');
-        // }else{
-        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
+        }else{
+            if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                redirect('login','refresh');
+            }
+        }
 	}
 
 	public function index()

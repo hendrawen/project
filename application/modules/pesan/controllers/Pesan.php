@@ -7,32 +7,24 @@ class Pesan extends CI_Controller{
   public function __construct()
   {
 		parent::__construct();
-		$this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-    if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-				}
-				// else{
-        //     if (!$this->ion_auth->in_group('admin') AND !$this->ion_auth->in_group('members')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
-    //Codeigniter : Write Less Do More
+		if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
     $this->load->model('Pesan_model');
   }
 
   public function index()
   {
-		$cek = get_permission('Transaksi Penjualan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Kebutuhan';
     $data['title']			='Transaksi';
     $data['judul']			='Form Transaksi';
 		$data['sub_judul']		='';
 		$data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
+    $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
     $data['data']=$this->Pesan_model->get_all_product();
     $data['profile']=$this->Pesan_model->get_profile();
@@ -60,16 +52,12 @@ class Pesan extends CI_Controller{
 
   public function checkout()
   {	
-		$cek = get_permission('Transaksi Penjualan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Kebutuhan';
     $data['title']			='Transaksi';
     $data['judul']			='Form Transaksi';
 		$data['sub_judul']		='';
 		$data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
+    $data['submenu']		= $this->permit[1];
     $data['content']			= 'checkout';
     $data['data']=$this->Pesan_model->get_all_product();
     $data['profile']=$this->Pesan_model->get_profile();
@@ -130,10 +118,6 @@ class Pesan extends CI_Controller{
 
 
     function checkout_action() {
-			$cek = get_permission('Transaksi Penjualan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
   			$this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
   			$this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
   			$this->form_validation->set_rules('harga[]', 'harga', 'required|trim');

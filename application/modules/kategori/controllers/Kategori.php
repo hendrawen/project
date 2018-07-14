@@ -10,21 +10,19 @@ class Kategori extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         $this->load->model('kategori_model');
         $this->load->library('form_validation');
     }
 
     public function index()
     { 
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
       $data = array(
           'button' => 'Tambah',
           'action' => site_url('kategori/create_action'),
@@ -46,10 +44,6 @@ class Kategori extends CI_Controller
 
     public function read($id)
     {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->jabatan_model->get_by_id($id);
         if ($row) {
             $data = array(
@@ -71,11 +65,7 @@ class Kategori extends CI_Controller
     }
 
     public function create_action()
-    {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
+    {  
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -99,10 +89,6 @@ class Kategori extends CI_Controller
 
     public function update($id)
     {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->kategori_model->get_by_id($id);
         if ($row) {
             $data = array(
@@ -128,10 +114,6 @@ class Kategori extends CI_Controller
 
     public function update_action()
     {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -155,10 +137,6 @@ class Kategori extends CI_Controller
 
     public function delete($id)
     {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->kategori_model->get_by_id($id);
 
         if ($row) {
@@ -179,11 +157,7 @@ class Kategori extends CI_Controller
     }
 
     public function excel()
-    {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
+    { 
         $this->load->helper('exportexcel');
         $namaFile = "jabatan.xls";
         $judul = "jabatan";
@@ -233,10 +207,6 @@ class Kategori extends CI_Controller
 
     public function word()
     {   
-        $cek = get_permission('Jabatan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=jabatan.doc");
 

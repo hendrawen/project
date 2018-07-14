@@ -7,13 +7,13 @@ class Users extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        // if (!$this->ion_auth->logged_in()) {//cek login ga?
-        //     redirect('login','refresh');
-        // }else{
-        //     if (!$this->ion_auth->in_group('admin')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         $this->load->model('modeluser','user');
         $this->load->library('form_validation');
         $this->load->helper(array('url', 'language'));

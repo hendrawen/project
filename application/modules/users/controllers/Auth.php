@@ -20,13 +20,25 @@ class Auth extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {//cek login ga?
             $this->load->view('login', $data);
         } else {
-            // if ($this->ion_auth->in_group('admin')) {
-            //     redirect('administrator','refresh');
-			// } elseif ($this->ion_auth->in_group('members')) {
-            	redirect('panel','refresh');
-			// } else {
-			// 	$this->load->view('login');
-			// }
+            if ($this->ion_auth->in_group('Admin & Finance')) {
+				redirect('admin','refresh');
+			} elseif ($this->ion_auth->in_group('Marketing')) {
+				redirect('marketing','refresh');
+			} elseif ($this->ion_auth->in_group('super user')) {
+				redirect('panel','refresh');
+			} elseif ($this->ion_auth->in_group('Debt')) {
+				redirect('debt','refresh');
+			} elseif ($this->ion_auth->in_group('Marketing')) {
+				redirect('marketing','refresh');
+			} elseif ($this->ion_auth->in_group('SOM')) {
+				redirect('som','refresh');
+			} elseif ($this->ion_auth->in_group('Customer Service')) {
+				redirect('customerservice','refresh');
+			} elseif ($this->ion_auth->in_group('Validator')) {
+				redirect('validator','refresh');
+			}else{
+				redirect('login','refresh');
+			}
 		}
 	}
 
@@ -37,66 +49,7 @@ class Auth extends CI_Controller {
 		//validate form input
 		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
 		$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
-		//$this->form_validation->set_rules('g-recaptcha-response', str_replace(':', '', $this->lang->line('g-recaptcha-response')), 'required');
-//awal untuk captcha
-/*		if ($this->form_validation->run() == true) {
-        $recaptcha = $this->input->post('g-recaptcha-response');
-        if (!empty($recaptcha)) {
-            $response = $this->recaptcha->verifyResponse($recaptcha);
-            if (isset($response['success']) and $response['success'] === true) {
-                // check untuk melihat apakah user login
-                // check "remember me"
-                $remember = (bool) $this->input->post('remember');
-                if ($this->ion_auth->login($this->security->xss_clean($this->input->post('identity')), $this->security->xss_clean($this->input->post('password')), $remember))
-            	{
-                    //jika login berhasil
-						if ($this->ion_auth->in_group('admin')) {
-		                redirect('admin/mahasiswa','refresh');
-		                 }elseif ($this->ion_auth->in_group('members')) {
-		            	redirect('mahasiswa','refresh');
-			            }else{
-							redirect('login','refresh');
-						}
-                } else {
-                    // jika login tidak sukses
-                    // redirect kembali ke login page
-                   $this->session->set_flashdata('message', $this->ion_auth->errors());
-					redirect('login', 'refresh'); //
-                }
-            } else {
-                //jika response nya false atau gagal
-                $this->session->set_flashdata('message', 'captcha fail'. $this->ion_auth->messages());
-                redirect('login');
-            }
-        } else {
-            //jika reCAPTCHA nya kosong atau tidak di isi
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			$this->data['identity'] = array('name' => 'identity',
-				'id'    => 'identity',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('identity'),
-			);
-			$this->data['password'] = array('name' => 'password',
-				'id'   => 'password',
-				'type' => 'password',
-			);
-
-			$this->_render_page('login', $this->data);
-        }
-    } else {
-        //untuk memunculkan widget google recaptcha
-        $data = array(
-            'widget' => $this->recaptcha->getWidget(),
-            'script' => $this->recaptcha->getScriptTag(),
-        );
-
-        $this->_render_page('login', $data);
-    }
-
-*/
-//akhir untuk captcha
-
+		
 	if ($this->form_validation->run() == true)
 		{
 
@@ -109,21 +62,25 @@ class Auth extends CI_Controller {
             {
 				//if the login is successful
 				//redirect them back to the home page
-				// if ($this->ion_auth->in_group('admin')) {
-                	redirect('panel','refresh');
-				// } elseif ($this->ion_auth->in_group('marketing')) {
-            	// 	redirect('marketing','refresh');
-				// } elseif ($this->ion_auth->in_group('super user')) {
-				// 	redirect('panel','refresh');
-				// } elseif ($this->ion_auth->in_group('dev')) {
-				// 	redirect('dep','refresh');
-				// } elseif ($this->ion_auth->in_group('marketing')) {
-				// 	redirect('marketing','refresh');
-				// } elseif ($this->ion_auth->in_group('som')) {
-				// 	redirect('som','refresh');
-	            // }else{
-				// 	redirect('login','refresh');
-				// }
+				if ($this->ion_auth->in_group('Admin & Finance')) {
+                	redirect('admin','refresh');
+				} elseif ($this->ion_auth->in_group('Marketing')) {
+            		redirect('marketing','refresh');
+				} elseif ($this->ion_auth->in_group('super user')) {
+					redirect('panel','refresh');
+				} elseif ($this->ion_auth->in_group('Debt')) {
+					redirect('debt','refresh');
+				} elseif ($this->ion_auth->in_group('Marketing')) {
+					redirect('marketing','refresh');
+				} elseif ($this->ion_auth->in_group('SOM')) {
+					redirect('som','refresh');
+				} elseif ($this->ion_auth->in_group('Customer Service')) {
+					redirect('customerservice','refresh');
+				} elseif ($this->ion_auth->in_group('Validator')) {
+					redirect('validator','refresh');
+	            }else{
+					redirect('login','refresh');
+				}
 			}
 			else
 			{

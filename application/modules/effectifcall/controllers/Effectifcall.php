@@ -8,21 +8,18 @@ class Effectifcall extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
-    $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     $this->load->model('Activecall_model', 'effectif');
-    
     if (!$this->ion_auth->logged_in()) {//cek login ga?
         redirect('login','refresh');
+        }else{
+                if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                        redirect('login','refresh');
+                }
     }
   }
 
   function index()
   { 
-    $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Active Call';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
@@ -43,10 +40,6 @@ class Effectifcall extends CI_Controller{
 
   function validator()
   { 
-    $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Active Call';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
@@ -103,10 +96,6 @@ class Effectifcall extends CI_Controller{
 
     public function tambah()
     {   
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
               'button' => 'Tambah',
               'action' => site_url('effectifcall/aksi_tambah'),
@@ -136,10 +125,6 @@ class Effectifcall extends CI_Controller{
     public function aksi_tambah()
     {
       # code...
-      $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
       $this->_rules();
 
       if ($this->form_validation->run() == FALSE) {
@@ -168,10 +153,6 @@ class Effectifcall extends CI_Controller{
 
     public function update($id)
     {   
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->effectif->get_by_id($id);
         if ($row) {
             $data = array(
@@ -205,10 +186,6 @@ class Effectifcall extends CI_Controller{
 
     public function update_action()
     {   
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -235,10 +212,6 @@ class Effectifcall extends CI_Controller{
 
     public function ajax_delete($id)
     {   
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->effectif->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }

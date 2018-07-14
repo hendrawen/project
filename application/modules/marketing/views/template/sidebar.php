@@ -30,7 +30,10 @@
                 <ul class="nav side-menu">
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('marketing');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>marketing/tambah"><i class="fa fa-user"></i> Tambah</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>marketing/tambah"><i class="fa fa-user"></i> Tambah Pelanggan</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>marketing/takeorder"><i class="fa fa-calendar"></i> Jadwal Pengiriman</a>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>marketing/kpi"><i class="fa fa-sort-alpha-asc"></i> KPI</a>
+                  
                   </li>
                 </ul>
               </div>

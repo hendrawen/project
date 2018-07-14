@@ -8,16 +8,13 @@ class Lap_dep extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('Ion_auth_model');
-    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
-        // else{
-        //     if (!$this->ion_auth->in_group('som') AND !$this->ion_auth->in_group('admin')) {//cek admin ga?
-        //         redirect('login','refresh');
-        //     }
-        // }
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
     $this->load->model('Model_dep', 'dep');
     $this->load->library('table');
   }
@@ -29,10 +26,6 @@ class Lap_dep extends CI_Controller{
 
   function harian()
   {   
-      $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-          if (!$cek) {//cek admin ga?
-              redirect('panel','refresh');
-      }
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
@@ -91,10 +84,6 @@ class Lap_dep extends CI_Controller{
 
   function bulanan()
   {   
-    $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
@@ -156,10 +145,6 @@ class Lap_dep extends CI_Controller{
 
   function tahunan()
   {   
-      $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-      if (!$cek) {//cek admin ga?
-          redirect('panel','refresh');
-      }
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
@@ -218,10 +203,6 @@ class Lap_dep extends CI_Controller{
 
   function produk()
   { 
-    $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-          if (!$cek) {//cek admin ga?
-              redirect('panel','refresh');
-      }
     $this->load->model('barang/Barang_model');
       $data = array(
           'aktif'			=>'som',
@@ -281,10 +262,6 @@ class Lap_dep extends CI_Controller{
 
   function area()
   {   
-      $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-      if (!$cek) {//cek admin ga?
-          redirect('panel','refresh');
-      }
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
@@ -357,10 +334,7 @@ class Lap_dep extends CI_Controller{
 
   function marketing()
   {   
-      $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-      if (!$cek) {//cek admin ga?
-          redirect('panel','refresh');
-      }
+      
       $data = array(
           'aktif'			=>'som',
           'title'			=>'Brajamarketindo',
@@ -445,11 +419,7 @@ class Lap_dep extends CI_Controller{
   */
 
   function pelanggan()
-  { 
-    $cek = get_permission('Report Debt & Delivery', $this->permit[1]);
-          if (!$cek) {//cek admin ga?
-              redirect('panel','refresh');
-      }
+  {   
     $to = date('n');
     $from = $to - 1 ;
     $year = date('Y');

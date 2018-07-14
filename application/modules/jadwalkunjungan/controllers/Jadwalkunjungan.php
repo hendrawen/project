@@ -8,21 +8,17 @@
         {
             parent::__construct();
             //Codeigniter : Write Less Do More
-            $this->load->model('Ion_auth_model');
-            $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-            $this->load->model('M_jadwalkunjungan', 'm_jadwal');
-
             if (!$this->ion_auth->logged_in()) {//cek login ga?
                 redirect('login','refresh');
+                }else{
+                        if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                                redirect('login','refresh');
+                        }
             }
+            $this->load->model('M_jadwalkunjungan', 'm_jadwal');
         }
 
         function index(){
-
-          $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-          if (!$cek) {
-              redirect('panel','refresh');
-          }
             $data = array(
                 'aktif'      => 'Jadwal Kunjungan',
                 'menu'       => $this->permit[0],
@@ -43,10 +39,6 @@
 
         public function create()
         {
-            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-            if (!$cek) {//cek admin ga?
-                redirect('panel','refresh');
-            }
             $data = array(
               'button'     => 'Tambah',
               'action'     => site_url('jadwalkunjungan/create_action'),
@@ -71,10 +63,6 @@
 
         public function create_action()
         {
-            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-            if (!$cek) {//cek admin ga?
-                redirect('panel','refresh');
-            }
             $this->_rules();
 
             if ($this->form_validation->run() == FALSE) {
@@ -97,10 +85,6 @@
 
         public function update($id)
         {
-            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-            if (!$cek) {//cek admin ga?
-                redirect('panel','refresh');
-            }
             $row = $this->m_jadwal->get_by_id($id);
 
             if ($row) {
@@ -133,10 +117,6 @@
 
         public function update_action()
         {
-            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-            if (!$cek) {//cek admin ga?
-                redirect('panel','refresh');
-            }
             $this->_rules();
 
             if ($this->form_validation->run() == FALSE) {
@@ -158,10 +138,6 @@
 
         public function delete($id)
         {
-            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-            if (!$cek) {//cek admin ga?
-                redirect('panel','refresh');
-            }
             $row = $this->m_jadwal->get_by_id($id);
 
             if ($row) {
@@ -186,10 +162,6 @@
 
         public function excel()
         {
-            $cek = get_permission('Jadwal Kunjungan', $this->permit[1]);
-            if (!$cek) {//cek admin ga?
-                redirect('panel','refresh');
-            }
             $this->load->helper('exportexcel');
             $namaFile = "Jadwal_kunjungan.xls";
             $judul = "Jadwal Kunjungan";

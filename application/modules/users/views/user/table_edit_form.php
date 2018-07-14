@@ -54,8 +54,6 @@
             <input type="password" class="form-control" name="password_confirm" id="password_confirm" placeholder="password_confirm" <?php echo form_input($password_confirm);?>
         </div>
 
-        <?php if ($this->ion_auth->is_admin()): ?>
-
           <h3><?php echo lang('edit_user_groups_heading');?></h3>
           <?php foreach ($groups as $group):?>
               <label class="checkbox" style="margin-left: 20px;">
@@ -74,8 +72,6 @@
                  <?php echo htmlspecialchars ($group['name'],ENT_QUOTES,'UTF-8');?>
               </label>
           <?php endforeach?>
-
-        <?php endif ?>
          <div class="text-right">
           <?php echo form_hidden('id', $user->id);?>
         <?php echo form_hidden($csrf); ?>

@@ -29,33 +29,17 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo site_url('som');?>"><i class="fa fa-home"></i> Dashboard</a></li>
-                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/jadwal"><i class="fa fa-user"></i> Jadwal</a></li>
-                  <li><a <?php echo ($aktif == 'effectifcall')?'class="active"':"";?> href="<?php echo site_url();?>som/validator"><i class="fa fa-tty"></i> Validator </a></li>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/jadwal"><i class="fa fa-user"></i> Jadwal Debt</a></li>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/jadwalkunjungan"><i class="fa fa-user"></i> Jadwal Validator</a></li>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/takeorder"><i class="fa fa-shopping-cart"></i> Take Order</a></li>
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo site_url();?>som/pelanggan"><i class="fa fa-file-text-o"></i> Pelanggan</a></li>
-                  <li><a><i class="fa fa-edit"></i> Report Transaksi <span class="fa fa-chevron-down"></span></a>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/transaksi"><i class="fa fa-users"></i> Transaksi Pelanggan</a></li>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/status_pelanggan"><i class="fa fa-history"></i> Tracking Pelanggan</a></li>
+                  
+                  <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>som/laporan/harian">Penjualan Harian</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/bulanan">Penjualan Bulanan</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/tahunan">Penjualan Tahunan</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/produk">Penjualan Per Produk</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/marketing">Penjualan Per Marketing</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/pelanggan">Pelanggan</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Report Trans Per Dept <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>som/lap_dep/harian">Penjualan Harian</a></li>
-                      <li><a href="<?php echo base_url();?>som/lap_dep/bulanan">Penjualan Bulanan</a></li>
-                      <li><a href="<?php echo base_url();?>som/lap_dep/tahunan">Penjualan Tahunan</a></li>
-
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Report Trans Per Area <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>som/laporan/area_harian">Penjualan Harian</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/area_bulanan">Penjualan Bulanan</a></li>
-                      <li><a href="<?php echo base_url();?>som/laporan/area">Penjualan Tahunan</a></li>
-
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>som/sumberdata">Sumber Data Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>som/effectivecall">Activity Effectif Call</a></li>
                     </ul>
                   </li>
                 </ul>

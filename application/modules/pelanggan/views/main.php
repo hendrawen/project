@@ -31,12 +31,9 @@
                       <?php echo $form_status; ?>
                     </div>
                     <?php
-                      $cek = get_permission('Admin', $submenu);
-                      if ($cek) {//cek admin ga?
-                          echo '<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+                        echo '<div class="col-md-2 col-sm-12 col-xs-12 form-group">
                            '.$form_surveyor.'
                         </div>';
-                      }
                     ?>
                     
                     <div class="col-md-1 col-sm-12 col-xs-12 form-group">

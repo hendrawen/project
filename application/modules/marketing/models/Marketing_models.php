@@ -156,4 +156,10 @@ public function get_kode_pelanggan() {
   return $maxkode_pelanggan;
 }
 
+    function get_kategori()
+    {
+        return $this->db->get('wp_kategori')->result();
+    }
+
+
 }

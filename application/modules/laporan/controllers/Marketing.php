@@ -9,8 +9,13 @@ class Marketing extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         $this->load->model('Models_laporan', 'laporan');
         $this->load->library('table');
         //Do your magic here
@@ -18,10 +23,6 @@ class Marketing extends CI_Controller {
 
     function harian_marketing()
     {   
-        $cek = get_permission('Penjualan Harian Per Marketing', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',
@@ -77,10 +78,6 @@ class Marketing extends CI_Controller {
 
     function bulanan_marketing()
     {   
-        $cek = get_permission('Penjualan Bulanan Per Marketing', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',
@@ -139,10 +136,6 @@ class Marketing extends CI_Controller {
 
     function tahunan_marketing()
     {   
-        $cek = get_permission('Penjualan Tahunan Per Marketing', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',

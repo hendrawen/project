@@ -27,7 +27,7 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                   <div class="x_content">
                     <br>
                     <form action="<?php echo $action; ?>" class="form-horizontal form-label-left" method="post" enctype="multipart/form-data">
-                      <div class="class-row">
+                    <div class="class-row">
                         <div class="col-md-6 col-sm-12 col-xs-12 form-group">
                           <input name="id_pelanggan" type="hidden" value="<?php echo $id_pelanggan; ?>">
                           <div class="form-group">
@@ -43,16 +43,37 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                             <input type="text" class="form-control" name="nama_dagang" placeholder="Masukkan nomer telp." value="<?php echo $nama_dagang; ?>" required="required">
                           </div>
                           <div class="form-group">
+                            <label>Kategori Dagang</label>
+                            <select class="form-control" name="id_kategori" id="id_kategori">
+                              <?php foreach ($list_kategori as $key): ?>
+                                <option <?php echo ($id_kategori == $key->id_kategori)?'selected':'' ?> value="<?php echo $key->id_kategori ?>"><?php echo $key->nama_kategori ?></option>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label>Kota</label>
-                            <input type="text" class="form-control" name="kota" placeholder="kota" value="<?php echo $kota; ?>">
+                            <select class="form-control" name="kota" id="kota">
+                              <option value="">--Pilih Kota--</option>
+                              <?php foreach ($list_kota as $row): ?>
+                                <option <?php echo ($row->nama == $kota)?'selected':'' ?> id_kota="<?php echo $row->id_kab ?>" value="<?php echo $row->nama ?>"><?php echo $row->nama ?></option>
+                              <?php endforeach; ?>
+                            </select>
                           </div>
                           <div class="form-group">
-                            <label>Kelurahan</label>
-                            <input type="text" class="form-control" name="kelurahan" placeholder="Kelurahan" value="<?php echo $kelurahan; ?>">
+                            <label>Kecamatan <img style="display:none" id="loader-kecamatan" src="<?php echo base_url('assets/ajax-loader.gif') ?>" alt=""></label>
+                            <select class="form-control" name="kecamatan" id="kecamatan" >
+                              <?php if ($button == 'Update'): ?>
+                                <option value="<?php echo $kecamatan ?>"><?php echo $kecamatan ?></option>
+                              <?php endif; ?>
+                            </select>
                           </div>
                           <div class="form-group">
-                            <label>Kecamatan</label>
-                            <input type="text" class="form-control" name="kecamatan" placeholder="kecamatan" value="<?php echo $kecamatan; ?>">
+                            <label>Kelurahan <img style="display:none" id="loader-kelurahan" src="<?php echo base_url('assets/ajax-loader.gif') ?>" alt=""></label>
+                            <select class="form-control" name="kelurahan" id="kelurahan">
+                              <?php if ($button == 'Update'): ?>
+                                <option value="<?php echo $kelurahan ?>"><?php echo $kelurahan ?></option>
+                              <?php endif; ?>
+                            </select>
                           </div>
                           <div class="form-group">
                             <label>Alamat</label>

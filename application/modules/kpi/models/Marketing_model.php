@@ -74,6 +74,7 @@ class Marketing_model extends CI_Model {
                 'keterangan' => null,
             );
         }
+        return $resArray;
     }
 
     function get_terkirim($date, $id_karyawan)

@@ -9,13 +9,14 @@ class Marketing extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
         }else{
-            if (!$this->ion_auth->in_group('marketing')) {//cek admin ga?
+            if (!$this->ion_auth->in_group('Marketing')) {//cek admin ga?
                 redirect('login','refresh');
             }
-        }
+    }
     //Codeigniter : Write Less Do More
     $this->load->model('Marketing_models', 'marketing');
     $this->load->model('kebutuhan/Model_kebutuhan','kebutuhan');
+    $this->load->model('pelanggan/Daerah_model','daerah');
   }
   public function index()
   {
@@ -171,35 +172,38 @@ class Marketing extends CI_Controller{
 
   public function tambah()
   {
-      $data = array(
-            'button' => 'Tambah',
-            'action' => site_url('marketing/aksi_tambah'),
-            'id' => set_value('id'),
+    $data = array(
+        'list_kategori' => $this->marketing->get_kategori(),
+          'button' => 'Tambah',
+          'action' => site_url('marketing/aksi_tambah'),
+          'id' => set_value('id'),
             'id_pelanggan' => set_value('id_pelanggan'),
+            'id_kategori' => set_value('id_kategori'),
             'nama_pelanggan' => set_value('nama_pelanggan'),
             'no_telp' => set_value('no_telp'),
             'nama_dagang' => set_value('nama_dagang'),
             'alamat' => set_value('alamat'),
             'photo' => set_value('photo'),
             'photo_toko' => set_value('photo_toko'),
-            'kota' => set_value('kota'),
-            'kelurahan' => set_value('kelurahan'),
+            'kota' => set_value('kota'), 
             'kecamatan' => set_value('kecamatan'),
+            'kelurahan' => set_value('kelurahan'),
             'lat' => set_value('lat'),
             'long' => set_value('long'),
             'keterangan' => set_value('keterangan'),
             'status' => set_value('status'),
             'created_at' => set_value('created_at'),
             'updated_at' => set_value('updated_at'),
+            'list_kota' => $this->daerah->get_kota(),
             'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
-        );
-        $data['aktif']			='Pelanggan';
-        $data['title']			='Brajamarketindo';
-        $data['judul']			='Tambah';
-        $data['sub_judul']		='Pelanggan';
-        $data['content']			= 'form';
-        $data['id_pelanggan'] = $this->marketing->get_kode_pelanggan();
-        $this->load->view('marketing/dashboard', $data);
+      );
+      $data['aktif']			='Pelanggan';
+      $data['title']			='Brajamarketindo';
+      $data['judul']			='Dashboard';
+      $data['sub_judul']		='Pelanggan';
+      $data['content']			= 'form';
+      $data['id_pelanggan']     = $this->marketing->get_kode_pelanggan();
+      $this->load->view('panel/dashboard', $data);
   }
 
   public function aksi_tambah()
@@ -207,69 +211,71 @@ class Marketing extends CI_Controller{
     # code...
     $this->_rules();
 
-    if ($this->form_validation->run() == FALSE) {
-        $this->tambah();
-    } else {
-        $config['upload_path'] = 'assets/uploads';
-        $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
-        $config['max_size'] = '3000'; // kb
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-        $this->upload->do_upload('photo');
-        $hasil1 = $this->upload->data();
-        // upload gambar 2
-        $this->upload->do_upload('photo_toko');
-        $stat = $this->input->post('status');
-        if ($stat!="Responden"){
-        $test = $this->input->post('id_pelanggan', true);
-        }else{
-        $test = '';
-        }
-        $hasil2 = $this->upload->data();
-        if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
-                  $data = array(
-                    //status lunas
-                    'id_pelanggan' => $test,
-                    'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
-                    'no_telp' => $this->input->post('no_telp', true),
-                    'nama_dagang' => $this->input->post('nama_dagang', true),
-                    'alamat' => $this->input->post('alamat', true),
-                    'kota' => $this->input->post('kota', true),
-                    'kelurahan' => $this->input->post('kelurahan', true),
-                    'kecamatan' => $this->input->post('kecamatan', true),
-                    'lat' => $this->input->post('lat', true),
-                    'long' => $this->input->post('long', true),
-                    'keterangan' => $this->input->post('keterangan', true),
-                    'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->session->identity,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'username' => $this->session->identity,
-                  );
-          }else {
-                  $data = array(
-                    //status lunas
-                    'id_pelanggan' => $test,
-                    'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
-                    'no_telp' => $this->input->post('no_telp', true),
-                    'nama_dagang' => $this->input->post('nama_dagang', true),
-                    'alamat' => $this->input->post('alamat', true),
-                    'photo' => $hasil1['file_name'],
-                    'photo_toko' => $hasil2['file_name'],
-                    'nama_dagang' => $this->input->post('nama_dagang', true),
-                    'kota' => $this->input->post('kota', true),
-                    'kelurahan' => $this->input->post('kelurahan', true),
-                    'kecamatan' => $this->input->post('kecamatan', true),
-                    'lat' => $this->input->post('lat', true),
-                    'long' => $this->input->post('long', true),
-                    'keterangan' => $this->input->post('keterangan', true),
-                    'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->session->identity,
-                    'created_at' => date('Y-m-d H:i:s'),
-                  );
+      if ($this->form_validation->run() == FALSE) {
+          $this->tambah();
+      } else {
+          $config['upload_path'] = 'assets/uploads';
+          $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+          $config['max_size'] = '3000'; // kb
+          $this->load->library('upload', $config);
+          $this->upload->initialize($config);
+          $this->upload->do_upload('photo');
+          $hasil1 = $this->upload->data();
+          // upload gambar 2
+          $this->upload->do_upload('photo_toko');
+          $stat = $this->input->post('status');
+          if ($stat!="Responden"){
+          $test = $this->input->post('id_pelanggan', true);
+          }else{
+          $test = '';
           }
-        $this->marketing->save($data);
-        $this->session->set_flashdata('message', 'tambah data pelanggan berhasil');
-        redirect(site_url('marketing'));
+          $hasil2 = $this->upload->data();
+          if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
+                    $data = array(
+                      //status lunas
+                      'id_pelanggan' => $test,
+                      'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                      'no_telp' => $this->input->post('no_telp', true),
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'alamat' => $this->input->post('alamat', true),
+                      'id_kategori' => $this->input->post('id_kategori', true),
+                      'kota' => $this->input->post('kota', true),
+                      'kecamatan' => $this->input->post('kecamatan', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
+                      'lat' => $this->input->post('lat', true),
+                      'long' => $this->input->post('long', true),
+                      'keterangan' => $this->input->post('keterangan', true),
+                      'status' => $this->input->post('status', true),
+                      'wp_karyawan_id_karyawan' => $this->session->identity,
+                      'created_at' => date('Y-m-d H:i:s'),
+                      'username' => $this->session->identity,
+                    );
+            }else {
+                    $data = array(
+                      //status lunas
+                      'id_pelanggan' => $test,
+                      'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                      'no_telp' => $this->input->post('no_telp', true),
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'id_kategori' => $this->input->post('id_kategori', true),
+                      'alamat' => $this->input->post('alamat', true),
+                      'photo' => $hasil1['file_name'],
+                      'photo_toko' => $hasil2['file_name'],
+                      'nama_dagang' => $this->input->post('nama_dagang', true),
+                      'kota' => $this->input->post('kota', true),
+                      'kecamatan' => $this->input->post('kecamatan', true),
+                      'kelurahan' => $this->input->post('kelurahan', true),
+                      'lat' => $this->input->post('lat', true),
+                      'long' => $this->input->post('long', true),
+                      'keterangan' => $this->input->post('keterangan', true),
+                      'status' => $this->input->post('status', true),
+                      'wp_karyawan_id_karyawan' => $this->session->identity,
+                      'created_at' => date('Y-m-d H:i:s'),
+                    );
+            }
+          $this->marketing->save($data);
+          $this->session->set_flashdata('message', 'tambah data pelanggan berhasil');
+          redirect(site_url('marketing'));
     }
   }
 
@@ -277,101 +283,108 @@ class Marketing extends CI_Controller{
   {
       $row = $this->marketing->get_by_id($id);
       if ($row) {
-          $data = array(
-              'button' => 'Update',
-              'action' => site_url('marketing/update_action'),
-              'id' => set_value('id', $row->id),
-              'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
-              'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
-              'no_telp' => set_value('no_telp', $row->no_telp),
-              'nama_dagang' => set_value('nama_dagang', $row->nama_dagang),
-              'alamat' => set_value('alamat', $row->alamat),
-              'photo' => set_value('photo', $row->photo),
-              'photo_toko' => set_value('photo_toko', $row->photo_toko),
-              'kota' => set_value('kota', $row->kota),
-              'kelurahan' => set_value('kelurahan', $row->kelurahan),
-              'kecamatan' => set_value('kecamatan', $row->kecamatan),
-              'lat' => set_value('lat', $row->lat),
-              'long' => set_value('long', $row->long),
-              'keterangan' => set_value('keterangan', $row->keterangan),
-              'status' => set_value('status', $row->status),
-              'wp_karyawan_id_karyawan' => $this->session->identity,
+        $data = array(
+            'list_kategori' => $this->marketing->get_kategori(),
+            'button' => 'Update',
+            'action' => site_url('marketing/update_action'),
+                'id' => set_value('id', $row->id),
+                'id_pelanggan' => set_value('id_pelanggan', $row->id_pelanggan),
+                'id_kategori' => set_value('id_kategori', $row->id_kategori),
+                'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
+                'no_telp' => set_value('no_telp', $row->no_telp),
+                'nama_dagang' => set_value('nama_dagang', $row->nama_dagang),
+                'alamat' => set_value('alamat', $row->alamat),
+                'photo' => set_value('photo', $row->photo),
+                'photo_toko' => set_value('photo_toko', $row->photo_toko),
+                'kota' => set_value('kota', $row->kota),
+                'kecamatan' => set_value('kecamatan', $row->kecamatan),
+                'kelurahan' => set_value('kelurahan', $row->kelurahan),
+                'list_kota' => $this->daerah->get_kota(),
+                'lat' => set_value('lat', $row->lat),
+                'long' => set_value('long', $row->long),
+                'keterangan' => set_value('keterangan', $row->keterangan),
+                'status' => set_value('status', $row->status),
+                'wp_karyawan_id_karyawan' => $this->session->identity,
           );
-          $data['aktif']			='Pelanggan';
-          $data['title']			='Edit Data Pelanggan';
-          $data['judul']			='Edit Data Pelanggan';
-          $data['sub_judul']		='';
-          $data['content']			= 'form';
-          $this->load->view('marketing/dashboard', $data);
-      } else {
-          $this->session->set_flashdata('message', 'Record Not Found');
-          redirect(site_url('marketing'));
-      }
+        $data['aktif']			='Pelanggan';
+        $data['title']			='Edit Data Pelanggan';
+        $data['judul']			='Edit Data Pelanggan';
+        $data['sub_judul']		='';
+        $data['content']			= 'form';
+        $this->load->view('panel/dashboard', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('marketing'));
+        }
   }
 
   public function update_action()
   {
-      $this->_rules();
+    $this->_rules();
 
-      if ($this->form_validation->run() == FALSE) {
-          $this->update($this->input->post('id', TRUE));
+    if ($this->form_validation->run() == FALSE) {
+        $this->update($this->input->post('id', TRUE));
+    } else {
+      $config['upload_path'] = 'assets/uploads';
+      $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
+      $config['max_size'] = '3000'; // kb
+      $this->load->library('upload', $config);
+      $this->upload->initialize($config);
+      $this->upload->do_upload('photo');
+      $hasil1 = $this->upload->data();
+      // upload gambar 2
+      $this->upload->do_upload('photo_toko');
+      $stat = $this->input->post('status');
+      $stat2 = $this->input->post('id_pelanggan');
+      if (($stat != "Responden" && $stat2 == "")){
+      $test = $this->pelanggan->get_kode_pelanggan();
+      }else if ($stat2 !== ""){
+      $test = $stat2;
       } else {
-        $config['upload_path'] = 'assets/uploads';
-        $config['allowed_types'] = 'gif|jpg|png|JPG|JPEG';
-        $config['max_size'] = '3000'; // kb
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-        $this->upload->do_upload('photo');
-        $hasil1 = $this->upload->data();
-        // upload gambar 2
-        $this->upload->do_upload('photo_toko');
-        $stat = $this->input->post('status');
-        $stat2 = $this->input->post('id_pelanggan');
-        if (($stat != "Responden" && $stat2 == "")){
-        $test = $this->marketing->get_kode_pelanggan();
-        }else{
         $test = '';
-        }
-        $hasil2 = $this->upload->data();
-        if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
-                  $data = array(
-                    'id_pelanggan' => $test,
-                    'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
-                    'no_telp' => $this->input->post('no_telp', true),
-                    'nama_dagang' => $this->input->post('nama_dagang', true),
-                    'alamat' => $this->input->post('alamat', true),
-                    'kota' => $this->input->post('kota', true),
-                    'kelurahan' => $this->input->post('kelurahan', true),
-                    'kecamatan' => $this->input->post('kecamatan', true),
-                    'lat' => $this->input->post('lat', true),
-                    'long' => $this->input->post('long', true),
-                    'keterangan' => $this->input->post('keterangan', true),
-                    'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->session->identity,
-                    'updated_at' => date('Y-m-d H:i:s'),
-                    'username' => $this->session->identity,
-                  );
-          }else {
-                  $data = array(
-                    'id_pelanggan' => $test,
-                    'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
-                    'no_telp' => $this->input->post('no_telp', true),
-                    'nama_dagang' => $this->input->post('nama_dagang', true),
-                    'alamat' => $this->input->post('alamat', true),
-                    'photo' => $hasil1['file_name'],
-                    'photo_toko' => $hasil2['file_name'],
-                    'nama_dagang' => $this->input->post('nama_dagang', true),
-                    'kota' => $this->input->post('kota', true),
-                    'kelurahan' => $this->input->post('kelurahan', true),
-                    'kecamatan' => $this->input->post('kecamatan', true),
-                    'lat' => $this->input->post('lat', true),
-                    'long' => $this->input->post('long', true),
-                    'keterangan' => $this->input->post('keterangan', true),
-                    'status' => $this->input->post('status', true),
-                    'wp_karyawan_id_karyawan' => $this->session->identity,
-                    'updated_at' => date('Y-m-d H:i:s'),
-                  );
-          }
+      }
+      $hasil2 = $this->upload->data();
+      if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
+                $data = array(
+                  'id_pelanggan' => $test,
+                  'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                  'no_telp' => $this->input->post('no_telp', true),
+                  'nama_dagang' => $this->input->post('nama_dagang', true),
+                  'alamat' => $this->input->post('alamat', true),
+                  'kota' => $this->input->post('kota', true),
+                  'id_kategori' => $this->input->post('id_kategori', true),
+                  'kelurahan' => $this->input->post('kelurahan', true),
+                  'kecamatan' => $this->input->post('kecamatan', true),
+                  'lat' => $this->input->post('lat', true),
+                  'long' => $this->input->post('long', true),
+                  'keterangan' => $this->input->post('keterangan', true),
+                  'status' => $this->input->post('status', true),
+                  'wp_karyawan_id_karyawan' => $this->session->identity,
+                  'updated_at' => date('Y-m-d H:i:s'),
+                  'username' => $this->session->identity,
+                );
+                }else {
+                        $data = array(
+                        'id_pelanggan' => $test,
+                        'nama_pelanggan' => $this->input->post('nama_pelanggan', true),
+                        'no_telp' => $this->input->post('no_telp', true),
+                        'id_kategori' => $this->input->post('id_kategori', true),
+                        'nama_dagang' => $this->input->post('nama_dagang', true),
+                        'alamat' => $this->input->post('alamat', true),
+                        'photo' => $hasil1['file_name'],
+                        'photo_toko' => $hasil2['file_name'],
+                        'nama_dagang' => $this->input->post('nama_dagang', true),
+                        'kota' => $this->input->post('kota', true),
+                        'kelurahan' => $this->input->post('kelurahan', true),
+                        'kecamatan' => $this->input->post('kecamatan', true),
+                        'lat' => $this->input->post('lat', true),
+                        'long' => $this->input->post('long', true),
+                        'keterangan' => $this->input->post('keterangan', true),
+                        'status' => $this->input->post('status', true),
+                        'wp_karyawan_id_karyawan' => $this->session->identity,
+                        'updated_at' => date('Y-m-d H:i:s'),
+                        );
+                }
           $this->marketing->update($this->input->post('id', TRUE), $data);
           $this->session->set_flashdata('message', 'Update Record Success');
           redirect(site_url('marketing'));

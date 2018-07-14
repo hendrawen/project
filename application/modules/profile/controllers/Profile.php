@@ -9,22 +9,19 @@ class Profile extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-
         if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
         $this->load->model('profile_model');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
 
@@ -63,10 +60,6 @@ class Profile extends CI_Controller
 
     public function read($id)
     {
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->profile_model->get_by_id($id);
         if ($row) {
             $data = array(
@@ -93,10 +86,6 @@ class Profile extends CI_Controller
 
     public function create()
     {
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'button' => 'Simpan',
             'action' => site_url('profile/create_action'),
@@ -119,10 +108,6 @@ class Profile extends CI_Controller
 
     public function create_action()
     {
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -145,10 +130,6 @@ class Profile extends CI_Controller
 
     public function update($id)
     {
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->profile_model->get_by_id($id);
 
         if ($row) {
@@ -178,11 +159,6 @@ class Profile extends CI_Controller
 
     public function update_action()
     {   
-        
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -205,10 +181,6 @@ class Profile extends CI_Controller
 
     public function delete($id)
     {
-        $cek = get_permission('Profile Perusahaan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->profile_model->get_by_id($id);
 
         if ($row) {

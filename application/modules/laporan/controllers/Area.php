@@ -10,8 +10,13 @@ class Area extends CI_Controller {
     {
         parent::__construct();
         //Do your magic here
-        $this->load->model('Ion_auth_model');
-        $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+          redirect('login','refresh');
+          }else{
+              if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                  redirect('login','refresh');
+              }
+        }
         $this->load->model('som/Model_laporan', 'mLap');
         $this->load->model('Models_laporan', 'area');
         
@@ -20,10 +25,6 @@ class Area extends CI_Controller {
 
     function tahun()
   {   
-    $cek = get_permission('Penjualan Tahunan Per Area', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -81,10 +82,6 @@ class Area extends CI_Controller {
 
   function bulanan()
   {   
-    $cek = get_permission('Penjualan Bulanan Per Area', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',
@@ -145,10 +142,6 @@ class Area extends CI_Controller {
 
   function harian()
   {   
-    $cek = get_permission('Penjualan Harian Per Area', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
       $data = array(
           'aktif'			=>'laporan',
           'title'			=>'Brajamarketindo',

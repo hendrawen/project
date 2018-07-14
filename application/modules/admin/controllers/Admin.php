@@ -11,7 +11,14 @@ class Admin extends CI_Controller{
 
   function index()
   {
-
+    $data = array(
+      'aktif'			=>'delivery',
+      'title'			=>'Brajamarketindo',
+      'judul'			=>'Dashboard',
+      'sub_judul' 	=>'Admin',
+      'content'		=>'content',
+    );
+    $this->load->view('dashboard', $data);
   }
 
 }

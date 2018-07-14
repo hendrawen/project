@@ -8,23 +8,19 @@ class Pelanggan extends CI_Controller{
   { 
     parent::__construct();
     //Codeigniter : Write Less Do More
-    $this->load->model('Ion_auth_model');
-    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
-
     if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
-        }
-        
+			redirect('login','refresh');
+			}else{
+					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+							redirect('login','refresh');
+					}
+		}
     $this->load->model('Model_pelanggan','pelanggan');
     $this->load->model('Daerah_model','daerah');
   }
 
   function index()
   { 
-    $cek = get_permission('Pelanggan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
     $data['aktif']			='Pelanggan';
 		$data['title']			='Brajamarketindo';
 		$data['judul']			='Dashboard';
@@ -91,10 +87,6 @@ class Pelanggan extends CI_Controller{
 
   public function ajax_list()
   {   
-      $cek = get_permission('Pelanggan', $this->permit[1]);
-      if (!$cek) {//cek admin ga?
-          redirect('panel','refresh');
-      }
       $list = $this->pelanggan->get_datatables();
       $data = array();
       $no = $_POST['start'];
@@ -154,11 +146,7 @@ class Pelanggan extends CI_Controller{
 
     public function test()
     {
-      # code...
-      $cek = get_permission('Pelanggan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
+      # code..
       $this->load->library('Googlemap');
       $data['aktif']			='Pelanggan';
   		$data['title']			='Brajamarketindo';
@@ -192,10 +180,6 @@ class Pelanggan extends CI_Controller{
 
     public function tambah()
     {   
-        $cek = get_permission('Pelanggan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'list_kategori' => $this->pelanggan->get_kategori(),
               'button' => 'Tambah',
@@ -235,10 +219,6 @@ class Pelanggan extends CI_Controller{
     public function aksi_tambah()
     {
       # code...
-        $cek = get_permission('Pelanggan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
       $this->_rules();
 
       if ($this->form_validation->run() == FALSE) {
@@ -311,10 +291,6 @@ class Pelanggan extends CI_Controller{
 
     public function update($id)
     {   
-      $cek = get_permission('Pelanggan', $this->permit[1]);
-      if (!$cek) {//cek admin ga?
-          redirect('panel','refresh');
-      }
         $row = $this->pelanggan->get_by_id($id);
         if ($row) {
             $data = array(
@@ -356,10 +332,6 @@ class Pelanggan extends CI_Controller{
 
     public function update_action()
     {   
-        $cek = get_permission('Pelanggan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -433,10 +405,7 @@ class Pelanggan extends CI_Controller{
 
     public function ajax_delete($id)
     {   
-        $cek = get_permission('Pelanggan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        } 
+        
         $this->pelanggan->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }

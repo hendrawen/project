@@ -1,5 +1,5 @@
 <!-- footer content -->
-        <footer>
+<footer>
           <div class="pull-right">
             Page rendered in :
             <?php echo $this->benchmark->elapsed_time();?> seconds
@@ -67,28 +67,103 @@
 
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/pembelian.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/transaksi_admin.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/dept.js"></script>
 
-    <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/som/jadwal.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.PrintArea.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script>
     <?php
-	    if ($this->uri->segment(1) == 'som') {?>
-    <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+	    if ($this->uri->segment(2) == 'pelanggan') {?>
+    <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
     <?php
 	  } ?>
     <?php
-	    if ($this->uri->segment(1) == 'effectifcall') {?>
-    <script src="<?php echo base_url()?>assets/template/production/js/effectifcall.js"></script>
+	    if ($this->uri->segment(2) == 'takeorder') {?>
+    <script src="<?php echo base_url()?>assets/template/production/js/som/effectifcall.js"></script>
     <?php
 	  } ?>
     <?php if ($this->uri->segment(1) == 'som'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan.js" charset="utf-8"></script>
     <?php endif; ?>
+
+    <?php if($this->uri->segment(1) == 'delivery'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/delivery.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(1) == 'market'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/market.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'tracking'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/tracking.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(2) == 'pembayaran'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_pembayaran.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'marketing'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_marketing.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'produk'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_produk.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'penjualan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_penjualan.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'area'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_area.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(1) == 'produk'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/produkshare.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'penarikan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_penarikan.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(1) == 'gtransaksi'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/gtransaksi.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'sumberdata'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/sumberdata.js" charset="utf-8"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'effectivecall'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/kpieffectifecall.js" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'harian'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/hariandebt.js" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'kpi' && $this->uri->segment(2) == 'debt'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kpi-debt.js" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'kpi' && $this->uri->segment(2) == 'marketing'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kpi-marketing.js" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'kas'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kas.js" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(2) == 'status_pelanggan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/status_pelanggan.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'tracking_aset'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/tracking_aset.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php endif; ?>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
