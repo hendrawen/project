@@ -6,10 +6,15 @@ class Kpi extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Ion_auth_model');
-        $this->load->model('Debt_model','model');
-        if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+        if (!$this->ion_auth->in_group('Debt')) {//cek admin ga?
+          redirect('login','refresh');
+        }
 		}
+        $this->load->model('Ion_auth_model');
+        $this->load->model('Debt_model','model');
         
     }
     

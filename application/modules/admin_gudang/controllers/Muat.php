@@ -9,38 +9,38 @@ class Muat extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Ion_auth_model');
-        if (!$this->ion_auth->logged_in()) {//cek login ga?
-                redirect('login','refresh');
-                }else{
-            if (!$this->ion_auth->in_group('Debt')) {//cek admin ga?
-              redirect('login','refresh');
-            }
-            }
-        $this->load->model('Muat_model');
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+                if (!$this->ion_auth->in_group('Admin Gudang')) {//cek admin ga?
+                        redirect('login','refresh');
+                }
+		}
+        $this->load->model('Muat_model','model');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
 
-        $muat = $this->Muat_model->get_all();
+        $muat = $this->model->get_all();
 
         $data = array(
             'muat_data' => $muat,
-            'aktif'			=>'delivery',
+            'aktif' => 'muat',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
             'sub_judul'	=>'Muat',
             'content'		=>'muat/wp_debt_muat_list',
         );
-        $this->load->view('dep/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     public function create()
     {
         $data = array(
             'button' => 'Create',
-            'action' => site_url('dep/muat/create_action'),
+            'action' => site_url('admin_gudang/muat/create_action'),
       	    'id' => set_value('id'),
       	    'muat_krat' => set_value('muat_krat',0),
       	    'muat_dust' => set_value('muat_dust',0),
@@ -54,15 +54,15 @@ class Muat extends CI_Controller
       	    'username' => set_value('username'),
       	    'wp_barang_id' => set_value('wp_barang_id'),
       	    'wp_gudang_id' => set_value('wp_gudang_id'),
-            'aktif'			=>'delivery',
+            'aktif' => 'muat',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
             'sub_judul'	=>'Muat',
             'content'		=>'muat/wp_debt_muat_form',
-            'barang_list' => $this->Muat_model->get_barang(),
-            'gudang_list' => $this->Muat_model->get_gudang(),
+            'barang_list' => $this->model->get_barang(),
+            'gudang_list' => $this->model->get_gudang(),
       	);
-        $this->load->view('dep/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     public function create_action()
@@ -86,20 +86,20 @@ class Muat extends CI_Controller
             'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
     	    );
 
-            $this->Muat_model->insert($data);
+            $this->model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('dep/muat'));
+            redirect(site_url('admin_gudang/muat'));
         }
     }
 
     public function update($id)
     {
-        $row = $this->Muat_model->get_by_id($id);
+        $row = $this->model->get_by_id($id);
 
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('dep/muat/update_action'),
+                'action' => site_url('admin_gudang/muat/update_action'),
             		'id' => set_value('id', $row->id),
             		'muat_krat' => set_value('muat_krat', $row->muat_krat),
             		'muat_dust' => set_value('muat_dust', $row->muat_dust),
@@ -113,18 +113,18 @@ class Muat extends CI_Controller
             		'username' => set_value('username', $row->username),
             		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
                 'wp_gudang_id' => set_value('wp_gudang_id', $row->wp_gudang_id),
-                'aktif'			=>'delivery',
+                'aktif' => 'muat',
                 'title'			=>'Brajamarketindo',
                 'judul'			=>'Dashboard',
                 'sub_judul'	=>'Muat',
                 'content'		=>'muat/wp_debt_muat_form',
-                'barang_list' => $this->Muat_model->get_barang(),
-                'gudang_list' => $this->Muat_model->get_gudang(),
+                'barang_list' => $this->model->get_barang(),
+                'gudang_list' => $this->model->get_gudang(),
         	    );
-            $this->load->view('dep/dashboard', $data);
+            $this->load->view('dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('dep/muat'));
+            redirect(site_url('admin_gudang/muat'));
         }
     }
 
@@ -149,23 +149,23 @@ class Muat extends CI_Controller
         		'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
 	         );
 
-            $this->Muat_model->update($this->input->post('id', TRUE), $data);
+            $this->model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('dep/muat'));
+            redirect(site_url('admin_gudang/muat'));
         }
     }
 
     public function delete($id)
     {
-        $row = $this->Muat_model->get_by_id($id);
+        $row = $this->model->get_by_id($id);
 
         if ($row) {
-            $this->Muat_model->delete($id);
+            $this->model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('dep/muat'));
+            redirect(site_url('admin_gudang/muat'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('dep/muat'));
+            redirect(site_url('admin_gudang/muat'));
         }
     }
 
@@ -220,7 +220,7 @@ class Muat extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Username");
 	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
 
-	foreach ($this->Muat_model->get_all() as $data) {
+	foreach ($this->model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric

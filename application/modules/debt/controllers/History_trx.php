@@ -9,8 +9,12 @@ class History_trx extends CI_Controller{
     parent::__construct();
     $this->load->model('Ion_auth_model');
     if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
+			redirect('login','refresh');
+			}else{
+        if (!$this->ion_auth->in_group('Debt')) {//cek admin ga?
+          redirect('login','refresh');
         }
+		}
     $this->load->model('Model_dep', 'dep');
     $this->load->library('table');
   }

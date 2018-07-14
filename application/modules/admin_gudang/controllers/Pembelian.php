@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Debt extends CI_Controller{
+class Pembelian extends CI_Controller{
   private $temb_bayar;
   public function __construct()
   {
@@ -11,73 +11,91 @@ class Debt extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
-        if (!$this->ion_auth->in_group('Debt')) {//cek admin ga?
-          redirect('login','refresh');
-        }
+                if (!$this->ion_auth->in_group('Admin Gudang')) {//cek admin ga?
+                        redirect('login','refresh');
+                }
 		}
-    $this->load->model('Dep_model', 'dep');
-    $this->load->model('pesan/Pesan_model', 'pesan');
+    $this->load->model('Pembelian_model', 'pembelian');
   }
 
   function index()
-  {
-    $data['aktif']			='Dashboard';
+  { 
+    $data['aktif']			='pembelian';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
-    $data['sub_judul']	='Dep';
-    $data['content']		='main';
-    $data['total_transaksi'] = $this->dep->total_transaksi();
-    $data['transaksi_perbulan'] = $this->dep->transaksi_perbulan();
-    $data['total_penjualan'] = $this->dep->total_penjualan();
-    $data['penjualan_bulanan'] = $this->dep->penjualan_bulanan();
-    $data['total_jadwal'] = $this->dep->gettotaljadwal();
+    $data['sub_judul']	='Pembelian';
+    $data['content']		='pembelian/transaksi2';
+    $data['pembelian']    =$this->pembelian->get_data();
+    $data['total_transaksi'] = $this->pembelian->total_transaksi();
+    $data['transaksi_perbulan'] = $this->pembelian->transaksi_perbulan();
+    $data['total_penjualan'] = $this->pembelian->total_penjualan();
+    $data['penjualan_bulanan'] = $this->pembelian->penjualan_bulanan();
+    $data['total_jadwal'] = $this->pembelian->gettotaljadwal();
     $this->load->view('dashboard',$data);
   }
 
+  public function checkout()
+  { 
+    $data['aktif']			='pembelian';
+    $data['title']			='Brajamarketindo';
+    $data['judul']			='Dashboard';
+    $data['sub_judul']	='Pembelian';
+    $data['tgl_bayar']	=tgl_simpan2($this->input->post('tgl_bayar'));
+    $data['content']		= 'pembelian/checkout';
+    $data['data']=$this->pembelian->get_all_product();
+    $data['profile']=$this->pembelian->get_profile();
+    //$data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
+		$data['generate_invoice'] = $this->pembelian->generatekode_invoice();
+    $data['get_total'] = $this->get_total();
+      
+      
+    $this->load->view('dashboard', $data);
+  }
+
   function piutang()
-  {
-    $data['aktif']			='Dashboard';
+  { 
+    $data['aktif']			='pembelian';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Piutang';
-    $data['content']		='content';
-    $data['jadwal'] = $this->dep->getbydriver();
+    $data['content']		='pembelian/content';
+    $data['jadwal'] = $this->pembelian->getbydriver();
     $this->load->view('dashboard',$data);
   }
+
   public function jadwal()
   {
     # code...
-    $data['aktif']			='Dashboard';
+    $data['aktif']			='pembelian';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';
     $data['sub_judul']	='Jadwal';
-    $data['content']		='jadwal';
-    $data['jadwal'] = $this->dep->getbydriver();
+    $data['content']		='pembelian/jadwal';
+    $data['jadwal'] = $this->pembelian->getbydriver();
     $this->load->view('dashboard',$data);
   }
 
   function list()
-  {
-    $data['aktif']			='Dashboard';
+  { 
+    $data['aktif']			='pembelian';
     $data['title']			='Brajamarketindo';
     $data['judul']			='List';
     $data['sub_judul']	='Transaksi';
-    $data['content']		='list';
-    $data['list'] = $this->dep->gettransaksiharian();
+    $data['content']		='pembelian/list';
+    $data['list'] = $this->pembelian->gettransaksiharian();
     $this->load->view('dashboard',$data);
   }
 
   function get_autocomplete(){
 		if (isset($_GET['term'])) {
-		  	$result = $this->dep->cari_pelanggan($_GET['term']);
+		  	$result = $this->pembelian->cari_suplier($_GET['term']);
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
-					'label'			=> $row->id_pelanggan,
-					'nama_pelanggan'	=> $row->nama_pelanggan,
+					'label'			=> $row->id_suplier,
+					'nama_suplier'	=> $row->nama_suplier,
           'alamat' => $row->alamat,
-          'nama_dagang' => $row->nama_dagang,
-          'no_telp' => $row->no_telp,
+          'id_suplier' => $row->id_suplier,
           'id' => $row->id,
 				);
 		     	echo json_encode($arr_result);
@@ -87,7 +105,7 @@ class Debt extends CI_Controller{
 
   function get_auto(){
 		if (isset($_GET['term'])) {
-		  	$result = $this->dep->cek_piutang($_GET['term']);
+		  	$result = $this->Pembelian->cek_piutang($_GET['term']);
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
@@ -100,7 +118,7 @@ class Debt extends CI_Controller{
 
   function get_auto_transaksi(){
 		if (isset($_GET['term'])) {
-		  	$result = $this->dep->update_piutang($_GET['term']);
+		  	$result = $this->Pembelian->update_piutang($_GET['term']);
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
@@ -120,51 +138,43 @@ class Debt extends CI_Controller{
   {
     # code...
     $id = $this->uri->segment(3);
-    $data['aktif']			='Dashboard';
+    $data['aktif']			='pembelian';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Rincian';
     $data['sub_judul']	='Pengiriman';
-    $data['content']		='detail';
-    $data['detail'] = $this->dep->getdetail($id);
+    $data['content']		='pembelian/detail';
+    $data['detail'] = $this->pembelian->getdetail($id);
     $this->load->view('dashboard',$data);
   }
 
-  public function transaksi()
-  {
-    $data['aktif']			='Kebutuhan';
-    $data['title']			='Transaksi';
-    $data['judul']			='Form';
-    $data['sub_judul']		='Transaki';
-    $data['content']			= 'transaksi';
-    $data['data']=$this->pesan->get_all_product();
-    $data['profile']=$this->pesan->get_profile();
-    $data['generate_invoice'] = $this->pesan->generatekode_invoice();
-    $this->load->view('dashboard', $data);
-  }
-
-  public function checkout()
-  {
-    $data['aktif']			='transaksi';
-    $data['title']			='Transaksi';
-    $data['judul']			='Transaksi';
-    $data['sub_judul']		='Checkout';
-    $data['content']			= 'checkout';
-    $data['data']=$this->pesan->get_all_product();
-    $data['profile']=$this->pesan->get_profile();
-    $data['jenis_pembayaran']=$this->pesan->get_jenis_pembayaran();
-    $data['generate_invoice'] = $this->pesan->generatekode_invoice();
-    $cart = $this->cart->total() -  str_replace(".","", $this->input->post('diskon'));
-    $newdata = array(
-        'total_belanja'  => $cart,
-        'diskon'     =>  str_replace(".","", $this->input->post('diskon')),
+  public function barang()
+  { 
+    $data = array(
+      'button' => 'Simpan',
+      'action' => site_url('admin_gudang/pembelian/create_action'),
+      'id' => set_value('id'),
+      'id_transaksi' => set_value('id_transaksi'),
+      'wp_barang_id' => set_value('wp_barang_id'),
+      'tgl_transaksi' => set_value('tgl_transaksi'),
+      'qty' => set_value('qty'),
+      'satuan' => set_value('satuan'),
+      'harga' => set_value('harga'),
+      'subtotal' => set_value('subtotal'),
+      'updated_at' => set_value('updated_at'),
     );
-    $sesi = $this->session->set_userdata($newdata);
+
+    $data['aktif']			='pembelian';
+    $data['title']			='Pembelian';
+    $data['judul']			='Form';
+    $data['sub_judul']		='Pembelian';
+    $data['content']			= 'pembelian/transaksi';
+    $data['generate_invoice'] = $this->pembelian->generatekode_invoice();
     $this->load->view('dashboard', $data);
   }
 
   function get_barang(){
 		$kode=$this->input->post('id_barang');
-		$data=$this->pesan->get_data_barang_bykode($kode);
+		$data=$this->pembelian->get_data_barang_bykode($kode);
 		echo json_encode($data);
 	}
 
@@ -178,126 +188,107 @@ class Debt extends CI_Controller{
 		$data = array(
 			'id' => $this->input->post('id_barang'),
 			'name' => $this->input->post('nama_barang'),
-			'price' => $this->input->post('harga_jual'),
+			'price' => $this->input->post('harga'),
 			'qty' => $this->input->post('qty'),
       'wp_barang_id' => $this->input->post('id'),
-      'id_transaksi' => $this->input->post('id_transaksi'),
-      'satuan' => $this->input->post('satuan'),
+      'wp_suplier_id' => $this->input->post('wp_suplier_id'),
+      'subtotal' => $this->input->post('subtotal'),
+      'satuan' => $this->input->post('satuan2'),
+      //'id_transaksi' => $this->input->post('id_transaksi'),
 		);
 		$this->cart->insert($data);
 		echo $this->show_cart();
 	}
 
+  function get_total()
+	{
+		# code...
+		$total = 0;
+		if ($this->cart->contents()) {
+			foreach ($this->cart->contents() as $items) {
+				$subtotal = $items['price'] * $items['qty'];
+				$total += $subtotal;
+			}
+		}
+		return $total;
+	}
 
     function checkout_action() {
-  			$this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
-  			$this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
-  			$this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
-  			$this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
-  			$this->form_validation->set_rules('id', '	wp_pelanggan_id', 'required|trim');
-  			$this->form_validation->set_rules('wp_status_id', 'wp_status_id', 'required|trim');
+      $this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
+      $this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
+      $this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
+      $this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
+      $this->form_validation->set_rules('id', '	wp_suplier_id', 'required|trim');
 
-  			if ($this->form_validation->run() == FALSE){
-          $this->session->set_flashdata('message','Data belum lengkap !');
-  				$this->checkout(); // tampilkan apabila ada error
-  			}else{
-          $status = $this->input->post('wp_status_id');
-          //status lunas
-          if ($status=="1")
-          {
-          $kp = $this->input->post('idpesan', true);
-  				$wp_pelanggan_id = $this->input->post('id', true);
-  				$wp_status_id = $this->input->post('wp_status_id', true);
-  				$tg = date('Y-m-d H-i-s');
-  				$tg2 = date('Y-m-d');
+      if ($this->form_validation->run() == FALSE){
+        $this->session->set_flashdata('message','Data belum lengkap !');
+        $this->checkout(); // tampilkan apabila ada error
+      }else{
+          $id_transaksi = $this->pembelian->generatekode_invoice();
+  				$wp_suplier_id = $this->input->post('id', true);
+
+          $status = 'Belum Bayar';
+          $tg = date('Y-m-d H-i-s');
+          $tg2 = date('Y-m-d');
+
+          $tgl_bayar = $this->input->post('tgl_bayar', true);
   				$result = array();
-  				foreach($kp AS $key => $val){
+         foreach ($this->cart->contents() as $items) {
   					$result[] = array(
-  						"id_transaksi" 		=> $_POST['id_transaksi'][$key],
-  						"qty"          		=> $_POST['qty'][$key],
-  						"wp_barang_id"    => $_POST['wp_barang_id'][$key],
-  						"harga"       		=> $_POST['harga'][$key],
-  						"subtotal"       	=> $_POST['subtotal'][$key],
-              "wp_pelanggan_id" => $wp_pelanggan_id,
-  						"tgl_transaksi" 				=> $tg,
-  						"wp_status_id"				=> $wp_status_id,
-              "diskon"        => $this->input->post('diskon'),
-              "username"      => $this->session->identity
+  						"id_transaksi" 		=> $id_transaksi,
+  						"qty"          		=> $items['qty'],
+  						"wp_barang_id"    => $items['wp_barang_id'],
+  						"harga"       		=> $items['price'],
+  						//"subtotal"       	=> $items['subtotal'][$key],
+              "tgl_transaksi" => $tgl_bayar,
+  						"wp_suplier_id" 				=> $wp_suplier_id,
+  						"satuan"				=> $items['satuan'],
+              "subtotal"        => $items['subtotal'],
+              //"status"      => $status,
+              "username"      => $this->session->identity,
   					);
-          }
-  				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
-  				if($res){$this->cart->destroy();
+        }
+        $detail = array(
+          'id_transaksi' => $id_transaksi,
+          'utang' => $this->get_total(),
+          'created_at' => date('Y-m-d'),
+
+         );
+          $this->db->insert('wp_detail_transaksistok', $detail);
+  				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
+  				if($res){ $this->cart->destroy();
   					$this->session->set_flashdata('message','Transaksi berhasil !');
-  					redirect('dep/transaksi');
+  					redirect('admin_gudang/pembelian');
   				}else{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
-  				}
+  		    }
         }
-        //status hutang
-        else {
-          $kp = $this->input->post('idpesan', true);
-  				$wp_pelanggan_id = $this->input->post('id', true);
-  				$wp_status_id = $this->input->post('wp_status_id', true);
-  				$tg = date('Y-m-d H-i-s');
-  				$tg2 = date('Y-m-d');
-  				$result = array();
-  				foreach($kp AS $key => $val){
-  					$result[] = array(
-  						"id_transaksi" 		=> $_POST['id_transaksi'][$key],
-  						"qty"          		=> $_POST['qty'][$key],
-  						"wp_barang_id"    => $_POST['wp_barang_id'][$key],
-  						"harga"       		=> $_POST['harga'][$key],
-  						"subtotal"       	=> $_POST['subtotal'][$key],
-              "wp_pelanggan_id" => $wp_pelanggan_id,
-  						"tgl_transaksi" 				=> $tg,
-  						"wp_status_id"				=> $wp_status_id,
-              "diskon"        => $this->input->post('diskon'),
-              "username"    => $this->session->identity
-  					);
-          }
-          $data = array(
-            'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
-            'utang' => $this->input->post('hutang',TRUE),
-            'bayar' => $this->input->post('bayar', TRUE),
-            'created_at' => date('Y-m-d'),
-            //'updated_at' => $this->input->post('updated_at',TRUE),
-            //'created_at' => mdate($datestring, $time),
-           );
-          $this->db->insert('wp_detail_transaksi', $data);
-  				$res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
-  				if($res){$this->cart->destroy();
-  					$this->session->set_flashdata('message','Transaki berhasil !');
-  					redirect('dep/transaksi');
-  				}else{
-  					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
-  				}
-        }
-
-  			}
   }
 
   public function invoice()
   {
     # code...
     $id = $this->uri->segment(3);
-    $data['aktif']			='transaksi';
+    $data['aktif']			='pembelian';
     $data['title']			='Transaksi';
     $data['judul']			='Transaksi';
     $data['sub_judul']		='Invoice';
-    $data['content']			= 'invoice';
+    $data['content']			= 'pembelian/invoice';
     $data['profile']=$this->pesan->get_profile();
     $data['jenis_pembayaran']=$this->pesan->get_jenis_pembayaran();
-    $data['cetak_invoice'] = $this->dep->cetakinvoice($id);
-    $data['idinvoice'] = $this->dep->idinvoice($id);
-    $data['total_invoice'] = $this->dep->total_invoice($id);
-    $data['status'] = $this->dep->status($id);
-    $this->load->view('dashboard', $data);
+    $data['cetak_invoice'] = $this->Pembelian->cetakinvoice($id);
+    $data['idinvoice'] = $this->Pembelian->idinvoice($id);
+    $data['total_invoice'] = $this->Pembelian->total_invoice($id);
+    $data['status'] = $this->Pembelian->status($id);
+    $this->load->view('Pembelian/dashboard', $data);
   }
 
   public function cek()
   {
     # code...
-    print_r($this->session->userdata('id_transaksi'));
+    echo $this->session->userdata('total_belanja');
+    echo '<br />';
+    echo $this->session->userdata('diskon');
   }
 
 	function show_cart(){
@@ -365,21 +356,21 @@ class Debt extends CI_Controller{
   }
 
   public function hapus($id)
-  {
-      $row = $this->dep->get_by_id($id);
+  {   
+      $row = $this->Pembelian->get_by_id($id);
 
       if ($row) {
-          $this->dep->delete($id);
+          $this->Pembelian->delete($id);
           $this->session->set_flashdata('message', 'Hapus Data Success');
-          redirect(site_url('dep/list'));
+          redirect(site_url('admin_gudang/pembelian/list'));
       } else {
           $this->session->set_flashdata('msg', 'Data Tidak Ada');
-          redirect(site_url('dep/list'));
+          redirect(site_url('admin_gudang/pembelian/list'));
       }
   }
 
   public function update_action()
-  {
+  { 
     $test = str_replace(".","", $this->input->post('bayar'));
     $test2 = $this->input->post('sudah');
     $hasil = $test+$test2;
@@ -388,9 +379,9 @@ class Debt extends CI_Controller{
         'bayar' => $hasil,
         'created_at' => date('Y-m-d'),
         );
-    $this->dep->update($this->input->post('id', TRUE), $data);
+    $this->Pembelian->update($this->input->post('id', TRUE), $data);
     $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
-    redirect(site_url('dep'));
+    redirect(site_url('Pembelian'));
   }
 
   public function track_transaksi(){
@@ -398,9 +389,9 @@ class Debt extends CI_Controller{
       $this->session->unset_userdata('id_transaksi');
       $total = 0;
       $i = 0;
-         $query = $this->dep->get_track($cari);
-         $sum = $this->dep->sum_get_track($cari);
-         $query2 = $this->dep->get_min_track($cari);
+         $query = $this->Pembelian->get_track($cari);
+         $sum = $this->Pembelian->sum_get_track($cari);
+         $query2 = $this->Pembelian->get_min_track($cari);
             foreach ($query2 as $key) {
               $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
               $this->temb_bayar[$i]['sisa']= $key->sisa;
@@ -437,7 +428,7 @@ class Debt extends CI_Controller{
   }
 
   public function track_pembayaran()
-  {
+  { 
     $list = $this->session->userdata('id_transaksi');
     print_r($list);
     echo '<br />';
@@ -453,12 +444,12 @@ class Debt extends CI_Controller{
             'id_pelanggan' => $list[$i]['id_pelanggan'],
             'username' => $this->session->identity,
           );
-          $this->dep->insert_pembayaran($data);
+          $this->Pembelian->insert_pembayaran($data);
           $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
           // echo 'utang lunas, sisa : '.$jumlah_bayar;
           //update transaksi $list[$i]['id_transaksi'];
-      } else if($jumlah_bayar <= $list[$i]['sisa']) {
-        
+      } else {
+        //$sisa = $list[$i]['sisa'] - $jumlah_bayar;
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
@@ -466,14 +457,28 @@ class Debt extends CI_Controller{
           'id_pelanggan' => $list[$i]['id_pelanggan'],
           'username' => $this->session->identity,
         );
-        $this->dep->insert_pembayaran($data);
-        $jumlah_bayar =0;
+        $this->Pembelian->insert_pembayaran($data);
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
         //
       }
+      redirect(site_url('admin_gudang/pembelian/piutang'));
+
     }
-    $this->session->unset_userdata('id_transaksi');
-    redirect(site_url('dep/piutang'));
   }
+
+  public function delete($id)
+     {  
+       $row = $this->pembelian->get_by_id($id);
+
+       if ($row) {
+           $this->pembelian->delete($id);
+           $this->session->set_flashdata('message', 'Hapus Data Sukses');
+           redirect(site_url('pembelian'));
+       } else {
+           $this->session->set_flashdata('message', 'Record Tidak Ada');
+           redirect(site_url('pembelian'));
+       }
+     }
+
 
 }

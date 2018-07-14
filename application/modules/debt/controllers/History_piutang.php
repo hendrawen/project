@@ -9,7 +9,14 @@ class History_piutang extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //Do your magic here
+        $this->load->model('Ion_auth_model');
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+        if (!$this->ion_auth->in_group('Debt')) {//cek admin ga?
+          redirect('login','refresh');
+        }
+		}
         $this->load->model('Ion_auth_model');
         $this->load->model('Models_laporan', 'laporan');
         $this->load->library('table');

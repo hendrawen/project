@@ -9,11 +9,13 @@ class History_aset extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Ion_auth_model');
-
-        if (!$this->ion_auth->logged_in()) {//cek login ga?
-            redirect('login','refresh');
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+			redirect('login','refresh');
+			}else{
+        if (!$this->ion_auth->in_group('Debt')) {//cek admin ga?
+          redirect('login','refresh');
         }
-        //Do your magic here
+		}
         $this->load->model('Models_laporan', 'laporan');
         $this->load->library('table');
     }
