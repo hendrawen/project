@@ -15,7 +15,7 @@ class Faktur2 extends CI_Controller{
 
   public function index()
   {   
-    $cek = get_permission('Faktur', $this->permit[1]);
+    $cek = get_permission('Super User', $this->permit[1]);
     if (!$cek) {//cek admin ga?
         redirect('panel','refresh');
     }
@@ -40,18 +40,19 @@ class Faktur2 extends CI_Controller{
 
   function get_autocomplete(){
 		if (isset($_GET['term'])) {
-		  	$result = $this->faktur2->cari_transaksi($_GET['term']);
+		  	$result = $this->faktur2->cari_pelanggan($_GET['term']);
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
-          'label' => $row->id_pelanggan2,
+          'label'			=> $row->id_pelanggan,
           'tgl_transaksi' => tgl_indo($row->tgl_transaksi),
+          'id_pelanggan' => $row->id_pelanggan,
           'id_transaksi' => $row->id_transaksi,
-					'nama_pelanggan' => $row->nama_pelanggan,
-          'nama_dagang' => $row->nama_dagang,
+					'nama_pelanggan'	=> $row->nama_pelanggan,
           'alamat' => $row->alamat,
+          'nama_dagang' => $row->nama_dagang,
           'no_telp' => $row->no_telp,
-           'nama'  => $row->nama,
+          'nama'  => $row->nama,
           'kelurahan'  => $row->kelurahan,
           'kecamatan'  => $row->kecamatan,
           'lat'  => $row->lat,
@@ -61,10 +62,10 @@ class Faktur2 extends CI_Controller{
 		     	echo json_encode($arr_result);
 		   	}
 		}
-	}
+  }
 
   public function cari_faktur(){
-    $cek = get_permission('Faktur', $this->permit[1]);
+    $cek = get_permission('Super User', $this->permit[1]);
     if (!$cek) {//cek admin ga?
         redirect('panel','refresh');
     }
@@ -110,6 +111,7 @@ class Faktur2 extends CI_Controller{
          </tr>'
          ;
   }
+  
 }
 
 ?>

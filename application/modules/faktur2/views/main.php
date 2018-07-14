@@ -25,12 +25,11 @@
 
                       <div class="col-md-8 col-sm-12 col-xs-12 form-group">
                         <div class="input-group">
-                           <input type="text" id="id_pelanggan2" name="id_pelanggan2" class="form-control" placeholder="Input Id Pelanggan" required>
+                           <input type="text" name="id_pelanggan" id="autopelanggan" class="form-control" placeholder="Input Id Pelanggan" required>
                            <span class="input-group-btn">
                                <button type="button" id="button" class="btn btn-primary">Add</button>
                            </span>
                          </div>
-
                       </div>
 
                 <div class="divider-dashed"></div>
