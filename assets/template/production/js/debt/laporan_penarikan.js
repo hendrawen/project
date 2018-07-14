@@ -77,7 +77,7 @@ $("#btn-search_bulan_aset").click(function() {
       data: {from : bulan_dari, to : bulan_ke, tahun : tahun},
       success : function (data) {
         $("#loading").hide();
-        $("#tbody").html(data);
+        $("#tbody-penarikan").html(data);
       }
     })
   });

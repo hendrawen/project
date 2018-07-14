@@ -54,10 +54,6 @@ class Delivery extends CI_Controller
     }
 
     function get_auto(){
-        $cek = get_permission('Debt', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
 		if (isset($_GET['term'])) {
 		  	$result = $this->dep->cek_piutang($_GET['term']);
 		   	if (count($result) > 0) {

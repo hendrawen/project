@@ -18,6 +18,8 @@ class Login extends CI_Controller
                 redirect('admin','refresh');
             } elseif ($this->ion_auth->in_group('Marketing')) {
                 redirect('marketing','refresh');
+            } elseif ($this->ion_auth->in_group('Admin')) {
+                redirect('admint','refresh');
             } elseif ($this->ion_auth->in_group('Admin Gudang')) {
                 redirect('admin_gudang','refresh');
             } elseif ($this->ion_auth->in_group('super user')) {

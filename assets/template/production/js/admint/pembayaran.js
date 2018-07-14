@@ -8,7 +8,7 @@ var table;
 
            // Load data for the table's content from an Ajax source
            "ajax": {
-               "url": (base_url+"debt/pembayaran/ajax_list"),
+               "url": (base_url+"admint/pembayaran/ajax_list"),
                "type": "POST",
                "data": function ( data ) {
                 }
