@@ -25,9 +25,9 @@
 
                       <div class="col-md-8 col-sm-12 col-xs-12 form-group">
                         <div class="input-group">
-                           <input type="text" name="id_pelanggan" id="autopelanggan" class="form-control" placeholder="Input Id Pelanggan" required>
+                           <input type="text" name="id_transaksi" id="autopelanggan" class="form-control" placeholder="Input Id Pelanggan" required>
                            <span class="input-group-btn">
-                               <button type="button" id="button" class="btn btn-primary">Add</button>
+                               <button type="button" id="button_pelanggan" class="btn btn-primary">Add</button>
                            </span>
                          </div>
                       </div>
@@ -60,7 +60,7 @@
                                         <br>Website: <?php echo $value->website ?>
                               <?php
                             } ?><br>
-                              <br>Tgl Kirim   : <span name="tgl_transaksi" id="tgl_transaksi">Tgl Transaksi</span>
+                              <!-- <br>Tgl Kirim   : <span name="tgl_transaksi" id="tgl_transaksi">Tgl Transaksi</span> -->
                               <br>Jatuh Tempo : <span name="jatuh_tempo" id="jatuh_tempo">Jatuh Tempo</span>
                         </address>
                       </div>
@@ -87,19 +87,24 @@
                       </div>
                     </div>
             </form>
-
-              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari" style="display: none;">
+            <div class="table-responsive">
+              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_pelanggan" style="display: none;">
                     <thead>
+                      <th>Id Transaksi</th>
+                      <th>Tanggal Transaksi</th>
                       <th>Nama Barang</th>
                       <th>Harga</th>
                       <th>Qty</th>
-                      <th>Subtotal</th>
-                      <th>Satuan</th>
+                      <th>Total</th>
+                      <th>Diskon</th>
+                      <th>Hutang</th>
+                      <th>Bayar</th>
+                      <th>Sisa Hutang</th>
                     </thead>
                     <tbody id="result">
                     </tbody>
                     </table>
-
+                  </div>
                     <br><br>
                     <div class="row no-print">
                       <div class="col-xs-12">

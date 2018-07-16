@@ -40,14 +40,14 @@ class Faktur2 extends CI_Controller{
 
   function get_autocomplete(){
 		if (isset($_GET['term'])) {
-		  	$result = $this->faktur2->cari_pelanggan($_GET['term']);
+		  	$result = $this->faktur2->cek_pelanggan($_GET['term']);
 		   	if (count($result) > 0) {
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
           'label'			=> $row->id_pelanggan,
-          'tgl_transaksi' => tgl_indo($row->tgl_transaksi),
+          //'tgl_transaksi' => tgl_indo($row->tgl_transaksi),
           'id_pelanggan' => $row->id_pelanggan,
-          'id_transaksi' => $row->id_transaksi,
+          //'id_transaksi' => $row->id_transaksi,
 					'nama_pelanggan'	=> $row->nama_pelanggan,
           'alamat' => $row->alamat,
           'nama_dagang' => $row->nama_dagang,
@@ -111,7 +111,54 @@ class Faktur2 extends CI_Controller{
          </tr>'
          ;
   }
+
+  public function track_pelanggan(){
+    $cari = $this->input->post('judul');
+    $this->session->unset_userdata('id_transaksi');
+    $total = 0;
+    $i = 0;
+       $query = $this->faktur2->get_track($cari);
+       $sum = $this->faktur2->sum_get_track($cari);
+       $query2 = $this->faktur2->get_min_track($cari);
+          foreach ($query2 as $key) {
+            $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
+            $this->temb_bayar[$i]['sisa']= $key->sisa;
+            $this->temb_bayar[$i]['id_pelanggan']= $key->id_pelanggan;
+            $i++;
+          ?>
+         <?php }
+         $data =  $this->session->set_userdata('id_transaksi', $this->temb_bayar);
+         ;
+        foreach ($query as $key) { ?>
+           <tr>
+               <td><?php echo $key->id_transaksi ?></td>
+               <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
+               <td><?php echo $key->nama_barang ?></td>
+               <td><?php echo $key->harga ?></td>
+               <td><?php echo $key->qty ?></td>
+               <td><?php echo $key->subtotal ?></td>
+               <td><?php echo $key->diskon ?></td>
+               <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
+               <!-- <td><?php echo ($key->bayar > 0)? tgl_indo($key->tgl_bayar):'' ?></td>-->
+               <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td> 
+               <td>Rp. <?php echo number_format($key->sisa,2,",",".") ?></td>
+           <tr>;
+             <!-- <input type="hidden" id="autopelanggan" class="form-control" value="<?php echo $key->wp_pelanggan_id?>" name="autopelanggan" required=""> -->
+       <?php }
+       ;
+       foreach ($sum as $key) { ?>
+          <tr>
+           <th colspan="9">Total</th>
+              <th colspan="1">Rp. <?php echo number_format($key->sisa,2,",",".") ?> </th>
+          </tr>
+          <?php }
+    }
+    
+    public function cek()
+    {
+      print_r ($this->session->userdata('id_transaksi'));
   
+    }
 }
 
 ?>
