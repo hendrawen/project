@@ -134,7 +134,7 @@ $('#id_barang').on('input',function(){
   });
 
   $('#id_track_suplier').autocomplete({
-      source: (base_url+"pembayaranbarang/get_auto"),
+      source: (base_url+"admin_gudang/pembayaran_barang/get_auto"),
       select: function (event, ui) {
           $('[name="title"]').val(ui.item.label);
           // $('[name="hutang"]').val(formatNumber(ui.item.utang));
@@ -156,7 +156,7 @@ $('#id_barang').on('input',function(){
           $("#result2").html(base_url+"assets/ajax-loader.gif");
             $.ajax({
                    type : "POST",
-                url  : (base_url+"pembayaranbarang/track_pembayaran"),
+                url  : (base_url+"admin_gudang/pembayaran_barang/track_pembayaran"),
                 data:"judul="+judul,
 
                 success:function(data){

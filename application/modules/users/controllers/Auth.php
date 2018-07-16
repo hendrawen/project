@@ -26,7 +26,7 @@ class Auth extends CI_Controller {
 				redirect('marketing','refresh');
 			} elseif ($this->ion_auth->in_group('Admin')) {
                 redirect('admint','refresh');
-			} elseif ($this->ion_auth->in_group('super user')) {
+			} elseif ($this->ion_auth->in_group('Super User')) {
 				redirect('panel','refresh');
 			} elseif ($this->ion_auth->in_group('Debt')) {
 				redirect('debt','refresh');
@@ -70,7 +70,7 @@ class Auth extends CI_Controller {
 					redirect('marketing','refresh');
 				} elseif ($this->ion_auth->in_group('Admin')) {
 					redirect('admint','refresh');
-				} elseif ($this->ion_auth->in_group('super user')) {
+				} elseif ($this->ion_auth->in_group('Super User')) {
 					redirect('panel','refresh');
 				} elseif ($this->ion_auth->in_group('Debt')) {
 					redirect('debt','refresh');

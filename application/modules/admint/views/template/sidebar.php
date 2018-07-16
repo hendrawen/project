@@ -33,12 +33,7 @@
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>admint/pelanggan"><i class="fa fa-user"></i> Data Pelanggan</a></li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>admint/transaksi"><i class="fa fa-shopping-cart"></i> Penjualan</a></li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>admint/pembayaran"><i class="fa fa-credit-card"></i> Pembayaran</a></li>
-                  <li><a><i class="fa fa-sort-alpha-asc"></i>Data KAS <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>admint/kas">KAS</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>admint/kategorikas">Kategori KAS</a></li>
-                    </ul>
-                  </li>
+                  <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>admint/faktur2"><i class="fa fa-cube"></i> Faktur</a></li>
                 </ul>
               </div>
 

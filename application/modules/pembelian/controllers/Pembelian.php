@@ -38,10 +38,6 @@ class Pembelian extends CI_Controller{
 
   public function checkout()
   { 
-    $cek = get_permission('Pembelian Barang', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Dashboard';

@@ -72,6 +72,7 @@
     <script src="<?= base_url('assets/template/production/js/admin_gudang/pembelian.js')?>"></script>
     <?php endif; ?>
 
+    <script src="<?= base_url('assets/template/production/js/admin_gudang/custom.js')?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>

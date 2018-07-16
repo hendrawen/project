@@ -28,7 +28,7 @@
            </script>
          </small>
     <?php endif; ?>
-
+    <a class="btn btn-primary" href="<?php echo base_url('admin_gudang/stok/create'); ?>"><i class="fa fa-plus-square"></i> input stok awal</a>
 <div class="x_panel">
       <div class="x_title">
             <h2>Stok List</h2>

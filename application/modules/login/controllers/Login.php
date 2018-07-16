@@ -22,7 +22,7 @@ class Login extends CI_Controller
                 redirect('admint','refresh');
             } elseif ($this->ion_auth->in_group('Admin Gudang')) {
                 redirect('admin_gudang','refresh');
-            } elseif ($this->ion_auth->in_group('super user')) {
+            } elseif ($this->ion_auth->in_group('Super User')) {
                 redirect('panel','refresh');
             } elseif ($this->ion_auth->in_group('Debt')) {
                 redirect('debt','refresh');

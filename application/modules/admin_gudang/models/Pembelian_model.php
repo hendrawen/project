@@ -42,7 +42,7 @@ class Pembelian_model extends CI_Model{
     $this->db->from('wp_jadwal');
     $this->db->join('wp_pelanggan', 'wp_jadwal.wp_pelanggan_id = wp_pelanggan.id', 'inner');
     $this->db->join('wp_barang', 'wp_jadwal.wp_barang_id = wp_barang.id', 'inner');
-    $this->db->where('wp_transaksistok.username', $this->session->identity);
+    $this->db->where('wp_jadwal.username', $this->session->identity);
     // $this->db->where('wp_jadwal.wp_karyawan_id_karyawan', $this->session->identity);
     $this->db->where($condition);
     return $this->db->count_all_results();

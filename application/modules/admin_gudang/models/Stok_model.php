@@ -28,7 +28,6 @@ class Stok_model extends CI_Model
         $this->db->join('wp_barang', 'wp_barang.id = wp_stok.wp_barang_id', 'inner');
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_stok.wp_gudang_id', 'inner');
         $this->db->join('wp_suplier', 'wp_suplier.id = wp_barang.wp_suplier_id', 'inner');
-        $this->db->where('wp_gudang.username', $this->session->identity);
         return $this->db->get($this->table)->result();
     }
 
@@ -85,7 +84,6 @@ class Stok_model extends CI_Model
         $this->db->from($this->table);
         $this->db->join('wp_barang', 'wp_barang.id = wp_stok.wp_barang_id');
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_stok.wp_gudang_id');
-        $this->db->where('wp_gudang.username', $this->session->identity);
         $this->db->order_by('id', $this->order);
         return $query = $this->db->get()->result();
     }

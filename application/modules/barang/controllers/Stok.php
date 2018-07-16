@@ -51,7 +51,7 @@ class Stok extends CI_Controller
 				$data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
-        $data['sub_judul']	='Stok Barang';
+        $data['sub_judul']	    ='Stok Barang';
         $data['menu']			= $this->permit[0];
 	    $data['submenu']		= $this->permit[1];
         $data['content']		='stok_list';
