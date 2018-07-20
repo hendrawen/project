@@ -8,17 +8,18 @@ class Kebutuhan extends CI_Controller{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
-    $this->load->model('Ion_auth_model');
-    $this->permit = $this->Ion_auth_model->permission($this->session->identity);
+    if (!$this->ion_auth->logged_in()) {//cek login ga?
+        redirect('login','refresh');
+        }else{
+                if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                        redirect('login','refresh');
+                }
+    }
     $this->load->model('Model_kebutuhan','kebutuhan');
   }
 
   function index()
   { 
-    $cek = get_permission('Kebutuhan', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
-    }
     $data['aktif']			='Master';
     $data['title']			='Kebutuhan Pelanggan';
     $data['judul']			='Data Kebutuhan Pelanggan';
@@ -32,10 +33,6 @@ class Kebutuhan extends CI_Controller{
 
   public function ajax_list()
     {   
-        $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $list = $this->kebutuhan->get_datatables();
         $data = array();
         $no = $_POST['start'];
@@ -61,11 +58,7 @@ class Kebutuhan extends CI_Controller{
         echo json_encode($output);
     }
     public function tambah()
-    {   
-        $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
+    {  
         $data = array(
             'button' => 'Tambah',
             'action' => site_url('kebutuhan/create_action'),
@@ -88,10 +81,6 @@ class Kebutuhan extends CI_Controller{
     public function presentasi()
     {   
       # code...
-      $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
       $data['aktif']			='Master/presentasi';
       $data['title']			='Data Kebutuhan';
       $data['judul']			='Report Kebutuhan';
@@ -106,10 +95,6 @@ class Kebutuhan extends CI_Controller{
     public function proses_laporan()
     {
       # code...
-      $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
        $date1 = $this->input->post('awal');
        $date2 = $this->input->post('akhir');
        $date3 = $this->input->post('tahun');
@@ -158,10 +143,6 @@ class Kebutuhan extends CI_Controller{
 
     public function create_action()
     {   
-        $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -183,10 +164,6 @@ class Kebutuhan extends CI_Controller{
 
     public function update($id)
     {   
-        $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->Model_kebutuhan->get_by_id($id);
 
         if ($row) {
@@ -210,10 +187,6 @@ class Kebutuhan extends CI_Controller{
 
     public function update_action()
     {   
-        $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -235,10 +208,6 @@ class Kebutuhan extends CI_Controller{
 
     public function delete($id)
     {   
-        $cek = get_permission('Kebutuhan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $row = $this->Model_kebutuhan->get_by_id($id);
 
         if ($row) {

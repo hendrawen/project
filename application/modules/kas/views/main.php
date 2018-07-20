@@ -143,7 +143,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_karyawan">Debt / Delivery</label>
+                        <label for="id_karyawan">Karyawan</label>
                         <select name="id_karyawan" id="id_karyawan" class="form-control">
                             <option value="">-- Select One --</option>
                         </select>

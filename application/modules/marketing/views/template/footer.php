@@ -56,7 +56,7 @@
 
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/marketing/pelanggan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>

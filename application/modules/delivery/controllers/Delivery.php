@@ -108,7 +108,7 @@ class Delivery extends CI_Controller
     public function cek()
     {
       # code...
-      print_r ($this->session->userdata('id_transaksi'));
+    //   print_r ($this->session->userdata('id_transaksi'));
       
     }
 
