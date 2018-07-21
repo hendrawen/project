@@ -24,6 +24,14 @@ class Jadwal extends CI_Controller{
     $data['judul']			='Daftar Jadwal';
     $data['sub_judul']		='Pengiriman';
     $data['content']		= 'jadwal/main';
+    $data['colors']		= array(
+                        '16863D' => 'hijau',
+                        '006CFF' => 'biru',
+                        'FFC300' => 'kuning',
+                        'F0AD4E' => 'orange',
+                        'E3479B' => 'jingga',
+                        '0DD428' => 'hijau muda',
+                        );
     $this->load->view('dashboard', $data);
   }
 
@@ -55,5 +63,6 @@ class Jadwal extends CI_Controller{
 		$result=$this->jadwal->dragUpdateEvent();
 		echo $result;
 	}
+
 
 }

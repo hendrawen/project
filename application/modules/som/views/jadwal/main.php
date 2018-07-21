@@ -97,7 +97,12 @@
               </div>
               <div class="form-group">
                   <label for="color">Pilih Warna</label>
-                      <input id="color" name="color" type="text" class="form-control" readonly="readonly" />
+                      <!-- <input id="color" name="color" type="text" class="form-control" readonly="readonly" /> -->
+                      <select id="color" name="color" class="form-control" name="">
+                      <?php foreach ($colors as $color) { ?>
+                        <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
+                      <?php } ?>
+                      </select>
                       <span class="help-block">Click to pick a color</span>
               </div>
               <div class="form-group">
