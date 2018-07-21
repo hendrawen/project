@@ -81,6 +81,46 @@ class Stok extends CI_Controller
         }
     }
 
+    public function create()
+    {   
+        $data = array(
+            'button' => 'Simpan',
+            'action' => site_url('admin_gudang/stok/create_action'),
+	    'id' => set_value('id'),
+	    'wp_barang_id' => set_value('wp_barang_id'),
+      'wp_gudang_id' => set_value('wp_gudang_id'),
+	    'stok' => set_value('stok'),
+	    'updated_at' => set_value('updated_at'),
+	);
+				$data['aktif']			='Master';
+				$data['title']			='Brajamarketindo';
+				$data['judul']			='Dashboard';
+                $data['sub_judul']	='Stok Barang';
+				$data['content']		='stok/stok_form';
+				$this->load->view('dashboard', $data);
+    }
+
+    public function create_action()
+    {   
+        $this->_rules();
+				$datestring = '%Y-%m-%d %h:%i:%s';
+        $time = time();
+        if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
+            $data = array(
+							'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
+              'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
+							'stok' => $this->input->post('stok',TRUE),
+							//'updated_at' => mdate($datestring, $time),
+	    			);
+
+            $this->stok_model->insert($data);
+            $this->session->set_flashdata('message', 'Data Success Disimpan');
+            redirect(site_url('admin_gudang/stok'));
+        }
+    }
+
     public function update_action()
     {   
         $this->_rules();

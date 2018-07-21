@@ -31,8 +31,8 @@
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo site_url('admin_gudang');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
                   <li><a <?php echo ($aktif == 'pembelian')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/pembelian')?>"><i class="fa fa-shopping-cart"></i> Pembelian</a></li>
-                  <li><a <?php echo ($aktif == 'pembayaran_barang')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/pembayaran_barang')?>"><i class="fa fa-credit-card"></i> Pembayaran Barang</a></li>
-                  <li><a <?php echo ($aktif == 'pembayaran_aset')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/pembayaran_aset')?>"><i class="fa fa-money"></i> Pembayaran Aset</a></li>
+                  <li><a <?php echo ($aktif == 'pembayaran_barang')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/pembayaran_barang/barang')?>"><i class="fa fa-credit-card"></i> Pembayaran Barang</a></li>
+                  <!-- <li><a <?php echo ($aktif == 'pembayaran_aset')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/pembayaran_aset')?>"><i class="fa fa-money"></i> Pembayaran Aset</a></li> -->
                   <li><a <?php echo ($aktif == 'stok_opname')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/stok')?>"><i class="fa fa-sticky-note"></i> Stok Opname</a></li>
                   <li><a <?php echo ($aktif == 'muat')?'class="active"':"";?> href="<?php echo site_url('admin_gudang/muat')?>"><i class="fa fa-truck"></i> Muatan Barang</a></li>
                   </li>

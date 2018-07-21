@@ -82,7 +82,7 @@ class Pembayaran_model extends CI_Model{
   function cari_pelanggan($idpelanggan){
 		$this->db->like('id_pelanggan', $idpelanggan , 'both');
 		$this->db->order_by('id_pelanggan', 'ASC');
-    $this->db->where('utang <=', 'bayar');
+        $this->db->where('utang <=', 'bayar');
 		$this->db->limit(10);
 		return $this->db->get('v_detail_utang')->result();
 	}

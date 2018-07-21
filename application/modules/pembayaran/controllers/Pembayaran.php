@@ -182,15 +182,13 @@ class Pembayaran extends CI_Controller{
   public function cek()
   {
     # code...
-    print_r ($this->session->userdata('id_transaksi'));
+    // print_r ($this->session->userdata('id_transaksi'));
     
   }
 
   public function track_pembayaran()
   { 
     $list = $this->session->userdata('id_transaksi');
-    print_r($list);
-    echo '<br />';
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
     $sisa = '';
     for ($i=0; $i < sizeof($list); $i++) {
