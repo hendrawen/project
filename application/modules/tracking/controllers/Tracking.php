@@ -24,7 +24,7 @@ class Tracking extends CI_Controller {
             'aktif'			=>'Tracking',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Tracking',
+            'sub_judul'	    =>'Tracking',
             'content'		=>'view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
@@ -44,56 +44,38 @@ class Tracking extends CI_Controller {
         $data = array();
         $no = $_POST['start'];
         $this_month = date('n');
-        foreach ($list as $record) {
-            $utang = $this->model->laporan_pelanggan_utang($record->id_pelanggan, $tahun);
+        $warna = $this->input->post('warna');
+        
+        $temp = array();
+        if ($warna == "all") {
+            $temp = $this->cekidot($list, $this_month, $tahun);
+        } else {
+            $temp = $this->cekidotdot($list, $this_month, $tahun, $warna);
+        }
+
+        foreach ($temp as $record) {
+            $utang = $this->model->laporan_pelanggan_utang($record['id_pelanggan'], $tahun);
             $no++;
             $row = array();
             $row[0] = $no;
             $temp = 0;
             
-            $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month, $tahun);
-            if ($cek > 0) {
-                $row[2] = $this->warna('hijau',$record->nama_pelanggan);
-            } else {
-                $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-1, $tahun);
-                if ($cek > 0) {
-                    $row[2] = $this->warna('biru',$record->nama_pelanggan);
-                } else {
-                    $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-2, $tahun);
-                    if ($cek > 0) {
-                        $row[2] = $this->warna('kuning',$record->nama_pelanggan);
-                    } else {
-                        $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-3, $tahun);
-                        if ($cek > 0) {
-                            $row[2] = $this->warna('orange',$record->nama_pelanggan);
-                        } else {
-                            $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-4, $tahun);
-                            if ($cek > 0) {
-                                $row[2] = $this->warna('jingga',$record->nama_pelanggan);
-                            } else {
-                                
-                                    $row[2] = $this->warna('hijau-muda',$record->nama_pelanggan);
-                                
-                            }
-                        }
-                    }
-                }
-                
-            }
-            
-            $row[1] = $record->id_pelanggan;
-            $row[3] = $record->no_telp;
-            $row[4] = $record->kota;
-            $row[5] = $record->kecamatan;
-            $row[6] = $record->kelurahan;
-            $row[7] = $record->nama;
-            $row[8] = angka($utang);
+            $cek = $this->model->laporan_pelanggan_trx($record['id_pelanggan'], $this_month, $tahun);
+            // warna($color, $value)
+            $row[] = $this->warna($record['warna'], $record['id_pelanggan']);
+            $row[] = $this->warna($record['warna'], $record['nama_pelanggan']);
+            $row[] = $this->warna($record['warna'], $record['no_telp']);
+            $row[] = $this->warna($record['warna'], $record['kota']);
+            $row[] = $this->warna($record['warna'], $record['kecamatan']);
+            $row[] = $this->warna($record['warna'], $record['kelurahan']);
+            $row[] = $this->warna($record['warna'], $record['nama']);
+            $row[] = $this->warna($record['warna'], $record['utang']);
 
             for ($i=1; $i <= 12; $i++) { 
-                $count_trx = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $i, $tahun);
-                $count_qty = $this->model->laporan_pelanggan_qty($record->id_pelanggan, $i, $tahun);
-                $row[] = angka($count_trx);
-                $row[] = angka($count_qty);
+                $count_trx = $this->model->laporan_pelanggan_trx($record['id_pelanggan'], $i, $tahun);
+                $count_qty = $this->model->laporan_pelanggan_qty($record['id_pelanggan'], $i, $tahun);
+                $row[] = $this->warna($record['warna'], angka($count_trx));
+                $row[] = $this->warna($record['warna'], angka($count_qty));
             }
             $data[] = $row;
         }
@@ -114,7 +96,7 @@ class Tracking extends CI_Controller {
     }
 
     // excel
-    function download_excel($year, $kota, $kecamatan)
+    function download_excel($year, $kota, $kecamatan, $warna)
     {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
@@ -180,6 +162,12 @@ class Tracking extends CI_Controller {
         $tablebody++;
         $record = $this->model->get_laporan_excel($kota, $kecamatan);
         if ($record){
+            $temp = array();
+            if ($warna == "all") {
+                $temp = $this->cekidot($record, $this_month, $tahun);
+            } else {
+                $temp = $this->cekidotdot($record, $this_month, $tahun, $warna);
+            }
             foreach ($record as $data) {
                 $kolombody = 0;
                 $utang = $this->model->laporan_pelanggan_utang($data->id_pelanggan, $year);
@@ -224,12 +212,7 @@ class Tracking extends CI_Controller {
                 break;
             case 'merah' :
                 $result = '<span class="label label-merah">'.$value.'</span>';
-                break;$row[1] = $record->id_pelanggan;
-                $row[3] = $record->no_telp;
-                $row[4] = $record->kota;
-                $row[5] = $record->kecamatan;
-                $row[6] = $record->kelurahan;
-                $row[7] = $record->nama;
+                break;
             case 'hijau' :
                 $result = '<span class="label label-hijau">'.$value.'</span>';
                 break;
@@ -250,6 +233,210 @@ class Tracking extends CI_Controller {
                 break;
         }
         return $result;
+    }
+
+    function cekidot($list, $this_month, $tahun)
+    {
+        $temp = array();
+        foreach ($list as $record) {
+            $a = "";
+            $utang = $this->model->laporan_pelanggan_utang($record->id_pelanggan, $tahun);
+            $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month, $tahun);
+            if ($cek > 0) {
+                $temp[] = array(
+                    'id_pelanggan' => $record->id_pelanggan,
+                    'nama_pelanggan' => $record->nama_pelanggan,
+                    'no_telp' => $record->no_telp,
+                    'kota' => $record->kota,
+                    'kecamatan' => $record->kecamatan,
+                    'kelurahan' => $record->kelurahan,
+                    'nama' => $record->nama,
+                    'utang' => angka($utang),
+                    'warna' => 'hijau',
+                );
+            } else {
+                $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-1, $tahun);
+                if ($cek > 0) {
+                    $temp[] = array(
+                        'id_pelanggan' => $record->id_pelanggan,
+                        'nama_pelanggan' => $record->nama_pelanggan,
+                        'no_telp' => $record->no_telp,
+                        'kota' => $record->kota,
+                        'kecamatan' => $record->kecamatan,
+                        'kelurahan' => $record->kelurahan,
+                        'nama' => $record->nama,
+                        'utang' => angka($utang),
+                        'warna' => 'biru',
+                    );
+                } else {
+                    $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-2, $tahun);
+                    if ($cek > 0) {
+                        $temp[] = array(
+                            'id_pelanggan' => $record->id_pelanggan,
+                            'nama_pelanggan' => $record->nama_pelanggan,
+                            'no_telp' => $record->no_telp,
+                            'kota' => $record->kota,
+                            'kecamatan' => $record->kecamatan,
+                            'kelurahan' => $record->kelurahan,
+                            'nama' => $record->nama,
+                            'utang' => angka($utang),
+                            'warna' => 'kuning',
+                        );
+                    } else {
+                        $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-3, $tahun);
+                        if ($cek > 0) {
+                            $temp[] = array(
+                                'id_pelanggan' => $record->id_pelanggan,
+                                'nama_pelanggan' => $record->nama_pelanggan,
+                                'no_telp' => $record->no_telp,
+                                'kota' => $record->kota,
+                                'kecamatan' => $record->kecamatan,
+                                'kelurahan' => $record->kelurahan,
+                                'nama' => $record->nama,
+                                'utang' => angka($utang),
+                                'warna' => 'orange',
+                            );
+                        } else {
+                            $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-4, $tahun);
+                            if ($cek > 0) {
+                                $temp[] = array(
+                                    'id_pelanggan' => $record->id_pelanggan,
+                                    'nama_pelanggan' => $record->nama_pelanggan,
+                                    'no_telp' => $record->no_telp,
+                                    'kota' => $record->kota,
+                                    'kecamatan' => $record->kecamatan,
+                                    'kelurahan' => $record->kelurahan,
+                                    'nama' => $record->nama,
+                                    'utang' => angka($utang),
+                                    'warna' => 'jingga',
+                                );
+                            } else {
+                                $temp[] = array(
+                                    'id_pelanggan' => $record->id_pelanggan,
+                                    'nama_pelanggan' => $record->nama_pelanggan,
+                                    'no_telp' => $record->no_telp,
+                                    'kota' => $record->kota,
+                                    'kecamatan' => $record->kecamatan,
+                                    'kelurahan' => $record->kelurahan,
+                                    'nama' => $record->nama,
+                                    'utang' => angka($utang),
+                                    'warna' => 'hijau-muda',
+                                );
+                            }
+                        }
+                    }
+                }   
+            }
+        }
+        return $temp;
+    }
+
+    function cekidotdot($list, $this_month, $tahun, $color)
+    {
+        $temp = array();
+        foreach ($list as $record) {
+            $a = "";
+            $utang = $this->model->laporan_pelanggan_utang($record->id_pelanggan, $tahun);
+            $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month, $tahun);
+            if ($cek > 0) {
+                if ($color == "hijau") {
+                    $temp[] = array(
+                        'id_pelanggan' => $record->id_pelanggan,
+                        'nama_pelanggan' => $record->nama_pelanggan,
+                        'no_telp' => $record->no_telp,
+                        'kota' => $record->kota,
+                        'kecamatan' => $record->kecamatan,
+                        'kelurahan' => $record->kelurahan,
+                        'nama' => $record->nama,
+                        'utang' => angka($utang),
+                        'warna' => 'hijau',
+                    );
+                }
+            } else {
+                $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-1, $tahun);
+                if ($cek > 0) {
+                    if ($color == "biru") {
+                        $temp[] = array(
+                            'id_pelanggan' => $record->id_pelanggan,
+                            'nama_pelanggan' => $record->nama_pelanggan,
+                            'no_telp' => $record->no_telp,
+                            'kota' => $record->kota,
+                            'kecamatan' => $record->kecamatan,
+                            'kelurahan' => $record->kelurahan,
+                            'nama' => $record->nama,
+                            'utang' => angka($utang),
+                            'warna' => 'biru',
+                        );
+                    }
+                } else {
+                    $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-2, $tahun);
+                    if ($cek > 0) {
+                        if ($color == "kuning") {
+                            $temp[] = array(
+                                'id_pelanggan' => $record->id_pelanggan,
+                                'nama_pelanggan' => $record->nama_pelanggan,
+                                'no_telp' => $record->no_telp,
+                                'kota' => $record->kota,
+                                'kecamatan' => $record->kecamatan,
+                                'kelurahan' => $record->kelurahan,
+                                'nama' => $record->nama,
+                                'utang' => angka($utang),
+                                'warna' => 'kuning',
+                            );
+                        }
+                    } else {
+                        $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-3, $tahun);
+                        if ($cek > 0) {
+                            if ($color == "orange") {
+                                $temp[] = array(
+                                    'id_pelanggan' => $record->id_pelanggan,
+                                    'nama_pelanggan' => $record->nama_pelanggan,
+                                    'no_telp' => $record->no_telp,
+                                    'kota' => $record->kota,
+                                    'kecamatan' => $record->kecamatan,
+                                    'kelurahan' => $record->kelurahan,
+                                    'nama' => $record->nama,
+                                    'utang' => angka($utang),
+                                    'warna' => 'orange',
+                                );
+                            }
+                        } else {
+                            $cek = $this->model->laporan_pelanggan_trx($record->id_pelanggan, $this_month-4, $tahun);
+                            if ($cek > 0) {
+                                if ($color == "jingga") {
+                                    $temp[] = array(
+                                        'id_pelanggan' => $record->id_pelanggan,
+                                        'nama_pelanggan' => $record->nama_pelanggan,
+                                        'no_telp' => $record->no_telp,
+                                        'kota' => $record->kota,
+                                        'kecamatan' => $record->kecamatan,
+                                        'kelurahan' => $record->kelurahan,
+                                        'nama' => $record->nama,
+                                        'utang' => angka($utang),
+                                        'warna' => 'jingga',
+                                    );
+                                }
+                            } else {
+                                if ($color == "hijau-muda") {
+                                    $temp[] = array(
+                                        'id_pelanggan' => $record->id_pelanggan,
+                                        'nama_pelanggan' => $record->nama_pelanggan,
+                                        'no_telp' => $record->no_telp,
+                                        'kota' => $record->kota,
+                                        'kecamatan' => $record->kecamatan,
+                                        'kelurahan' => $record->kelurahan,
+                                        'nama' => $record->nama,
+                                        'utang' => angka($utang),
+                                        'warna' => 'hijau-muda',
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }   
+            }
+        }
+        return $temp;
     }
 
 }

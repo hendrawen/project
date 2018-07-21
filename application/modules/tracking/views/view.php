@@ -98,6 +98,21 @@
             </select>
           </div>
         </div>
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="input-group">
+            <span class="input-group-addon">Warna</span>
+            <select class="form-control" id="filter-warna">
+              <option value="all" selected>--Semua Warna--</option>
+              <option value="hijau" class="label-hijau">Hijau</option>
+              <option value="biru">Biru</option>
+              <option value="kuning">Kuning</option>
+              <option value="orange">Orange</option>
+              <option value="jingga">Jingga</option>
+              <option value="hijau-muda">Hijau Muda</option>
+            </select>
+          </div>
+        </div>
       
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-right">
           <button type="button" id="btn-filter-tracking" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
