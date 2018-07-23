@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Kas_model extends CI_Model {
 
     var $table = 'wp_kas';
-    var $column_order = array(null, 'tanggal','nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori.nama_kategori','pendapatan','pengeluaran'); //set column field database for datatable orderable
-    var $column_search = array('tanggal','nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori.nama_kategori','pendapatan','pengeluaran'); //set column field database for datatable searchable
+    var $column_order = array(null, 'wp_kas.tanggal','wp_gudang.nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori_kas.nama as nama_kategori','wp_kas.pendapatan','wp_kas.pengeluaran'); //set column field database for datatable orderable
+    var $column_search = array('wp_kas.tanggal','nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori_kas.nama as nama_kategori','pendapatan','pengeluaran'); //set column field database for datatable searchable
     var $order = array('id' => 'asc'); // default order
 
     public function __construct()
@@ -22,7 +22,7 @@ class Kas_model extends CI_Model {
       $this->db->where('wp_kas.id_kantor', $id_kantor);
       $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
       $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
-      $this->db->join('wp_kategori', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->join('wp_kategori_kas', 'wp_kategori.id = wp_kas.id_kategori');
       $this->db->order_by('wp_kas.id_kas', 'DESC');
       $data = $this->db->get();
       return $data->result();
@@ -38,7 +38,7 @@ class Kas_model extends CI_Model {
       $this->db->where('wp_kas.id_kantor', $id_kantor);
       $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
       $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
-      $this->db->join('wp_kategori', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->join('wp_kategori_kas', 'wp_kategori.id_kategori = wp_kas.id_kategori');
       $this->db->order_by('wp_kas.id_kas', 'DESC');
       $data = $this->db->get();
       return $data->result();
@@ -52,7 +52,7 @@ class Kas_model extends CI_Model {
       $this->db->where('wp_kas.id_kantor', $id_kantor);
       $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
       $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
-      $this->db->join('wp_kategori', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->join('wp_kategori_kas', 'wp_kategori.id_kategori = wp_kas.id_kategori');
       $this->db->order_by('wp_kas.id_kas', 'DESC');
       $data = $this->db->get();
       return $data->result();
@@ -64,7 +64,7 @@ class Kas_model extends CI_Model {
         $this->db->from($this->table);
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor', 'inner');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan', 'inner');
-        $this->db->join('wp_kategori', 'wp_kategori.id_kategori = wp_kas.id_kategori', 'inner');
+        $this->db->join('wp_kategori_kas', 'wp_kategori_kas.id = wp_kas.id_kategori', 'inner');
 
         $i = 0;
 

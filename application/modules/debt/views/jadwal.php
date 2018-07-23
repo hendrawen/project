@@ -30,7 +30,7 @@
           </div>
           <div class="block_content">
             <h2 class="title">
-                            <a href="<?php echo base_url('dep/detail/'.$key->id_pelanggan); ?>"><i class="fa fa-user"></i> <?php echo $key->id_pelanggan; ?>  <?php echo $key->nama_pelanggan; ?> </a>
+                            <a href="<?php echo base_url('debt/detail/'.$key->id_pelanggan); ?>"><i class="fa fa-user"></i> <?php echo $key->id_pelanggan; ?>  <?php echo $key->nama_pelanggan; ?> </a>
                         </h2>
             <div class="byline">
               <span>Tanggal Kirim</span> <i class="fa fa-truck"></i> <b><?php echo tgl_indo($key->start); ?></b>

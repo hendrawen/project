@@ -40,16 +40,18 @@ class Sumberdata extends CI_Controller {
         $pesan = "";
         $total_act_due = 0;  
         $total_prc_due = 0;
+        $total_act_hijau = 0;  
+        $total_prc_hijau = 0;
         $total_act_biru = 0;  
         $total_prc_biru = 0;
         $total_act_kuning = 0;  
         $total_prc_kuning = 0; 
         $total_act_orange = 0;  
         $total_prc_orange = 0;    
-        $total_act_ijo = 0;  
-        $total_prc_ijo = 0;
-        $total_act_pink = 0;  
-        $total_prc_pink = 0;
+        $total_act_jingga = 0;  
+        $total_prc_jingga = 0;
+        $total_act_hijau_muda = 0;  
+        $total_prc_hijau_muda = 0;
         $total_act_jumlah = 0;  
         $total_prc_jumlah = 0;
         $bulan = $this->input->post('bulan');
@@ -65,6 +67,10 @@ class Sumberdata extends CI_Controller {
             <td class="text-center"><b>'.$this->call->get_act($key, 'Due Date', 'semua').'</b></td>
             <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Due Date', 'semua')/$this->call->get_target('Due Date')),3).'%</b></td>
 
+            <td class="text-center"><b>'.$this->call->get_target('Hijau').'</b></td>
+            <td class="text-center"><b>'.$this->call->get_act($key, 'Hijau', 'semua').'</b></td>
+            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Hijau', 'semua')/$this->call->get_target('Hijau')),3).'%</b></td>
+
             <td class="text-center"><b>'.$this->call->get_target('Biru').'</b></td>
             <td class="text-center"><b>'.$this->call->get_act($key, 'Biru', 'semua').'</b></td>
             <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Biru', 'semua')/$this->call->get_target('Biru')),3).'%</b></td>
@@ -77,13 +83,13 @@ class Sumberdata extends CI_Controller {
             <td class="text-center"><b>'.$this->call->get_act($key, 'Orange', 'semua').'</b></td>
             <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Orange', 'semua')/$this->call->get_target('Orange')),3).'%</b></td>
 
-            <td class="text-center"><b>'.$this->call->get_target('Ijo').'</b></td>
-            <td class="text-center"><b>'.$this->call->get_act($key, 'Ijo', 'semua').'</b></td>
-            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Ijo', 'semua')/$this->call->get_target('Ijo')),3).'%</b></td>
+            <td class="text-center"><b>'.$this->call->get_target('Jingga').'</b></td>
+            <td class="text-center"><b>'.$this->call->get_act($key, 'Jingga', 'semua').'</b></td>
+            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Jingga', 'semua')/$this->call->get_target('Jingga')),3).'%</b></td>
 
-            <td class="text-center"><b>'.$this->call->get_target('Pink').'</b></td>
-            <td class="text-center"><b>'.$this->call->get_act($key, 'Pink', 'semua').'</b></td>
-            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Pink', 'semua')/$this->call->get_target('Pink')),3).'%</b></td>
+            <td class="text-center"><b>'.$this->call->get_target('Hijau Muda').'</b></td>
+            <td class="text-center"><b>'.$this->call->get_act($key, 'Hijau Muda', 'semua').'</b></td>
+            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Hijau Muda', 'semua')/$this->call->get_target('Hijau Muda')),3).'%</b></td>
 
             <td class="text-center"><b>'.$this->call->get_target('Jumlah Dalam Percent').'</b></td>
             <td class="text-center"><b>'.$this->call->get_act($key, 'semua', 'semua').'</b></td>
@@ -92,6 +98,9 @@ class Sumberdata extends CI_Controller {
             //due date
             $total_act_due += $this->call->get_act($key, 'Due Date', 'semua');
             $total_prc_due += number_format(($this->call->get_act($key, 'Due Date', 'semua')/$this->call->get_target('Due Date')),3);
+            //hijau
+            $total_act_hijau += $this->call->get_act($key, 'Hijau', 'semua');
+            $total_prc_hijau += number_format(($this->call->get_act($key, 'Hijau', 'semua')/$this->call->get_target('Hijau')),3);
             //biru
             $total_act_biru += $this->call->get_act($key, 'Biru', 'semua');
             $total_prc_biru += number_format(($this->call->get_act($key, 'Biru', 'semua')/$this->call->get_target('Biru')),3);
@@ -102,11 +111,11 @@ class Sumberdata extends CI_Controller {
             $total_act_orange += $this->call->get_act($key, 'Orange', 'semua');
             $total_prc_orange += number_format(($this->call->get_act($key, 'Orange', 'semua')/$this->call->get_target('Orange')),3);
             //ijo
-            $total_act_ijo += $this->call->get_act($key, 'Ijo', 'semua');
-            $total_prc_ijo += number_format(($this->call->get_act($key, 'Ijo', 'semua')/$this->call->get_target('Ijo')),3);
+            $total_act_jingga += $this->call->get_act($key, 'Jingga', 'semua');
+            $total_prc_jingga += number_format(($this->call->get_act($key, 'Jingga', 'semua')/$this->call->get_target('Jingga')),3);
             //pink
-            $total_act_pink += $this->call->get_act($key, 'Pink', 'semua');
-            $total_prc_pink += number_format(($this->call->get_act($key, 'Pink', 'semua')/$this->call->get_target('Pink')),3);
+            $total_act_hijau_muda += $this->call->get_act($key, 'Hijau Muda', 'semua');
+            $total_prc_hijau_muda += number_format(($this->call->get_act($key, 'Hijau Muda', 'semua')/$this->call->get_target('Hijau Muda')),3);
             //jumlah
             $total_act_jumlah += $this->call->get_act($key, 'semua', 'semua');
             $total_prc_jumlah += number_format(($this->call->get_act($key, 'semua', 'semua')/$this->call->get_target('Jumlah Dalam Percent')),3);
@@ -118,21 +127,31 @@ class Sumberdata extends CI_Controller {
         <td class="text-center"><b>'.$this->call->get_target('Due Date').'</b></td>
         <td class="text-center"><b>'.$total_act_due.'</b></td>
         <td class="text-center"><b>'.$total_prc_due.'%</b></td>
+
+        <td class="text-center"><b>'.$this->call->get_target('Hijau').'</b></td>
+        <td class="text-center"><b>'.$total_act_hijau.'</b></td>
+        <td class="text-center"><b>'.$total_prc_hijau.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Biru').'</b></td>
         <td class="text-center"><b>'.$total_act_biru.'</b></td>
         <td class="text-center"><b>'.$total_prc_biru.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Kuning').'</b></td>
         <td class="text-center"><b>'.$total_act_kuning.'</b></td>
         <td class="text-center"><b>'.$total_prc_kuning.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Orange').'</b></td>
         <td class="text-center"><b>'.$total_act_orange.'</b></td>
         <td class="text-center"><b>'.$total_prc_orange.'%</b></td>
-        <td class="text-center"><b>'.$this->call->get_target('Ijo').'</b></td>
-        <td class="text-center"><b>'.$total_act_ijo.'</b></td>
-        <td class="text-center"><b>'.$total_prc_ijo.'%</b></td>
-        <td class="text-center"><b>'.$this->call->get_target('Pink').'</b></td>
-        <td class="text-center"><b>'.$total_act_pink.'</b></td>
-        <td class="text-center"><b>'.$total_prc_pink.'%</b></td>
+
+        <td class="text-center"><b>'.$this->call->get_target('Jingga').'</b></td>
+        <td class="text-center"><b>'.$total_act_jingga.'</b></td>
+        <td class="text-center"><b>'.$total_prc_jingga.'%</b></td>
+
+        <td class="text-center"><b>'.$this->call->get_target('Hijau Muda').'</b></td>
+        <td class="text-center"><b>'.$total_act_hijau_muda.'</b></td>
+        <td class="text-center"><b>'.$total_prc_hijau_muda.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Jumlah Dalam Percent').'</b></td>
         <td class="text-center"><b>'.$total_act_jumlah.'</b></td>
         <td class="text-center"><b>'.$total_prc_jumlah.'%</b></td>
@@ -147,16 +166,18 @@ class Sumberdata extends CI_Controller {
         $pesan = "";
         $total_act_due = 0;  
         $total_prc_due = 0;
+        $total_act_hijau = 0;  
+        $total_prc_hijau = 0;
         $total_act_biru = 0;  
         $total_prc_biru = 0;
         $total_act_kuning = 0;  
         $total_prc_kuning = 0; 
         $total_act_orange = 0;  
         $total_prc_orange = 0;    
-        $total_act_ijo = 0;  
-        $total_prc_ijo = 0;
-        $total_act_pink = 0;  
-        $total_prc_pink = 0;
+        $total_act_jingga = 0;  
+        $total_prc_jingga = 0;
+        $total_act_hijau_muda = 0;  
+        $total_prc_hijau_muda = 0;
         $total_act_jumlah = 0;  
         $total_prc_jumlah = 0;
         $bulan = $this->input->post('bulan');
@@ -178,6 +199,10 @@ class Sumberdata extends CI_Controller {
             <td class="text-center"><b>'.$this->call->get_act($key, 'Due Date', $nama).'</b></td>
             <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Due Date', $nama)/$this->call->get_target('Due Date')),3).'%</b></td>
 
+            <td class="text-center"><b>'.$this->call->get_target('Hijau').'</b></td>
+            <td class="text-center"><b>'.$this->call->get_act($key, 'Hijau', $nama).'</b></td>
+            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Hijau', $nama)/$this->call->get_target('Hijau')),3).'%</b></td>
+
             <td class="text-center"><b>'.$this->call->get_target('Biru').'</b></td>
             <td class="text-center"><b>'.$this->call->get_act($key, 'Biru', $nama).'</b></td>
             <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Biru', $nama)/$this->call->get_target('Biru')),3).'%</b></td>
@@ -190,13 +215,13 @@ class Sumberdata extends CI_Controller {
             <td class="text-center"><b>'.$this->call->get_act($key, 'Orange', $nama).'</b></td>
             <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Orange', $nama)/$this->call->get_target('Orange')),3).'%</b></td>
 
-            <td class="text-center"><b>'.$this->call->get_target('Ijo').'</b></td>
-            <td class="text-center"><b>'.$this->call->get_act($key, 'Ijo', $nama).'</b></td>
-            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Ijo', $nama)/$this->call->get_target('Ijo')),3).'%</b></td>
+            <td class="text-center"><b>'.$this->call->get_target('Jingga').'</b></td>
+            <td class="text-center"><b>'.$this->call->get_act($key, 'Jingga', $nama).'</b></td>
+            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Jingga', $nama)/$this->call->get_target('Jingga')),3).'%</b></td>
 
-            <td class="text-center"><b>'.$this->call->get_target('Pink').'</b></td>
-            <td class="text-center"><b>'.$this->call->get_act($key, 'Pink', $nama).'</b></td>
-            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Pink', $nama)/$this->call->get_target('Pink')),3).'%</b></td>
+            <td class="text-center"><b>'.$this->call->get_target('Hijau Muda').'</b></td>
+            <td class="text-center"><b>'.$this->call->get_act($key, 'Hijau Muda', $nama).'</b></td>
+            <td class="text-center"><b>'.number_format(($this->call->get_act($key, 'Hijau Muda', $nama)/$this->call->get_target('Hijau Muda')),3).'%</b></td>
 
             <td class="text-center"><b>'.$this->call->get_target('Jumlah Dalam Percent').'</b></td>
             <td class="text-center"><b>'.$this->call->get_act($key, 'semua', $nama).'</b></td>
@@ -205,6 +230,11 @@ class Sumberdata extends CI_Controller {
             //due date
             $total_act_due += $this->call->get_act($key, 'Due Date', $nama);
             $total_prc_due += number_format(($this->call->get_act($key, 'Due Date', $nama)/$this->call->get_target('Due Date')),3);
+
+            //hijau
+            $total_act_hijau += $this->call->get_act($key, 'Hijau', $nama);
+            $total_prc_hijau += number_format(($this->call->get_act($key, 'Hijau', $nama)/$this->call->get_target('Hijau')),3);
+
             //biru
             $total_act_biru += $this->call->get_act($key, 'Biru', $nama);
             $total_prc_biru += number_format(($this->call->get_act($key, 'Biru', $nama)/$this->call->get_target('Biru')),3);
@@ -214,12 +244,12 @@ class Sumberdata extends CI_Controller {
             //orange
             $total_act_orange += $this->call->get_act($key, 'Orange', $nama);
             $total_prc_orange += number_format(($this->call->get_act($key, 'Orange', $nama)/$this->call->get_target('Orange')),3);
-            //ijo
-            $total_act_ijo += $this->call->get_act($key, 'Ijo', $nama);
-            $total_prc_ijo += number_format(($this->call->get_act($key, 'Ijo', $nama)/$this->call->get_target('Ijo')),3);
-            //pink
-            $total_act_pink += $this->call->get_act($key, 'Pink', $nama);
-            $total_prc_pink += number_format(($this->call->get_act($key, 'Pink', $nama)/$this->call->get_target('Pink')),3);
+            //jingga
+            $total_act_jingga += $this->call->get_act($key, 'Jingga', $nama);
+            $total_prc_jingga += number_format(($this->call->get_act($key, 'Jingga', $nama)/$this->call->get_target('Jingga')),3);
+            //hijau muda
+            $total_act_hijau_muda += $this->call->get_act($key, 'Hijau Muda', $nama);
+            $total_prc_hijau_muda += number_format(($this->call->get_act($key, 'Hijau Muda', $nama)/$this->call->get_target('Hijau Muda')),3);
             //jumlah
             $total_act_jumlah += $this->call->get_act($key, 'semua', $nama);
             $total_prc_jumlah += number_format(($this->call->get_act($key, 'semua', $nama)/$this->call->get_target('Jumlah Dalam Percent')),3);
@@ -231,21 +261,31 @@ class Sumberdata extends CI_Controller {
         <td class="text-center"><b>'.$this->call->get_target('Due Date').'</b></td>
         <td class="text-center"><b>'.$total_act_due.'</b></td>
         <td class="text-center"><b>'.$total_prc_due.'%</b></td>
+
+        <td class="text-center"><b>'.$this->call->get_target('Hijau').'</b></td>
+        <td class="text-center"><b>'.$total_act_hijau.'</b></td>
+        <td class="text-center"><b>'.$total_prc_hijau.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Biru').'</b></td>
         <td class="text-center"><b>'.$total_act_biru.'</b></td>
         <td class="text-center"><b>'.$total_prc_biru.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Kuning').'</b></td>
         <td class="text-center"><b>'.$total_act_kuning.'</b></td>
         <td class="text-center"><b>'.$total_prc_kuning.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Orange').'</b></td>
         <td class="text-center"><b>'.$total_act_orange.'</b></td>
         <td class="text-center"><b>'.$total_prc_orange.'%</b></td>
-        <td class="text-center"><b>'.$this->call->get_target('Ijo').'</b></td>
-        <td class="text-center"><b>'.$total_act_ijo.'</b></td>
-        <td class="text-center"><b>'.$total_prc_ijo.'%</b></td>
-        <td class="text-center"><b>'.$this->call->get_target('Pink').'</b></td>
-        <td class="text-center"><b>'.$total_act_pink.'</b></td>
-        <td class="text-center"><b>'.$total_prc_pink.'%</b></td>
+
+        <td class="text-center"><b>'.$this->call->get_target('Jingga').'</b></td>
+        <td class="text-center"><b>'.$total_act_jingga.'</b></td>
+        <td class="text-center"><b>'.$total_prc_jingga.'%</b></td>
+
+        <td class="text-center"><b>'.$this->call->get_target('Hijau Muda').'</b></td>
+        <td class="text-center"><b>'.$total_act_hijau_muda.'</b></td>
+        <td class="text-center"><b>'.$total_prc_hijau_muda.'%</b></td>
+
         <td class="text-center"><b>'.$this->call->get_target('Jumlah Dalam Percent').'</b></td>
         <td class="text-center"><b>'.$total_act_jumlah.'</b></td>
         <td class="text-center"><b>'.$total_prc_jumlah.'%</b></td>

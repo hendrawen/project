@@ -36,7 +36,7 @@ $('#title').autocomplete({
 });
 
 $('#id_track').autocomplete({
-        source: (base_url+"dep/get_auto"),
+        source: (base_url+"debt/get_auto"),
         select: function (event, ui) {
             $('[name="title"]').val(ui.item.label);
             // $('[name="hutang"]').val(formatNumber(ui.item.utang));
@@ -48,7 +48,7 @@ $('#id_track').autocomplete({
 });
 
 $('#id_track_aset').autocomplete({
-    source: (base_url+"delivery/get_auto"),
+    source: (base_url+"debt/penarikan/get_auto"),
     select: function (event, ui) {
         $('[name="title"]').val(ui.item.label);
         // $('[name="hutang"]').val(formatNumber(ui.item.utang));
@@ -73,7 +73,7 @@ $('#id_track_admin').autocomplete({
 });
 
 $('#id_track_aset').autocomplete({
-    source: (base_url+"delivery/get_auto"),
+    source: (base_url+"debt/penarikan/get_auto"),
     select: function (event, ui) {
         $('[name="title"]').val(ui.item.label);
         // $('[name="hutang"]').val(formatNumber(ui.item.utang));
@@ -240,19 +240,19 @@ function formatCurrency(num) {
         }
     });
 
-    function search_aset(){
+     function search_aset(){
         var judul=$("#id_track_aset").val();
         console.log(judul);
          if(judul!=""){
              $("#result3").html(base_url+"assets/ajax-loader.gif");
                $.ajax({
                       type : "POST",
-                   url  : (base_url+"delivery/track_aset"),
+                   url  : (base_url+"debt/penarikan/track_aset"),
                    data:"judul="+judul,
  
                    success:function(data){
                      $("#result3").html(data);
-                     $("#id_track_aset").val();
+                     $("#id_track_aset").html();
                    }
             });
             $('#tabel_cari_aset').show();

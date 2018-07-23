@@ -295,7 +295,7 @@ function formatCurrency(num) {
  
                    success:function(data){
                      $("#result3").html(data);
-                     $("#id_track_aset").val();
+                     $("#id_track_aset").html();
                    }
             });
             $('#tabel_cari_aset').show();

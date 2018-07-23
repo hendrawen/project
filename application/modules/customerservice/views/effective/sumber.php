@@ -47,20 +47,21 @@
             <tr>
                 <th rowspan = 3 class="wider_kecamatan text-center">Tanggal</th>
                 <th rowspan = 3 class="wider_kecamatan text-center">Absensi</th>
-                <th colspan = 18 class="text-center">Sumber Data</th>
+                <th colspan = 21 class="text-center">Sumber Data</th>
                 <th colspan = <?php echo $count_barang ?> class="text-center">Actual</th>
             </tr>
             <tr>
               <th colspan = 3 class="text-center">Due Date</th>
+              <th colspan = 3 class="text-center">Hijau</th>
               <th colspan = 3 class="text-center">Biru</th>
               <th colspan = 3 class="text-center">Kuning</th>
               <th colspan = 3 class="text-center">Orange</th>
-              <th colspan = 3 class="text-center">Ijo</th>
-              <th colspan = 3 class="text-center">Pink</th>            
+              <th colspan = 3 class="text-center">Jingga</th>
+              <th colspan = 3 class="text-center">Hijau Muda</th>            
               <th colspan = 3 class="text-center">Jumlah Dalam Percent</th>            
             </tr>
             <tr>
-              <?php for ($i = 0 ; $i < 7 ; $i++): ?>
+              <?php for ($i = 0 ; $i < 8 ; $i++): ?>
                 <th>TAR</th>
                 <th>ACT</th>
                 <th>PRC</th>

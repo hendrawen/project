@@ -55,7 +55,7 @@
     </div>
 
     <div class="table-responsive">
-      <table id="table-kpi-debt" class="table table-striped jambo_table table-bordered nowrap">
+      <table class="table table-striped jambo_table table-bordered nowrap">
           <thead>
             <tr>
               <th rowspan=2>Tanggal</th>
@@ -74,7 +74,7 @@
                 <th>Pendapatan</th><th>Pengeluaran</th>
             </tr>
           </thead>
-          <tbody id="tbody-kpi-debt">
+          <tbody id="tbody-debt-kpi">
           </tbody>
       </table>
     </div>

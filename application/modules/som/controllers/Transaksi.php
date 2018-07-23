@@ -20,11 +20,11 @@ class Transaksi extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    function tes()
-    {
-      print_r($this->Transaksi_model->get_all());
+    // function tes()
+    // {
+    //   print_r($this->Transaksi_model->get_all());
 
-    }
+    // }
     public function index()
     {   
         $q = urldecode($this->input->get('q', TRUE));
