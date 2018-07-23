@@ -51,6 +51,11 @@ class Effectivecall extends CI_Controller {
             <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Due Date', $key, 'semua')).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count('Stock', 'Due Date', $key, 'semua')).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Due Date', $key, 'semua')).'</b></td>
+
+            <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Hijau', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Stock', 'Hijau', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Hijau', $key, 'semua')).'</b></td>
+
             <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Biru', $key, 'semua')).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count('Stock', 'Biru', $key, 'semua')).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Biru', $key, 'semua')).'</b></td>
@@ -60,12 +65,12 @@ class Effectivecall extends CI_Controller {
             <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Orange', $key, 'semua')).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count('Stock', 'Orange', $key, 'semua')).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Orange', $key, 'semua')).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Ijo', $key, 'semua')).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count('Stock', 'Ijo', $key, 'semua')).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Ijo', $key, 'semua')).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Pink', $key, 'semua')).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count('Stock', 'Pink', $key, 'semua')).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Pink', $key, 'semua')).'</b></td>';
+            <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Jingga', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Stock', 'Jingga', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Jingga', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Take Order', 'Hijau Muda', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Stock', 'Hijau Muda', $key, 'semua')).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count('Follow Up', 'Hijau Muda', $key, 'semua')).'</b></td>';
             foreach ($barang as $value) {
             $pesan .= '
                 <td class="text-center"><b>'.$this->call->sum_barang($key, $value->nama_barang, 'semua').'</b></td>';
@@ -101,6 +106,11 @@ class Effectivecall extends CI_Controller {
             <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Due Date', $key, $nama)).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Due Date', $key, $nama)).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Due Date', $key, $nama)).'</b></td>
+
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Hijau', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Hijau', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Hijau', $key, $nama)).'</b></td>
+
             <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Biru', $key, $nama)).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Biru', $key, $nama)).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Biru', $key, $nama)).'</b></td>
@@ -110,12 +120,12 @@ class Effectivecall extends CI_Controller {
             <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Orange', $key, $nama)).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Orange', $key, $nama)).'</b></td>
             <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Orange', $key, $nama)).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Ijo', $key, $nama)).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Ijo', $key, $nama)).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Ijo', $key, $nama)).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Pink', $key, $nama)).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Pink', $key, $nama)).'</b></td>
-            <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Pink', $key, $nama)).'</b></td>';
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Jingga', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Jingga', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Jingga', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Take Order', 'Hijau Muda', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Stock', 'Hijau Muda', $key, $nama)).'</b></td>
+            <td class="text-center"><b>'.angka($this->call->count_fiter('Follow Up', 'Hijau Muda', $key, $nama)).'</b></td>';
             foreach ($barang as $value) {
             $pesan .= '
                 <td class="text-center"><b>'.$this->call->sum_barang($key, $value->nama_barang, $nama).'</b></td>';

@@ -98,8 +98,24 @@
             </select>
           </div>
         </div>
-      
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-right">
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+          <div class="input-group">
+            <span class="input-group-addon">Warna</span>
+            <select class="form-control" id="filter-warna">
+              <option value="all" selected>--Semua Warna--</option>
+              <option value="hijau" >Hijau</option>
+              <option value="biru" >Biru</option>
+              <option value="kuning" >Kuning</option>
+              <option value="orange" >Orange</option>
+              <option value="jingga" >Jingga</option>
+              <option value="hijau-muda" >Hijau Muda</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
           <button type="button" id="btn-filter-tracking" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
           <button type="button" id="excel-tracking" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
           <button type="button" id="btn-reset-tracking" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
@@ -130,6 +146,12 @@
           </thead>
           <tbody>
           </tbody>
+          <tfoot>
+            <tr>
+                <th colspan="11" style="text-align:right">Total:</th>
+                <th></th>
+            </tr>
+          </tfoot>
       </table>
     </div>
 

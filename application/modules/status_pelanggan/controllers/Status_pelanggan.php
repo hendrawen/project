@@ -179,7 +179,7 @@ class Status_pelanggan extends CI_Controller {
                     xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
                     xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
                     xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
-                    xlsWriteLabel($tablebody, $kolombody++, $data['utang']);
+                    
                     $last_transaction = $this->model->get_last_transaction($data['id_pelanggan'], $year);
                     $last_followup = $this->model->get_follow_up($data['id_pelanggan'], $year);
                     if ($last_transaction) {
@@ -192,7 +192,7 @@ class Status_pelanggan extends CI_Controller {
                         xlsWriteLabel($tablebody, $kolombody++, '-');
                         xlsWriteNumber($tablebody, $kolombody++, '-');
                     }
-                    
+                    xlsWriteLabel($tablebody, $kolombody++, $data['utang']);
                     if ($last_followup) {
                         xlsWriteLabel($tablebody, $kolombody++, $last_followup->tanggal);
                         xlsWriteLabel($tablebody, $kolombody++, $last_followup->status);

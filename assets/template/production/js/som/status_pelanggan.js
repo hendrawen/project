@@ -21,6 +21,7 @@ $(document).ready(function() {
                 data.tahun = $('#tahun-tracking').val();
                 data.kota = $('#filter-kota').val();
                 data.kecamatan = $('#filter-kecamatan').val();
+                data.warna = $('#filter-warna').val();
             }
         },
 
@@ -57,6 +58,7 @@ $(btn_excel).click(function (e) {
     tahun = $('#tahun-tracking').val();
     kota = $('#filter-kota').val();
     kecamatan = $('#filter-kecamatan').val();
+    warna = $('#filter-warna').val();
     if (tahun == '') {
         tahun = 'semua';
     }
@@ -67,5 +69,5 @@ $(btn_excel).click(function (e) {
         kecamatan = 'semua';
     }
     
-    window.location = base_url + 'status_pelanggan/download_excel/'+tahun+'/'+kota+'/'+kecamatan;
+    window.location = base_url + 'som/status_pelanggan/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;
 });
