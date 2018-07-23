@@ -238,63 +238,78 @@ class Transaksi extends CI_Controller
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
-    public function excel()
-    {   
-        
-        $this->load->helper('exportexcel');
-        $namaFile = "transaksi.xls";
-        $judul = "transaksi";
-        $tablehead = 0;
-        $tablebody = 1;
-        $nourut = 1;
-        //penulisan header
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-        header("Content-Disposition: attachment;filename=" . $namaFile . "");
-        header("Content-Transfer-Encoding: binary ");
+    function excel()
+  {
+      $this->load->helper('exportexcel');
+      $namaFile = "transaksi_pelanggan.xls";
+      $judul = "Transaksi";
+      $tablehead = 3;
+      $tablebody = 4;
+      $nourut = 1;
+      //penulisan header
+      header("Pragma: public");
+      header("Expires: 0");
+      header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+      header("Content-Type: application/force-download");
+      header("Content-Type: application/octet-stream");
+      header("Content-Type: application/download");
+      header("Content-Disposition: attachment;filename=" . $namaFile . "");
+      header("Content-Transfer-Encoding: binary ");
 
-        xlsBOF();
+      xlsBOF();
+      xlsWriteLabel(0, 0, "Laporan");
+      //xlsWriteLabel(1, 0, "Tanggal");
+      xlsWriteLabel(0, 1, "Transaksi Pelanggan");
+      $kolomhead = 0;
 
-        $kolomhead = 0;
-        xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
-	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
-	xlsWriteLabel($tablehead, $kolomhead++, "Harga");
-	xlsWriteLabel($tablehead, $kolomhead++, "Qty");
-	//xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
-	xlsWriteLabel($tablehead, $kolomhead++, "Tgl Transaksi");
-	xlsWriteLabel($tablehead, $kolomhead++, "Updated At");
-	xlsWriteLabel($tablehead, $kolomhead++, "Wp Pelanggan Id");
-	xlsWriteLabel($tablehead, $kolomhead++, "Username");
-	xlsWriteLabel($tablehead, $kolomhead++, "Wp Status Id");
+      xlsWriteLabel($tablehead, $kolomhead++, "No");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
+      xlsWriteLabel($tablehead, $kolomhead++, "QTY");
+      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
 
-	foreach ($this->Transaksi_model->get_all() as $data) {
+      $record = $this->Transaksi_model->get_data();
+      $total = 0;
+      if ($record){
+        foreach ($record as $data) {
             $kolombody = 0;
-
-            //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_barang_id);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->harga);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->qty);
-	    //xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_at);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_pelanggan_id);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->username);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_status_id);
-
-	    $tablebody++;
+            xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
+            xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+            xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+            xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
+            xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+            xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+            xlsWriteLabel($tablebody, $kolombody++, $data->username);
+            xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+            $tablebody++;
             $nourut++;
+            $total += $data->subtotal;
         }
-
-        xlsEOF();
-        exit();
-    }
+      }
+      xlsWriteLabel($tablebody, 14, 'Total');
+      xlsWriteNumber($tablebody, 15, $total);
+      xlsEOF();
+      exit();
+  }
 
     public function word()
     {   
