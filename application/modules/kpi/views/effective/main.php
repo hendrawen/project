@@ -65,23 +65,24 @@
         <thead>
             <tr>
                 <th rowspan = 3 class="wider_kecamatan text-center">Tanggal</th>
-                <th colspan = 18 class="text-center">ACTIFITY</th>
+                <th colspan = 21 class="text-center">ACTIFITY</th>
                 <th colspan = <?php echo $count_barang ?> class="text-center">Nama Barang</th>
                 <th rowspan = 3 class="wider_kecamatan text-center">Jumlah</th>
             </tr>
             <tr>
               <th colspan = 3 class="text-center">Due Date</th>
+              <th colspan = 3 class="text-center">Hijau</th>
               <th colspan = 3 class="text-center">Biru</th>
               <th colspan = 3 class="text-center">Kuning</th>
               <th colspan = 3 class="text-center">Orange</th>
-              <th colspan = 3 class="text-center">Ijo</th>
-              <th colspan = 3 class="text-center">Pink</th>
+              <th colspan = 3 class="text-center">Jingga</th>
+              <th colspan = 3 class="text-center">Hijau Muda</th>
               <?php foreach ($barang as $key) {?>
                     <th rowspan = 3 class="wider_kecamatan"><?php echo $key->nama_barang ?></th>
               <?php } ?>              
             </tr>
             <tr>
-              <?php for ($i = 0 ; $i < 6 ; $i++): ?>
+              <?php for ($i = 0 ; $i < 7 ; $i++): ?>
                 <th>TO</th>
                 <th>STOK</th>
                 <th>FOLLOW UP</th>

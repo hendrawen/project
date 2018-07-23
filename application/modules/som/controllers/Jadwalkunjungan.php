@@ -92,7 +92,7 @@
                 'aktif'      => 'Jadwal Kunjungan',
                 'menu'       => $this->permit[0],
                 'submenu'	   => $this->permit[1],
-                'content'    => 'form_jadwal',
+                'content'    => 'kunjungan/form_jadwal',
                 'judul'      => 'Dashboard',
                 'sub_judul'  => 'Jadwal Kunjungan',
                 'pelanggan'  => $this->m_jadwal->get_data_pelanggan(),

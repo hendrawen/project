@@ -87,7 +87,6 @@ class Debt_model extends CI_Model {
     {
         $this->db->select('target');
         $this->db->where('nama', 'Debt');
-        $this->db->where('username', $this->session->identity);
         $result = $this->db->get('wp_target')->row();
         return $result->target;
     }

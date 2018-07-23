@@ -23,5 +23,5 @@
                   </div>
                 </div>
             <div class="form-group text-right">
-              <a class="btn btn-success" href="<?php echo base_url('dep'); ?>">Kembali</a>
+              <a class="btn btn-success" href="<?php echo base_url('debt'); ?>">Kembali</a>
             </div>

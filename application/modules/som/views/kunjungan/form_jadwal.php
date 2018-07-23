@@ -16,7 +16,7 @@
       <?php echo form_open_multipart($action);?>
       <div class="form-group">
             <label for="int">Nama Pelanggan <?php echo form_error('nama_pel') ?></label>
-            <select name="nama_pel" id="nama_pel" class="form-control" required>
+            <select name="nama_pel" id="nama_pel" class="form-control  js-example-basic-single" required>
             <option disabled selected>--Pilih Pelanggan--</option>
 
                 <?php

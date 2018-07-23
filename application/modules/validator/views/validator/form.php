@@ -101,10 +101,12 @@
             <select name="sumber_data" id="sumber_data" class="form-control">
               <option selected>--Sumber Data--</option>
               <option <?php if( $sumber_data=='Due Date'){echo "selected"; } ?> value="Due Date">Due Date</option>
+              <option <?php if( $sumber_data=='Hijau'){echo "selected"; } ?> value="Hijau">Hijau</option>
               <option <?php if( $sumber_data=='Biru'){echo "selected"; } ?> value="Biru">Biru</option>
               <option <?php if( $sumber_data=='Kuning'){echo "selected"; } ?> value="Kuning">Kuning</option>
-              <option <?php if( $sumber_data=='Ijo'){echo "selected"; } ?> value="Ijo">Ijo</option>
-              <option <?php if( $sumber_data=='Pink'){echo "selected"; } ?> value="Pink">Pink</option>
+              <option <?php if( $sumber_data=='Orange'){echo "selected"; } ?> value="Orange">Orange</option>
+              <option <?php if( $sumber_data=='Jingga'){echo "selected"; } ?> value="Jingga">Jingga</option>
+              <option <?php if( $sumber_data=='Hijau Muda'){echo "selected"; } ?> value="Hijau Muda">Hijau Muda</option>
             </select>
           </div>
           <div class="form-group">

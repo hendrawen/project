@@ -25,19 +25,13 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <a href="<?php echo base_url('dep/piutang') ?>" class="btn btn-app">
-                      <i class="fa fa-credit-card"></i> Piutang
+                    <a href="<?php echo base_url('debt/penarikan') ?>" class="btn btn-app">
+                      <i class="fa fa-cube"></i> Penarikan
                     </a>
-                    <a href="<?php echo base_url('dep/transaksi') ?>" class="btn btn-app">
+                    <a href="<?php echo base_url('debt/pesan') ?>" class="btn btn-app">
                       <i class="fa fa-shopping-cart"></i> Transaksi
                     </a>
-                    <a href="<?php echo base_url('dep/list') ?>" class="btn btn-app">
-                      <i class="fa fa-file-text-o"></i> List Transaksi
-                    </a>
-                    <a href="<?php echo base_url('dep/muat/create') ?>" class="btn btn-app">
-                      <i class="fa fa-truck"></i> Muat
-                    </a>
-                    <a href="<?php echo base_url('dep/jadwal') ?>" class="btn btn-app">
+                    <a href="<?php echo base_url('debt/jadwal') ?>" class="btn btn-app">
                       <span class="badge bg-red"><?php echo $total_jadwal ?></span>
                       <i class="fa fa-calendar-o"></i> Jadwal
                     </a>

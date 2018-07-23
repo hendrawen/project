@@ -44,7 +44,7 @@
               <td><?php echo $key->sumber_data ?></td>
               <td><?php echo $key->keterangan ?></td>
               <td style="text-align:center; <?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som') ?: 'visibility:hidden;' ?>">
-                <a href="<?=site_url()?>jadwalkunjungan/update/<?=$key->id_jadwal ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a href="<?=site_url()?>som/jadwalkunjungan/update/<?=$key->id_jadwal ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                 <a class="btn btn-default btn-sm" onclick="return swal({
                                         title: 'Apakah Anda yakin untuk menghapus data ini?',
                                         text: 'Data yang terhapus tidak dapat dikembalikan!',
