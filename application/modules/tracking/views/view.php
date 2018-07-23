@@ -104,12 +104,12 @@
             <span class="input-group-addon">Warna</span>
             <select class="form-control" id="filter-warna">
               <option value="all" selected>--Semua Warna--</option>
-              <option value="hijau" class="label-hijau">Hijau</option>
-              <option value="biru">Biru</option>
-              <option value="kuning">Kuning</option>
-              <option value="orange">Orange</option>
-              <option value="jingga">Jingga</option>
-              <option value="hijau-muda">Hijau Muda</option>
+              <option value="hijau" >Hijau</option>
+              <option value="biru" >Biru</option>
+              <option value="kuning" >Kuning</option>
+              <option value="orange" >Orange</option>
+              <option value="jingga" >Jingga</option>
+              <option value="hijau-muda" >Hijau Muda</option>
             </select>
           </div>
         </div>
