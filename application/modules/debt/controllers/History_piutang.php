@@ -61,7 +61,7 @@ class History_piutang extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0) ? tgl_indo($row->tgl_bayar) :'') .'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -120,7 +120,7 @@ class History_piutang extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.angka($row->subtotal).'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0) ? tgl_indo($row->tgl_bayar) :'') .'</td></td>
             <td>'.angka($row->bayar).'</td></td>
             <td>'.angka($row->jumlah_bayar).'</td></td>
             <td>'.angka($row->sisa_hutang).'</td></td>
@@ -196,7 +196,7 @@ class History_piutang extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.angka($row->subtotal).'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0) ? tgl_indo($row->tgl_bayar) :'') .'</td></td>
             <td>'.angka($row->bayar).'</td></td>
             <td>'.angka($row->jumlah_bayar).'</td></td>
             <td>'.angka($row->sisa_hutang).'</td></td>
@@ -270,7 +270,7 @@ class History_piutang extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.angka($row->subtotal).'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0) ? tgl_indo($row->tgl_bayar) :'') .'</td></td>
             <td>'.angka($row->bayar).'</td></td>
             <td>'.angka($row->jumlah_bayar).'</td></td>
             <td>'.angka($row->sisa_hutang).'</td></td>

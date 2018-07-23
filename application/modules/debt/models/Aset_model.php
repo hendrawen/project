@@ -59,6 +59,86 @@ class Aset_model extends CI_Model
       return $this->db->get('wp_pelanggan')->result();
     }
 
+    function get_track($cari){
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        if($hsl->num_rows() == 0){
+            echo '<tr><td colspan="6"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Ada ASET</div></center></td></tr>';
+        } else {
+            return $hsl->result();
+        }
+    }
+    
+    function sum_get_track($cari){
+        $this->db->select('sum(sisa) as sisa');
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        return $hsl->result();
+    }
+    
+    function get_min_track($cari){
+        $this->db->order_by('id_transaksi', 'ASC');
+        $this->db->select('id_transaksi, sisa, id_pelanggan');
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        return $hsl->result();
+    }
+
+    function get_penarikan($id_pelanggan)
+    {
+        $this->db->select('wp_asis_debt.id, wp_asis_debt.turun_krat, wp_asis_debt.piutang, 
+            wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_asis_debt.tanggal as tgl_penarikan, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang');
+        $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
+        $this->db->where("wp_asis_debt.piutang <> wp_asis_debt.turun_krat");
+
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
+        $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
+        $this->db->group_by('wp_asis_debt.id');
+        
+        $this->db->order_by('wp_asis_debt.id', 'asc');
+        
+        $record = $this->db->get('wp_asis_debt');
+        
+        return $record->result();
+    }
+
+    function get_id_pelanggan($id_pelanggan)
+    {
+        $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
+        return $this->db->get('wp_pelanggan',1)->row();
+        
+    }
+
+    function insert_penarikan($data, $data2)
+    {
+        $respon = 'F';
+        $this->db->trans_begin();
+        $this->db->insert_batch('wp_penarikan', $data);
+        $this->update_debt($data2);
+        if ($this->db->trans_status() === FALSE)
+        {
+            $this->db->trans_rollback();
+            $respon = 'F';
+        } else {
+            $this->db->trans_commit();
+            $respon = 'T';
+        }
+        return $respon;
+    }
+
+    function update_debt($data)
+    {
+        $this->db->update_batch('wp_asis_debt', $data, 'id');
+    }
+
+    function get_harga_krat()
+    {
+        $this->db->where('id', '1');
+        $record = $this->db->get('wp_krat_kosong')->row();
+        return $record->harga;
+    }
+
+
 }
 
 /* End of file Aset_model.php */

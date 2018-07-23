@@ -59,8 +59,8 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
-            <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.number_format($row->subtotal,2,',','.').'</td
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -119,7 +119,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -196,7 +196,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.($row->bayar > 0 ) ? tgl_indo($row->tgl_bayar) :''.'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -271,7 +271,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -375,7 +375,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -456,7 +456,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
@@ -534,7 +534,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->username.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.tgl_indo($row->tgl_bayar).'</td></td>
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>

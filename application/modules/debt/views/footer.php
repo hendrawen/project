@@ -76,8 +76,9 @@
     <script src="<?php echo base_url('assets/template/production/js/debt/pembayaran.js')?>" charset="utf-8"></script>
     <?php endif; ?>
 
-    <?php if ($uri1 == 'debt' && $uri2 == 'kpi'): ?>
-    <script src="<?php echo base_url('assets/template/production/js/debt/kpi-debt.js')?>" charset="utf-8"></script>
+
+    <?php if ($this->uri->segment(2) == 'kpi'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/debt/kpi_debt.js" charset="utf-8"></script>
     <?php endif; ?>
 
     <?php if ($uri1 == 'debt' && $uri2 == 'history_aset'): ?>
@@ -90,6 +91,10 @@
 
     <?php if ($uri1 == 'debt' && $uri2 == 'history_trx'): ?>
     <script src="<?php echo base_url('assets/template/production/js/debt/laporan_penjualan.js')?>" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if($this->uri->segment(2) == 'penarikan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/debt/delivery.js" charset="utf-8"></script>
     <?php endif; ?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

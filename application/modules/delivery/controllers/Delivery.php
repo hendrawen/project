@@ -45,7 +45,7 @@ class Delivery extends CI_Controller
             'aktif'			=>'delivery',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Delivery',
+            'sub_judul'	    =>'Delivery',
             'content'		=>'tarik_aset',
         );
         $data['menu']			= $this->permit[0];
@@ -393,6 +393,7 @@ class Delivery extends CI_Controller
             'bayar_krat' => $this->input->post('bayar_krat'),
             'bayar_uang' => $this->input->post('bayar_uang'),
             'wp_pelanggan_id' => $id_pelanggan,
+            'username' => $this->session->identity,
         );
         $harga_krat = $this->Aset_model->get_harga_krat();
         $jumlah_bayar = 0;
@@ -416,6 +417,7 @@ class Delivery extends CI_Controller
                     'bayar_uang' => $record_debt[$i]['turun_krat'] * $harga_krat,
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
+                    'username' => $this->session->identity,
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
@@ -440,6 +442,7 @@ class Delivery extends CI_Controller
                     'bayar_uang' => $jumlah_bayar * $harga_krat,
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
+                    'username' => $this->session->identity,
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],

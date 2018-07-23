@@ -80,7 +80,7 @@
     <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script>
     <?php
 	    if ($this->uri->segment(2) == 'pelanggan') {?>
-    <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/cs/pelanggan.js"></script>
     <?php
 	  } ?>
     <?php

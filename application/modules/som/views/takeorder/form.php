@@ -26,7 +26,7 @@
           <div class="form-group">
             <label>ID/Nama Pelanggan</label>
             <select name="wp_pelanggan_id" id="wp_pelanggan_id" class="form-control js-example-basic-single" required>
-            <option disabled selected>--Pilih Pelanggan--</option>
+                <option disabled selected>--Pilih Pelanggan--</option>
 
                 <?php
                   $users = $this->db->query("SELECT * FROM wp_pelanggan Where status='Pelanggan'");
@@ -40,7 +40,7 @@
                   <?php echo $value->id_pelanggan; ?> - <?php echo $value->nama_pelanggan; ?>
                   </option>
                   <?php }?>
-                    </select>
+            </select>
           </div>
           <div class="form-group">
             <label>Nama Barang</label>
@@ -81,7 +81,6 @@
             <label>Status</label>
             <select name="wp_status_effectif_id" id="wp_status_effectif_id" class="form-control">
             <option selected>--Status--</option>
-
                 <?php
                   $users = $this->db->query("SELECT * FROM wp_status_effectif");
                   foreach($users->result() as $value){
@@ -101,10 +100,12 @@
             <select name="sumber_data" id="sumber_data" class="form-control">
               <option selected>--Sumber Data--</option>
               <option <?php if( $sumber_data=='Due Date'){echo "selected"; } ?> value="Due Date">Due Date</option>
+              <option <?php if( $sumber_data=='Hijau'){echo "selected"; } ?> value="Hijau">Hijau</option>
               <option <?php if( $sumber_data=='Biru'){echo "selected"; } ?> value="Biru">Biru</option>
               <option <?php if( $sumber_data=='Kuning'){echo "selected"; } ?> value="Kuning">Kuning</option>
-              <option <?php if( $sumber_data=='Ijo'){echo "selected"; } ?> value="Ijo">Ijo</option>
-              <option <?php if( $sumber_data=='Pink'){echo "selected"; } ?> value="Pink">Pink</option>
+              <option <?php if( $sumber_data=='Orange'){echo "selected"; } ?> value="Orange">Orange</option>
+              <option <?php if( $sumber_data=='Jingga'){echo "selected"; } ?> value="Jingga">Jingga</option>
+              <option <?php if( $sumber_data=='Hijau Muda'){echo "selected"; } ?> value="Hijau Muda">Hijau Muda</option>
             </select>
           </div>
           <div class="form-group">

@@ -10,7 +10,6 @@ class Daerah_model extends CI_Model {
 
 	public function get_kota()
 	{
-    $this->db->where('id_jenis', '2');
     $query = $this->db->get('kabupaten');
     return $query->result();
 	}

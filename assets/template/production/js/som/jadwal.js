@@ -3,9 +3,7 @@ $(function(){
     var currentDate; // Holds the day clicked when adding a new event
     var currentEvent; // Holds the event object when editing an event
 
-    $('#color').colorpicker(); // Colopicker
-
-
+   
     // Fullcalendar
     $('#calendar').fullCalendar({
         header: {
@@ -136,6 +134,7 @@ $(function(){
 
     // Prepares the modal window according to data passed
     function modal(data) {
+        $('#wp_pelanggan_id').select2();
         // Set modal title
         $('.modal-title').html(data.title);
         // Clear buttons except Cancel
@@ -210,7 +209,7 @@ $(function(){
             });
         }
     });
-
+    
 
 
     // Handle Click on Delete Button

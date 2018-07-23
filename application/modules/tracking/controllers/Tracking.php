@@ -57,11 +57,9 @@ class Tracking extends CI_Controller {
             $utang = $this->model->laporan_pelanggan_utang($record['id_pelanggan'], $tahun);
             $no++;
             $row = array();
-            $row[0] = $no;
+            $row[] = $no;
             $temp = 0;
             
-            $cek = $this->model->laporan_pelanggan_trx($record['id_pelanggan'], $this_month, $tahun);
-            // warna($color, $value)
             $row[] = $this->warna($record['warna'], $record['id_pelanggan']);
             $row[] = $this->warna($record['warna'], $record['nama_pelanggan']);
             $row[] = $this->warna($record['warna'], $record['no_telp']);
@@ -103,8 +101,8 @@ class Tracking extends CI_Controller {
         $this->load->helper('exportexcel');
         $namaFile = "tracking_pelanggan.xls";
         $judul = "TrackingPelanggan";
-        $tablehead = 5;
-        $tablebody = 6;
+        $tablehead = 6;
+        $tablebody = 7;
         $nourut = 1;
         $bulan = $this->model->get_month();
         //penulisan header
@@ -129,6 +127,9 @@ class Tracking extends CI_Controller {
 
         xlsWriteLabel(3, 0, "Kecamatan");
         xlsWriteLabel(3, 1, $kecamatan);
+
+        xlsWriteLabel(4, 0, "Warna");
+        xlsWriteLabel(4, 1, $warna);
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -158,31 +159,35 @@ class Tracking extends CI_Controller {
             xlsWriteLabel($tablehead+1, $kolomhead++, 'TRX');
             xlsWriteLabel($tablehead+1, $kolomhead++, 'QTY');
         }
+        
+        $this_month = date('n');
             
         $tablebody++;
         $record = $this->model->get_laporan_excel($kota, $kecamatan);
         if ($record){
             $temp = array();
             if ($warna == "all") {
-                $temp = $this->cekidot($record, $this_month, $tahun);
-            } else {
-                $temp = $this->cekidotdot($record, $this_month, $tahun, $warna);
+                $temp = $this->cekidot($record, $this_month, $year);
+            } else if($warna != 'all'){
+                $temp = $this->cekidotdot($record, $this_month, $year, $warna);
             }
-            foreach ($record as $data) {
+        }
+        if ($temp) {
+            foreach ($temp as $data) {
                 $kolombody = 0;
-                $utang = $this->model->laporan_pelanggan_utang($data->id_pelanggan, $year);
+                $utang = $this->model->laporan_pelanggan_utang($data['id_pelanggan'], $year);
                 xlsWriteNumber($tablebody, $kolombody++, $nourut);
-                xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kota);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->nama);
+                xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
+                xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
+                xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
+                xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
+                xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
+                xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
+                xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
                 xlsWriteLabel($tablebody, $kolombody++, $utang);
                 for ($i=1; $i <= 12; $i++) { 
-                    $trx = $this->model->laporan_pelanggan_trx($data->id_pelanggan, $i, $year);
-                    $qty = $this->model->laporan_pelanggan_qty($data->id_pelanggan, $i, $year);
+                    $trx = $this->model->laporan_pelanggan_trx($data['id_pelanggan'], $i, $year);
+                    $qty = $this->model->laporan_pelanggan_qty($data['id_pelanggan'], $i, $year);
     
                     xlsWriteNumber($tablebody, $kolombody++, $trx);
                     xlsWriteNumber($tablebody, $kolombody++, $qty);
@@ -195,12 +200,29 @@ class Tracking extends CI_Controller {
         exit();
     }
 
-    function tes()
+    function tes($warna)
     {
-
-        echo '<pre>';
-        print_r($this->model->get_laporan_excel("KOTA BANDA ACEH","all"));
-        echo '</pre>';
+        $year = "all";
+        $kota = "all";
+        $kecamatan = "all";
+        $this_month = date('n');
+        
+        $record = $this->model->get_laporan_excel($kota, $kecamatan);
+        $temp = array();
+        if ($record){
+            if ($warna == "all") {
+                $temp = $this->cekidot($record, $this_month, $year);
+            } else {
+                $temp = $this->cekidotdot($record, $this_month, $year, $warna);
+            }
+        }
+        echo 'Warna : '.$warna.'<br/>';
+        echo sizeof($temp);
+        echo '<br>';
+        
+        echo "<pre>";
+        print_r ($temp);
+        echo "</pre>";
     }
     
     function warna($color, $value)
