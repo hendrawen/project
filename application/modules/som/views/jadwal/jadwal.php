@@ -2,7 +2,7 @@
 <!--Batas-->
 <div class="x_panel">
       <div class="x_title">
-            <h2>Transaksi List</h2>
+            <h2>Jadwal List</h2>
             <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -20,60 +20,44 @@
             </div>
 
               <div class="x_content">
+              <a href="<?php echo site_url('som/jadwal2/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus" ></i> Tambah Data</a>
               <div class="table-responsive">
-              <?php echo anchor(site_url('som/transaksi/excel'), 'Excel', 'class="btn btn-primary"'); ?>
                   <table class="table jambo_table table-bordered" id="transaksilist">
                       <thead>
                           <tr>
-                              <th>No Faktur</th>
-                              <th>Tgl Kirim</th>
-                              <th>Jatuh Tempo</th>
-                              <th>ID Pelanggan</th>
+                              <th>Id Jadwal</th>
+                              <th>Nama Barang</th>
+                              <th>Qty</th>
+                              <th>Tanggal Kirim</th>
+                              <!-- <th>End</th> -->
+                                <th>Username</th>
+                                <th>Judul</th>
+                                <th>Sumber Data</th>
+                              <th>Deskripsi</th>
                               <th>Nama Pelanggan</th>
-                          		<th>Nama Barang</th>
-                          		<th>Qty</th>
-                          		<th>Satuan</th>
-                              <th>Kota</th>
-                              <th>Kecamatan</th>
-                          		<th>Kelurahan</th>
-                              <th>No Telpon</th>
-                              <th>Marketing</th>
-                              <th>Debt</th> <!-- username-->
-                              <th>Jumlah</th>
+                          		<th>Karyawan</th>
+                                  <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody>
                         <?php
                         $no = 1;
                         $jum = 1;
-                        foreach($transaksi as $key){ ?>
+                        foreach($jadwal as $key){ ?>
                        <tr>
-                            <td><?php echo $key->id_transaksi ?></td>
-                            <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
-                            <td><?php echo tgl_indo($key->jatuh_tempo) ?></td>
-                            <td><?php echo $key->id_pelanggan ?></td>
-                            <td><?php echo $key->nama_pelanggan ?></td>
+                            <td><?php echo $key->id_jadwal ?></td>
                             <td><?php echo $key->nama_barang ?></td>
                             <td><?php echo $key->qty ?></td>
-                            <td><?php echo $key->satuan ?></td>
-                            <td><?php echo $key->kota ?></td>
-                            <td><?php echo $key->kecamatan ?></td>
-                            <td><?php echo $key->kelurahan ?></td>
-                            <td><?php echo $key->no_telp ?></td>
-                            <td><?php echo $key->nama_karyawan ?></td>
+                            <td><?php echo tgl_indo($key->start) ?></td>
+                            <!-- <td><?php echo tgl_indo($key->end) ?></td> -->
                             <td><?php echo $key->username ?></td>
-
-                            <!-- <td><?php echo number_format($key->harga,2,",",".") ?></td> -->
-                            <td>
-                            
-                                <?php echo $key->subtotal ?>
-                            </td>
-
-
-                      			<!-- <td><?php echo $key->username ?></td>
-                      			<td><?php echo $key->nama_status ?></td> -->
-                            <!-- <td style="text-align:center">
-                              <a href="<?=base_url()?>transaksi/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <td><?php echo $key->title ?></td>
+                            <td><?php echo $key->color ?></td>
+                            <td><?php echo $key->description ?></td>
+                            <td><?php echo $key->nama_pelanggan ?></td>
+                            <td><?php echo $key->nama ?></td>
+                            <td style="text-align:center">
+                              <a href="<?=base_url()?>som/jadwal2/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <a class="btn btn-default btn-sm" onclick="return swal({
                                                       title: 'Yakin akan hapus data ini?',
                                                       text: 'Anda tidak akan melihat data ini lagi!',
@@ -81,31 +65,12 @@
                                                       showCancelButton: true,
                                                       confirmButtonColor: '#d9534f',
                                                          }, function(){
-                                                            window.location.href ='<?=base_url()?>transaksi/delete/<?=$key->id ?>';
+                                                            window.location.href ='<?=base_url()?>som/jadwal2/delete/<?=$key->id ?>';
                                                                        });"><i class="glyphicon glyphicon-trash"></i></a>
-                           </td> -->
+                           </td>
                       </tr>
                       <?php } ?>
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>No Faktur</th>
-                        <th>Tgl Kirim</th>
-                        <th>Jatuh Tempo</th>
-                        <th>ID Pelanggan</th>
-                        <th>Nama Pelanggan</th>
-                        <th>Nama Barang</th>
-                        <th>Qty</th>
-                        <th>Satuan</th>
-                        <th>Kota</th>
-                        <th class="wider_kecamatan">Kecamatan</th>
-                        <th class="wider_kecamatan">Kelurahan</th>
-                        <th>No Telpon</th>
-                        <th>Marketing</th>
-                        <th>Debt</th> <!-- username-->
-                        <th>Jumlah</th>
-                      </tr>
-                    </tfoot>
                   </table>
                   </div>
 
