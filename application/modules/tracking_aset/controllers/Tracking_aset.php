@@ -97,15 +97,15 @@ class Tracking_aset extends CI_Controller {
     }
 
     // excel
-    function download_excel($year, $kota, $kecamatan)
+    function download_excel($year, $kota, $kecamatan, $warna)
     {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
         $this->load->helper('exportexcel');
         $namaFile = "tracking_aset.xls";
         $judul = "TrackingAset";
-        $tablehead = 5;
-        $tablebody = 6;
+        $tablehead = 6;
+        $tablebody = 7;
         $nourut = 1;
         $bulan = $this->model->get_month();
         //penulisan header
@@ -130,6 +130,9 @@ class Tracking_aset extends CI_Controller {
 
         xlsWriteLabel(3, 0, "Kecamatan");
         xlsWriteLabel(3, 1, $kecamatan);
+        
+        xlsWriteLabel(4, 0, "Warna");
+        xlsWriteLabel(4, 1, $warna);
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -145,6 +148,7 @@ class Tracking_aset extends CI_Controller {
         $i = 0;
         $j = 3;
 
+        $this_month = date('n');
         for ($i == 0; $i < 12 ; $i++) {
             if ($i == 0) {
                 xlsWriteLabel($tablehead, ($kolomhead++), $bulan[$i]['month']);
@@ -163,42 +167,42 @@ class Tracking_aset extends CI_Controller {
         }
             
         $tablebody++;
-        $record = $this->model->get_laporan_excel($kota, $kecamatan);
-        if ($record){
-            foreach ($record as $data) {
-                $kolombody = 0;
-                $utang = $this->model->laporan_pelanggan_utang($data->id_pelanggan, $year);
-                xlsWriteNumber($tablebody, $kolombody++, $nourut);
-                xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kota);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->nama);
-                xlsWriteLabel($tablebody, $kolombody++, $utang);
-                for ($i=1; $i <= 12; $i++) { 
-                    $krat = $this->model->get_krat($data->id_pelanggan, $i, $year);
-                
-                    xlsWriteNumber($tablebody, $kolombody++, $krat['turun_krat']);
-                    xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_krat']);
-                    xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_uang']);
-                    xlsWriteNumber($tablebody, $kolombody++, floor($krat['sisa']));
+        $list = $this->model->get_laporan_excel($kota, $kecamatan);
+        $temp = array();
+        
+        if ($list){
+            if ($warna == "all") {
+                $temp = $this->cekidot($list, $this_month, $year);
+            } else {
+                $temp = $this->cekidotdot($list, $this_month, $year, $warna);
+            }
+            if ($temp) {
+                foreach ($temp as $data) {
+                    $kolombody = 0;
+                    xlsWriteNumber($tablebody, $kolombody++, $nourut);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['utang']);
+                    for ($i=1; $i <= 12; $i++) { 
+                        $krat = $this->model->get_krat($data['id_pelanggan'], $i, $year);
+                    
+                        xlsWriteNumber($tablebody, $kolombody++, $krat['turun_krat']);
+                        xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_krat']);
+                        xlsWriteNumber($tablebody, $kolombody++, $krat['bayar_uang']);
+                        xlsWriteNumber($tablebody, $kolombody++, floor($krat['sisa']));
+                    }
+                    $tablebody++;
+                    $nourut++;
                 }
-                $tablebody++;
-                $nourut++;
             }
         }
         xlsEOF();
         exit();
-    }
-
-    function tes()
-    {
-
-        echo '<pre>';
-        print_r($this->model->get_laporan_excel("KOTA BANDA ACEH","all"));
-        echo '</pre>';
     }
     
     function warna($color, $value)

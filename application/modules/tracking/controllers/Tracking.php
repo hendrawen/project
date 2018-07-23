@@ -163,66 +163,61 @@ class Tracking extends CI_Controller {
         $this_month = date('n');
             
         $tablebody++;
-        $record = $this->model->get_laporan_excel($kota, $kecamatan);
-        if ($record){
-            $temp = array();
+        $list = $this->model->get_laporan_excel($kota, $kecamatan);
+        $temp = array();
+        
+        if ($list){
             if ($warna == "all") {
-                $temp = $this->cekidot($record, $this_month, $year);
-            } else if($warna != 'all'){
-                $temp = $this->cekidotdot($record, $this_month, $year, $warna);
+                $temp = $this->cekidot($list, $this_month, $year);
+            } else {
+                $temp = $this->cekidotdot($list, $this_month, $year, $warna);
             }
-        }
-        if ($temp) {
-            foreach ($temp as $data) {
-                $kolombody = 0;
-                $utang = $this->model->laporan_pelanggan_utang($data['id_pelanggan'], $year);
-                xlsWriteNumber($tablebody, $kolombody++, $nourut);
-                xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
-                xlsWriteLabel($tablebody, $kolombody++, $utang);
-                for ($i=1; $i <= 12; $i++) { 
-                    $trx = $this->model->laporan_pelanggan_trx($data['id_pelanggan'], $i, $year);
-                    $qty = $this->model->laporan_pelanggan_qty($data['id_pelanggan'], $i, $year);
-    
-                    xlsWriteNumber($tablebody, $kolombody++, $trx);
-                    xlsWriteNumber($tablebody, $kolombody++, $qty);
+            if ($temp) {
+                foreach ($temp as $data) {
+                    $kolombody = 0;
+                    xlsWriteNumber($tablebody, $kolombody++, $nourut);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['utang']);
+                    for ($i=1; $i <= 12; $i++) { 
+                        $trx = $this->model->laporan_pelanggan_trx($data['id_pelanggan'], $i, $year);
+                        $qty = $this->model->laporan_pelanggan_qty($data['id_pelanggan'], $i, $year);
+        
+                        xlsWriteNumber($tablebody, $kolombody++, $trx);
+                        xlsWriteNumber($tablebody, $kolombody++, $qty);
+                    }
+                    $tablebody++;
+                    $nourut++;
                 }
-                $tablebody++;
-                $nourut++;
             }
         }
         xlsEOF();
         exit();
     }
 
-    function tes($warna)
+    function tes()
     {
-        $year = "all";
-        $kota = "all";
-        $kecamatan = "all";
+        $list = $this->model->get_laporan_excel('all','all');
         $this_month = date('n');
-        
-        $record = $this->model->get_laporan_excel($kota, $kecamatan);
         $temp = array();
-        if ($record){
-            if ($warna == "all") {
-                $temp = $this->cekidot($record, $this_month, $year);
-            } else {
-                $temp = $this->cekidotdot($record, $this_month, $year, $warna);
-            }
+        $warna = 'biru';
+        if ($warna == "all") {
+            $temp = $this->cekidot($list, $this_month, 2018);
+        } else {
+            $temp = $this->cekidotdot($list, $this_month, 2018, $warna);
         }
-        echo 'Warna : '.$warna.'<br/>';
-        echo sizeof($temp);
-        echo '<br>';
         
         echo "<pre>";
+        print_r ($list);
         print_r ($temp);
         echo "</pre>";
+        
+
     }
     
     function warna($color, $value)
