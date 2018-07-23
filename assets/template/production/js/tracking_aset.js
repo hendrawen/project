@@ -21,6 +21,7 @@ $(document).ready(function() {
                 data.tahun = $('#tahun-tracking').val();
                 data.kota = $('#filter-kota').val();
                 data.kecamatan = $('#filter-kecamatan').val();
+                data.warna = $('#filter-warna').val();
             }
         },
 
