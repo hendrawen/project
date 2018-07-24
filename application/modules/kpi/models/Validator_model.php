@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Effective_model extends CI_Model {
+class Validator_model extends CI_Model {
 
 
     function __construct()
@@ -112,15 +112,17 @@ class Effective_model extends CI_Model {
         }
     }
 
-    function get_karyawan()
+
+    function get_karyawan_validator()
     {
         # code...
         $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
         $this->db->from('wp_karyawan');
         $this->db->join('wp_jabatan', 'wp_karyawan.wp_jabatan_id = wp_jabatan.id', 'inner');
-        $this->db->where('wp_jabatan.nama_jabatan', 'Customer Service');
+        $this->db->where('wp_jabatan.nama_jabatan', 'Validator');
         return $this->db->get()->result();
     }
+
 
     //start sumber data
 
@@ -146,7 +148,7 @@ class Effective_model extends CI_Model {
         $this->db->where('tanggal', $tgl);
         if ($sumber !== 'semua') {
             # code...
-            $this->db->where('sumber_data', $sumber);
+            $this->db->where('by_status', $sumber);
         }
         if ($nama !== 'semua') {
             # code...

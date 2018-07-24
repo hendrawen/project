@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Effectivecall extends CI_Controller {
+class Validator extends CI_Controller {
 
     private $permit;
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
@@ -16,7 +16,7 @@ class Effectivecall extends CI_Controller {
 							redirect('login','refresh');
 					}
 		}
-        $this->load->model('Effective_model', 'call');
+        $this->load->model('Validator_model', 'call');
 
     }
 
@@ -26,8 +26,8 @@ class Effectivecall extends CI_Controller {
         $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
-        $data['sub_judul']	    ='KPIKEEP PERFORM INDICATOR EFFECTIFE CALL';
-        $data['content']		='effective/main';
+        $data['sub_judul']	    ='KPI KEEP PERFORM INDICATOR VALIDATOR';
+        $data['content']		='validator/main';
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
         $data['barang']         = $this->call->get_barang();
@@ -139,9 +139,9 @@ class Effectivecall extends CI_Controller {
 
     }
 
-    function isi_karyawan($pilih)
+    function isi_karyawan_validator($pilih)
     {
-        $karyawan = $this->call->get_karyawan();
+        $karyawan = $this->call->get_karyawan_validator();
         $opt = "";
         if ($pilih == "karyawan") {
         foreach ($karyawan as $row) {
