@@ -54,7 +54,7 @@ $(document).ready(function () {
         data: {tgl: tgl},
         success : function (data) {
           $("#loading").hide();
-          $("#tbody").html(data);
+          $("#tbody-penarikan").html(data);
         }
       });
     });

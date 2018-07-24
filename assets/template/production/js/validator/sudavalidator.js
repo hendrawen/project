@@ -47,7 +47,7 @@ $(document).ready(function () {
         }
     });
     $.ajax({
-      url: base_url+'sudavalidator/sumberdata/load_filter/',
+      url: base_url+'validator/sumberdata/load_filter/',
       type: 'POST',
       dataType: 'html',
       data: {bulan : bulan, nama : nama, berdasarkan : berdasarkan},

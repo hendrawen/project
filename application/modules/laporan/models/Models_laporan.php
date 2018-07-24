@@ -135,7 +135,7 @@ class Models_laporan extends CI_Model {
         JOIN
         wp_krat_kosong
         where 
-        date(wp_asis_debt.tanggal) = $day
+        date(wp_asis_debt.tanggal) = '$day'
         GROUP BY wp_asis_debt.wp_pelanggan_id
         ");
         return $query->result();

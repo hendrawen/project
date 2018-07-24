@@ -25,7 +25,7 @@
       <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tanggal <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
-          <input type="date" class="form-control" id="tgl" placeholder="" value="<?php echo date('m/d/Y')?>">
+          <input type="date" class="form-control" id="tgl" placeholder="" >
         </div>
       </div>
       <div class="col-md-8 col-sm-6 col-xs-12 text-right">
