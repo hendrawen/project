@@ -125,7 +125,7 @@ class Takeorder extends CI_Controller {
                     );
           $this->takeorder->save($data);
           $this->session->set_flashdata('message', 'tambah data berhasil');
-          redirect(site_url('som/takeorder'));
+          redirect(site_url('som'));
         }
     }
 
@@ -182,7 +182,7 @@ class Takeorder extends CI_Controller {
               );
             $this->takeorder->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('som/takeorder'));
+            redirect(site_url('som'));
         }
     }
 

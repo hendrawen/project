@@ -1,3 +1,11 @@
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    <strong>Selamat Datang !</strong>
+    <?php echo $this->session->identity; ?>.
+</div>
+
 <a href="<?php echo base_url('som/takeorder/tambah'); ?>" type="button" class="btn btn-success" ><i class="fa fa-user"></i> Tambah</a>
 
 <div class="x_panel">

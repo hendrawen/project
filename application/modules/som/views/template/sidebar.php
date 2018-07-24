@@ -31,7 +31,7 @@
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo site_url('som');?>"><i class="fa fa-home"></i> Dashboard</a></li>
                   <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/jadwal"><i class="fa fa-user"></i> Jadwal Debt</a></li>
                   <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/jadwalkunjungan"><i class="fa fa-user"></i> Jadwal Validator</a></li>
-                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/takeorder"><i class="fa fa-shopping-cart"></i> Take Order</a></li>
+                  <!-- <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/takeorder"><i class="fa fa-shopping-cart"></i> Take Order</a></li> -->
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo site_url();?>som/pelanggan"><i class="fa fa-file-text-o"></i> Pelanggan</a></li>
                   <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/transaksi"><i class="fa fa-users"></i> Transaksi Pelanggan</a></li>
                   <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/status_pelanggan"><i class="fa fa-history"></i> Tracking Pelanggan</a></li>

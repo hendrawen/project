@@ -1,3 +1,6 @@
+
+
+
 <div class="x_panel">
   <div class="x_title">
     <h2>Form <?php echo $button ?></h2>
@@ -44,7 +47,7 @@
           </div>
           <div class="form-group">
             <label>Nama Barang</label>
-            <select name="barang" id="barang" class="form-control">
+            <select name="barang" id="barang" class="form-control js-example-basic-single">
             <option value="" selected>--Pilih Barang--</option>
 
                 <?php
@@ -63,11 +66,11 @@
           </div>
           <div class="form-group">
             <label>QTY</label>
-            <input type="number" class="form-control" name="qty" value="<?php echo $qty; ?>">
+            <input type="number" class="form-control" name="qty" placeholder="Qty" value="<?php echo $qty; ?>">
           </div>
           <div class="form-group">
             <label>Satuan</label>
-            <select class="form-control" name="satuan">
+            <select class="form-control js-example-basic-single" name="satuan">
               <option>--Satuan--</option>
               <option <?php if( $satuan=='Krat'){echo "selected"; } ?> value="Krat">Krat</option>
               <option <?php if( $satuan=='Dus'){echo "selected"; } ?> value="Dus">Dus</option>
@@ -75,11 +78,11 @@
           </div>
           <div class="form-group">
             <label>Tanggal Kirim</label>
-            <input type="date" class="form-control" name="tgl_kirim" value="<?php echo $tgl_kirim; ?>">
+            <input type="date" class="form-control" id="tgl_kirim" name="tgl_kirim" value="<?php echo $tgl_kirim; ?>">
           </div>
           <div class="form-group">
             <label>Status</label>
-            <select name="wp_status_effectif_id" id="wp_status_effectif_id" class="form-control">
+            <select name="wp_status_effectif_id" id="wp_status_effectif_id" class="form-control js-example-basic-single">
             <option selected>--Status--</option>
                 <?php
                   $users = $this->db->query("SELECT * FROM wp_status_effectif");
@@ -97,7 +100,7 @@
           </div>
           <div class="form-group">
             <label>Sumber Data</label>
-            <select name="sumber_data" id="sumber_data" class="form-control">
+            <select name="sumber_data" id="sumber_data" class="form-control js-example-basic-single">
               <option selected>--Sumber Data--</option>
               <option <?php if( $sumber_data=='Due Date'){echo "selected"; } ?> value="Due Date">Due Date</option>
               <option <?php if( $sumber_data=='Hijau'){echo "selected"; } ?> value="Hijau">Hijau</option>
@@ -110,7 +113,7 @@
           </div>
           <div class="form-group">
             <label>Melalui</label>
-            <select name="by_status" id="by_status" class="form-control">
+            <select name="by_status" id="by_status" class="form-control js-example-basic-single">
               <option selected>--Pilih--</option>
               <option <?php if( $by_status=='Call'){echo "selected"; } ?>  value="Call">Call</option>
               <option <?php if( $by_status=='Kunjungan'){echo "selected"; } ?> value="Kunjungan">Kunjungan</option>
@@ -118,12 +121,12 @@
           </div>
           <div class="form-group">
             <label>Keterangan</label>
-            <textarea name="keterangan" class="form-control"><?php echo $keterangan; ?></textarea>
+            <textarea name="keterangan" placeholder="Keterangan" class="form-control"><?php echo $keterangan; ?></textarea>
           </div>
           <input type="hidden" value="<?php echo $id; ?>" name="id"/>
           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
           <div class="text-right">
-            <a href="<?php echo base_url('som/takeorder')?>" type="button" class="btn btn-default" >Kembali</a>
+            <a href="<?php echo base_url('som')?>" type="button" class="btn btn-default" >Kembali</a>
             <button type="submit" class="btn btn-success"><?php echo $button ?></button>
           </div>
         </div>

@@ -34,6 +34,7 @@ var table;
              $('#form-filter2')[0].reset();
              reload_table();//reload datatable ajax
          });
+
      });
 
 

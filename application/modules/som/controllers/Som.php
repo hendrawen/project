@@ -13,22 +13,31 @@ class Som extends CI_Controller{
 					if (!$this->ion_auth->in_group('SOM')) {//cek admin ga?
 							redirect('login','refresh');
 					}
-		}
+    }
+    $this->load->model('Takeorder_model', 'takeorder');
     //Codeigniter : Write Less Do More
   }
 
-  function index()
-  {
-    $data = array(
-        'aktif'			=>'som',
-        'title'			=>'Brajamarketindo',
-        'judul'			=>'Dashboard',
-        'sub_judul'	=>'SOM',
-        'content'		=>'content',
-    );
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
-    $this->load->view('som/dashboard', $data);
+  function index() {
+      $data['aktif'] = 'Active Call';
+      $data['title'] = 'Brajamarketindo';
+      $data['judul'] = 'Dashboard';
+      $data['sub_judul'] = 'List Effectif Call';
+      $data['judul_list'] = 'Effectif Call';
+      $data['content'] = 'takeorder/main';
+      $statuse = $this -> takeorder -> get_list_status();
+
+      $opt = array('' => 'Semua Status');
+      foreach($statuse as $status) {
+          $opt[$status] = $status;
+      }
+      $data['form_status'] = form_dropdown(
+          '',
+          $opt,
+          '',
+          'id="status" class="form-control"'
+      );
+      $this -> load -> view('som/dashboard', $data);
   }
 
 //   public function jadwal()
@@ -42,8 +51,6 @@ class Som extends CI_Controller{
 //     $data['judul']			='Daftar Jadwal';
 //     $data['sub_judul']		='Pengiriman';
 //     $data['content']			= 'jadwal/main';
-//     $data['menu']			= $this->permit[0];
-// 	    $data['submenu']		= $this->permit[1];
 //     $this->load->view('som/dashboard', $data);
 //   }
 
@@ -54,8 +61,6 @@ class Som extends CI_Controller{
     $data['judul']			='Daftar Validator';
     $data['sub_judul']		='Pengiriman';
     $data['content']			= 'jadwal/main';
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
     $this->load->view('som/dashboard', $data);
   }
 
@@ -71,8 +76,6 @@ class Som extends CI_Controller{
 // 		$data['judul']			='Dashboard';
 // 		$data['sub_judul']		='Data Pelanggan';
 //     $data['content']			= 'pelanggan/main';
-//     $data['menu']			= $this->permit[0];
-// 	    $data['submenu']		= $this->permit[1];
 //     $kotas = $this->pelanggan->get_list_kota();
 
 //     $opt = array('' => 'Semua Kota');
