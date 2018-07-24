@@ -89,7 +89,7 @@
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li> 
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
                       </ul>
                     </li>
                     <li><a><i class="fa fa-line-chart"></i> Report Trx Area <span class="fa fa-chevron-down"></span></a>
@@ -141,7 +141,9 @@
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/sumberdata">Sumber Data Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/sudavalidator">Sumber Data Validator</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/effectivecall">Activity Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/validator">Activity Validator</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/debt">Debt & Delivery</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/marketing">Marketing</a></li>
                     </ul>
