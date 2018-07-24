@@ -115,7 +115,6 @@
         </div>
       </div>
       <div class="row">
-<<<<<<< HEAD
         <div class="col-lg-3">
         <div class="input-group">
             <span class="input-group-addon">Piutang</span>
@@ -126,9 +125,6 @@
           </div>
         </div>
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 text-right">
-=======
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
->>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
           <button type="button" id="btn-filter-tracking" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
           <button type="button" id="excel-tracking" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
           <button type="button" id="btn-reset-tracking" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
@@ -163,11 +159,8 @@
             <tr>
                 <th colspan="11" style="text-align:right">Total:</th>
                 <th></th>
-<<<<<<< HEAD
                 <th></th>
                 <th></th>
-=======
->>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
             </tr>
           </tfoot>
       </table>
