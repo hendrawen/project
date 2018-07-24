@@ -397,7 +397,7 @@ class Lap_dep extends CI_Controller{
     $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
     $this->db->from('wp_karyawan');
     $this->db->join('wp_jabatan','wp_jabatan.id=wp_karyawan.wp_jabatan_id');
-    $this->db->where('wp_jabatan.nama_jabatan','Driver');
+    $this->db->where('wp_jabatan.nama_jabatan','Debt & Delivery');
     $karyawan = $this->db->get()->result();
     $opt = "";
     if ($pilih == "dept") {

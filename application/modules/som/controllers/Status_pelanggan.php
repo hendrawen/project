@@ -1,148 +1,22 @@
-<?php
+<?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Som extends CI_Controller{
+class Status_pelanggan extends CI_Controller {
 
-  private $permit;
-  public function __construct()
-  {
-    parent::__construct();
-    if (!$this->ion_auth->logged_in()) {//cek login ga?
+    private $permit;
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Model','model');
+        $this->load->model('pelanggan/Daerah_model','daerah');
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
 					if (!$this->ion_auth->in_group('SOM')) {//cek admin ga?
 							redirect('login','refresh');
 					}
 		}
-    //Codeigniter : Write Less Do More
-  }
-
-  function index()
-  {
-    $data = array(
-        'aktif'			=>'som',
-        'title'			=>'Brajamarketindo',
-        'judul'			=>'Dashboard',
-        'sub_judul'	=>'SOM',
-        'content'		=>'content',
-    );
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
-    $this->load->view('som/dashboard', $data);
-  }
-
-//   public function jadwal()
-//   { 
-//     $cek = get_permission('som', $this->permit[1]);
-//     if (!$cek) {//cek admin ga?
-//         redirect('panel','refresh');
-//     }
-//     $data['aktif']			='Jadwal';
-//     $data['title']			='Jadwal';
-//     $data['judul']			='Daftar Jadwal';
-//     $data['sub_judul']		='Pengiriman';
-//     $data['content']			= 'jadwal/main';
-//     $data['menu']			= $this->permit[0];
-// 	    $data['submenu']		= $this->permit[1];
-//     $this->load->view('som/dashboard', $data);
-//   }
-
-  public function validator()
-  {
-    $data['aktif']			='validator';
-    $data['title']			='Validator';
-    $data['judul']			='Daftar Validator';
-    $data['sub_judul']		='Pengiriman';
-    $data['content']			= 'jadwal/main';
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
-    $this->load->view('som/dashboard', $data);
-  }
-
-//   public function pelanggan()
-//   { 
-//     $cek = get_permission('som', $this->permit[1]);
-//     if (!$cek) {//cek admin ga?
-//         redirect('panel','refresh');
-//     }
-//     $this->load->model('pelanggan/Model_pelanggan', 'pelanggan');
-//     $data['aktif']			='Pelanggan';
-// 		$data['title']			='Brajamarketindo';
-// 		$data['judul']			='Dashboard';
-// 		$data['sub_judul']		='Data Pelanggan';
-//     $data['content']			= 'pelanggan/main';
-//     $data['menu']			= $this->permit[0];
-// 	    $data['submenu']		= $this->permit[1];
-//     $kotas = $this->pelanggan->get_list_kota();
-
-//     $opt = array('' => 'Semua Kota');
-//         foreach ($kotas as $kota) {
-//             $opt[$kota] = $kota;
-//     }
-
-//     $data['form_kota'] = form_dropdown('',$opt,'','id="kota" class="form-control"');
-//     $statuse = $this->pelanggan->get_list_status();
-
-//     $opt1 = array('' => 'Semua Status');
-//         foreach ($statuse as $status) {
-//             $opt1[$status] = $status;
-//     }
-
-//     $data['form_status'] = form_dropdown('',$opt1,'','id="status" class="form-control"');
-
-//     $kecamatans = $this->pelanggan->get_list_kecamatan();
-
-//     $opt2 = array('' => 'Semua Kecamatan');
-//         foreach ($kecamatans as $kecamatan) {
-//             $opt2[$kecamatan] = $kecamatan;
-//     }
-
-//     $data['form_kecamatan'] = form_dropdown('',$opt2,'','id="kecamatan" class="form-control"');
-
-//     $kelurahans = $this->pelanggan->get_list_kelurahan();
-
-//     $opt3 = array('' => 'Semua Kelurahan');
-//         foreach ($kelurahans as $kelurahan) {
-//             $opt3[$kelurahan] = $kelurahan;
-//     }
-
-//     $data['form_kelurahan'] = form_dropdown('',$opt3,'','id="kelurahan" class="form-control"');
-
-//     $surveyors = $this->pelanggan->get_list_surveyor();
-
-//     $opt4 = array('' => 'Semua Surveyor');
-//         foreach ($surveyors as $surveyor) {
-//             $opt4[$surveyor] = $surveyor;
-//     }
-
-//     $data['form_surveyor'] = form_dropdown('',$opt4,'','id="nama" class="form-control"');
-
-//     $bulans = $this->pelanggan->get_list_bulan();
-
-//     $opt5 = array('' => 'Bulan');
-//         foreach ($bulans as $bulan) {
-//             $opt5[$bulan] = $bulan;
-//     }
-
-//     $data['form_bulan'] = form_dropdown('',$opt5,'','id="bulan" class="form-control"');
-//     $this->load->view('panel/dashboard', $data);
-//   }
-
-  public function report()
-  { 
-    $cek = get_permission('som', $this->permit[1]);
-    if (!$cek) {//cek admin ga?
-        redirect('panel','refresh');
     }
-<<<<<<< HEAD
-    $data['aktif']			='Report';
-    $data['title']			='Report';
-    $data['judul']			='Daftar Report';
-    $data['sub_judul']		='Report';
-    $data['content']			= 'jadwal/main';
-    $this->load->view('som/dashboard', $data);
-  }
-=======
 
     function index()
     {
@@ -150,11 +24,13 @@ class Som extends CI_Controller{
             'aktif'			=>'Status Pelanggan',
             'title'			=>'Status Pelanggan',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Status Pelanggan',
+            'sub_judul'	    =>'Status Pelanggan',
             'content'		=>'trackpelanggan/view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
         );
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
         $this->load->view('dashboard', $data);
     }
 
@@ -235,8 +111,8 @@ class Som extends CI_Controller{
         $this->load->helper('exportexcel');
         $namaFile = "status_pelanggan.xls";
         $judul = "StatusPelanggan";
-        $tablehead = 5;
-        $tablebody = 6;
+        $tablehead = 6;
+        $tablebody = 7;
         $nourut = 1;
         $bulan = $this->model->get_month();
         //penulisan header
@@ -262,6 +138,9 @@ class Som extends CI_Controller{
         xlsWriteLabel(3, 0, "Kecamatan");
         xlsWriteLabel(3, 1, $kecamatan);
 
+        xlsWriteLabel(4, 0, "Warna");
+        xlsWriteLabel(4, 1, $warna);
+
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
         xlsWriteLabel($tablehead, $kolomhead++, "ID CUSTOMER");
@@ -279,6 +158,7 @@ class Som extends CI_Controller{
         xlsWriteLabel($tablehead, $kolomhead++, "STATUS");
         
         $tablebody++;
+
         $this_month = date('n');
         $record = $this->model->get_laporan_excel($kota, $kecamatan);
         if ($record){
@@ -289,55 +169,47 @@ class Som extends CI_Controller{
                 $temp = $this->cekidotdot($record, $this_month, $year, $warna);
             }
             if ($temp) {
-            foreach ($temp as $data) {
-                $kolombody = 0;
-                $utang = $this->model->laporan_pelanggan_utang($data['id_pelanggan'], $year);
-                xlsWriteNumber($tablebody, $kolombody++, $nourut);
-                xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
-                xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
-                $last_transaction = $this->model->get_last_transaction($data['id_pelanggan'], $year);
-                $last_followup = $this->model->get_follow_up($data['id_pelanggan'], $year);
-                if ($last_transaction) {
+                foreach ($temp as $data) {
+                    $kolombody = 0;
+                    xlsWriteNumber($tablebody, $kolombody++, $nourut);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
                     
-                    xlsWriteLabel($tablebody, $kolombody++, $last_transaction->tgl_transaksi);
-                    xlsWriteLabel($tablebody, $kolombody++, $last_transaction->nama_barang);
-                    xlsWriteNumber($tablebody, $kolombody++, $last_transaction->qty);
-                } else {
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteNumber($tablebody, $kolombody++, '-');
+                    $last_transaction = $this->model->get_last_transaction($data['id_pelanggan'], $year);
+                    $last_followup = $this->model->get_follow_up($data['id_pelanggan'], $year);
+                    if ($last_transaction) {
+                        
+                        xlsWriteLabel($tablebody, $kolombody++, $last_transaction->tgl_transaksi);
+                        xlsWriteLabel($tablebody, $kolombody++, $last_transaction->nama_barang);
+                        xlsWriteNumber($tablebody, $kolombody++, $last_transaction->qty);
+                    } else {
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                        xlsWriteNumber($tablebody, $kolombody++, '-');
+                    }
+                    xlsWriteLabel($tablebody, $kolombody++, $data['utang']);
+                    if ($last_followup) {
+                        xlsWriteLabel($tablebody, $kolombody++, $last_followup->tanggal);
+                        xlsWriteLabel($tablebody, $kolombody++, $last_followup->status);
+                    } else {
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                    }
+    
+                    $tablebody++;
+                    $nourut++;
                 }
-                
-                xlsWriteLabel($tablebody, $kolombody++, $utang);
-                if ($last_followup) {
-                    xlsWriteLabel($tablebody, $kolombody++, $last_followup->tanggal);
-                    xlsWriteLabel($tablebody, $kolombody++, $last_followup->status);
-                } else {
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                }
-
-                $tablebody++;
-                $nourut++;
             }
-        }
         }
         xlsEOF();
         exit();
     }
 
-    function tes()
-    {
-        echo '<pre>';
-        print_r($this->model->get_last_transaction(4));
-        echo '</pre>';
-    }
-    
     function warna($color, $value)
     {
         $result = "";
@@ -581,6 +453,7 @@ class Som extends CI_Controller{
 
 
     
->>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
 
 }
+
+/* End of file Tracking.php */

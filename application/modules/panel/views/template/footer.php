@@ -128,6 +128,7 @@
     <?php endif; ?>
     <?php if ($this->uri->segment(2) == 'penarikan'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_penarikan.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/laporan_penarikan_debt.js" charset="utf-8"></script>
     <?php endif; ?>
     <?php if ($this->uri->segment(1) == 'gtransaksi'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/gtransaksi.js" charset="utf-8"></script>

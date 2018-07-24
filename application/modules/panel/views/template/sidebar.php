@@ -114,6 +114,9 @@
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_harian">Pembayaran Harian</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_bulanan">Pembayaran Bulanan</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_tahunan">Pembayaran Tahunan</a></li>
+                        <li><a href="<?php echo base_url();?>lap_dep/penarikan/harian">Penarikan Harian</a></li>
+                        <li><a href="<?php echo base_url();?>lap_dep/penarikan/bulanan">Penarikan Bulanan</a></li>
+                        <li><a href="<?php echo base_url();?>lap_dep/penarikan/tahunan">Penarikan Tahunan</a></li>
                       </ul>
                     </li>
                   <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>

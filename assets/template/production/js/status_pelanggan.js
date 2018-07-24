@@ -95,7 +95,6 @@ $(btn_excel).click(function (e) {
     }
     
     window.location = base_url + 'status_pelanggan/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;
-<<<<<<< HEAD
 });
 
 
@@ -157,6 +156,3 @@ function TambahTitik(num)
    }
    return numArr.reverse().join('');
 }
-=======
-});
->>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
