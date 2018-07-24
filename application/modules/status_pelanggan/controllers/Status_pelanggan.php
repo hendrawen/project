@@ -104,15 +104,15 @@ class Status_pelanggan extends CI_Controller {
     }
 
     // excel
-    function download_excel($year, $kota, $kecamatan)
+    function download_excel($year, $kota, $kecamatan, $warna)
     {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
         $this->load->helper('exportexcel');
         $namaFile = "status_pelanggan.xls";
         $judul = "StatusPelanggan";
-        $tablehead = 5;
-        $tablebody = 6;
+        $tablehead = 6;
+        $tablebody = 7;
         $nourut = 1;
         $bulan = $this->model->get_month();
         //penulisan header
@@ -138,6 +138,9 @@ class Status_pelanggan extends CI_Controller {
         xlsWriteLabel(3, 0, "Kecamatan");
         xlsWriteLabel(3, 1, $kecamatan);
 
+        xlsWriteLabel(4, 0, "Warna");
+        xlsWriteLabel(4, 1, $warna);
+
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
         xlsWriteLabel($tablehead, $kolomhead++, "ID CUSTOMER");
@@ -155,57 +158,58 @@ class Status_pelanggan extends CI_Controller {
         xlsWriteLabel($tablehead, $kolomhead++, "STATUS");
         
         $tablebody++;
+
+        $this_month = date('n');
         $record = $this->model->get_laporan_excel($kota, $kecamatan);
         if ($record){
-            foreach ($record as $data) {
-                $kolombody = 0;
-                $utang = $this->model->laporan_pelanggan_utang($data->id_pelanggan, $year);
-                xlsWriteNumber($tablebody, $kolombody++, $nourut);
-                xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kota);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
-                xlsWriteLabel($tablebody, $kolombody++, $data->nama);
-                xlsWriteLabel($tablebody, $kolombody++, $utang);
-                $last_transaction = $this->model->get_last_transaction($data->id_pelanggan, $year);
-                $last_followup = $this->model->get_follow_up($data->id_pelanggan, $year);
-                if ($last_transaction) {
+            $temp = array();
+            if ($warna == "all") {
+                $temp = $this->cekidot($record, $this_month, $year);
+            } else {
+                $temp = $this->cekidotdot($record, $this_month, $year, $warna);
+            }
+            if ($temp) {
+                foreach ($temp as $data) {
+                    $kolombody = 0;
+                    xlsWriteNumber($tablebody, $kolombody++, $nourut);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['id_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama_pelanggan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['no_telp']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kota']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kecamatan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['kelurahan']);
+                    xlsWriteLabel($tablebody, $kolombody++, $data['nama']);
                     
-                    xlsWriteLabel($tablebody, $kolombody++, $last_transaction->tgl_transaksi);
-                    xlsWriteLabel($tablebody, $kolombody++, $last_transaction->nama_barang);
-                    xlsWriteNumber($tablebody, $kolombody++, $last_transaction->qty);
-                } else {
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteNumber($tablebody, $kolombody++, '-');
+                    $last_transaction = $this->model->get_last_transaction($data['id_pelanggan'], $year);
+                    $last_followup = $this->model->get_follow_up($data['id_pelanggan'], $year);
+                    if ($last_transaction) {
+                        
+                        xlsWriteLabel($tablebody, $kolombody++, $last_transaction->tgl_transaksi);
+                        xlsWriteLabel($tablebody, $kolombody++, $last_transaction->nama_barang);
+                        xlsWriteNumber($tablebody, $kolombody++, $last_transaction->qty);
+                    } else {
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                        xlsWriteNumber($tablebody, $kolombody++, '-');
+                    }
+                    xlsWriteLabel($tablebody, $kolombody++, $data['utang']);
+                    if ($last_followup) {
+                        xlsWriteLabel($tablebody, $kolombody++, $last_followup->tanggal);
+                        xlsWriteLabel($tablebody, $kolombody++, $last_followup->status);
+                    } else {
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                        xlsWriteLabel($tablebody, $kolombody++, '-');
+                    }
+    
+                    $tablebody++;
+                    $nourut++;
                 }
-                
-                $row[11] = angka($utang);
-                if ($last_followup) {
-                    xlsWriteLabel($tablebody, $kolombody++, $last_followup->tanggal);
-                    xlsWriteLabel($tablebody, $kolombody++, $last_followup->status);
-                } else {
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                    xlsWriteLabel($tablebody, $kolombody++, '-');
-                }
-
-                $tablebody++;
-                $nourut++;
             }
         }
         xlsEOF();
         exit();
     }
 
-    function tes()
-    {
-        echo '<pre>';
-        print_r($this->model->get_last_transaction(4));
-        echo '</pre>';
-    }
-    
     function warna($color, $value)
     {
         $result = "";
@@ -446,6 +450,7 @@ class Status_pelanggan extends CI_Controller {
         }
         return $temp;
     }
+
 
     
 

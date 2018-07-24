@@ -37,6 +37,7 @@
                       <li><a <?php echo ($aktif == 'debt')?'class="active"':"";?> href="<?php echo site_url('debt/pesan');?>"> Transaksi Penjuaan</a>
                       </li>
                       <li><a <?php echo ($aktif == 'debt')?'class="active"':"";?> href="<?php echo site_url('debt/pembayaran');?>">Transaksi Pembayaran</a>
+                      <li><a <?php echo ($aktif == 'debt')?'class="active"':"";?> href="<?php echo site_url('debt/penarikan');?>">Penarikan Aset</a>
                       </li>
                     </ul>
                   </li>

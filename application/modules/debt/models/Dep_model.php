@@ -59,14 +59,12 @@ class Dep_model extends CI_Model{
   public function getbydriver()
   {
     # code...
-    $condition = "curdate() = wp_jadwal.start";
     $this->db->order_by('id_pelanggan');
     $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.alamat, wp_pelanggan.lat, wp_pelanggan.long, wp_pelanggan.no_telp, wp_barang.nama_barang, wp_jadwal.qty, wp_jadwal.start, wp_jadwal.title, wp_jadwal.description');
     $this->db->from('wp_jadwal');
     $this->db->join('wp_pelanggan', 'wp_jadwal.wp_pelanggan_id = wp_pelanggan.id', 'inner');
     $this->db->join('wp_barang', 'wp_jadwal.wp_barang_id = wp_barang.id', 'inner');
     $this->db->where('wp_jadwal.wp_karyawan_id_karyawan', $this->session->identity);
-    $this->db->where($condition);
     return $this->db->get()->result();
   }
 

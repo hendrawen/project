@@ -46,7 +46,10 @@ $(document).ready(function() {
                 data.kota = $('#filter-kota').val();
                 data.kecamatan = $('#filter-kecamatan').val();
                 data.warna = $('#filter-warna').val();
+<<<<<<< HEAD
                 data.piutang = $('#filter-utang').val();
+=======
+>>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
             }
         },
 
@@ -95,6 +98,7 @@ $(btn_excel).click(function (e) {
     }
     
     window.location = base_url + 'som/status_pelanggan/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;
+<<<<<<< HEAD
 });
 
 function FormatCurrency(objNum)
@@ -155,3 +159,6 @@ function TambahTitik(num)
    }
    return numArr.reverse().join('');
 }
+=======
+});
+>>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146

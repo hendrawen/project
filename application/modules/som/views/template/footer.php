@@ -155,12 +155,12 @@
 
     <?php if ($this->uri->segment(2) == 'status_pelanggan'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/som/status_pelanggan.js" charset="utf-8"></script>
-      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(1) == 'tracking_aset'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/tracking_aset.js" charset="utf-8"></script>
-      <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/tracking_aset.js" charset="utf-8"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
     <?php endif; ?>
 
 

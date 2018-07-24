@@ -31,6 +31,7 @@
             $this->load->view('dashboard', $data);
         }
 
+<<<<<<< HEAD
     function jadwal_all()
     {
     $data = $this->jadwal->get_all();
@@ -98,6 +99,8 @@
         echo $pesan;
     }
 
+=======
+>>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
         public function create()
         {
             $data = array(
@@ -239,7 +242,11 @@
         	$this->form_validation->set_rules('qty', 'qty', 'trim|required');
             $this->form_validation->set_rules('start', 'start', 'trim|required');
         	$this->form_validation->set_rules('end', 'end', 'trim|required');
+<<<<<<< HEAD
         	$this->form_validation->set_rusles('title', 'Judul', 'trim');
+=======
+        	$this->form_validation->set_rules('title', 'Judul', 'trim');
+>>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
             $this->form_validation->set_rules('color', 'Color', 'trim');
             $this->form_validation->set_rules('description', 'Deskripsi', 'trim');
             $this->form_validation->set_rules('wp_pelanggan_id', 'Nama Pelanggan', 'trim');

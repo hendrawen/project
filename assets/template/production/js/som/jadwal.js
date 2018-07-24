@@ -1,8 +1,9 @@
 $(function(){
-    get_all_jadwal();
+
     var currentDate; // Holds the day clicked when adding a new event
     var currentEvent; // Holds the event object when editing an event
 
+<<<<<<< HEAD
     function get_all_jadwal() {
         $("#loading").show();
         $.ajax({
@@ -41,6 +42,9 @@ $(function(){
         get_all_jadwal();
       });
 
+=======
+   
+>>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
     // Fullcalendar
     $('#calendar').fullCalendar({
         header: {
