@@ -31,6 +31,73 @@
             $this->load->view('dashboard', $data);
         }
 
+    function jadwal_all()
+    {
+    $data = $this->jadwal->get_all();
+    $pesan = "";
+    $no = 1;
+    $total = 0;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_jadwal.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.$row->start.'</td>
+          <td>'.$row->username.'</td>
+          <td>'.$row->title.'</td>
+          <td>'.$row->color.'</td>
+          <td>'.$row->description.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.anchor('som/jadwal2/update/'.$row->id, 'Edit', 'class="btn btn-primary btn-sm"').' || 
+              '.anchor('som/jadwal2/delete/'.$row->id, 'Delete', 'class="btn btn-danger btn-sm"').'
+          </td>
+        </tr>';
+        } 
+    } else {
+        $pesan .= '<tr>
+            <td colspan=11>Record not found</td>
+        </tr>';
+        }
+        echo $pesan;
+    }
+
+    function load_jadwal_harian()
+    {
+    $day = $this->input->post('tgl');
+    $data = $this->jadwal->load_jadwal_harian($day);
+    $pesan = "";
+    $no = 1;
+    $total = 0;
+    if ($data) {
+      foreach ($data as $row) {
+        $pesan .= '<tr>
+          <td>'.$no++.'</td>
+          <td>'.$row->id_jadwal.'</td>
+          <td>'.$row->nama_barang.'</td>
+          <td>'.$row->qty.'</td>
+          <td>'.tgl_indo($row->start).'</td>
+          <td>'.$row->username.'</td>
+          <td>'.$row->title.'</td>
+          <td>'.$row->color.'</td>
+          <td>'.$row->description.'</td>
+          <td>'.$row->nama_pelanggan.'</td>
+          <td>'.$row->nama.'</td>
+          <td>'.anchor('som/jadwal2/update/'.$row->id, 'Edit', 'class="btn btn-primary btn-sm"').' || 
+              '.anchor('som/jadwal2/delete/'.$row->id, 'Delete', 'class="btn btn-danger btn-sm"').'
+          </td>
+        </tr>';
+        } 
+    } else {
+        $pesan .= '<tr>
+            <td colspan=11>Record not found</td>
+        </tr>';
+        }
+        echo $pesan;
+    }
+
         public function create()
         {
             $data = array(

@@ -1,9 +1,46 @@
 $(function(){
-
+    get_all_jadwal();
     var currentDate; // Holds the day clicked when adding a new event
     var currentEvent; // Holds the event object when editing an event
 
-   
+    function get_all_jadwal() {
+        $("#loading").show();
+        $.ajax({
+          url: base_url+'som/jadwal2/jadwal_all/',
+          type: 'POST',
+          dataType: 'html',
+          success : function (data) {
+            $("#loading").hide();
+            $("#tbody-jadwal").html(data);
+          }
+        })
+      }
+    
+      $("#btn-jadwal-harian").click(function() {
+        tgl = $("#tgl").val();
+        $("#loading").show();
+        $.ajaxSetup({
+            data: {
+                csrf_test_name: $.cookie('csrf_cookie_name')
+            }
+        });
+        $.ajax({
+          url: base_url+'som/jadwal2/load_jadwal_harian/',
+          type: 'POST',
+          dataType: 'html',
+          data: {tgl: tgl},
+          success : function (data) {
+            $("#loading").hide();
+            $("#tbody-jadwal").html(data);
+    
+          }
+        })
+      });
+
+      $("#btn-refresh-jadwal").click(function() {
+        get_all_jadwal();
+      });
+
     // Fullcalendar
     $('#calendar').fullCalendar({
         header: {

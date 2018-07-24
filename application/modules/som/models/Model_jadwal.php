@@ -13,7 +13,7 @@ class Model_jadwal extends CI_Model {
         
     }
 
-    function get_all()
+   function get_all()
     {
         $this->db->select('wp_jadwal.*, wp_barang.id_barang, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_karyawan.nama');
         $this->db->join('wp_barang', 'wp_barang.id = wp_jadwal.wp_barang_id', 'inner');
@@ -21,6 +21,19 @@ class Model_jadwal extends CI_Model {
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_jadwal.wp_karyawan_id_karyawan', 'inner');
         $this->db->order_by('wp_jadwal.id', 'desc');
         return $this->db->get('wp_jadwal')->result();                               
+    }
+
+    function load_jadwal_harian($day)
+    {
+        $this->db->select('wp_jadwal.*, wp_barang.id_barang, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan, wp_karyawan.nama');
+        $this->db->join('wp_barang', 'wp_barang.id = wp_jadwal.wp_barang_id', 'inner');
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_jadwal.wp_pelanggan_id', 'inner');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_jadwal.wp_karyawan_id_karyawan', 'inner');
+        if ($day != 'semua') {
+            $this->db->where('DATE(wp_jadwal.start)', $day);
+            }
+        $this->db->order_by('wp_jadwal.id', 'desc');
+        return $this->db->get('wp_jadwal')->result(); 
     }
 
     // get data by id
