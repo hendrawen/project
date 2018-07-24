@@ -30,7 +30,7 @@ $(document).ready(function() {
         ],
     });
 
-
+   
     //datepicker
     $('.datepicker').datepicker({
         autoclose: true,
@@ -44,11 +44,17 @@ $(document).ready(function() {
     //set input/textarea/select event when change value, remove class error and remove text help block
     remove_parent();
     saldo();
+    isi_karyawan();
+    isi_kantor();
+    isi_kategori();
 
 });
 
 function reload() {
     $('#table-kas').DataTable().ajax.reload();//reload datatable ajax
+    isi_karyawan();
+    isi_kantor();
+    isi_kategori();
 }
 
 $('#btn-reload').click(function(){ //button reset event click
@@ -78,9 +84,9 @@ function remove_parent() {
 function tambah()
 {
     remove_parent();
-    isi_karyawan();
-    isi_kantor();
-    isi_kategori();
+    // isi_karyawan();
+    // isi_kantor();
+    // isi_kategori();
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
@@ -94,9 +100,9 @@ function tambah()
 function ubah(id)
 {
     remove_parent();
-    isi_karyawan();
-    isi_kantor();
-    isi_kategori();
+    // isi_karyawan();
+    // isi_kantor();
+    // isi_kategori();
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
