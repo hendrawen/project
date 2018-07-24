@@ -165,7 +165,12 @@
       <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <?php endif; ?>
 
-
+    <?php if ($this->uri->segment(2) == 'sudavalidator'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/sudavalidator/sudavalidator.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'validator'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/sudavalidator/kpivalidator.js"></script>
+    <?php endif; ?>
     
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>

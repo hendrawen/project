@@ -141,7 +141,10 @@
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/sumberdata">Sumber Data Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/sudavalidator">Sumber Data Validator</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/effectivecall">Activity Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/validator">Activity Validator</a></li>
+
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/debt">Debt & Delivery</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kpi/marketing">Marketing</a></li>
                     </ul>
