@@ -6,7 +6,7 @@ class Kas_model extends CI_Model {
     var $table = 'wp_kas';
     var $column_order = array(null, 'wp_kas.tanggal','wp_gudang.nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori_kas.nama as nama_kategori','wp_kas.pendapatan','wp_kas.pengeluaran'); //set column field database for datatable orderable
     var $column_search = array('wp_kas.tanggal','nama_gudang','wp_kas.username','wp_karyawan.nama','wp_kategori_kas.nama as nama_kategori','pendapatan','pengeluaran'); //set column field database for datatable searchable
-    var $order = array('id' => 'asc'); // default order
+    var $order = array('wp_kas.id_kas' => 'asc'); // default order
 
     public function __construct()
     {
@@ -14,57 +14,44 @@ class Kas_model extends CI_Model {
         $this->load->database();
     }
 
-    function laporan_kas_harian($day, $id_kantor)
-    {
-      $this->db->select('*');
-      $this->db->from('wp_kas');
-      $this->db->where('wp_kas.tanggal', $day);
-      $this->db->where('wp_kas.id_kantor', $id_kantor);
-      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
-      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
-      $this->db->join('wp_kategori_kas', 'wp_kategori.id = wp_kas.id_kategori');
-      $this->db->order_by('wp_kas.id_kas', 'DESC');
-      $data = $this->db->get();
-      return $data->result();
-    }
-
-    function laporan_kas_bulanan($from, $to, $year, $id_kantor)
-    {
-      $this->db->select('*');
-      $this->db->from('wp_kas');
-      $this->db->where('month(wp_kas.tanggal) >=', $from);
-      $this->db->where('month(wp_kas.tanggal) <=', $to);
-      $this->db->where('year(wp_kas.tanggal)', $year);
-      $this->db->where('wp_kas.id_kantor', $id_kantor);
-      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
-      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
-      $this->db->join('wp_kategori_kas', 'wp_kategori.id_kategori = wp_kas.id_kategori');
-      $this->db->order_by('wp_kas.id_kas', 'DESC');
-      $data = $this->db->get();
-      return $data->result();
-    }
-
-    function laporan_kas_tahunan($year, $id_kantor)
-    {
-      $this->db->select('*');
-      $this->db->from('wp_kas');
-      $this->db->where('year(wp_kas.tanggal)', $year);
-      $this->db->where('wp_kas.id_kantor', $id_kantor);
-      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
-      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
-      $this->db->join('wp_kategori_kas', 'wp_kategori.id_kategori = wp_kas.id_kategori');
-      $this->db->order_by('wp_kas.id_kas', 'DESC');
-      $data = $this->db->get();
-      return $data->result();
-    }
-
     private function _get_datatables_query()
     {
+        $hari = $this->input->post('hari');
+        $bulan1 = $this->input->post('bulan1');
+        $bulan2 = $this->input->post('bulan2');
+        $tahun = $this->input->post('tahun');
+        $kantor = $this->input->post('kantor');
+        
+        if ($this->input->post('hari')) {
+            $this->db->where('date(wp_kas.tanggal)', $this->input->post('hari'));
+        }
 
-        $this->db->from($this->table);
+        if ($bulan1 && !$bulan2) {
+            $this->db->where('month(wp_kas.tanggal)', $bulan1);
+        }
+
+        if ($bulan2 && !$bulan1) {
+            $this->db->where('month(wp_kas.tanggal)', $bulan2);
+        }
+
+        if ($bulan1 && $bulan2) {
+            $this->db->where('month(wp_kas.tanggal) >=', $bulan1);
+            $this->db->where('month(wp_kas.tanggal) <=', $bulan2);
+        }
+
+        if ($tahun) {
+            $this->db->where('year(wp_kas.tanggal)', $tahun);
+        }
+
+        if ($kantor) {
+            $this->db->where('wp_gudang.id', $kantor);
+        }
+        
+        $this->db->select('wp_kas.*, wp_karyawan.nama, wp_kategori_kas.nama as nama_kategori, wp_gudang.nama_gudang');
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor', 'inner');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan', 'inner');
         $this->db->join('wp_kategori_kas', 'wp_kategori_kas.id = wp_kas.id_kategori', 'inner');
+        $this->db->from($this->table);
 
         $i = 0;
 
@@ -72,7 +59,6 @@ class Kas_model extends CI_Model {
         {
             if($_POST['search']['value']) // if datatable send POST for search
             {
-
                 if($i===0) // first loop
                 {
                     $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
@@ -82,7 +68,6 @@ class Kas_model extends CI_Model {
                 {
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
-
                 if(count($this->column_search) - 1 == $i) //last loop
                     $this->db->group_end(); //close bracket
             }
@@ -205,3 +190,49 @@ class Kas_model extends CI_Model {
 }
 
 /* End of file Kas_model.php */
+
+/*
+function laporan_kas_harian($day, $id_kantor)
+    {
+        $this->db->select('*');
+        $this->db->from('wp_kas');
+        $this->db->where('wp_kas.tanggal', $day);
+        $this->db->where('wp_kas.id_kantor', $id_kantor);
+        $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
+        $this->db->join('wp_kategori_kas', 'wp_kategori.id = wp_kas.id_kategori');
+        $this->db->order_by($this->order);
+        $data = $this->db->get();
+        return $data->result();
+    }
+
+    function laporan_kas_bulanan($from, $to, $year, $id_kantor)
+    {
+      $this->db->select('*');
+      $this->db->from('wp_kas');
+      $this->db->where('month(wp_kas.tanggal) >=', $from);
+      $this->db->where('month(wp_kas.tanggal) <=', $to);
+      $this->db->where('year(wp_kas.tanggal)', $year);
+      $this->db->where('wp_kas.id_kantor', $id_kantor);
+      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
+      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
+      $this->db->join('wp_kategori_kas', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->order_by($this->order);
+      $data = $this->db->get();
+      return $data->result();
+    }
+
+    function laporan_kas_tahunan($year, $id_kantor)
+    {
+      $this->db->select('*');
+      $this->db->from('wp_kas');
+      $this->db->where('year(wp_kas.tanggal)', $year);
+      $this->db->where('wp_kas.id_kantor', $id_kantor);
+      $this->db->join('wp_gudang', 'wp_gudang.id = wp_kas.id_kantor');
+      $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_kas.id_karyawan');
+      $this->db->join('wp_kategori_kas', 'wp_kategori.id_kategori = wp_kas.id_kategori');
+      $this->db->order_by($this->order);
+      $data = $this->db->get();
+      return $data->result();
+    }
+*/

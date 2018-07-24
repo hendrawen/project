@@ -11,7 +11,14 @@ $(document).ready(function() {
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": base_url + "kas/ajax_list",
-            "type": "POST"
+            "type": "POST",
+            "data": function ( data ) {
+                data.hari = $('#filter-hari').val();
+                data.bulan1 = $('#filter-bulan1').val();
+                data.bulan2 = $('#filter-bulan2').val();
+                data.tahun = $('#filter-tahun').val();
+                data.kantor = $('#filter-kantor').val();
+            }
         },
 
         //Set column definition initialisation properties.
@@ -22,6 +29,7 @@ $(document).ready(function() {
         },
         ],
     });
+
 
     //datepicker
     $('.datepicker').datepicker({
@@ -37,22 +45,19 @@ $(document).ready(function() {
     remove_parent();
     saldo();
 
-      $('#filter-by').change(function(){
-        if($(this).val() == 'hari'){
-          $('#filter-harian').show()
-          $('#filter-bulanan').hide()
-          $('#filter-tahunan').hide()
-        }else if ($(this).val() == 'bulan') {
-          $('#filter-harian').hide()
-          $('#filter-bulanan').show()
-          $('#filter-tahunan').hide()
-        }else if ($(this).val() == 'tahun') {
-          $('#filter-harian').hide()
-          $('#filter-bulanan').hide()
-          $('#filter-tahunan').show()
-        }
-      })
+});
 
+function reload() {
+    $('#table-kas').DataTable().ajax.reload();//reload datatable ajax
+}
+
+$('#btn-reload').click(function(){ //button reset event click
+    $('#form-filter')[0].reset();
+    reload_table();//reload datatable ajax
+});
+
+$('#btn-search').click(function(){ //button filter event click
+    reload_table();//reload datatable ajax   //just reload table
 });
 
 function remove_parent() {
