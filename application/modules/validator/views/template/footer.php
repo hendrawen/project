@@ -130,11 +130,11 @@
     <?php if ($this->uri->segment(1) == 'gtransaksi'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/gtransaksi.js" charset="utf-8"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'sumberdata'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/validator/sumberdata.js" charset="utf-8"></script>
+    <?php if ($this->uri->segment(2) == 'activity'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/validator/kpivalidator.js" charset="utf-8"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'effectivecall'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/validator/kpieffectifecall.js" charset="utf-8"></script>
+    <?php if ($this->uri->segment(2) == 'sumberdata'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/validator/sudavalidator.js" charset="utf-8"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(1) == 'harian'): ?>

@@ -126,27 +126,6 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                             <label>Keterangan</label>
                             <textarea name="keterangan" class="form-control"><?php echo $keterangan; ?></textarea>
                           </div>
-                          <div class="form-group">
-                            <label>Surveyor</label> <span class="required">*</span>
-                            <select name="wp_karyawan_id_karyawan" id="wp_karyawan_id_karyawan" class="form-control" required="required">
-                            <option value="" disabled selected>--Pilih Surveyor--</option>
-
-                                <?php
-                                  $users = $this->db->query("SELECT wp_karyawan.id_karyawan, wp_karyawan.nama FROM wp_karyawan INNER JOIN wp_jabatan where 
-                                  wp_karyawan.wp_jabatan_id = wp_jabatan.id AND
-                                  wp_jabatan.nama_jabatan='Marketing'");
-                                  foreach($users->result() as $value){
-                                  $selected= '';
-                                  if($wp_karyawan_id_karyawan == $value->id_karyawan){
-                                    $selected = 'selected="selected"';
-                                  }
-                                  ?>
-                                  <option  value="<?php echo $value->id_karyawan; ?>"  <?php echo $selected;?> >
-                                  <?php echo $value->id_karyawan; ?> - <?php echo $value->nama; ?>
-                                  </option>
-                                  <?php }?>
-                                    </select>
-                          </div>
                           <input type="hidden" value="<?php echo $id; ?>" name="id"/>
                           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                           <div class="text-right">

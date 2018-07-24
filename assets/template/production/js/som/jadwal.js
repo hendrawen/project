@@ -6,7 +6,7 @@ $(function(){
     function get_all_jadwal() {
         $("#loading").show();
         $.ajax({
-          url: base_url+'som/jadwal2/jadwal_all/',
+          url: base_url+'som/jadwal/jadwal_all/',
           type: 'POST',
           dataType: 'html',
           success : function (data) {
@@ -25,7 +25,7 @@ $(function(){
             }
         });
         $.ajax({
-          url: base_url+'som/jadwal2/load_jadwal_harian/',
+          url: base_url+'som/jadwal/load_jadwal_harian/',
           type: 'POST',
           dataType: 'html',
           data: {tgl: tgl},

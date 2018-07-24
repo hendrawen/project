@@ -33,8 +33,8 @@
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>validator/pelanggan"><i class="fa fa-user"></i> Data Pelanggan</a></li>
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>validator/sumberdata">Sumber Data Effectif Call</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>validator/effectivecall">Activity Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>validator/sumberdata">Sumber Data</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>validator/activity">Activity</a></li>
                     </ul>
                   </li>
                 </ul>

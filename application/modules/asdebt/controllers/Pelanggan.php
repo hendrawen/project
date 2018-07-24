@@ -175,7 +175,6 @@ class Pelanggan extends CI_Controller{
             		'long' => set_value('long', $row->long),
             		'keterangan' => set_value('keterangan', $row->keterangan),
             		'status' => set_value('status', $row->status),
-            		'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
 	          );
             $data['aktif']			='Pelanggan';
         		$data['title']			='Edit Data Pelanggan';
@@ -230,7 +229,6 @@ class Pelanggan extends CI_Controller{
                       'long' => $this->input->post('long', true),
                       'keterangan' => $this->input->post('keterangan', true),
                       'status' => $this->input->post('status', true),
-                      'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
                       'updated_at' => date('Y-m-d H:i:s'),
                       'username' => $this->session->identity,
                     );
@@ -252,7 +250,6 @@ class Pelanggan extends CI_Controller{
                       'long' => $this->input->post('long', true),
                       'keterangan' => $this->input->post('keterangan', true),
                       'status' => $this->input->post('status', true),
-                      'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan', true),
                       'updated_at' => date('Y-m-d H:i:s'),
                     );
             }
@@ -274,7 +271,6 @@ class Pelanggan extends CI_Controller{
     	$this->form_validation->set_rules('kelurahan', 'kelurahan', 'trim|required');
     	$this->form_validation->set_rules('kecamatan', 'kecamatan', 'trim|required');
     	$this->form_validation->set_rules('status', 'status', 'trim|required');
-    	$this->form_validation->set_rules('wp_karyawan_id_karyawan', 'wp karyawan id karyawan', 'trim|required');
 
     	$this->form_validation->set_rules('id', 'id', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

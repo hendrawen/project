@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Effective_model extends CI_Model {
+class Activity_model extends CI_Model {
 
     
     function __construct()
@@ -16,7 +16,7 @@ class Effective_model extends CI_Model {
         # code...
         return $this->db->get('wp_barang')->result();
     }
-    
+
     function count($status, $sumber, $tgl)
     {
         # code...
@@ -97,18 +97,20 @@ class Effective_model extends CI_Model {
             return $result->jumlah;
         } else {
             return 0;
-        }   
+        }
     }
 
-    function get_karyawan()
+
+    function get_karyawan_validator()
     {
         # code...
         $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
         $this->db->from('wp_karyawan');
         $this->db->join('wp_jabatan', 'wp_karyawan.wp_jabatan_id = wp_jabatan.id', 'inner');
-        $this->db->where('wp_jabatan.nama_jabatan', 'Effectife Call'); 
+        $this->db->where('wp_jabatan.nama_jabatan', 'Validator');
         return $this->db->get()->result();
     }
+
 
     //start sumber data
 
@@ -123,10 +125,10 @@ class Effective_model extends CI_Model {
             return $result->jumlah;
         } else {
             return 0;
-        }     
+        }
     }
 
-    function get_act($tgl, $sumber)
+    function get_act($tgl, $sumber, $nama)
     {
         # code...
         $this->db->select('count(*) as jumlah');
@@ -134,7 +136,7 @@ class Effective_model extends CI_Model {
         $this->db->where('tanggal', $tgl);
         if ($sumber !== 'semua') {
             # code...
-            $this->db->where('sumber_data', $sumber);            
+            $this->db->where('by_status', $sumber);
         }
         $this->db->where('username', $this->session->identity);
         $result =  $this->db->get()->row();
@@ -143,7 +145,7 @@ class Effective_model extends CI_Model {
         } else {
             return 0;
         }
-    }    
+    }  
 
 }
 

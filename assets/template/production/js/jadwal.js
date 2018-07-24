@@ -1,10 +1,45 @@
 $(function(){
-
+    get_all_jadwal();
     var currentDate; // Holds the day clicked when adding a new event
     var currentEvent; // Holds the event object when editing an event
 
-    // $('#color').colorpicker(); // Colopicker
+    function get_all_jadwal() {
+        $("#loading").show();
+        $.ajax({
+          url: base_url+'jadwal/jadwal_all/',
+          type: 'POST',
+          dataType: 'html',
+          success : function (data) {
+            $("#loading").hide();
+            $("#tbody-jadwal").html(data);
+          }
+        })
+      }
+    
+      $("#btn-jadwal-harian").click(function() {
+        tgl = $("#tgl").val();
+        $("#loading").show();
+        $.ajaxSetup({
+            data: {
+                csrf_test_name: $.cookie('csrf_cookie_name')
+            }
+        });
+        $.ajax({
+          url: base_url+'jadwal/load_jadwal_harian/',
+          type: 'POST',
+          dataType: 'html',
+          data: {tgl: tgl},
+          success : function (data) {
+            $("#loading").hide();
+            $("#tbody-jadwal").html(data);
+    
+          }
+        })
+      });
 
+      $("#btn-refresh-jadwal").click(function() {
+        get_all_jadwal();
+      });
 
     // Fullcalendar
     $('#calendar').fullCalendar({
@@ -136,6 +171,7 @@ $(function(){
 
     // Prepares the modal window according to data passed
     function modal(data) {
+        $('#wp_pelanggan_id').select2();
         // Set modal title
         $('.modal-title').html(data.title);
         // Clear buttons except Cancel
@@ -210,7 +246,7 @@ $(function(){
             });
         }
     });
-
+    
 
 
     // Handle Click on Delete Button

@@ -51,7 +51,6 @@ class Model_pelanggan extends CI_Model{
         {
             $this->db->like('year(created_at)', $this->input->post('tahun'));
         }
-        $this->db->where('wp_pelanggan.username', $this->session->identity);
         $this->db->from($this->table);
         $i = 0;
 

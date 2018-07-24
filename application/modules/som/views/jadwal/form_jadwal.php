@@ -101,7 +101,7 @@
               <input type="hidden" name="id" value="<?php echo $id; ?>" />
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                           <div class="text-left">
-                            <a href="<?php echo base_url('som/jadwal2')?>" type="button" class="btn btn-default" >Kembali</a>
+                            <a href="<?php echo base_url('som/jadwal')?>" type="button" class="btn btn-default" >Kembali</a>
                             <button type="submit" class="btn btn-success"><?php echo $button ?></button>
                           </div>
             </form>

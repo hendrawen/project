@@ -16,6 +16,7 @@ class Model extends CI_Model {
     private function _get_datatables_query()
     {
         $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_pelanggan.no_telp, wp_pelanggan.kota, wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, wp_karyawan.nama, wp_status_effectif.status');
+        $this->db->DISTINCT();
         if($this->input->post('kota'))
         {
             $this->db->where('kota', $this->input->post('kota'));
@@ -24,9 +25,15 @@ class Model extends CI_Model {
         {
             $this->db->where('kecamatan', $this->input->post('kecamatan'));
         }
+        $piutang = $this->input->post('piutang');
+        if ($piutang != 'semua') {
+            $this->db->where('(v_detail.utang- v_detail.bayar) >', 0);
+        }
         $this->db->join('wp_list_effectif', 'wp_pelanggan_id = wp_pelanggan.id', 'left');
         $this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id', 'left');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
+        $this->db->join('v_detail', 'v_detail.id_pelanggan = wp_pelanggan.id_pelanggan', 'left');
+        
         $this->db->where('wp_pelanggan.status', 'Pelanggan');
         
         $this->db->from($this->table);
@@ -159,7 +166,6 @@ class Model extends CI_Model {
         if ($tahun != 'semua') {
             $this->db->where('YEAR(wp_transaksi.tgl_transaksi)', $tahun);
         }
-
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
         $data = $this->db->get('wp_transaksi')->num_rows();
         if ($data == 0) {
