@@ -241,10 +241,6 @@ class Lap_pembayaran extends CI_Controller {
     function pembayaran_tahunan()
     {
         # code...
-        $cek = get_permission('Pembayaran Tahunan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $data = array(
             'aktif'			=>'laporan',
             'title'			=>'Brajamarketindo',

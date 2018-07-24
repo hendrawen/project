@@ -1,9 +1,8 @@
 $(function(){
-
+    get_all_jadwal();
     var currentDate; // Holds the day clicked when adding a new event
     var currentEvent; // Holds the event object when editing an event
 
-<<<<<<< HEAD
     function get_all_jadwal() {
         $("#loading").show();
         $.ajax({
@@ -42,9 +41,6 @@ $(function(){
         get_all_jadwal();
       });
 
-=======
-   
->>>>>>> fdc9eb20e0a312146ae7ff12ec69dd517f035146
     // Fullcalendar
     $('#calendar').fullCalendar({
         header: {
@@ -54,7 +50,7 @@ $(function(){
         },
         // Get all events stored in database
         eventLimit: true, // allow "more" link when too many events
-        events: (base_url+'som/jadwal/getEvents'),
+        events: (base_url+'jadwal/getEvents'),
         selectable: true,
         selectHelper: true,
         editable: true, // Make the event resizable true
@@ -89,7 +85,7 @@ $(function(){
                         csrf_test_name: $.cookie('csrf_cookie_name')
                     }
                 });
-               $.post(base_url+'som/jadwal/dragUpdateEvent',{
+               $.post(base_url+'jadwal/dragUpdateEvent',{
                 id:event.id,
                 start : start,
                 end :end
@@ -116,7 +112,7 @@ $(function(){
                         csrf_test_name: $.cookie('csrf_cookie_name')
                     }
                 });
-               $.post(base_url+'som/jadwal/dragUpdateEvent',{
+               $.post(base_url+'jadwal/dragUpdateEvent',{
                 id:event.id,
                 start : start,
                 end :end
@@ -204,7 +200,7 @@ $(function(){
                     csrf_test_name: $.cookie('csrf_cookie_name')
                 }
             });
-            $.post(base_url+'som/jadwal/addEvent', {
+            $.post(base_url+'jadwal/addEvent', {
                 title: $('#title').val(),
                 description: $('#description').val(),
                 wp_pelanggan_id: $('#wp_pelanggan_id').val(),
@@ -232,7 +228,7 @@ $(function(){
                     csrf_test_name: $.cookie('csrf_cookie_name')
                 }
             });
-            $.post(base_url+'som/jadwal/updateEvent', {
+            $.post(base_url+'jadwal/updateEvent', {
                 id: currentEvent._id,
                 title: $('#title').val(),
                 description: $('#description').val(),
@@ -260,7 +256,7 @@ $(function(){
                 csrf_test_name: $.cookie('csrf_cookie_name')
             }
         });
-        $.get(base_url+'som/jadwal/deleteEvent?id=' + currentEvent._id, function(result){
+        $.get(base_url+'jadwal/deleteEvent?id=' + currentEvent._id, function(result){
             $('.alert').addClass('alert-success').text('Event deleted successfully !');
             $('.modal').modal('hide');
             $('#calendar').fullCalendar("refetchEvents");

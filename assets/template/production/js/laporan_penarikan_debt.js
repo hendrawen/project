@@ -18,6 +18,7 @@ $(document).ready(function () {
     
     $("#btn-penarikan-tahunan").click(function() {
       tahun = $("#tahunan").val();
+      debt = $("#debt").val();
       $("#loading").show();
       $.ajaxSetup({
           data: {
@@ -28,7 +29,7 @@ $(document).ready(function () {
         url: base_url+'lap_dep/penarikan/load_penarikan_tahunan/',
         type: 'POST',
         dataType: 'html',
-        data: {tahun: tahun},
+        data: {tahun: tahun, debt:debt},
         success : function (data) {
           $("#loading").hide();
           $("#tbody-penarikan-debt").html(data);
@@ -66,6 +67,7 @@ $("#btn-search_bulan_aset").click(function() {
     bulan_dari = $("#bulan_dari").val();
     bulan_ke = $("#bulan_ke").val();
     tahun = $("#tahun").val();
+    debt = $("#debt").val();
     $("#loading").show();
     $.ajaxSetup({
         data: {
@@ -76,7 +78,7 @@ $("#btn-search_bulan_aset").click(function() {
       url: base_url+'lap_dep/penarikan/load_penarikan_bulanan/',
       type: 'POST',
       dataType: 'html',
-      data: {from : bulan_dari, to : bulan_ke, tahun : tahun},
+      data: {from : bulan_dari, to : bulan_ke, tahun : tahun, debt:debt},
       success : function (data) {
         $("#loading").hide();
         $("#tbody-penarikan-debt").html(data);

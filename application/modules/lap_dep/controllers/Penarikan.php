@@ -106,7 +106,8 @@ class Penarikan extends CI_Controller {
         $from = $this->input->post('from');
         $to = $this->input->post('to');
         $tahun = $this->input->post('tahun');
-        $data = $this->laporan->penarikan_bulanan($from, $to, $tahun);
+        $debt = $this->input->post('debt');
+        $data = $this->laporan->penarikan_bulanan($debt, $from, $to, $tahun);
         $pesan = "";
         $total = 0;
         if ($data) {
@@ -167,7 +168,8 @@ class Penarikan extends CI_Controller {
     function load_penarikan_tahunan()
     {
         $tahun = $this->input->post('tahun');
-        $data = $this->laporan->penarikan_tahunan($tahun);
+        $debt = $this->input->post('debt');
+        $data = $this->laporan->penarikan_tahunan($debt, $tahun);
         $pesan = "";
         $total = 0;
         if ($data) {
