@@ -74,6 +74,7 @@
       <div class="col-md-4 col-sm-4 col-xs-12">
         <button type="button" class="btn btn-success" id="btn-debtbulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
         <button type="button" id="excel_debtbulan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+        <button type="button" class="btn btn-warning" id="btn-refresh-pembayaran"> <i class="fa fa-refresh"> Reload</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
       </div>
     </div>
     <div class="table-responsive">

@@ -65,7 +65,7 @@ class Lap_dep extends CI_Controller{
           <td>'.$row->kelurahan.'</td>
           <td>'.$row->no_telp.'</td>
           <td>'.$row->nama_karyawan.'</td>
-          <td>'.$row->username.'</td>
+          <td>'.$row->nama_debt.'</td>
           <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -126,7 +126,7 @@ class Lap_dep extends CI_Controller{
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -184,7 +184,7 @@ class Lap_dep extends CI_Controller{
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
