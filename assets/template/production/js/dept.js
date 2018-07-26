@@ -31,7 +31,7 @@ $(document).ready(function() {
         }
     });
     $.ajax({
-      url: base_url+'som/lap_dep/load_harian/',
+      url: base_url+'lap_dep/load_harian/',
       type: 'POST',
       dataType: 'html',
       data: {tgl: tgl, nama : nama, berdasarkan : berdasarkan},
@@ -55,7 +55,7 @@ $(document).ready(function() {
         }
     });
     $.ajax({
-      url: base_url+'som/lap_dep/load_bulanan/',
+      url: base_url+'lap_dep/load_bulanan/',
       type: 'POST',
       dataType: 'html',
       data: {from : bulan_dari, to : bulan_ke, tahun : tahun, nama : nama, berdasarkan : berdasarkan},
@@ -77,7 +77,7 @@ $(document).ready(function() {
         }
     });
     $.ajax({
-      url: base_url+'som/lap_dep/load_tahunan/',
+      url: base_url+'lap_dep/load_tahunan/',
       type: 'POST',
       dataType: 'html',
       data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},

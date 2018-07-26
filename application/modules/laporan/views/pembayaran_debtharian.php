@@ -48,7 +48,7 @@
       <div class="col-md-3 col-sm-6 col-xs-12 text-right">
         <button type="button" class="btn btn-success" id="debtharian"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
         <button type="button" id="excel_debt_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" class="btn btn-warning" id="btn-refrespembayaran"> <i class="fa fa-refresh"> Reload</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
+        <button type="button" class="btn btn-warning" id="btn-refresh-pembayaran"> <i class="fa fa-refresh"> Reload</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
       </div>
     </div>
     <div class="table-responsive">

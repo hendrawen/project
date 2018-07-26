@@ -45,8 +45,8 @@ $(document).ready(function() {
     });
 
     $("#btn-debtbulan").click(function() {
-      bulan_dari = $("#bulan_dari").val();
-      bulan_ke = $("#bulan_ke").val();
+      from = $("#bulan_dari").val();
+      to = $("#bulan_ke").val();
       tahun = $("#tahun").val();
       berdasarkan = $("#berdasarkan-dept").val();
       nama = $("#nama-dept").val();
@@ -60,12 +60,34 @@ $(document).ready(function() {
         url: base_url+'laporan/pembayaran/load_debt_bulanan/',
         type: 'POST',
         dataType: 'html',
-        data: {from : bulan_dari, to : bulan_ke, tahun : tahun, nama : nama, berdasarkan : berdasarkan},
+        data: {from : from, to : to, tahun : tahun, nama : nama, berdasarkan : berdasarkan},
         success : function (data) {
           $("#loading").hide();
           $("#tbody").html(data);
         }
       })
+    });
+
+    $("#btn-debttahunan").click(function() {
+      tahun = $("#tahunan").val();
+      berdasarkan = $("#berdasarkan-dept").val();
+      nama = $("#nama-dept").val();
+      $("#loading").show();
+      $.ajaxSetup({
+          data: {
+              csrf_test_name: $.cookie('csrf_cookie_name')
+          }
+      });
+      $.ajax({
+        url: base_url+'laporan/pembayaran/load_debt_tahunan/',
+        type: 'POST',
+        dataType: 'html',
+        data: {tahun: tahun, nama : nama, berdasarkan : berdasarkan},
+        success : function (data) {
+          $("#loading").hide();
+          $("#tbody").html(data);
+        }
+      });
     });
 
     $("#btn-tahunan").click(function() {
@@ -89,6 +111,7 @@ $(document).ready(function() {
         }
       });
     });
+    
 
 
     $("#btn-laporan-pembayaran-harian").click(function() {
