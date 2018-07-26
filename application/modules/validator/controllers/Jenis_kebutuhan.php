@@ -10,11 +10,11 @@ class Jenis_kebutuhan extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
         redirect('login','refresh');
         }else{
-                if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                if (!$this->ion_auth->in_group('Validator')) {//cek admin ga?
                         redirect('login','refresh');
                 }
     }
-    $this->load->model('Model_jkebutuhan');
+    $this->load->model('validator/Model_jkebutuhan');
     //Codeigniter : Write Less Do More
   }
 
@@ -24,21 +24,20 @@ class Jenis_kebutuhan extends CI_Controller{
 
       $data = array(
           'jenis_kebutuhan_data' => $jenis_kebutuhan,
-          'start' => 0,
       );
-      $data['aktif']			='Master';
-        $data['title']			='Kebuthan Pelanggan';
-  		$data['judul']			='Data Kebutuhan Pelanggan';
-        $data['sub_judul']		='';
-      $data['content']			= 'jenis';
-      $this->load->view('panel/dashboard', $data);
+      $data['aktif']			='Pelanggan';
+  		$data['title']			='Kebutuhan Pelanggan';
+  		$data['judul']			='Kebutuhan Pelanggan';
+          $data['sub_judul']		='Jenis Kebutuhan Pelanggan';
+      $data['content']			= 'jenis_kebutuhan/jenis';
+      $this->load->view('dashboard', $data);
   }
 
   public function tambah()
   {   
       $data = array(
           'button' => 'Tambah',
-          'action' => site_url('jenis_kebutuhan/create_action'),
+          'action' => site_url('validator/jenis_kebutuhan/create_action'),
           'id' => set_value('id'),
           'jenis' => set_value('jenis'),
           'created_at' => set_value('created_at'),
@@ -48,8 +47,8 @@ class Jenis_kebutuhan extends CI_Controller{
           $data['title']			='Kebuthan Pelanggan';
           $data['judul']			='Data Kebutuhan Pelanggan';
           $data['sub_judul']		='';
-          $data['content']			= 'form';
-          $this->load->view('panel/dashboard', $data);
+          $data['content']			= 'jenis_kebutuhan/form';
+          $this->load->view('dashboard', $data);
   }
 
   public function create_action()
@@ -65,7 +64,7 @@ class Jenis_kebutuhan extends CI_Controller{
             );
           $this->Model_jkebutuhan->insert($data);
           $this->session->set_flashdata('message', 'Create Record Success');
-          redirect(site_url('jenis_kebutuhan'));
+          redirect(site_url('validator/jenis_kebutuhan'));
           }
   }
 
@@ -76,7 +75,7 @@ class Jenis_kebutuhan extends CI_Controller{
       if ($row) {
           $data = array(
               'button' => 'Update',
-              'action' => site_url('jenis_kebutuhan/update_action'),
+              'action' => site_url('validator/jenis_kebutuhan/update_action'),
               'id' => set_value('id', $row->id),
               'jenis' => set_value('jenis', $row->jenis),
               'created_at' => set_value('created_at', $row->created_at),
@@ -86,11 +85,11 @@ class Jenis_kebutuhan extends CI_Controller{
             $data['title']			='Kebuthan Pelanggan';
             $data['judul']			='Data Kebutuhan Pelanggan';
             $data['sub_judul']		='';
-            $data['content']			= 'form';
-            $this->load->view('panel/dashboard', $data);
+            $data['content']			= 'jenis_kebutuhan/form';
+            $this->load->view('dashboard', $data);
           } else {
               $this->session->set_flashdata('message', 'Record Not Found');
-              redirect(site_url('jenis_kebutuhan'));
+              redirect(site_url('validator/jenis_kebutuhan'));
           }
   }
 
@@ -108,7 +107,7 @@ class Jenis_kebutuhan extends CI_Controller{
 
           $this->Model_jkebutuhan->update($this->input->post('id', TRUE), $data);
           $this->session->set_flashdata('message', 'Update Record Success');
-          redirect(site_url('jenis_kebutuhan'));
+          redirect(site_url('validator/jenis_kebutuhan'));
       }
   }
 
@@ -119,10 +118,10 @@ class Jenis_kebutuhan extends CI_Controller{
       if ($row) {
           $this->Model_jkebutuhan->delete($id);
           $this->session->set_flashdata('message', 'Delete Record Success');
-          redirect(site_url('jenis_kebutuhan'));
+          redirect(site_url('validator/jenis_kebutuhan'));
       } else {
           $this->session->set_flashdata('message', 'Record Not Found');
-          redirect(site_url('jenis_kebutuhan'));
+          redirect(site_url('validator/jenis_kebutuhan'));
       }
   }
 

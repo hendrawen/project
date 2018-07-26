@@ -63,7 +63,6 @@
     <script src="<?php echo base_url()?>assets/template/production/js/dataTables.rowsGroup.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
@@ -135,6 +134,10 @@
     <?php endif; ?>
     <?php if ($this->uri->segment(2) == 'sumberdata'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/validator/sudavalidator.js" charset="utf-8"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(2) == 'kebutuhan'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/validator/kebutuhan.js" charset="utf-8"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(1) == 'harian'): ?>
