@@ -76,7 +76,6 @@ class Model extends CI_Model {
     {
         $this->_get_datatables_query();
         $this->db->select('kota, kecamatan, kelurahan');
-        $this->db->group_by('kelurahan');
         $query = $this->db->get();
 
         return $query->num_rows();
@@ -86,7 +85,6 @@ class Model extends CI_Model {
     {
         $this->db->from($this->table);
         $this->db->select('kota, kecamatan, kelurahan');
-        $this->db->group_by('kelurahan');
         return $this->db->count_all_results();
     }
 

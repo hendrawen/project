@@ -4,98 +4,71 @@
     <div class="nav navbar-right panel_toolbox">
       <div class="form-inline">
         <button type="button" onClick="tambah()" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</button>
-        <select class="form-control btn-danger" name="filter-by" id="filter-by">
-          <option value="hari">Harian</option>
-          <option value="bulan">Bulanan</option>
-          <option value="tahun">Tahunan</option>
-        </select>
+        
         </div>
     </div>
     <div class="clearfix"></div>
   </div>
     <!-- field kantor -->
+    <form action="" id="form-filter">
     <div class="row">
-      <div class="col-md-4">
-        <div class="input-group">
-          <span class="input-group-addon">Kantor </span>
-          <select class="form-control" id="kantor">
-            <?php foreach ($list_kantor as $row): ?>
-              <option value="<?php echo $row->id;?>"><?php echo $row->nama_gudang;?></option>
-            <?php endforeach; ?>
-            </select>
-        </div>
-      </div>
-      <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
-      </div>
-        <!-- filter harian -->
-      <div class="row" id="filter-harian">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6 col-xs-12">
           <div class="input-group">
-            <span class="input-group-addon">Tanggal</span>
-            <input type="date" class="form-control" id="kas-hari" placeholder="" value="<?php echo date('m/d/Y')?>">
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <button type="button" class="btn btn-success" id="btn-kas-harian"><i class="fa fa-search"></i> Search</button>
-        </div>
-      </div>
-
-      <!-- filter bulanan -->
-      <div class="row" id="filter-bulanan" style="display:none;">
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="input-group">
-              <span class="input-group-addon">Bulan dari</span>
-              <select class="form-control" id="kas-from">
-                <?php $i = 1; foreach ($month as $key): ?>
-                  <option value="<?php echo $i++;?>"><?php echo $key?></option>
-                <?php endforeach; ?>
-              </select>
+                <span class="input-group-addon">Tanggal</span>
+                <input type="date" class="form-control" id="filter-hari" placeholder="">
             </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="input-group">
-              <span class="input-group-addon">Bulan ke</span>
-              <select class="form-control" id="kas-to">
-                <?php $i = 1;  foreach ($month as $key): ?>
-                  <option value="<?php echo $i++;?>"><?php echo $key ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div class="input-group">
-              <span class="input-group-addon">Tahun</span>
-              <select class="form-control" id="kas-year">
-                <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-                  echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
-                } ?>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-3 col-sm-6 col-xs-12">
-          <button type="button" class="btn btn-success" id="btn-kas-bulanan"><i class="fa fa-search"></i> Search</button>
-          </div>
         </div>
-
-        <!-- filter tahunan -->
-        <div class="row" id="filter-tahunan" style="display:none;">
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-              <div class="input-group">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group">
+                <span class="input-group-addon">Dari Bulan</span>
+                <select class="form-control" id="filter-bulan1">
+                  <option value="">Semua Bulan</option>
+                    <?php $i = 1;  foreach ($month as $key): ?>
+                    <option value="<?php echo $i++;?>"><?php echo $key ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="input-group">
+                <span class="input-group-addon">Ke Bulan</span>
+                <select class="form-control" id="filter-bulan2">
+                  <option value="">Semua Bulan</option>
+                    <?php $i = 1;  foreach ($month as $key): ?>
+                    <option value="<?php echo $i++;?>"><?php echo $key ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group">
                 <span class="input-group-addon">Tahun</span>
-                <select class="form-control" id="tahun">
-                  <?php for ($tahun=(date('Y')-4); $tahun <= date('Y'); $tahun++) {
-                    echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+                <select class="form-control" id="filter-tahun">
+                  <option value="">Semua Tahun</option>
+                    <?php for ($tahun=(date('Y')-5); $tahun <= date('Y'); $tahun++) {
+                    echo '<option value="'.$tahun.'">'.$tahun.'</option>';
                   } ?>
                 </select>
-              </div>
             </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="input-group">
+                <span class="input-group-addon">Kantor</span>
+                <select class="form-control" id="filter-kantor">
+                    <option value="">Semua Kantor</option>
+                    <?php foreach ($list_kantor as $row): ?>
+                    <option value="<?php echo $row->id;?>"><?php echo $row->nama_gudang;?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <button type="button" class="btn btn-success" id="btn-search"> <i class="fa fa-search"></i> Search</button>
+            <button type="button" class="btn btn-warning" id="btn-reload"> <i class="fa fa-refresh"></i> Reload</button>
+        </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-12">
-            <button type="button" class="btn btn-success" id="btn-kas-tahunan"><i class="fa fa-search"></i> Search</button>
-            </div>
-          </div>
+    </div>
+    </form>
 
         <div class="table-responsive">
             <table id="table-kas" class="table table-striped jambo_table table-bordered nowrap">

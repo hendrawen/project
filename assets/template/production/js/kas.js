@@ -11,7 +11,14 @@ $(document).ready(function() {
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": base_url + "kas/ajax_list",
-            "type": "POST"
+            "type": "POST",
+            "data": function ( data ) {
+                data.hari = $('#filter-hari').val();
+                data.bulan1 = $('#filter-bulan1').val();
+                data.bulan2 = $('#filter-bulan2').val();
+                data.tahun = $('#filter-tahun').val();
+                data.kantor = $('#filter-kantor').val();
+            }
         },
 
         //Set column definition initialisation properties.
@@ -70,6 +77,10 @@ function remove_parent() {
         $(this).next().empty();
     });
 }
+
+$('#btn-search').click(function(){ //button filter event click
+    reload_table();//reload datatable ajax   //just reload table
+});
 
 function tambah()
 {

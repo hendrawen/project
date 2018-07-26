@@ -97,7 +97,10 @@
                       <?php }?>
                 </select>
               </div>
-
+              <div class="form-group">
+                <label for="qty">Tanggal</label>
+                <input type="date" name="start" id="start" value="<?php echo $start; ?>" class="form-control" require>
+              </div>
               <input type="hidden" name="id" value="<?php echo $id; ?>" />
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                           <div class="text-left">

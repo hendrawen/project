@@ -44,7 +44,7 @@
           <td>'.$row->id_jadwal.'</td>
           <td>'.$row->nama_barang.'</td>
           <td>'.$row->qty.'</td>
-          <td>'.$row->start.'</td>
+          <td>'.tgl_indo($row->start).'</td>
           <td>'.$row->username.'</td>
           <td>'.$row->title.'</td>
           <td>'.$row->color.'</td>
@@ -142,7 +142,7 @@
             		'id_jadwal' => $this->jadwal->buat_kode(),
             		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
                     'qty' => $this->input->post('qty',TRUE),
-                    'start' => date('Y-m-d H:i:s'),
+                    'start' => $this->input->post('start',TRUE),
                     'end' => date('Y-m-d H:i:s'),
                     'username' => $this->session->identity,
                     'title' => $this->input->post('title',TRUE),
@@ -203,7 +203,7 @@
             $data = array(
                 'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
                 'qty' => $this->input->post('qty',TRUE),
-                'start' => date('Y-m-d H:i:s'),
+                'start' => $this->input->post('start',TRUE),
                 'end' => date('Y-m-d H:i:s'),
                 'username' => $this->session->identity,
                 'title' => $this->input->post('title',TRUE),

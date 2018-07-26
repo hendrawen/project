@@ -300,10 +300,10 @@ class Pembelian extends CI_Controller{
 
   public function cek()
   {
-    # code...
-    echo $this->session->userdata('total_belanja');
-    echo '<br />';
-    echo $this->session->userdata('diskon');
+    // # code...
+    // echo $this->session->userdata('total_belanja');
+    // echo '<br />';
+    // echo $this->session->userdata('diskon');
   }
 
 	function show_cart(){
@@ -445,8 +445,8 @@ class Pembelian extends CI_Controller{
   public function track_pembayaran()
   { 
     $list = $this->session->userdata('id_transaksi');
-    print_r($list);
-    echo '<br />';
+    // print_r($list);
+    // echo '<br />';
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
     $sisa = 0;
     for ($i=0; $i < sizeof($list); $i++) {

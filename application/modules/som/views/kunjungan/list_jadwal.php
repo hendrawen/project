@@ -11,7 +11,7 @@
             </ul>
             <div class="clearfix"></div>
       </div>
-          <div class="row" style="<?php echo ($this->session->identity == 'administrator') || ($this->session->identity == 'som')  ?:  'visibility:hidden;' ?>">
+          <div class="row">
             <div class="col-md-6">
                 <a href="<?php echo site_url('som/jadwalkunjungan/create'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus" ></i> Tambah</a>
                 </div>

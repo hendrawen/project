@@ -74,6 +74,8 @@
               <option>--Satuan--</option>
               <option <?php if( $satuan=='Krat'){echo "selected"; } ?> value="Krat">Krat</option>
               <option <?php if( $satuan=='Dus'){echo "selected"; } ?> value="Dus">Dus</option>
+              <option <?php if( $satuan=='Botol'){echo "selected"; } ?> value="Botol">Botol</option>
+              <option <?php if( $satuan=='Pcs'){echo "selected"; } ?> value="Pcs">Pcs</option>
             </select>
           </div>
           <div class="form-group">

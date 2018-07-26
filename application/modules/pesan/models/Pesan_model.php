@@ -70,13 +70,13 @@ class Pesan_model extends CI_Model{
 
   public function generatekode_invoice() {
    $tahun = date("Y");
-   $kode = 'BM';
+   $kode = 'NFBM';
    $query = $this->db->query("SELECT MAX(id_transaksi) as max_id FROM wp_transaksi");
    $row = $query->row_array();
    $max_id = $row['max_id'];
-   $max_id1 =(int) substr($max_id,9,5);
+   $max_id1 =(int) substr($max_id,4,5);
    $kode_invoice = $max_id1 +1;
-   $maxkode_invoice = $kode.'-'.$tahun.'-'.sprintf("%04s",$kode_invoice);
+   $maxkode_invoice = $kode.''.sprintf("%05s",$kode_invoice);
    return $maxkode_invoice;
   }
 

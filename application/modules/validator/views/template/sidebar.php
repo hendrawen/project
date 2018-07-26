@@ -30,6 +30,7 @@
                 <ul class="nav side-menu">
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('validator');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo base_url()?>validator/jadwal"><i class="fa fa-calendar"></i> Jadwal Kunjungan</a></li>
                   <li><a <?php echo ($aktif == 'penjualan')?'class="active"':"";?> href="<?php echo base_url()?>validator/pelanggan"><i class="fa fa-user"></i> Data Pelanggan</a></li>
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

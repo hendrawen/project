@@ -11,7 +11,14 @@ $(document).ready(function() {
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": base_url + "admin/kas/ajax_list",
-            "type": "POST"
+            "type": "POST",
+            "data": function ( data ) {
+                data.hari = $('#filter-hari').val();
+                data.bulan1 = $('#filter-bulan1').val();
+                data.bulan2 = $('#filter-bulan2').val();
+                data.tahun = $('#filter-tahun').val();
+                data.kantor = $('#filter-kantor').val();
+            }
         },
 
         //Set column definition initialisation properties.
@@ -53,6 +60,10 @@ $(document).ready(function() {
         }
       })
 
+});
+
+$('#btn-search').click(function(){ //button filter event click
+    reload_table();//reload datatable ajax   //just reload table
 });
 
 function remove_parent() {
@@ -175,6 +186,12 @@ function simpan()
         }
     });
 }
+
+$('#btn-reload').click(function(){ //button reset event click
+    $('#form-filter')[0].reset();
+    reload_table();//reload datatable ajax
+});
+
 
 function hapus(id)
 {

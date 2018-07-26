@@ -72,7 +72,7 @@ class Validator extends CI_Controller {
             $row[] = $lists->sumber_data;
             $row[] = $lists->keterangan;
             $row[] = '
-            <a href="'.base_url('effectifcall/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+            <a href="'.base_url('validator/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 
@@ -167,7 +167,7 @@ class Validator extends CI_Controller {
         		$data['title']			='Brajamarketindo';
         		$data['judul']			='Dashboard';
                 $data['sub_judul']		='List Effectif Call';
-            $data['content']			= 'cs/form';
+            $data['content']			= 'validator/form';
             $this->load->view('dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
