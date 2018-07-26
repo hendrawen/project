@@ -1,5 +1,5 @@
 var table;
-var btn_excel = $("#excel-tracking");
+var btn_excel = $("#excel-tracking-pel");
  
 $(document).ready(function() {
     $('#filter-kota').select2();
@@ -60,13 +60,13 @@ $(btn_excel).click(function (e) {
     kecamatan = $('#filter-kecamatan').val();
     warna = $('#filter-warna').val();
     if (tahun == '') {
-        tahun = 'all';
+        tahun = 'semua';
     }
     if (kota == '') {
-        kota = 'all';
+        kota = 'semua';
     }
     if (kecamatan == '') {
-        kecamatan = 'all';
+        kecamatan = 'semua';
     }
     
     window.location = base_url + 'tracking/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;

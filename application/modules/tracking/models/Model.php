@@ -188,11 +188,11 @@ class Model extends CI_Model {
         $this->db->select('id_pelanggan, nama_pelanggan, wp_pelanggan.no_telp, kota, kecamatan, kelurahan, wp_karyawan.nama');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
         $this->db->where('wp_pelanggan.status', 'Pelanggan');
-        if($kota != 'all')
+        if($kota != 'semua')
         {
             $this->db->where('kota', $kota);
         }
-        if($kecamatan != 'all')
+        if($kecamatan != 'semua')
         {
             $this->db->where('kecamatan', $kecamatan);
         }

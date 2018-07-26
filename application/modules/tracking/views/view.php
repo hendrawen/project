@@ -116,7 +116,7 @@
       
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 text-right">
           <button type="button" id="btn-filter-tracking" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
-          <button type="button" id="excel-tracking" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
+          <button type="button" id="excel-tracking-pel" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
           <button type="button" id="btn-reset-tracking" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
         </div>
       </form>
