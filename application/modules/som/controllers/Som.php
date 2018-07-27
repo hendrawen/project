@@ -25,6 +25,7 @@ class Som extends CI_Controller{
       $data['sub_judul'] = 'List Effectif Call';
       $data['judul_list'] = 'Effectif Call';
       $data['content'] = 'takeorder/main';
+      $data['creator']        = $this->takeorder->get_list_creator();
       $statuse = $this -> takeorder -> get_list_status();
 
       $opt = array('' => 'Semua Status');

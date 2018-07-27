@@ -39,14 +39,14 @@
           </select>
         </div>
         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-          <select name="sumber_data" class="form-control" id="sumber_data">
+          <select name="melalui" class="form-control" id="melalui">
               <option value="semua">Melalui</option>
               <option value="Call">Call</option>
               <option value="Kunjungan">Kunjungan</option>
           </select>
         </div>
         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
-          <select name="sumber_data" class="form-control" id="sumber_data">
+          <select name="creator" class="form-control" id="creator">
               <option value="semua">Creator</option></option>
               <?php
                 foreach ($creator->result() as $key) {?>

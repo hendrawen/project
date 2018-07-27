@@ -22,10 +22,30 @@
     <p class="text-muted font-13 m-b-30">
       <div class="row">
         <form id="form-filter2" class="form-horizontal">
-        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
           <?php echo $form_status; ?>
         </div>
-        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+          <select name="sumber_data" class="form-control" id="sumber_data">
+              <option value="semua">Sumber Data</option>
+              <option value="Due Date">Due Date</option>
+              <option value="Hijau">Hijau</option>
+              <option value="Biru">Biru</option>
+              <option value="Kuning">Kuning</option>
+              <option value="Orange">Orange</option>
+              <option value="Jingga">Jingga</option>
+              <option value="Hijau Muda">Hijau Muda</option>
+              <option value="New Customer">New Customer</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+          <select name="melalui" class="form-control" id="melalui">
+              <option value="semua">Melalui</option>
+              <option value="Call">Call</option>
+              <option value="Kunjungan">Kunjungan</option>
+          </select>
+        </div>
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
           <select class="form-control select2" data-width="100%" name="tanggal" id="tanggal">
              <option value="" readonly>Bulan</option>
              <option value="1">Januari</option>
@@ -42,7 +62,7 @@
              <option value="12">Desember</option>
          </select>
         </div>
-        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
           <select name="tahun" id="tahun" class="form-control">
             <option selected="selected" value="">Tahun</option>
             <?php
@@ -53,10 +73,10 @@
             </select>
         </div>
         <input type="hidden" name="akses" id="akses" value="<?php echo $this->session->userdata('username'); ?>">
-        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
           <div class="text-right">
             <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
-            <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> Semua</button>
+            <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> All</button>
           </div>
 
         </div>

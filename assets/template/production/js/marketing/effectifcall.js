@@ -15,6 +15,8 @@ var table;
                  data.tanggal = $('#tanggal').val();
                  data.tahun = $('#tahun').val();
                  data.akses = $('#akses').val();
+                 data.sumber_data = $('#sumber_data').val();
+                 data.melalui = $('#melalui').val();
                 }
            },
 
