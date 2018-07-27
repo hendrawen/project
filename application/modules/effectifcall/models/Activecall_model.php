@@ -18,17 +18,29 @@ class Activecall_model extends CI_Model{
   private function _get_datatables_query()
  {
       //filter table_call
-     if($this->input->post('status'))
+     if($this->input->post('status')!=="")
      {
         $this->db->like('status', $this->input->post('status'));
      }
-     if($this->input->post('tanggal'))
+     if($this->input->post('tanggal')!=="semua")
      {
          $this->db->like('month(tanggal)', $this->input->post('tanggal'));
      }
-     if($this->input->post('tahun'))
+     if($this->input->post('tahun')!=="semua")
      {
          $this->db->like('year(tanggal)', $this->input->post('tahun'));
+     }
+     if($this->input->post('sumber_data')!=="semua")
+     {
+         $this->db->like('sumber_data', $this->input->post('tahun'));
+     }
+     if($this->input->post('melalui')!=="semua")
+     {
+         $this->db->like('by_status', $this->input->post('melalui'));
+     }
+     if($this->input->post('creator')!=="semua")
+     {
+         $this->db->like('username', $this->input->post('status'));
      }
      $this->db->from($this->table);
      $i = 0;
@@ -155,19 +167,30 @@ class Activecall_model extends CI_Model{
          $bulan[] = getBulan('12');
      }
      return $bulan;
- }
+    }
 
- //BUAT MODEL MAX_KODE_MAHASISWA
-public function get_kode_pelanggan() {
- $tahun = date("Y");
- $kode = 'PL';
- $query = $this->db->query("SELECT MAX(id_pelanggan) as max_id FROM wp_pelanggan");
- $row = $query->row_array();
- $max_id = $row['max_id'];
- $max_id1 =(int) substr($max_id,9,5);
- $kode_pelanggan = $max_id1 +1;
- $maxkode_pelanggan = $kode.'-'.$tahun.'-'.sprintf("%04s",$kode_pelanggan);
- return $maxkode_pelanggan;
-}
+    //BUAT MODEL MAX_KODE_MAHASISWA
+    public function get_kode_pelanggan() {
+    $tahun = date("Y");
+    $kode = 'PL';
+    $query = $this->db->query("SELECT MAX(id_pelanggan) as max_id FROM wp_pelanggan");
+    $row = $query->row_array();
+    $max_id = $row['max_id'];
+    $max_id1 =(int) substr($max_id,9,5);
+    $kode_pelanggan = $max_id1 +1;
+    $maxkode_pelanggan = $kode.'-'.$tahun.'-'.sprintf("%04s",$kode_pelanggan);
+    return $maxkode_pelanggan;
+    }
+
+    function get_list_creator()
+    {
+        # code...
+        $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
+        $this->db->where('wp_jabatan.nama_jabatan', 'Vaidator');
+        $this->db->or_where('wp_jabatan.nama_jabatan', 'Marketing');
+        $this->db->or_where('wp_jabatan.nama_jabatan', 'Som');
+        $this->db->join('wp_jabatan', 'wp_jabatan.id = wp_karyawan.wp_jabatan_id', 'left');
+        return $this->db->get('wp_karyawan');       
+    }
 
 }

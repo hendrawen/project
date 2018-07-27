@@ -27,12 +27,13 @@ class Model extends CI_Model {
         }
         $piutang = $this->input->post('piutang');
         if ($piutang != 'semua') {
-            $this->db->where('(v_detail.utang- v_detail.bayar) >', 0);
+            $this->db->where('(wp_detail_transaksi.utang- wp_detail_transaksi.bayar) >', 0);
         }
         $this->db->join('wp_list_effectif', 'wp_pelanggan_id = wp_pelanggan.id', 'left');
         $this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id', 'left');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
-        $this->db->join('v_detail', 'v_detail.id_pelanggan = wp_pelanggan.id_pelanggan', 'left');
+        $this->db->join('wp_transaksi', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'left');
+        $this->db->join('wp_detail_transaksi', 'wp_detail_transaksi.id_transaksi = wp_transaksi.id_transaksi', 'left');
         
         $this->db->where('wp_pelanggan.status', 'Pelanggan');
         

@@ -345,12 +345,12 @@ class Models_laporan extends CI_Model {
     {
         $this->db->select('wp_pembayaran.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as `jatuh_tempo`, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, wp_transaksi.qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_pelanggan.kecamatan, wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, wp_transaksi.subtotal, wp_pembayaran.tgl_bayar, wp_pembayaran.bayar, wp_detail_transaksi.bayar as `jumlah_bayar`, (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) as `sisa_hutang`, wp_status.nama_status');
         $this->db->from('wp_pembayaran');
-        if ($nama !== 'semua') {
-        $this->db->where('wp_pembayaran.username', $nama);
-        }
         $this->db->where('month(wp_pembayaran.tgl_bayar) >=', $from);
         $this->db->where('month(wp_pembayaran.tgl_bayar) <=', $to);
         $this->db->where('year(wp_pembayaran.tgl_bayar)', $year);
+        if ($nama !== 'semua') {
+            $this->db->where('wp_pembayaran.username', $nama);
+          }
         $this->db->where('wp_pembayaran.bayar >=', 0);
         $this->db->join('wp_transaksi', 'wp_pembayaran.id_transaksi = wp_transaksi.id_transaksi');
         $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');

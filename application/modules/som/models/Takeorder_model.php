@@ -31,11 +31,6 @@ class Takeorder_model extends CI_Model {
      {
          $this->db->like('year(tanggal)', $this->input->post('tahun'));
      }
-     $akses = $this->input->post('akses');
-     if ($akses !== 'administrator') {
-         # code...
-     $this->db->where('username', $akses);
-     }
      $this->db->from($this->table);
      $i = 0;
 

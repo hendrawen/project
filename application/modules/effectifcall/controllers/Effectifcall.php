@@ -27,6 +27,7 @@ class Effectifcall extends CI_Controller{
         $data['judul_list']		='Effectif Call';
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
+        $data['creator']        = $this->effectif->get_list_creator();
     $data['content']			= 'main';
     $statuse = $this->effectif->get_list_status();
 

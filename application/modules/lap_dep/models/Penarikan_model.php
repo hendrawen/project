@@ -80,7 +80,7 @@ class Penarikan_model extends CI_Model {
         left join
         wp_karyawan as b
         on
-        b.id_karyawan = wp_transaki.username
+        b.id_karyawan = wp_transaksi.username
         JOIN
         wp_krat_kosong
         where 

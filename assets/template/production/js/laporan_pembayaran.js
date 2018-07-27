@@ -49,7 +49,9 @@ $(document).ready(function() {
       to = $("#bulan_ke").val();
       tahun = $("#tahun").val();
       berdasarkan = $("#berdasarkan-dept").val();
-      nama = $("#nama-dept").val();
+      nama = $("#nama").val();
+      console.log(nama);
+      
       $("#loading").show();
       $.ajaxSetup({
           data: {
@@ -71,7 +73,7 @@ $(document).ready(function() {
     $("#btn-debttahunan").click(function() {
       tahun = $("#tahunan").val();
       berdasarkan = $("#berdasarkan-dept").val();
-      nama = $("#nama-dept").val();
+      nama = $("#nama").val();
       $("#loading").show();
       $.ajaxSetup({
           data: {

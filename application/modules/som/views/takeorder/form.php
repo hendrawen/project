@@ -111,6 +111,7 @@
               <option <?php if( $sumber_data=='Orange'){echo "selected"; } ?> value="Orange">Orange</option>
               <option <?php if( $sumber_data=='Jingga'){echo "selected"; } ?> value="Jingga">Jingga</option>
               <option <?php if( $sumber_data=='Hijau Muda'){echo "selected"; } ?> value="Hijau Muda">Hijau Muda</option>
+              <option <?php if( $sumber_data=='New Customer'){echo "selected"; } ?> value="New Customer">New Customer</option>
             </select>
           </div>
           <div class="form-group">

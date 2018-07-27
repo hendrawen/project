@@ -38,7 +38,7 @@
           <select class="form-control" id="debt">
             <?php
                foreach ($debt as $key) {?>
-                 <option value="<?php echo $key->nama ?>"><?php echo $key->nama ?></option>
+                 <option value="<?php echo $key->id_karyawan ?>"><?php echo $key->nama ?></option>
                <?php }
             ?>
           </select>

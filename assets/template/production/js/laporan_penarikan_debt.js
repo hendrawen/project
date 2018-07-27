@@ -19,6 +19,10 @@ $(document).ready(function () {
     $("#btn-penarikan-tahunan").click(function() {
       tahun = $("#tahunan").val();
       debt = $("#debt").val();
+      console.log(tahun);
+      console.log(debt);
+      
+      
       $("#loading").show();
       $.ajaxSetup({
           data: {
