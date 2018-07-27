@@ -15,7 +15,7 @@ $(document).ready(function() {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": base_url+"tracking_aset/ajax_list",
+            "url": base_url+"som/tracking_aset/ajax_list",
             "type": "POST",
             "data": function ( data ) {
                 data.tahun = $('#tahun-tracking').val();
@@ -69,5 +69,5 @@ $(btn_excel).click(function (e) {
         kecamatan = 'semua';
     }
     
-    window.location = base_url + 'tracking_aset/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;
+    window.location = base_url + 'som/tracking_aset/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;
 });

@@ -65,7 +65,7 @@
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
 
-    <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
+    <!-- <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script> -->
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/pembelian.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi_admin.js"></script>
@@ -159,7 +159,7 @@
       <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
     <?php endif; ?>
 
-    <?php if ($this->uri->segment(1) == 'tracking_aset'): ?>
+    <?php if ($this->uri->segment(2) == 'tracking_aset'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/som/tracking_aset.js" charset="utf-8"></script>
       <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
     <?php endif; ?>
