@@ -55,22 +55,26 @@
     <script src="<?php echo base_url()?>assets/template/production/js/dataTables.rowsGroup.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
+    <!-- <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/marketing/pelanggan.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/marketing/effectifcall.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script>
+    <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script> -->
     <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.PrintArea.js"></script>
 
-    <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script>
+    <!-- <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script> -->
 
     <?php if ($this->uri->segment(1) == 'marketing' && $this->uri->segment(2) == 'kpi'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/marketing/kpi-marketing.js" charset="utf-8"></script>
     <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'marketing' && $this->uri->segment(2) == 'takeorder'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/marketing/effectifcall.js"></script>
+    <?php endif; ?>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>

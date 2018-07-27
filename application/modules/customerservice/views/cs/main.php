@@ -22,10 +22,11 @@
     <p class="text-muted font-13 m-b-30">
       <div class="row">
         <form id="form-filter2" class="form-horizontal">
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
           <?php echo $form_status; ?>
         </div>
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <!-- sumberdata -->
+        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
           <select name="sumber_data" class="form-control" id="sumber_data">
               <option value="semua">Sumber Data</option>
               <option value="Due Date">Due Date</option>
@@ -38,14 +39,16 @@
               <option value="New Customer">New Customer</option>
           </select>
         </div>
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <!-- melalui -->
+        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
           <select name="melalui" class="form-control" id="melalui">
               <option value="semua">Melalui</option>
               <option value="Call">Call</option>
               <option value="Kunjungan">Kunjungan</option>
           </select>
         </div>
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <!-- bulan -->
+        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
           <select class="form-control select2" data-width="100%" name="tanggal" id="tanggal">
              <option value="" readonly>Bulan</option>
              <option value="1">Januari</option>
@@ -62,7 +65,8 @@
              <option value="12">Desember</option>
          </select>
         </div>
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <!-- tahun -->
+        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
           <select name="tahun" id="tahun" class="form-control">
             <option selected="selected" value="">Tahun</option>
             <?php
