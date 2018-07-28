@@ -28,6 +28,7 @@ class Tracking_aset extends CI_Controller {
             'content'		=>'view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
+            'list_marketing' => $this->model->get_marketing(),
         );
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
@@ -97,15 +98,15 @@ class Tracking_aset extends CI_Controller {
     }
 
     // excel
-    function download_excel($year, $kota, $kecamatan, $warna)
+    function download_excel($year, $kota, $kecamatan, $warna, $id_karyawan)
     {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
         $this->load->helper('exportexcel');
         $namaFile = "tracking_aset.xls";
         $judul = "TrackingAset";
-        $tablehead = 6;
-        $tablebody = 7;
+        $tablehead = 7;
+        $tablebody = 8;
         $nourut = 1;
         $bulan = $this->model->get_month();
         //penulisan header
@@ -133,6 +134,8 @@ class Tracking_aset extends CI_Controller {
         
         xlsWriteLabel(4, 0, "Warna");
         xlsWriteLabel(4, 1, $warna);
+        xlsWriteLabel(5, 0, "Marketing");
+        xlsWriteLabel(5, 1, $id_karyawan);
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -167,7 +170,7 @@ class Tracking_aset extends CI_Controller {
         }
             
         $tablebody++;
-        $list = $this->model->get_laporan_excel($kota, $kecamatan);
+        $list = $this->model->get_laporan_excel($kota, $kecamatan, $id_karyawan);
         $temp = array();
         
         if ($list){

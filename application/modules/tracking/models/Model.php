@@ -24,6 +24,10 @@ class Model extends CI_Model {
         {
             $this->db->where('kecamatan', $this->input->post('kecamatan'));
         }
+        if($this->input->post('id_karyawan'))
+        {
+            $this->db->where('wp_karyawan.id_karyawan', $this->input->post('id_karyawan'));
+        }
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
         $this->db->where('wp_pelanggan.status', 'Pelanggan');
         
@@ -77,7 +81,6 @@ class Model extends CI_Model {
         $this->_get_datatables_query();
         $this->db->select('kota, kecamatan, kelurahan');
         $query = $this->db->get();
-
         return $query->num_rows();
     }
  
@@ -183,7 +186,7 @@ class Model extends CI_Model {
         }
     }
 
-    function get_laporan_excel($kota, $kecamatan)
+    function get_laporan_excel($kota, $kecamatan, $id_karyawan)
     {
         $this->db->select('id_pelanggan, nama_pelanggan, wp_pelanggan.no_telp, kota, kecamatan, kelurahan, wp_karyawan.nama');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'inner');
@@ -196,7 +199,18 @@ class Model extends CI_Model {
         {
             $this->db->where('kecamatan', $kecamatan);
         }
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('wp_karyawan.id_karyawan', $id_karyawan);
+        }
         return $this->db->get($this->table)->result();
+    }
+
+    function get_marketing()
+    {
+        $this->db->select('id_karyawan as id, nama');
+        return $this->db->get('wp_karyawan')->result();
+        
     }
 
 
