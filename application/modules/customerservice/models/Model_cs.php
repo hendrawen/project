@@ -17,18 +17,26 @@ class Model_cs extends CI_Model {
 
   private function _get_datatables_query()
  {
-      //filter table_call
-     if($this->input->post('status'))
+     //filter table_call
+     if($this->input->post('status')!=="")
      {
         $this->db->like('status', $this->input->post('status'));
      }
-     if($this->input->post('tanggal'))
+     if($this->input->post('tanggal')!=="semua")
      {
          $this->db->like('month(tanggal)', $this->input->post('tanggal'));
      }
-     if($this->input->post('tahun'))
+     if($this->input->post('tahun')!=="semua")
      {
          $this->db->like('year(tanggal)', $this->input->post('tahun'));
+     }
+     if($this->input->post('sumber_data')!=="semua")
+     {
+         $this->db->like('sumber_data', $this->input->post('sumber_data'));
+     }
+     if($this->input->post('melalui')!=="semua")
+     {
+         $this->db->like('by_status', $this->input->post('melalui'));
      }
      $this->db->where('username',  $this->session->identity);
      $this->db->from($this->table);

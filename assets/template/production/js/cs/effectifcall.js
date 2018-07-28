@@ -14,6 +14,8 @@ var table;
                  data.status = $('#status').val();
                  data.tanggal = $('#tanggal').val();
                  data.tahun = $('#tahun').val();
+                 data.sumber_data = $('#sumber_data').val();
+                 data.melalui = $('#melalui').val();
                 }
            },
 

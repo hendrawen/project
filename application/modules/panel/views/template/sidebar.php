@@ -60,8 +60,7 @@
                       <li><a><i class="fa fa-clone"></i> Manage Pelanggan<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>status_pelanggan"> SOM </a>
-                        <li><a href="<?php echo base_url();?>effectifcall">Customer Service</a></li>
-                        <li><a href="<?php echo base_url();?>effectifcall/validator">Validator</a></li>
+                        <li><a href="<?php echo base_url();?>effectifcall">Customer Service / Validator</a></li>
                       </ul>
                   </li>
                     <li><a><i class="fa fa-line-chart"></i> Report Penjualan <span class="fa fa-chevron-down"></span></a>

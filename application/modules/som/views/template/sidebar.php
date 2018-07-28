@@ -35,7 +35,8 @@
                   <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo site_url();?>som/pelanggan"><i class="fa fa-file-text-o"></i> Pelanggan</a></li>
                   <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/transaksi"><i class="fa fa-users"></i> Transaksi Pelanggan</a></li>
                   <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/status_pelanggan"><i class="fa fa-history"></i> Tracking Pelanggan</a></li>
-                  
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/tracking"><i class="fa fa-history"></i> Tracking</a></li>
+                  <li><a <?php echo ($aktif == 'jadwal')?'class="active"':"";?> href="<?php echo site_url();?>som/tracking_aset"><i class="fa fa-history"></i> Tracking Aset</a></li>                  
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>som/sumberdata">Sumber Data Effectif Call</a></li>

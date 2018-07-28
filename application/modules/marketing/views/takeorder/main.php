@@ -43,6 +43,26 @@
          </select>
         </div>
         <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <select name="sumber_data" class="form-control" id="sumber_data">
+              <option value="semua">Sumber Data</option>
+              <option value="Due Date">Due Date</option>
+              <option value="Hijau">Hijau</option>
+              <option value="Biru">Biru</option>
+              <option value="Kuning">Kuning</option>
+              <option value="Orange">Orange</option>
+              <option value="Jingga">Jingga</option>
+              <option value="Hijau Muda">Hijau Muda</option>
+              <option value="New Customer">New Customer</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <select name="melalui" class="form-control" id="melalui">
+              <option value="semua">Melalui</option>
+              <option value="Call">Call</option>
+              <option value="Kunjungan">Kunjungan</option>
+          </select>
+        </div>
+        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
           <select name="tahun" id="tahun" class="form-control">
             <option selected="selected" value="">Tahun</option>
             <?php
@@ -55,7 +75,7 @@
         <input type="hidden" name="akses" id="akses" value="<?php echo $this->session->userdata('username'); ?>">
         <div class="col-md-3 col-sm-12 col-xs-12 form-group">
           <div class="text-right">
-            <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
+            <button type="button" id="btn-filter12" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
             <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> Semua</button>
           </div>
 
@@ -65,7 +85,7 @@
     </p>
   </div>
   <div class="x_content">
-    <table id="table_call" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+    <table id="table_marketing" class="table table-striped jambo_table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
       <thead>
           <tr>
               <th>Tanggal</th>

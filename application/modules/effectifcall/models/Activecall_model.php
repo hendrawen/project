@@ -32,7 +32,7 @@ class Activecall_model extends CI_Model{
      }
      if($this->input->post('sumber_data')!=="semua")
      {
-         $this->db->like('sumber_data', $this->input->post('tahun'));
+         $this->db->like('sumber_data', $this->input->post('sumber_data'));
      }
      if($this->input->post('melalui')!=="semua")
      {
@@ -40,7 +40,7 @@ class Activecall_model extends CI_Model{
      }
      if($this->input->post('creator')!=="semua")
      {
-         $this->db->like('username', $this->input->post('status'));
+         $this->db->like('username', $this->input->post('creator'));
      }
      $this->db->from($this->table);
      $i = 0;
