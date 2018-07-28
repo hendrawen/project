@@ -41,6 +41,7 @@
                           <tr>
                               <th>No</th>
                               <th>Id Jadwal</th>
+                              <th>Nama Pelanggan</th>
                               <th>Nama Barang</th>
                               <th>Qty</th>
                               <th>Tanggal Kirim</th>
@@ -49,7 +50,6 @@
                               <th>Judul</th>
                               <th>Sumber Data</th>
                               <th>Deskripsi</th>
-                              <th>Nama Pelanggan</th>
                           		<th>Karyawan</th>
                               <th>Aksi</th>
                           </tr>

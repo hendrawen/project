@@ -4,6 +4,7 @@
     class Jadwal extends CI_Controller {
 
         private $permit;
+        public $brgQty = [];
         public function __construct()
         {
             parent::__construct();
@@ -42,6 +43,7 @@
         $pesan .= '<tr>
           <td>'.$no++.'</td>
           <td>'.$row->id_jadwal.'</td>
+          <td>'.$row->id_pelanggan.' - '.$row->nama_pelanggan.'</td>
           <td>'.$row->nama_barang.'</td>
           <td>'.$row->qty.'</td>
           <td>'.tgl_indo($row->start).'</td>
@@ -49,13 +51,12 @@
           <td>'.$row->title.'</td>
           <td>'.$row->color.'</td>
           <td>'.$row->description.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
           <td>'.$row->nama.'</td>
-          <td>'.anchor('som/jadwal/update/'.$row->id, 'Edit', 'class="btn btn-primary btn-sm"').' || 
+          <td>'.anchor('som/jadwal/update/'.$row->id, 'Edit', 'class="btn btn-primary btn-sm"').' ||
               '.anchor('som/jadwal/delete/'.$row->id, 'Delete', 'class="btn btn-danger btn-sm"').'
           </td>
         </tr>';
-        } 
+        }
     } else {
         $pesan .= '<tr>
             <td colspan=11>Record not found</td>
@@ -76,6 +77,7 @@
         $pesan .= '<tr>
           <td>'.$no++.'</td>
           <td>'.$row->id_jadwal.'</td>
+          <td>'.$row->id_pelanggan.' - '.$row->nama_pelanggan.'</td>
           <td>'.$row->nama_barang.'</td>
           <td>'.$row->qty.'</td>
           <td>'.tgl_indo($row->start).'</td>
@@ -83,13 +85,12 @@
           <td>'.$row->title.'</td>
           <td>'.$row->color.'</td>
           <td>'.$row->description.'</td>
-          <td>'.$row->nama_pelanggan.'</td>
           <td>'.$row->nama.'</td>
-          <td>'.anchor('som/jadwal/update/'.$row->id, 'Edit', 'class="btn btn-primary btn-sm"').' || 
+          <td>'.anchor('som/jadwal/update/'.$row->id, 'Edit', 'class="btn btn-primary btn-sm"').' ||
               '.anchor('som/jadwal/delete/'.$row->id, 'Delete', 'class="btn btn-danger btn-sm"').'
           </td>
         </tr>';
-        } 
+        }
     } else {
         $pesan .= '<tr>
             <td colspan=11>Record not found</td>
@@ -131,31 +132,41 @@
             $this->load->view('dashboard', $data);
         }
 
-        public function create_action()
+        function create_action()
         {
             // $this->_rules();
 
             // if ($this->form_validation->run() == FALSE) {
             //     $this->create();
             // } else {
+            $count = count($this->session->userdata('brgQty'))-1;
+            for ($i=0; $i < $count; $i++) {
+              // code...
                 $data = array(
             		'id_jadwal' => $this->jadwal->buat_kode(),
-            		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
-                    'qty' => $this->input->post('qty',TRUE),
-                    'start' => $this->input->post('start',TRUE),
-                    'end' => date('Y-m-d H:i:s'),
-                    'username' => $this->session->identity,
-                    'title' => $this->input->post('title',TRUE),
-                    'color' => $this->input->post('color',TRUE),
-                    'description' => $this->input->post('description',TRUE),
-                    'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
-                    'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan',TRUE),
+            		'wp_barang_id' => $this->session->userdata('brgQty')[$i]['wp_barang_id'],
+                'qty' =>  $this->session->userdata('brgQty')[$i]['qty'],
+                'start' => $this->input->post('start',TRUE),
+                'end' => date('Y-m-d H:i:s'),
+                'username' => $this->session->identity,
+                'title' => $this->input->post('title',TRUE),
+                'color' => $this->input->post('color',TRUE),
+                'description' => $this->input->post('description',TRUE),
+                'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
+                'wp_karyawan_id_karyawan' => $this->input->post('wp_karyawan_id_karyawan',TRUE),
             	  );
-
                 $this->jadwal->insert($data);
+              }
+              // print_r($data);
                 $this->session->set_flashdata('message', 'Simpan Data Success');
                 redirect(site_url('som/jadwal'));
            // }
+        }
+
+        function queue(){
+          $this->session->set_userdata('brgQty', $this->input->post('data'));
+          print_r($this->session->userdata('brgQty'));
+
         }
 
         public function update($id)
