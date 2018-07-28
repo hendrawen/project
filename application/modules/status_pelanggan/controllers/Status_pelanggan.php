@@ -28,6 +28,7 @@ class Status_pelanggan extends CI_Controller {
             'content'		=>'view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
+            'marketing' => $this->model->get_marketing(),
         );
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
@@ -104,7 +105,7 @@ class Status_pelanggan extends CI_Controller {
     }
 
     // excel
-    function download_excel($year, $kota, $kecamatan, $warna)
+    function download_excel($year, $kota, $kecamatan, $warna, $marketing, $utang)
     {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
@@ -160,7 +161,7 @@ class Status_pelanggan extends CI_Controller {
         $tablebody++;
 
         $this_month = date('n');
-        $record = $this->model->get_laporan_excel($kota, $kecamatan);
+        $record = $this->model->get_laporan_excel($kota, $kecamatan, $marketing, $utang);
         if ($record){
             $temp = array();
             if ($warna == "all") {

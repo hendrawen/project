@@ -48,6 +48,7 @@ $(document).ready(function() {
         $('#tahun-tracking').val("").trigger('change');
         $('#filter-kota').val("").trigger('change');
         $('#filter-kecamatan').val("").trigger('change');
+        $('#filter-marketing').val("").trigger('change');
         reload_table_tracking();
     });
 });

@@ -5,6 +5,9 @@ $(document).ready(function() {
     $('#filter-kota').select2();
     $('#filter-kecamatan').select2();
     $('#tahun-tracking').select2();
+    $('#filter-marketing').select2();
+    $('#filter-warna').select2();
+    $('#filter-utang').select2();
     
     //datatables
     table = $('#table-tracking').DataTable({ 
@@ -47,6 +50,7 @@ $(document).ready(function() {
                 data.kecamatan = $('#filter-kecamatan').val();
                 data.warna = $('#filter-warna').val();
                 data.piutang = $('#filter-utang').val();
+                data.marketing = $('#filter-marketing').val();
             }
         },
 
@@ -70,6 +74,8 @@ $(document).ready(function() {
         $('#tahun-tracking').val("").trigger('change');
         $('#filter-kota').val("").trigger('change');
         $('#filter-kecamatan').val("").trigger('change');
+        $('#filter-marketing').val("semua").trigger('change');
+        $('#filter-utang').val("semua").trigger('change');
         reload_table_tracking();
     });
 });
@@ -84,6 +90,8 @@ $(btn_excel).click(function (e) {
     kota = $('#filter-kota').val();
     kecamatan = $('#filter-kecamatan').val();
     warna = $('#filter-warna').val();
+    utang = $('#filter-utang').val();
+    marketing = $('#filter-marketing').val();
     if (tahun == '') {
         tahun = 'semua';
     }
@@ -93,8 +101,9 @@ $(btn_excel).click(function (e) {
     if (kecamatan == '') {
         kecamatan = 'semua';
     }
+    console.log(marketing);
     
-    window.location = base_url + 'status_pelanggan/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna;
+    window.location = base_url + 'status_pelanggan/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna+'/'+marketing+'/'+utang;
 });
 
 

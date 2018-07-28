@@ -208,7 +208,9 @@ class Model extends CI_Model {
 
     function get_marketing()
     {
-        $this->db->select('id_karyawan as id, nama');
+        $this->db->select('wp_karyawan.id_karyawan as id, wp_karyawan.nama');
+        $this->db->join('wp_jabatan', 'wp_jabatan.id = wp_karyawan.wp_jabatan_id', 'left');
+        $this->db->where('wp_jabatan.nama_jabatan', 'Marketing');
         return $this->db->get('wp_karyawan')->result();
         
     }
