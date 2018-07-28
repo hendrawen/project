@@ -71,23 +71,23 @@ $('#detail_faktur').load(base_url+"faktur/load_cart");
     });
   });
 
-  $('#id_transaksi').autocomplete{
-    source: (base_url+"faktur2/get_autocomplete"),
-    select: function (event, ui) {
-        $('[name="id_transaksi"]').val(ui.item.label;
-        document.getElementById('id_transaksi').innerHTML = ui.item.id_transaksi;
-        document.getElementById('nama_pelanggan').innerHTML = ui.item.nama_pelanggan;
-        document.getElementById('alamat').innerHTML = ui.item.alamat;
-        document.getElementById('nama_dagang').innerHTML = ui.item.nama_dagang;
-        document.getElementById('no_telp').innerHTML = ui.item.no_telp;
-        document.getElementById('tgl_transaksi').innerHTML = ui.item.tgl_transaksi;
-        document.getElementById('jatuh_tempo').innerHTML = ui.item.jatuh_tempo;
-        document.getElementById('nama').innerHTML = ui.item.nama;
-        document.getElementById('lat').innerHTML = ui.item.lat;
-        document.getElementById('long').innerHTML = ui.item.long;
-        document.getElementById('kecamatan').innerHTML = ui.item.kecamatan;
-        document.getElementById('kelurahan').innerHTML = ui.item.kelurahan;
-    }
-  });
+  // $('#id_transaksi').autocomplete{
+  //   source: (base_url+"faktur2/get_autocomplete"),
+  //   select: function (event, ui) {
+  //       $('[name="id_transaksi"]').val(ui.item.label;
+  //       document.getElementById('id_transaksi').innerHTML = ui.item.id_transaksi;
+  //       document.getElementById('nama_pelanggan').innerHTML = ui.item.nama_pelanggan;
+  //       document.getElementById('alamat').innerHTML = ui.item.alamat;
+  //       document.getElementById('nama_dagang').innerHTML = ui.item.nama_dagang;
+  //       document.getElementById('no_telp').innerHTML = ui.item.no_telp;
+  //       document.getElementById('tgl_transaksi').innerHTML = ui.item.tgl_transaksi;
+  //       document.getElementById('jatuh_tempo').innerHTML = ui.item.jatuh_tempo;
+  //       document.getElementById('nama').innerHTML = ui.item.nama;
+  //       document.getElementById('lat').innerHTML = ui.item.lat;
+  //       document.getElementById('long').innerHTML = ui.item.long;
+  //       document.getElementById('kecamatan').innerHTML = ui.item.kecamatan;
+  //       document.getElementById('kelurahan').innerHTML = ui.item.kelurahan;
+  //   }
+  // });
 
 });

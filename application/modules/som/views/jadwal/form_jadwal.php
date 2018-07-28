@@ -40,28 +40,6 @@
                       <input id="title" name="title" type="text" value="<?php echo $title; ?>" class="form-control input-md" />
               </div>
               <div class="form-group">
-                <label for="title">Barang</label>
-                <select name="wp_barang_id" id="wp_barang_id" class="form-control js-example-basic-single" required>
-                <option value="" selected>--Pilih--</option>
-                    <?php
-                      $users = $this->db->query("SELECT * FROM wp_barang");
-                      foreach($users->result() as $value){
-                      $selected= '';
-                      if($wp_barang_id == $value->id){
-                        $selected = 'selected="selected"';
-                      }
-                      ?>
-                      <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
-                      <?php echo $value->id_barang; ?> - <?php echo $value->nama_barang; ?>
-                      </option>
-                      <?php }?>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="qty">Qty</label>
-                <input type="number" name="qty" id="qty" value="<?php echo $qty; ?>" class="form-control">
-              </div>
-              <div class="form-group">
                   <label for="description">Keterangan</label>
                       <textarea class="form-control" id="description" name="description" value=""><?php echo $description; ?></textarea>
               </div>
@@ -69,7 +47,7 @@
                   <label for="color">Sumber Data</label>
                   <select id="color" name="color" class="form-control">
                   <option disabled selected>--Pilih--</option>
-                  <option value="Due Date" <?php if ($color =='Due Date') { echo "selected";}?>>Due Date</option>    
+                  <option value="Due Date" <?php if ($color =='Due Date') { echo "selected";}?>>Due Date</option>
                   <option value="Hijau" <?php if ($color =='Hijau') { echo "selected";}?>>Hijau</option>
                   <option value="Biru" <?php if ($color =='Biru') { echo "selected";}?>>Biru</option>
                   <option value="Kuning" <?php if ($color =='Kuning') { echo "selected";}?>>Kuning</option>
@@ -101,12 +79,46 @@
                 <label for="qty">Tanggal</label>
                 <input type="date" name="start" id="start" value="<?php echo $start; ?>" class="form-control" require>
               </div>
+              <div class="form-group">
+                <label for="title">Barang</label>
+                <select name="wp_barang_id" id="wp_barang_id" class="form-control js-example-basic-single" required>
+                  <option value="" selected>--Pilih--</option>
+                  <?php
+                  $users = $this->db->query("SELECT * FROM wp_barang");
+                  foreach($users->result() as $value){
+                    $selected= '';
+                    if($wp_barang_id == $value->id){
+                      $selected = 'selected="selected"';
+                    }
+                    ?>
+                    <option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+                      <?php echo $value->id_barang; ?> - <?php echo $value->nama_barang; ?>
+                    </option>
+                  <?php }?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="qty">Qty</label>
+                <input type="number" name="qty" id="qty" value="<?php echo $qty; ?>" class="form-control">
+              </div>
               <input type="hidden" name="id" value="<?php echo $id; ?>" />
               <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
                           <div class="text-left">
                             <a href="<?php echo base_url('som/jadwal')?>" type="button" class="btn btn-default" >Kembali</a>
+                            <span class="btn btn-warning" id="queue">Queue</span>
                             <button type="submit" class="btn btn-success"><?php echo $button ?></button>
                           </div>
             </form>
+            <table id="queue-tbl" class="table table-striped mt-3 w-25">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Barang</th>
+                  <th>Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
       </div>
     </div>

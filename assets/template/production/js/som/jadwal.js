@@ -15,7 +15,7 @@ $(function(){
           }
         })
       }
-    
+
       $("#btn-jadwal-harian").click(function() {
         tgl = $("#tgl").val();
         $("#loading").show();
@@ -32,7 +32,7 @@ $(function(){
           success : function (data) {
             $("#loading").hide();
             $("#tbody-jadwal").html(data);
-    
+
           }
         })
       });
@@ -246,7 +246,7 @@ $(function(){
             });
         }
     });
-    
+
 
 
     // Handle Click on Delete Button
@@ -284,4 +284,25 @@ $(function(){
         }
         return true;
     }
+
+
+    let no = 1;
+    let barangQueue = {}
+    $('#queue').click(function(){
+      let barangId = $('#wp_barang_id').find(':selected').val()
+      let barang = $('#wp_barang_id').find(':selected').text()
+      let qty = $('#qty').val()
+      $('#queue-tbl>tbody').append('<tr><td>'+no+++'</td><td>'+barang+'</td><td>'+qty+'</td></tr>')
+      Array.prototype.push.apply(barangQueue, [{"wp_barang_id" :barangId, "qty" : qty}])
+      $.ajax({
+        type: 'post',
+        url: base_url+'som/jadwal/queue',
+        data: {data: barangQueue},
+        success: function (res){
+          console.log(res)
+        }
+      })
+    })
+
+
 });
