@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Marketing extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    private $permit;
     public function __construct()
     {
         parent::__construct();
@@ -30,8 +29,6 @@ class Marketing extends CI_Controller {
             'sub_judul'	=>'Report Harian Marketing',
             'content'		=>'laporan/marketing_harian',
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -59,7 +56,7 @@ class Marketing extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama_karyawan.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.number_format($row->subtotal).'</td>
             </tr>';
             $total += $row->subtotal;
@@ -82,12 +79,10 @@ class Marketing extends CI_Controller {
             'aktif'			=>'Transaksi',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Report Bulanan Marketing',
+            'sub_judul'	    =>'Report Bulanan Marketing',
             'content'		=>'laporan/marketing_bulanan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -117,7 +112,7 @@ class Marketing extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama_karyawan.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.number_format($row->subtotal).'</td>
             </tr>';
             $total += $row->subtotal;
@@ -143,8 +138,6 @@ class Marketing extends CI_Controller {
             'sub_judul'	=>'Report Tahunan Marketing',
             'content'		=>'laporan/marketing_tahunan',
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -172,7 +165,7 @@ class Marketing extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama_karyawan.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.number_format($row->subtotal).'</td>
             </tr>';
             $total += $row->subtotal;
@@ -210,7 +203,7 @@ class Marketing extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama_karyawan.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.number_format($row->subtotal).'</td>
             </tr>';
             $total += $row->subtotal;

@@ -21,7 +21,7 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun </span>
           <select class="form-control" id="tahun">
@@ -31,7 +31,7 @@
           </select>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Nama Produk </span>
           <select class="form-control" id="id_barang">
@@ -41,11 +41,11 @@
           </select>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <button type="button" class="btn btn-success" id="btn-produk-tahun"><i class="fa fa-search"></i> Search</button>
         <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none">
         <button type="button" id="excel_produk" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh "></i> Reload</button>
       </div>
     </div>
     <div class="table-responsive">

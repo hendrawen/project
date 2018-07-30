@@ -21,7 +21,7 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <select class="form-control" id="tahunan">
@@ -32,12 +32,12 @@
           </select>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <button type="button" id="btn-laporan-tahunan" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_tahunan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
         <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
       </div>
-      <div class="col-md-4 text-right">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-right">
 
       </div>
     </div>

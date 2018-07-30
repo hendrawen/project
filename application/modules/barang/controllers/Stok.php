@@ -22,38 +22,16 @@ class Stok extends CI_Controller
 
     public function index()
     {   
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'stok/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'stok/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'stok/index.html';
-            $config['first_url'] = base_url() . 'stok/index.html';
-        }
-
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->stok_model->total_rows($q);
-        $stok = $this->stok_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
+        $stok = $this->stok_model->get_all();
 
         $data = array(
             'stok_data' => $stok,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
+            'start' => 1,
         );
 				$data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	    ='Stok Barang';
-        $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
         $data['content']		='stok_list';
         $data['stok']    		= $this->stok_model->get_data();
         $this->load->view('panel/dashboard', $data);
@@ -74,8 +52,6 @@ class Stok extends CI_Controller
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Detail Stok Barang';
-            $data['menu']			= $this->permit[0];
-	        $data['submenu']		= $this->permit[1];
             $data['content']		='stok_read';
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -99,8 +75,6 @@ class Stok extends CI_Controller
 				$data['title']			='Brajamarketindo';
 				$data['judul']			='Dashboard';
                 $data['sub_judul']	='Stok Barang';
-                $data['menu']			= $this->permit[0];
-	            $data['submenu']		= $this->permit[1];
 				$data['content']		='stok_form';
 				$this->load->view('panel/dashboard', $data);
     }
@@ -144,8 +118,6 @@ class Stok extends CI_Controller
 						$data['title']			='Brajamarketindo';
 						$data['judul']			='Dashboard';
                         $data['sub_judul']	='Edit Stok Barang';
-                        $data['menu']			= $this->permit[0];
-	                    $data['submenu']		= $this->permit[1];
 						$data['content']		='stok_form';
 						$this->load->view('panel/dashboard', $data);
         } else {

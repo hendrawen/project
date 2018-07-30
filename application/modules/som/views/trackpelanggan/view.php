@@ -124,7 +124,20 @@
             </select>
           </div>
         </div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 text-right">
+        <div class="col-lg-3">
+        <div class="input-group">
+            <span class="input-group-addon">Marketing</span>
+            <select class="form-control" id="filter-marketing">
+              <option value="semua" >Semua Marketing</option>
+              <?php 
+                foreach ($marketing->result() as $key) {?>
+                  <option value="<?php echo $key->id_karyawan ?>"><?php echo $key->nama ?></option>
+                <?php }
+              ?>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 text-right">
           <button type="button" id="btn-filter-tracking" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
           <button type="button" id="excel-tracking" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
           <button type="button" id="btn-reset-tracking" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>

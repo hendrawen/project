@@ -27,6 +27,7 @@ class Tracking_aset extends CI_Controller {
             'content'		=>'tracking_aset/view',
             'bulan' => $this->model->get_month(),
             'list_kota' => $this->daerah->get_kota(),
+            'list_marketing' => $this->model->get_marketing(),
         );
         $this->load->view('panel/dashboard', $data);
     }
@@ -94,7 +95,7 @@ class Tracking_aset extends CI_Controller {
     }
 
     // excel
-    function download_excel($year, $kota, $kecamatan, $warna)
+    function download_excel($year, $kota, $kecamatan, $warna, $id_karyawan)
     {
         $kota =str_ireplace("%20"," ",$kota);
         $kecamatan =str_ireplace("%20"," ",$kecamatan);
@@ -164,7 +165,7 @@ class Tracking_aset extends CI_Controller {
         }
             
         $tablebody++;
-        $list = $this->model->get_laporan_excel($kota, $kecamatan);
+        $list = $this->model->get_laporan_excel($kota, $kecamatan, $id_karyawan);
         $temp = array();
         
         if ($list){

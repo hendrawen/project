@@ -43,9 +43,9 @@
             <div class="clearfix"></div>
       </div>
           <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 text-center">
                 <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+                    <?php //echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
                 </div>
             </div>
 
@@ -74,8 +74,8 @@
                            <td style="text-align:center">
                               <!-- <a href="<?=base_url()?>barang/stok/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
                               <a href="<?=base_url()?>barang/stok/update/<?=$key->id ?>" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-pencil"></i></a>
-                              <!-- <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/stok/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a> -->
-                              <a class="btn btn-danger btn-xs" onclick="return swal({
+                              <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>barang/stok/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+                              <!-- <a class="btn btn-danger btn-xs" onclick="return swal({
                                                       title: 'Yakin akan hapus data ini?',
                                                       text: 'Anda tidak akan melihat data ini lagi!',
                                                       type: 'warning',
@@ -83,7 +83,7 @@
                                                       confirmButtonColor: '#d9534f',
                                                          }, function(){
                                                             window.location.href ='<?=base_url()?>barang/stok/delete/<?=$key->id ?>';
-                                                                       });"><i class="glyphicon glyphicon-trash"></i></a>
+                                                                       });"><i class="glyphicon glyphicon-trash"></i></a> -->
                            </td>
                       </tr>
                       <?php } ?>
@@ -111,7 +111,7 @@
             </div>
 
             <!-- Gagal -->
-            <?php if ($this->session->flashdata('msg')): ?>
+            <!-- <?php if ($this->session->flashdata('msg')): ?>
                      <small>
                        <script type="text/javascript">
                           swal({
@@ -125,10 +125,10 @@
                            });
                        </script>
                      </small>
-                <?php endif; ?>
+                <?php endif; ?> -->
 
             <!-- sukses -->
-            <?php if ($this->session->flashdata('message')): ?>
+            <!-- <?php if ($this->session->flashdata('message')): ?>
                      <small>
                        <script type="text/javascript">
                           swal({
@@ -142,4 +142,4 @@
                            });
                        </script>
                      </small>
-                <?php endif; ?>
+                <?php endif; ?> -->
