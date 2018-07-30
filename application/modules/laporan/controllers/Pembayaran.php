@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pembayaran extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    private $permit;
     public function __construct()
     {
         parent::__construct();
@@ -30,12 +29,10 @@ class Pembayaran extends CI_Controller {
             'sub_judul'	    =>'Pembayaran',
             'content'		=>'pembayaran_harian',
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
-    function load_pembayaran_harian()
+    function load_pembayarfan_harian()
     {
         $day = $this->input->post('tgl');
         $data = $this->laporan->laporan_pembayaran_harian($day);
@@ -164,8 +161,6 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_bulanan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -241,8 +236,6 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_tahunan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -343,8 +336,6 @@ class Pembayaran extends CI_Controller {
             'sub_judul'	    =>'Pembayaran',
             'content'		=>'pembayaran_debtharian',
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -422,8 +413,6 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_debtbulanan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -502,8 +491,6 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_debtahunan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 

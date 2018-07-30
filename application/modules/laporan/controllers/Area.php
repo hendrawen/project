@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Area extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    private $permit;
     public function __construct()
     {
         parent::__construct();
@@ -32,8 +31,6 @@ class Area extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_area',
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -63,7 +60,7 @@ class Area extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -90,8 +87,6 @@ class Area extends CI_Controller {
           'content'		=>'som/transaksi/laporan_area_bulanan',
           'month'     =>$this->month,
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -123,7 +118,7 @@ class Area extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -149,8 +144,6 @@ class Area extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_area_harian',
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -180,7 +173,7 @@ class Area extends CI_Controller {
           <td>'.$row->kelurahan.'</td>
           <td>'.$row->no_telp.'</td>
           <td>'.$row->nama_karyawan.'</td>
-          <td>'.$row->username.'</td>
+          <td>'.$row->nama_debt.'</td>
           <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -223,7 +216,7 @@ class Area extends CI_Controller {
           <td>'.$row->kelurahan.'</td>
           <td>'.$row->no_telp.'</td>
           <td>'.$row->nama_karyawan.'</td>
-          <td>'.$row->username.'</td>
+          <td>'.$row->nama_debt.'</td>
           <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;

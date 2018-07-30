@@ -31,8 +31,6 @@ class Penjualan extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_harian',
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -59,7 +57,7 @@ class Penjualan extends CI_Controller {
           <td>'.$row->kelurahan.'</td>
           <td>'.$row->no_telp.'</td>
           <td>'.$row->nama_karyawan.'</td>
-          <td>'.$row->username.'</td>
+          <td>'.$row->nama_debt.'</td>
           <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -100,7 +98,7 @@ class Penjualan extends CI_Controller {
           <td>'.$row->kelurahan.'</td>
           <td>'.$row->no_telp.'</td>
           <td>'.$row->nama_karyawan.'</td>
-          <td>'.$row->username.'</td>
+          <td>'.$row->nama_debt.'</td>
           <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -127,8 +125,6 @@ class Penjualan extends CI_Controller {
           'content'		=>'som/transaksi/laporan_bulanan',
           'month'     => $this->month,
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -158,7 +154,7 @@ class Penjualan extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -184,8 +180,6 @@ class Penjualan extends CI_Controller {
           'sub_judul'	=>'Laporan',
           'content'		=>'som/transaksi/laporan_tahunan',
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -213,7 +207,7 @@ class Penjualan extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;

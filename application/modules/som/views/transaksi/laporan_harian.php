@@ -21,18 +21,18 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tanggal <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
           <input type="date" class="form-control" id="tgl" placeholder="" value="<?php echo date('m/d/Y')?>">
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <button type="button" id="btn-laporan-harian" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
         <button type="button" id="excel_harian" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh fa-spin"></i> Reload</button>
+        <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh "></i> Reload</button>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-right">
       </div>
     </div>
     <div class="table-responsive">

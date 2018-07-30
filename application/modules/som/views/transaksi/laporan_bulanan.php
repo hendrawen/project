@@ -22,7 +22,7 @@
 
   <div class="x_content">
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Bulan dari</span>
           <select class="form-control" id="bulan_dari">
@@ -33,7 +33,7 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Bulan ke</span>
           <select class="form-control" id="bulan_ke">
@@ -44,7 +44,7 @@
           </select>
         </div>
       </div>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="input-group">
           <span class="input-group-addon">Tahun</span>
           <select class="form-control" id="tahun">
@@ -55,7 +55,7 @@
           </select>
         </div>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <button type="button" class="btn btn-success" id="btn-search_bulan"> <i class="fa fa-search"> Search</i> <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></button>
         <button type="button" id="excel_bulanan" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
         <button type="button" id="btn-refresh" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>

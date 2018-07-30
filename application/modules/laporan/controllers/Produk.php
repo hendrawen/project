@@ -5,7 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Produk extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
     
-    private $permit;
     public function __construct()
     {
         parent::__construct();
@@ -44,7 +43,7 @@ class Produk extends CI_Controller {
           <td>'.$row->kelurahan.'</td>
           <td>'.$row->no_telp.'</td>
           <td>'.$row->nama_karyawan.'</td>
-          <td>'.$row->username.'</td>
+          <td>'.$row->nama_debt.'</td>
           <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -76,8 +75,6 @@ class Produk extends CI_Controller {
           'content'		=>'som/produk/harian',
           'list_barang' => $this->Barang_model->get_all(),
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -106,7 +103,7 @@ class Produk extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -136,8 +133,6 @@ class Produk extends CI_Controller {
           'list_barang' => $this->Barang_model->get_all(),
           'month'     => $this->month,
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -168,7 +163,7 @@ class Produk extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
@@ -197,8 +192,6 @@ class Produk extends CI_Controller {
           'content'		=>'som/produk/tahun',
           'list_barang' => $this->Barang_model->get_all(),
       );
-      $data['menu']			= $this->permit[0];
-      $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
   }
 
@@ -227,7 +220,7 @@ class Produk extends CI_Controller {
         <td>'.$row->kelurahan.'</td>
         <td>'.$row->no_telp.'</td>
         <td>'.$row->nama_karyawan.'</td>
-        <td>'.$row->username.'</td>
+        <td>'.$row->nama_debt.'</td>
         <td>'.number_format($row->subtotal).'</td>
         </tr>';
         $total += $row->subtotal;
