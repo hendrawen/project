@@ -173,28 +173,20 @@
                   </div>
                 </div>
 
-                <!-- <div class="row">
+                <div class="row">
                   <div class="col-md-6 col-sm-12 col-xs-12">
-                    <p class="lead">Jenis Pembayaran:</p>
-                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                      <?php
-                        foreach ($jenis_pembayaran as $value) {
-                        ?>
-                          <?php echo '<input type="radio" name="wp_status_id" id="'.$value->id.'" required value="'.$value->id.'"> '.$value->nama_status.'
-                                      <br>
-                          '; ?>
-                        <?php
-                        } ?>
-                    </p>
-                  </div>
-                  <div class="text col-md-6 col-xs-12">
-                    <p class="lead">Pembayaran</p>
+                    
                     <div class="form-group">
-                      <label for="">Jumlah Bayar</label>
-                      <input type="text" name="bayar" placeholder="Rp." class="form-control" value="0">
-                    </div>
+                      <select class="form-control" name="gudang" id="gudang" require>
+                            <option value="">--Pilih Gudang--</option>
+                            <?php
+                              foreach ($gudang->result() as $key) {?>
+                                <option value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
+                              <?php }
+                            ?>
+                      </select>
                   </div>
-                </div> -->
+                </div>
 
                 <div class="row no-print">
                   <div class="col-xs-12">

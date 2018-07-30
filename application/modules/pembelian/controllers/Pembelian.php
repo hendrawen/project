@@ -46,6 +46,7 @@ class Pembelian extends CI_Controller{
     $data['content']		= 'checkout';
     $data['data']=$this->pembelian->get_all_product();
     $data['profile']=$this->pembelian->get_profile();
+    $data['gudang'] = $this->pembelian->get_gudang();
     //$data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
 		$data['generate_invoice'] = $this->pembelian->generatekode_invoice();
     $data['get_total'] = $this->get_total();
@@ -253,12 +254,13 @@ class Pembelian extends CI_Controller{
   						"wp_barang_id"    => $items['wp_barang_id'],
   						"harga"       		=> $items['price'],
   						//"subtotal"       	=> $items['subtotal'][$key],
-              "tgl_transaksi" => $tgl_bayar,
+              "tgl_transaksi"   => $tgl_bayar,
   						"wp_suplier_id" 				=> $wp_suplier_id,
-  						"satuan"				=> $items['satuan'],
+  						"satuan"				  => $items['satuan'],
               "subtotal"        => $items['subtotal'],
-              //"status"      => $status,
-              "username"      => $this->session->identity,
+              //"status"        => $status,
+              "username"        => $this->session->identity,
+              "gudang"          => $this->input->post('gudang'),
   					);
         }
         $detail = array(

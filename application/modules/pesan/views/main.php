@@ -64,7 +64,7 @@
                 <!-- title row -->
                 <!-- Table row -->
                 <div class="row">
-                  <div class="col-md-12 col-xs-12">
+                  <div class="col-md-12 col-xs-12 table-responsive">
                     <table class="table table-striped jambo_table dt-responsive nowrap">
                       <thead>
                         <tr>

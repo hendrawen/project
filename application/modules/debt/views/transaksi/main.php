@@ -1,3 +1,13 @@
+<?php if ($this->session->flashdata('message')): ?>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-warning alert-dismissible fade in" role="alert" id="message"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
 <div class="row">
   <form action="#" id="form_transaksi" class="form-horizontal">
   <div class="col-md-3 col-sm-12 col-xs-12 form-group">
@@ -64,7 +74,7 @@
                 <!-- title row -->
                 <!-- Table row -->
                 <div class="row">
-                  <div class="col-md-12 col-xs-12">
+                  <div class="col-md-12 col-xs-12 table-responsive">
                     <table class="table table-striped jambo_table dt-responsive nowrap">
                       <thead>
                         <tr>

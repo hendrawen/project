@@ -12,6 +12,12 @@ class Pembelian_model extends CI_Model{
   public $id   = 'id';
   public $order = 'DESC';
 
+  function get_gudang()
+  {
+    # code...
+    $this->db->select('id, nama_gudang');
+    return $this->db->get('wp_gudang');
+  }
 
   function total_penjualan()
   {
