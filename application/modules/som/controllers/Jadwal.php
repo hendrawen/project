@@ -140,10 +140,11 @@
             //     $this->create();
             // } else {
             $count = count($this->session->userdata('brgQty'))-1;
+            $id_jdw = $this->jadwal->buat_kode();
             for ($i=0; $i < $count; $i++) {
               // code...
                 $data = array(
-            		'id_jadwal' => $this->jadwal->buat_kode(),
+            		'id_jadwal' => $id_jdw,
             		'wp_barang_id' => $this->session->userdata('brgQty')[$i]['wp_barang_id'],
                 'qty' =>  $this->session->userdata('brgQty')[$i]['qty'],
                 'start' => $this->input->post('start',TRUE),

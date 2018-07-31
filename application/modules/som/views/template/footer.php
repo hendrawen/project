@@ -154,6 +154,10 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kas.js" charset="utf-8"></script>
     <?php endif; ?>
 
+    <?php if ($this->uri->segment(2) == 'transaksi'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/som/transaksi.js" charset="utf-8"></script>
+    <?php endif; ?>
+
     <?php if ($this->uri->segment(2) == 'status_pelanggan'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/som/status_pelanggan.js" charset="utf-8"></script>
       <script src="<?php echo base_url()?>assets/template/production/js/som/pelanggan.js"></script>
