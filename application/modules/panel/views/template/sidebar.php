@@ -36,7 +36,6 @@
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>suplier">Suplier</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>gudang">Gudang</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang">Barang</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li>
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
                       <!-- <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li> -->
                     </ul>
@@ -124,6 +123,15 @@
                   <li><a href="<?php echo base_url();?>produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>
                   <li><a href="<?php echo base_url();?>statspel/laporan/pelanggan"><i class="fa fa-users"></i> Growth Pelanggan</a></li>
                   <li><a href="<?php echo base_url();?>gtransaksi"><i class="fa fa-pie-chart"></i> Growth Transaksi</a></li>
+
+                  <li><a <?php echo ($aktif == 'users')?'class="active"':"";?>><i class="fa fa-database"></i> Data Stok<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok Awal</a></li>
+                        <li><a href="<?php echo base_url();?>delivery/muat">Muat Barang</a></li>
+                        <li><a href="<?php echo base_url();?>delivery/muat">Stock Opname</a></li>
+                      </ul>
+                  </li>
+
                   <li><a <?php echo ($aktif == 'Kas')?'class="active"':"";?>><i class="fa fa-clone"></i> Data Kas <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>kas">Kas</a></li>
