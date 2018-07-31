@@ -58,16 +58,16 @@ class Model_laporan extends CI_Model{
         wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
         wp_transaksi.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
         wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
-        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,
-        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,b.nama as nama_debt,
+        wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp,b.nama as nama_debt,
+        wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, wp_transaksi.subtotal,
         DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 day) as `jatuh_tempo`');
     $this->db->from('wp_transaksi');
-    if ($from != 'semua'){
-      $this->db->where('month(wp_transaksi.tgl_transaksi)', $from);
-    }
-    if ($to != 'semua'){
-      $this->db->where('month(wp_transaksi.tgl_transaksi)', $to);
-    }
+    // if ($from != 'semua'){
+    //   $this->db->where('month(wp_transaksi.tgl_transakssi)', $from);
+    // }
+    // if ($to != 'semua'){
+    //   $this->db->where('month(wp_transaksi.tgl_transaksi)', $to);
+    // }
     if ($from != 'semua' && $to != 'semua') {
       $this->db->where('month(wp_transaksi.tgl_transaksi) >=', $from);
       $this->db->where('month(wp_transaksi.tgl_transaksi) <=', $to);
