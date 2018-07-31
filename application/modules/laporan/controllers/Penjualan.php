@@ -18,9 +18,30 @@ class Penjualan extends CI_Controller {
             }
       }
       $this->load->model('som/Model_laporan', 'mLap');
+      $this->load->model('Penjualan_model');
       $this->load->library('table');
   }
+
+  function index()
+  {
+    
+    redirect('laporan/penjualan/baru','refresh');
+    
+  }
   
+  function baru()
+  {
+    $data = array(
+      'aktif'			=>'laporan',
+      'title'			=>'Brajamarketindo',
+      'judul'			=>'Dashboard',
+      'sub_judul'	=>'Laporan',
+      'content'		=>'transaksi/laporan',
+      'list_status'		=>$this->Penjualan_model->get_status(),
+      'month' => $this->month,
+  );
+  $this->load->view('panel/dashboard', $data);
+  }
 
   function harian()
   {   
