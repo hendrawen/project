@@ -14,11 +14,7 @@ class Muat extends CI_Controller
 
     public function index()
     {
-
-        $muat = $this->Muat_model->get_all();
-
         $data = array(
-            'muat_data' => $muat,
             'aktif'			=>'delivery',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
@@ -28,24 +24,64 @@ class Muat extends CI_Controller
         $this->load->view('panel/dashboard', $data);
     }
 
+    public function ajax_list()
+    {
+        $list = $this->Muat_model->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $lists) {
+            $row = array();
+            $row[] = tgl_indo($lists->tanggal);
+            $row[] = $lists->nama_gudang;
+            $row[] = $lists->nama_debt;
+            $row[] = $lists->nama_barang;
+            $row[] = $lists->muat;
+            $row[] = $lists->satuan;
+            $row[] = $lists->terkirim;
+            $row[] = $lists->satuan_terkirim;
+            $row[] = $lists->kembali;
+            $row[] = $lists->satuan_kembali;
+            $row[] = $lists->return;
+            $row[] = $lists->satuan_return;
+            $row[] = $lists->rusak;
+            $row[] = $lists->satuan_rusak;
+            $row[] = $lists->aset_krat;
+            $row[] = $lists->aset_btl;
+            $row[] = $lists->keterangan;
+            $row[] = $lists->nama;
+            $row[] = '
+            <a href="'.base_url('delivery/muat/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+            <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
+                     ';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->Muat_model->count_all(),
+                        "recordsFiltered" => $this->Muat_model->count_filtered(),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
+
     public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('delivery/muat/create_action'),
       	    'id' => set_value('id'),
-      	    'muat_krat' => set_value('muat_krat',0),
-      	    'muat_dust' => set_value('muat_dust',0),
-      	    'terkirim_krat' => set_value('terkirim_krat',0),
-      	    'terkirim_btl' => set_value('terkirim_btl',0),
-      	    'kembali_krat' => set_value('kembali_krat',0),
-      	    'kembali_btl' => set_value('kembali_btl',0),
-      	    'retur_krat' => set_value('retur_krat',0),
+      	    'muat' => set_value('muat',0),
+      	    'terkirim' => set_value('terkirim',0),
+      	    'return' => set_value('return',0),
+      	    'rusak' => set_value('rusak',0),
+      	    'aset_krat' => set_value('aset_krat',0),
+      	    'aset_botol' => set_value('aset_botol',0),
       	    'keterangan' => set_value('keterangan'),
       	    'created_at' => set_value('created_at'),
       	    'username' => set_value('username'),
-      	    'wp_barang_id' => set_value('wp_barang_id'),
-      	    'wp_gudang_id' => set_value('wp_gudang_id'),
             'aktif'			=>'delivery',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
@@ -53,6 +89,7 @@ class Muat extends CI_Controller
             'content'		=>'muat/wp_debt_muat_form',
             'barang_list' => $this->Muat_model->get_barang(),
             'gudang_list' => $this->Muat_model->get_gudang(),
+            'karyawan'    => $this->Muat_model->get_karyawan(),
       	);
         $this->load->view('panel/dashboard', $data);
     }
@@ -65,19 +102,25 @@ class Muat extends CI_Controller
             $this->create();
         } else {
             $data = array(
-        		'muat_krat' => $this->input->post('muat_krat',TRUE),
-        		'muat_dust' => $this->input->post('muat_dust',TRUE),
-        		'terkirim_krat' => $this->input->post('terkirim_krat',TRUE),
-        		'terkirim_btl' => $this->input->post('terkirim_btl',TRUE),
-        		'kembali_krat' => $this->input->post('kembali_krat',TRUE),
-        		'kembali_btl' => $this->input->post('kembali_btl',TRUE),
-        		'retur_krat' => $this->input->post('retur_krat',TRUE),
+                'tanggal' => $this->input->post('tanggal'),
+        		'muat' => $this->input->post('muat',TRUE),
+        		'terkirim' => $this->input->post('terkirim',TRUE),
+        		'satuan_terkirim' => $this->input->post('satuan_kirim',TRUE),
+        		'kembali' => $this->input->post('kembali',TRUE),
+        		'satuan_kembali' => $this->input->post('satuan_kembali',TRUE),
+        		'return' => $this->input->post('return',TRUE),
+        		'satuan_return' => $this->input->post('satuan_return',TRUE),
+        		'rusak' => $this->input->post('rusak',TRUE),
+        		'satuan_rusak' => $this->input->post('satuan_rusak',TRUE),
+        		'aset_krat' => $this->input->post('aset_krat',TRUE),
+        		'aset_btl' => $this->input->post('aset_botol',TRUE),
         		'keterangan' => $this->input->post('keterangan',TRUE),
         		'username' => $this->session->identity,
-        		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
-            'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
+        		'wp_barang_id' => $this->input->post('barang',TRUE),
+                'wp_gudang_id' => $this->input->post('gudang',TRUE),
+                'id_karyawan' => $this->input->post('debt',TRUE),
+                'username' => $this->session->identity,
     	    );
-
             $this->Muat_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('delivery/muat'));
@@ -163,16 +206,10 @@ class Muat extends CI_Controller
 
     public function _rules()
     {
-    	$this->form_validation->set_rules('muat_krat', 'muat krat', 'trim|required');
-    	$this->form_validation->set_rules('muat_dust', 'muat dust', 'trim|required');
-    	$this->form_validation->set_rules('terkirim_krat', 'terkirim krat', 'trim|required');
-    	$this->form_validation->set_rules('terkirim_btl', 'terkirim btl', 'trim|required');
-    	$this->form_validation->set_rules('kembali_krat', 'kembali krat', 'trim|required');
-    	$this->form_validation->set_rules('kembali_btl', 'kembali btl', 'trim|required');
-    	$this->form_validation->set_rules('retur_krat', 'retur krat', 'trim|required');
-    	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
-    	$this->form_validation->set_rules('wp_barang_id', 'wp barang id', 'trim|required');
-    	$this->form_validation->set_rules('wp_gudang_id', 'wp gudang id', 'trim|required');
+    	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+    	$this->form_validation->set_rules('muat', 'muat dust', 'trim|required');
+    	$this->form_validation->set_rules('barang', 'wp barang id', 'trim|required');
+    	$this->form_validation->set_rules('gudang', 'wp gudang id', 'trim|required');
 
     	$this->form_validation->set_rules('id', 'id', 'trim');
     	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

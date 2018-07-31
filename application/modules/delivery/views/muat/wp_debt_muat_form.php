@@ -1,6 +1,6 @@
-<div class="x_panel">
+<div class="x_panel" >
   <div class="x_title">
-    <h2>Dev Muat <small>Data Muat</small></h2>
+    <h2>Muat Barang<small>Data Bongkar Muat</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -21,87 +21,118 @@
 
   <div class="x_content">
     <form action="<?php echo $action; ?>" method="post" class="form-horizontal">
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Wp Barang Id <?php echo form_error('wp_barang_id') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <select class="form-control js-example-basic-single" name="wp_barang_id" id="wp_barang_id">
-              <option value="" disabled selected>-- Pilih Barang --</option>
-              <?php foreach ($barang_list as $key): ?>
-                <option <?php echo ($key->id == $wp_barang_id)?'selected':'' ?> value="<?php echo $key->id ?>"><?php echo $key->id_barang.' - '. $key->nama_barang ?></option>
-              <?php endforeach; ?>
+      <div class="row">
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+            <?php echo form_error('tanggal') ?>
+            <input type="date" name="tanggal" id="tanggal" placeholder="input muat" class="form-control">
+          </div>
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('gudang') ?>
+            <select class="form-control" name="gudang" id="gudang">
+                  <option value="">Pilih Gudang</option>
+              <?php
+                foreach ($gudang_list as $key) {?>
+                  <option value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
+                <?php }
+              ?>
             </select>
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Wp Gudang Id <?php echo form_error('wp_gudang_id') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <select class="form-control js-example-basic-single" name="wp_gudang_id" id="wp_gudang_id">
-              <option value="" disabled selected>-- Pilih Barang --</option>
-              <?php foreach ($gudang_list as $key): ?>
-                <option <?php echo ($key->id == $wp_gudang_id)?'selected':'' ?> value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
-              <?php endforeach; ?>
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+            <select class="form-control" name="barang" id="barang">
+                  <option value="">Pilih Barang</option>
+              <?php
+                foreach ($barang_list as $key) {?>
+                  <option value="<?php echo $key->id ?>"><?php echo $key->nama_barang ?></option>
+                <?php }
+              ?>
             </select>
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Muat Krat <?php echo form_error('muat_krat') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="muat_krat" id="muat_krat" placeholder="Muat Krat" value="<?php echo $muat_krat; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+            <select name="debt" id="debt" class="form-control">
+                  <option value="">Pilih Debt</option>
+              <?php
+                foreach ($karyawan->result() as $key) {?>
+                  <option value="<?php echo $key->id_karyawan ?>"><?php echo $key->nama ?></option>
+                <?php }
+              ?>
+            </select>
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Muat Dust <?php echo form_error('muat_dust') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="muat_dust" id="muat_dust" placeholder="Muat Dust" value="<?php echo $muat_dust; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('muat') ?>
+            <input type="text" name="muat" id="muat" placeholder="input muat" class="form-control">
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Terkirim Krat <?php echo form_error('terkirim_krat') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="terkirim_krat" id="terkirim_krat" placeholder="Terkirim Krat" value="<?php echo $terkirim_krat; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('satuan') ?>
+            <select name="satuan" id="satuan" class="form-control">
+              <option value="">--Satuan--</option>
+              <option value="Krat">Krat</option>
+              <option value="Botol">Botol</option>
+              <option value="Dus">Dus</option>
+              <option value="Pcs">Pcs</option>
+            </select>
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Terkirim Botol <?php echo form_error('terkirim_btl') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="terkirim_btl" id="terkirim_btl" placeholder="Terkirim Botol" value="<?php echo $terkirim_btl; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('terkirim') ?>
+            <input type="text" name="terkirim" id="terkirim" placeholder="input terkirim" class="form-control">
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Kembali Krat <?php echo form_error('kembali_krat') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="kembali_krat" id="kembali_krat" placeholder="Kembali Krat" value="<?php echo $kembali_krat; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('satuan_kirim') ?>
+            <select name="satuan_kirim" id="satuan_kirim" class="form-control">
+              <option value="">--Satuan--</option>
+              <option value="Krat">Krat</option>
+              <option value="Botol">Botol</option>
+              <option value="Dus">Dus</option>
+              <option value="Pcs">Pcs</option>
+            </select>
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Kembali Botol <?php echo form_error('kembali_btl') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="kembali_btl" id="kembali_btl" placeholder="Kembali Botol" value="<?php echo $kembali_btl; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('return') ?>
+            <input type="text" name="return" id="return" placeholder="input retur" class="form-control">
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="int">Retur Krat <?php echo form_error('retur_krat') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" class="form-control" name="retur_krat" id="retur_krat" placeholder="Retur Krat" value="<?php echo $retur_krat; ?>" />
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('satuan-return') ?>
+            <select name="satuan_return" id="satuan_return" class="form-control">
+              <option value="">--Satuan--</option>
+              <option value="Krat">Krat</option>
+              <option value="Botol">Botol</option>
+              <option value="Dus">Dus</option>
+              <option value="Pcs">Pcs</option>
+            </select>
           </div>
-      </div>
-      <div class="row form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label" for="keterangan">Keterangan <?php echo form_error('keterangan') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <textarea class="form-control" rows="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea>
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('rusak') ?>
+            <input type="text" placeholder="input rusak" name="rusak" id="rusak" class="form-control">
           </div>
-      </div>
-
-      <div class="row form-group">
-        <div class="col-md-3 col-sm-3 col-xs-12">
-        </div>
-        <div class="col-md-9 col-sm-9 col-xs-12">
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('satuan_rusak') ?>
+            <select name="satuan_rusak" id="satuan_rusak" class="form-control">
+              <option value="">--Satuan--</option>
+              <option value="Krat">Krat</option>
+              <option value="Botol">Botol</option>
+              <option value="Dus">Dus</option>
+              <option value="Pcs">Pcs</option>
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('aset_krat') ?>
+            <input type="text" name="aset_krat" id="aset_krat" placeholder="input aset krat" class="form-control">
+          </div>
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('aset_botol') ?>
+            <input type="text" name="aset_botol" id="aset_botol" placeholder="input aset botol" class="form-control">
+          </div>
+          <div class="col-md-6 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('keterangan') ?>
+            <input type="text" name="keterangan" id="keterangan" placeholder="Keterangan" class="form-control">
+          </div>
           <input type="hidden" name="id" value="<?php echo $id; ?>" />
-          <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
-          <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <?php echo $button ?></button>
-          <a href="<?php echo site_url('delivery/muat') ?>" class="btn btn-default"><i class="fa fa-times"></i> Cancel</a>
-        </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
+            <a href="<?php echo base_url('delivery/muat') ?>" class="btn btn-primary">Kembali</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
+          </div>
+      </div>
     </form>
 
   </div>
 </div>
+
