@@ -33,48 +33,47 @@ class Penarikan extends CI_Controller {
             'content'		=>'penarikan_harian',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
     function load_penarikan_harian()
     {
         $day = $this->input->post('tgl');
+        echo $day;
         $data = $this->laporan->penarikan_harian($day);
         $pesan = "";
         $total = 0;
         if ($data) {
-        foreach ($data as $row) {
+            foreach ($data as $row) {
+                $pesan .= '<tr>
+                <td>'.$row->id_transaksi.'</td>
+                <td>'.tgl_indo($row->tgl_transaksi).'</td>
+                <td>'.tgl_indo($row->jatuh_tempo).'</td>
+                <td>'.$row->id_pelanggan.'</td>
+                <td>'.$row->nama_pelanggan.'</td>
+                <td>'.$row->nama_barang.'</td>
+                <td>'.$row->qty.'</td>
+                <td>'.$row->satuan.'</td>
+                <td>'.$row->kecamatan.'</td>
+                <td>'.$row->kelurahan.'</td>
+                <td>'.$row->no_telp.'</td>
+                <td>'.$row->nama.'</td>
+                <td>'.$row->nama_debt.'</td>
+                <td>'.$row->total.'</td>
+                <td>'.tgl_indo($row->tgl_penarikan).'</td>
+                <td>'.$row->bayar_krat.'</td>
+                <td>'.tgl_indo($row->tgl_penarikan).'</td>
+                <td>'.$row->bayar_uang.'</td>
+                <td>'.$row->jumlah.'</td>
+                <td>'.$row->sisa.'</td>
+                <td>'.$row->status.'</td>
+                </tr>';
+                $total += $row->sisa;
+            }
             $pesan .= '<tr>
-            <td>'.$row->id_transaksi.'</td>
-            <td>'.tgl_indo($row->tgl_transaksi).'</td>
-            <td>'.tgl_indo($row->jatuh_tempo).'</td>
-            <td>'.$row->id_pelanggan.'</td>
-            <td>'.$row->nama_pelanggan.'</td>
-            <td>'.$row->nama_barang.'</td>
-            <td>'.$row->qty.'</td>
-            <td>'.$row->satuan.'</td>
-            <td>'.$row->kecamatan.'</td>
-            <td>'.$row->kelurahan.'</td>
-            <td>'.$row->no_telp.'</td>
-            <td>'.$row->nama.'</td>
-            <td>'.$row->username.'</td>
-            <td>'.$row->total.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
-            <td>'.$row->bayar_krat.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
-            <td>'.$row->bayar_uang.'</td>
-            <td>'.$row->jumlah.'</td>
-            <td>'.$row->sisa.'</td>
-            <td>'.$row->status.'</td>
+            <td colspan=19 class=text-right><b>total sisa aset</b></td>
+            <td colspan=2><b>'.$total.'</b></td>
             </tr>';
-            $total += $row->sisa;
-        }
-        $pesan .= '<tr>
-        <td colspan=19 class=text-right><b>total sisa aset</b></td>
-        <td colspan=2><b>'.$total.'</b></td>
-        </tr>';
         } else {
         $pesan .= '<tr>
             <td colspan=16>Record not found</td>
@@ -94,8 +93,6 @@ class Penarikan extends CI_Controller {
             'content'		=>'penarikan_bulanan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -122,7 +119,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
@@ -156,8 +153,6 @@ class Penarikan extends CI_Controller {
             'content'		=>'penarikan_tahunan',
             'month'         => $this->month,
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -182,7 +177,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>
@@ -226,7 +221,7 @@ class Penarikan extends CI_Controller {
             <td>'.$row->kelurahan.'</td>
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
-            <td>'.$row->username.'</td>
+            <td>'.$row->nama_debt.'</td>
             <td>'.$row->total.'</td>
             <td>'.tgl_indo($row->tgl_penarikan).'</td>
             <td>'.$row->bayar_krat.'</td>

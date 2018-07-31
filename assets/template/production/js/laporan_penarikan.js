@@ -89,6 +89,16 @@ $("#btn-search_bulan_aset").click(function() {
     t = $("#tahun").val();
     window.location = base_url + 'laporan/excel/Penarikan_bulanan/'+b1+'/'+b2+'/'+t;
   });
+
+  $("#excel_penarikan_harian").click(function() {
+    day = $("#tgl").val();
+    window.location = base_url + 'laporan/excel/penarikan_harian/'+day;
+  });
+
+  $("#excel_penarikan_tahunan").click(function() {
+    tahun = $("#tahunan").val();
+    window.location = base_url + 'laporan/excel/penarikan_tahunan/'+tahun;
+  });
   
   $("#btn-refresh-penarikan").click(function() {
     get_all_penarikan();

@@ -50,7 +50,6 @@ $(document).ready(function() {
       tahun = $("#tahun").val();
       berdasarkan = $("#berdasarkan-dept").val();
       nama = $("#nama").val();
-      console.log(nama);
       
       $("#loading").show();
       $.ajaxSetup({
@@ -171,6 +170,7 @@ $(document).ready(function() {
       b1 = $("#bulan_dari").val();
       b2 = $("#bulan_ke").val();
       t = $("#tahun").val();
+      alert(b1+' '+b2+' '+t);
       window.location = base_url + 'laporan/excel/pembayaran_bulanan/'+b1+'/'+b2+'/'+t;
     });
 

@@ -32,7 +32,7 @@ class Pembayaran extends CI_Controller {
         $this->load->view('panel/dashboard', $data);
     }
 
-    function load_pembayarfan_harian()
+    function load_pembayaran_harian()
     {
         $day = $this->input->post('tgl');
         $data = $this->laporan->laporan_pembayaran_harian($day);
@@ -56,7 +56,7 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->no_telp.'</td>
             <td>'.$row->nama.'</td>
             <td>'.$row->nama_debt.'</td>
-            <td>'.number_format($row->subtotal,2,',','.').'</td
+            <td>'.number_format($row->subtotal,2,',','.').'</td>
             <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
@@ -170,8 +170,8 @@ class Pembayaran extends CI_Controller {
         $to = $this->input->post('to');
         $tahun = $this->input->post('tahun');
         $data = $this->laporan->laporan_bulanan($from, $to, $tahun);
-        $pesan = "";
         $total = 0;
+        $pesan = "";
         $total_bayar = 0;
         $total_sisa= 0;
         if ($data) {
@@ -191,12 +191,13 @@ class Pembayaran extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->nama_debt.'</td>
             <td>'.number_format($row->subtotal,2,',','.').'</td>
-            <td>'.($row->bayar > 0 ) ? tgl_indo($row->tgl_bayar) :''.'</td></td>
+            <td>'.(($row->bayar > 0 )? tgl_indo($row->tgl_bayar):'').'</td></td>
             <td>'.number_format($row->bayar,2,',','.').'</td></td>
             <td>'.number_format($row->jumlah_bayar,2,',','.').'</td></td>
             <td>'.number_format($row->sisa_hutang,2,',','.').'</td></td>
             <td>'.$row->nama_status.'</td></td>
             </tr>';
+
             $total += $row->subtotal;
             $total_bayar += $row->jumlah_bayar;
             $total_sisa += $row->sisa_hutang;

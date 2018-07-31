@@ -9,7 +9,7 @@ class Excel extends CI_Controller{
     if (!$this->ion_auth->logged_in()) {//cek login ga?
             redirect('login','refresh');
         }else{
-            if (!$this->ion_auth->in_group('admin')) {//cek admin ga?
+            if (!$this->ion_auth->in_group('admin') && !$this->ion_auth->in_group('Super User')) {//cek admin ga?
                 redirect('login','refresh');
             }
         }
@@ -78,7 +78,7 @@ class Excel extends CI_Controller{
             xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
             xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
             xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->username);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
             xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
             $tablebody++;
             $nourut++;
@@ -154,7 +154,7 @@ class Excel extends CI_Controller{
               xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
               xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
               xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
-              xlsWriteLabel($tablebody, $kolombody++, $data->username);
+              xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
               xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
               $tablebody++;
               $nourut++;
@@ -230,7 +230,7 @@ class Excel extends CI_Controller{
               xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
               xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
               xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
-              xlsWriteLabel($tablebody, $kolombody++, $data->username);
+              xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
               xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
               $tablebody++;
               $nourut++;
@@ -342,7 +342,7 @@ class Excel extends CI_Controller{
       xlsWriteLabel(2, 0, "Produk");
 
       xlsWriteLabel(0, 1, 'Produk');
-      xlsWriteLabel(1, 1, $this->get_month($from).' - '.$this->get_month($to).' '.$year);
+      xlsWriteLabel(1, 1, getBulan($from).' - '.getBulan($to).' '.$year);
       xlsWriteLabel(2, 1, "Produk : ".$this->get_nama_barang($id_barang));
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -471,6 +471,8 @@ class Excel extends CI_Controller{
   ----------*/
   function area($tahun, $area, $berdasarkan)
   {
+    $area = rawurldecode($area);
+    $berdasarkan = rawurldecode($berdasarkan);
       $this->load->helper('exportexcel');
       $namaFile = "trans_area_tahun.xls";
       $judul = "Transaksi";
@@ -555,6 +557,8 @@ class Excel extends CI_Controller{
   function area_bulanan($bulanDari, $bulanKe, $tahun, $area, $berdasarkan)
   {
       $this->load->helper('exportexcel');
+      $area = rawurldecode($area);
+      $berdasarkan = rawurldecode($berdasarkan);
       $namaFile = "trans_area_bulan.xls";
       $judul = "Transaksi";
       $tablehead = 4;
@@ -634,6 +638,8 @@ class Excel extends CI_Controller{
 
   function area_harian($tgl, $area, $berdasarkan)
   {
+      $area = rawurldecode($area);
+      $berdasarkan = rawurldecode($berdasarkan);
       $this->load->helper('exportexcel');
       $namaFile = "trans_area_harian.xls";
       $judul = "Transaksi";
@@ -816,7 +822,7 @@ class Excel extends CI_Controller{
       xlsWriteLabel(0, 0, "Laporan");
       xlsWriteLabel(1, 0, "Periode");
       xlsWriteLabel(0, 1, "Pelanggan");
-      xlsWriteLabel(1, 1, $this->get_month($from).' - '.$this->get_month($to).' '.$year);
+      xlsWriteLabel(1, 1, getBulan($from).' - '.getBulan($to).' '.$year);
       $kolomhead = 0;
       xlsWriteLabel($tablehead, $kolomhead++, "No");
       xlsWriteLabel($tablehead, $kolomhead++, "Id Transaksi");
@@ -896,7 +902,7 @@ class Excel extends CI_Controller{
 
   function get_month($value)
   {
-    $res;
+    $res = array();
     $month = array('Januari','Februari','Maret','April','Mei','Juni',
     'Juli','Agustus','September','Oktober','November','Desember');
     for ($i=0; $i < sizeOf($month); $i++) {

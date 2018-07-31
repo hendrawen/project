@@ -62,7 +62,7 @@
                         src="<?=base_url();?>assets/ajax-loader.gif"
                         alt=""
                         style="text-align:center; display:none"></button>
-                <button type="button" id="excel_penarikan_harian" class="btn btn-primary">
+                <button type="button" id="excel_penarikan_tahunan" class="btn btn-primary">
                     <i class="fa fa-download"></i>
                     Excel</button>
                 <button type="button" class="btn btn-warning" id="btn-refresh-penarikan">
