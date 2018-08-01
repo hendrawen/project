@@ -18,18 +18,12 @@ class Penjualan extends CI_Controller {
             }
       }
       $this->load->model('som/Model_laporan', 'mLap');
+      $this->load->model('PenjualanDebt_model');
       $this->load->model('Penjualan_model');
       $this->load->library('table');
   }
 
   function index()
-  {
-    
-    redirect('laporan/penjualan/baru','refresh');
-    
-  }
-  
-  function baru()
   {
     $data = array(
       'aktif'			=>'laporan',
@@ -38,6 +32,20 @@ class Penjualan extends CI_Controller {
       'sub_judul'	=>'Laporan',
       'content'		=>'transaksi/laporan',
       'list_status'		=>$this->Penjualan_model->get_status(),
+      'month' => $this->month,
+  );
+  $this->load->view('panel/dashboard', $data);
+  }
+
+  function penjualan_debt()
+  {
+    $data = array(
+      'aktif'			=>'laporan',
+      'title'			=>'Brajamarketindo',
+      'judul'			=>'Dashboard',
+      'sub_judul'	=>'Laporan',
+      'content'		=>'debt/main',
+      'list_debt'		=>$this->PenjualanDebt_model->get_debt(),
       'month' => $this->month,
   );
   $this->load->view('panel/dashboard', $data);

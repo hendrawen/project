@@ -62,13 +62,7 @@
                         <li><a href="<?php echo base_url();?>effectifcall">Customer Service / Validator</a></li>
                       </ul>
                   </li>
-                    <li><a><i class="fa fa-line-chart"></i> Report Penjualan <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/harian">Penjualan Harian</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/bulanan">Penjualan Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/tahunan">Penjualan Tahunan</a></li>
-                      </ul>
-                    </li>
+                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('laporan/penjualan/');?>"><i class="fa fa-line-chart"></i> Report Penjualan</a>
                     <li><a><i class="fa fa-line-chart"></i> Report Pembayaran <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
@@ -106,9 +100,7 @@
                     </li>
                   <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>lap_dep/harian">Penjualan Harian</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/bulanan">Penjualan Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/tahunan">Penjualan Tahunan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/penjualan_debt">Penjualan</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_harian">Pembayaran Harian</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_bulanan">Pembayaran Bulanan</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_tahunan">Pembayaran Tahunan</a></li>

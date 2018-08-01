@@ -8,7 +8,7 @@ $(document).ready(function() {
     view('day');
     
     //datatables
-    table = $('#table-penjualan2').DataTable({ 
+    table = $('#table-penjualan-debt').DataTable({ 
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
  
@@ -38,7 +38,7 @@ $(document).ready(function() {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": base_url+"laporan/penjualan2/ajax_list",
+            "url": base_url+"laporan/penjualandebt/ajax_list",
             "type": "POST",
             "data": function ( data ) {
                 data.tanggal = $('#filter-tgl').val();
@@ -46,12 +46,11 @@ $(document).ready(function() {
                 data.ke = $('#filter-bulan-ke').val();
                 data.tahun = $('#filter-tahun').val();
                 data.tahun2 = $('#filter-tahun2').val();
-                data.status = $('#filter-status').val();
-                data.status2 = $('#filter-status2').val();
-                data.status3 = $('#filter-status3').val();
+                data.debt = $('#filter-debt').val();
+                data.debt2 = $('#filter-debt2').val();
+                data.debt3 = $('#filter-debt3').val();
             }
         },
-
         //Set column definition initialisation properties.
         "columnDefs": [
         { 
@@ -59,7 +58,6 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         ],
- 
     });
 
 });
@@ -75,7 +73,7 @@ function refresh() {
 
 function reload_table()
 {
-    $('#table-penjualan2').DataTable().ajax.reload();//reload datatable ajax
+    $('#table-penjualan-debt').DataTable().ajax.reload();//reload datatable ajax
 }
 
 function view(value) {
@@ -98,15 +96,15 @@ function view(value) {
 function excel_tanggal() {
     
     tgl = $("#filter-tgl").val();
-    status = $("#filter-status").val();
+    debt = $("#filter-debt").val();
     
     if (tgl == '') {
       tgl = 'semua';
     }
-    if (status == '') {
-      status = 'semua';
+    if (debt == '') {
+      debt = 'semua';
     }
-    window.location = base_url + 'laporan/penjualan2/excel_tanggal/'+tgl+'/'+status;
+    window.location = base_url + 'laporan/penjualandebt/excel_tanggal/'+tgl+'/'+debt;
 }
 
 function excel_bulan() {
@@ -114,7 +112,7 @@ function excel_bulan() {
     dari = $("#filter-bulan-dari").val();
     ke = $("#filter-bulan-ke").val();
     tahun = $("#filter-tahun").val();
-    status = $("#filter-status2").val();
+    debt = $("#filter-debt2").val();
 
     if (dari == '') {
       dari = 'semua';
@@ -128,24 +126,24 @@ function excel_bulan() {
       tahun = 'semua';
     }
 
-    if (status == '') {
-      status = 'semua';
+    if (debt == '') {
+      debt = 'semua';
     }
 
-    window.location = base_url + 'laporan/penjualan2/excel_bulan/'+dari+'/'+ke+'/'+tahun+'/'+status;
+    window.location = base_url + 'laporan/penjualandebt/excel_bulan/'+dari+'/'+ke+'/'+tahun+'/'+debt;
 }
 
 function excel_tahun() {
     
     tahun = $("#filter-tahun2").val();
-    status = $("#filter-status3").val();
+    debt = $("#filter-debt3").val();
     if (tahun == '') {
       tahun = 'semua';
     }
-    if (status == '') {
-      status = 'semua';
+    if (debt == '') {
+      debt = 'semua';
     }
-    window.location = base_url + 'laporan/penjualan2/excel_tahun/'+tahun+'/'+status;
+    window.location = base_url + 'laporan/penjualandebt/excel_tahun/'+tahun+'/'+debt;
 }
 
 function formatCurrency(num) {
