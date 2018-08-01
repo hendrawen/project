@@ -215,7 +215,7 @@ class Muat extends CI_Controller
 
     public function delete($id)
     {
-        $row = $this->Muat_model->get_by_id($id);
+        $row = $this->Muat_model->delete($id);
         echo json_encode(array("status" => TRUE));
     }
 
