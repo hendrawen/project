@@ -20,19 +20,19 @@ $(document).ready(function () {
 });
 
 $("#button_aset").click(function(){
-    idSupplier = $("#id_track_aset").val();
+    sp = $("#id_track_suplier").val();
     $("#tabel_cari_aset").show();
     $.ajax({
         type: "POST",
-        url: base_url+"pembayaranaset/track_aset",
-        data: {idSupplier : idSupplier},
+        url: base_url+"pembayaranaset/cek_data",
+        data: {sp : sp},
         dataType: "html",
         success: function (response) {
             data = JSON.parse(response);
             record_debt = data.id;
             $("#tabel_cari_aset").show();
             $("#result_aset").html(data.pesan);
-            get_id_sup(idSupplier);
+            get_id_sup(sp);
             status = data.status;
         }
     });
@@ -44,6 +44,7 @@ $("#btn-bayar-aset").click(function () {
     record = record_debt;
     jenis = $("#jenis").val();
     id = $("#id").val();
+    gudang = $('#gudang').val();
     //inputan
     str_bayar_uang = $("#bayar_uang").val();
     bayar_uang = str_bayar_uang.replace('.', '');
@@ -86,6 +87,7 @@ $("#btn-bayar-aset").click(function () {
                 bayar_krat : bayar_krat,
                 id : id,
                 record : record_debt,
+                gudang : gudang
             },
             dataType: "json",
             success: function (response) {

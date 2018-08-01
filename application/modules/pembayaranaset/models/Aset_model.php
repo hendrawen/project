@@ -67,8 +67,8 @@ class Aset_model extends CI_Model
 
     function get_track($cari){
         $this->db->where('wp_suplier.id_suplier', $cari);
-        $this->db->join('wp_suplier', 'wp_suplier.id = wp_transaksistok.wp_suplier_id');
-        $hsl = $this->db->get('wp_transaksistok');
+        $this->db->join('wp_suplier', 'wp_suplier.id = wp_asis_aset.id_suplier');
+        $hsl = $this->db->get('wp_asis_aset');
         if($hsl->num_rows() == 0){
             echo '<tr><td colspan="6"><center><div class="alert alert-danger" role="alert">Supplier dengan No. ID : '.$cari.' Tidak Ada ASET</div></center></td></tr>';
         } else {
@@ -94,20 +94,21 @@ class Aset_model extends CI_Model
         return $hsl->result();
     }
 
-    function get_penarikan($id_pelanggan)
+    function get_penarikan($id_supplier)
     {
-        $this->db->select('wp_asis_debt.id, wp_asis_debt.turun_krat, wp_asis_debt.piutang,
-            wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_asis_debt.tanggal as tgl_penarikan, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang');
-        $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
-        $this->db->where("wp_asis_debt.piutang <> wp_asis_debt.turun_krat");
+        $this->db->select('wp_asis_aset.id, wp_asis_aset.tanggal, wp_asis_aset.turun_krat, wp_asis_aset.piutang,
+            wp_suplier.id_suplier, wp_suplier.nama_suplier,
+            wp_asis_aset.tanggal as tgl_penarikan, wp_asis_aset.bayar_krat, wp_asis_aset.bayar_uang');
+        $this->db->where('wp_suplier.id_suplier', $id_supplier);
+        $this->db->where("wp_asis_aset.piutang <> wp_asis_aset.turun_krat");
 
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
-        $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
-        $this->db->group_by('wp_asis_debt.id');
+        $this->db->join('wp_suplier', 'wp_suplier.id = wp_asis_aset.id_suplier', 'inner');
+        $this->db->join('wp_pembayaran_aset', 'wp_pembayaran_aset.id_aset = wp_asis_aset.id', 'left');
+        $this->db->group_by('wp_asis_aset.id');
 
-        $this->db->order_by('wp_asis_debt.id', 'asc');
+        $this->db->order_by('wp_asis_aset.id', 'asc');
 
-        $record = $this->db->get('wp_asis_debt');
+        $record = $this->db->get('wp_asis_aset');
 
         return $record->result();
     }
@@ -123,7 +124,7 @@ class Aset_model extends CI_Model
     {
         $respon = 'F';
         $this->db->trans_begin();
-        $this->db->insert_batch('wp_penarikan', $data);
+        $this->db->insert_batch('wp_pembayaran_aset', $data);
         $this->update_debt($data2);
         if ($this->db->trans_status() === FALSE)
         {
@@ -138,7 +139,7 @@ class Aset_model extends CI_Model
 
     function update_debt($data)
     {
-        $this->db->update_batch('wp_asis_debt', $data, 'id');
+        $this->db->update_batch('wp_asis_aset', $data, 'id');
     }
 
     function get_harga_krat()
