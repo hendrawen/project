@@ -48,6 +48,8 @@
                         </li>
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranbarang/barang"> Pembayaran Barang</a>
                         </li>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaranaset/penarikan"> Pembayaran Aset</a>
+                        </li>
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi">Penjualan</a>
                         </li>
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
@@ -88,7 +90,7 @@
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li> 
+                        <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
                       </ul>
                     </li>
                     <li><a><i class="fa fa-line-chart"></i> Report Trx Area <span class="fa fa-chevron-down"></span></a>
