@@ -72,12 +72,8 @@ class Aset_model extends CI_Model
     }
 
     function get_track($cari){
-        $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_asis_debt.turun_krat, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang, wp_asis_debt.piutang, (wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa, wp_asis_debt.tanggal');
-        $this->db->from('wp_asis_debt');
-        $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id');
-        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
-        $this->db->where('wp_pelanggan.id_pelanggan', $cari);
-        $hsl = $this->db->get();
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
         if($hsl->num_rows() == 0){
             echo '<tr><td colspan="6"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Ada ASET</div></center></td></tr>';
         } else {
@@ -86,22 +82,17 @@ class Aset_model extends CI_Model
     }
     
     function sum_get_track($cari){
-        $this->db->select('sum(wp_asis_debt.turun_krat) as turun_krat, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang, wp_asis_debt.piutang, sum(wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa');
-        $this->db->from('wp_asis_debt');
-        $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id');
-        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
-        $this->db->where('wp_pelanggan.id_pelanggan', $cari);
-        $hsl = $this->db->get();
-        return $hsl;
+        $this->db->select('sum(sisa) as sisa');
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
+        return $hsl->result();
     }
     
     function get_min_track($cari){
         $this->db->order_by('id_transaksi', 'ASC');
-        $this->db->select('wp_transaksi.id_transaksi, (wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa, wp_pelanggan.id_pelanggan');
-        $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id', 'left');
-        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
-        $this->db->where('wp_pelanggan.id_pelanggan', $cari);
-        $hsl = $this->db->get('wp_asis_debt');
+        $this->db->select('id_transaksi, sisa, id_pelanggan');
+        $this->db->where('id_pelanggan', $cari);
+        $hsl = $this->db->get('v_detail');
         return $hsl->result();
     }
 
