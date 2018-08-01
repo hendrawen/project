@@ -269,6 +269,13 @@ class Pembelian extends CI_Controller{
           'created_at' => date('Y-m-d'),
 
          );
+         $pembayaran = array(
+           'id_suplier' => $wp_suplier_id,
+           'id_transaksi' => $id_transaksi,
+           'tgl_bayar'  => $tgl_bayar,
+           'username'   => $this->session->identity,
+         );
+          $this->db->insert('wp_pembayaranbarang', $pembayaran);
           $this->db->insert('wp_detail_transaksistok', $detail);
   				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){ $this->cart->destroy();

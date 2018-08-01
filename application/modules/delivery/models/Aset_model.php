@@ -15,6 +15,12 @@ class Aset_model extends CI_Model
         parent::__construct();
     }
 
+    public function get_gudang()
+    {
+        $this->db->select('id, nama_gudang');
+        return $this->db->get('wp_gudang');
+    }
+
     // get all
     function get_all()
     {

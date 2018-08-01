@@ -47,6 +47,7 @@ class Delivery extends CI_Controller
             'judul'			=>'Dashboard',
             'sub_judul'	    =>'Delivery',
             'content'		=>'tarik_aset',
+            'gudang'         => $this->Aset_model->get_gudang(),
         );
         $data['menu']			= $this->permit[0];
 		$data['submenu']		= $this->permit[1];
