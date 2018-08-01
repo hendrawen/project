@@ -73,11 +73,11 @@ class Aset_model extends CI_Model
 
     function get_track($cari){
         $this->db->select('wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_asis_debt.turun_krat, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang, wp_asis_debt.piutang, (wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa, wp_asis_debt.tanggal');
+        $this->db->from('wp_asis_debt');
         $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id');
         $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
         $this->db->where('wp_pelanggan.id_pelanggan', $cari);
-        $this->db->where('(wp_asis_debt.turun_krat - wp_asis_debt.piutang) >', 0);
-        $hsl = $this->db->get('wp_asis_debt');
+        $hsl = $this->db->get();
         if($hsl->num_rows() == 0){
             echo '<tr><td colspan="6"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$cari.' Tidak Ada ASET</div></center></td></tr>';
         } else {
@@ -87,11 +87,12 @@ class Aset_model extends CI_Model
     
     function sum_get_track($cari){
         $this->db->select('wp_asis_debt.turun_krat, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang, wp_asis_debt.piutang, sum(wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa');
-        $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id', 'left');
-        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id', 'left');
+        $this->db->from('wp_asis_debt');
+        $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id');
+        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
         $this->db->where('wp_pelanggan.id_pelanggan', $cari);
-        $hsl = $this->db->get('wp_asis_debt');
-        return $hsl->result();
+        $hsl = $this->db->get();
+        return $hsl;
     }
     
     function get_min_track($cari){

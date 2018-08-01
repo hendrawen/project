@@ -68,7 +68,7 @@ class Delivery extends CI_Controller
     }
     
     public function track_aset(){
-        $cari = $this->input->post('id_pelanggan');
+        $cari = $this->input->post('judul');
         $this->session->unset_userdata('id_transaksi');
         $total = 0;
         $i = 0;
@@ -91,19 +91,24 @@ class Delivery extends CI_Controller
                    <td><?php echo $key->turun_krat ?></td>
                    <td><?php echo tgl_indo($key->tanggal) ?></td>
                    <td><?php echo $key->bayar_krat ?></td>
-                   <td><?php echo $key->bayar_uang ?></td>
+                   <td><?php echo number_format($key->bayar_uang) ?></td>
   
                <tr>;
                  <input type="hidden" id="id_track_aset" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="id_track_aset" required="">
            <?php }
            ;
-           foreach ($sum as $key) { ?>
-              <tr>
-              <tr><td colspan="5" class="text-right">Total Piutang</td><td><?php echo $key->turun_krat ?></td></tr>
-              </tr>
-              <tr><td colspan="5" class="text-right">Total Bayar</td><td><?php echo $key->piutang ?></td></tr>
-                <tr><td colspan="5" class="text-right">Sisa Piutang</td><td><?php echo $key->sisa ?></td></tr>
-              <?php }
+           if ($sum->num_rows() !== 0) {
+                foreach ($sum->result() as $key) { ?>
+                <tr>
+                <tr><td colspan="5" class="text-right">Total Piutang</td><td><?php echo $key->turun_krat ?></td></tr>
+                </tr>
+                <tr><td colspan="5" class="text-right">Total Bayar</td><td><?php echo $key->piutang ?></td></tr>
+                  <tr><td colspan="5" class="text-right">Sisa Piutang</td><td><?php echo $key->sisa ?></td></tr>
+                <?php }
+           } else {
+               '';
+           }
+           
     }
   
     public function cek()
