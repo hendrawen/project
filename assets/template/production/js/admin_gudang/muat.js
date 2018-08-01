@@ -8,7 +8,7 @@ var table;
 
            // Load data for the table's content from an Ajax source
            "ajax": {
-            "url": (base_url+"delivery/muat/ajax_list/"),
+            "url": (base_url+"admin_gudang/muat/ajax_list/"),
             "type": "POST",
             "data": function ( data ) {
              }
@@ -50,7 +50,7 @@ var table;
                   }
               });
               $.ajax({
-                  url : (base_url+"delivery/muat/delete/"+id),
+                  url : (base_url+"admin_gudang/muat/delete/"+id),
                   type: "POST",
                   dataType: "JSON",
                   success: function(data)
