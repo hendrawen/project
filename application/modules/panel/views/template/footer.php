@@ -116,9 +116,15 @@
     <?php if ($this->uri->segment(2) == 'produk'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_produk.js" charset="utf-8"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'penjualan'): ?>
+    <?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(3) == ''): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_penjualan.js" charset="utf-8"></script>
     <?php endif; ?>
+	<?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(1) == 'laporan' && $this->uri->segment(3) == 'baru'): ?>
+      <link rel="stylesheet" href="<?php echo base_url()?>assets/jquery-ui/jquery-ui.css">
+      <script src="<?php echo base_url()?>assets/jquery-ui/jquery-ui.js"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/penjualan2.js"></script>
+    <?php endif; ?>
+    
     <?php if ($this->uri->segment(2) == 'area'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_area.js" charset="utf-8"></script>
     <?php endif; ?>
