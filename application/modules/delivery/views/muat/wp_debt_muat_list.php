@@ -50,7 +50,8 @@
                 <th colspan ="2" class="text-center">Rusak</th>
                 <th colspan ="2" class="text-center">Aset</th>
                 <th rowspan ="2" class="wider_kecamatan text-center">Keterangan</th>
-                <th rowspan ="2" class="text-center">Creator</th>
+                <th rowspan ="2" class="wider_kecamatan text-center">Creator</th>
+                <th rowspan ="2"  class="wider_kecamatan text-center">Aksi</th>
             </tr>
             <tr>
               <?php 

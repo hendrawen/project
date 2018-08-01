@@ -123,7 +123,7 @@
     <?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(3) == ''): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_penjualan.js" charset="utf-8"></script>
     <?php endif; ?>
-	<?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(1) == 'laporan' && $this->uri->segment(3) == 'baru'): ?>
+	<?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(1) == 'laporan' ): ?>
       <link rel="stylesheet" href="<?php echo base_url()?>assets/jquery-ui/jquery-ui.css">
       <script src="<?php echo base_url()?>assets/jquery-ui/jquery-ui.js"></script>
       <script src="<?php echo base_url()?>assets/template/production/js/penjualan2.js"></script>
@@ -182,7 +182,7 @@
     <?php if ($this->uri->segment(2) == 'validator'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/sudavalidator/kpivalidator.js"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'muat'): ?>
+    <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/muat.js"></script>
     <?php endif; ?>
 

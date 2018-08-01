@@ -44,6 +44,8 @@ $("#btn-bayar-aset").click(function () {
     record = record_debt;
     jenis = $("#jenis").val();
     id = $("#id").val();
+    gud = $("#gudang").val();
+    alert(gud);
     //inputan
     str_bayar_uang = $("#bayar_uang").val();
     bayar_uang = str_bayar_uang.replace('.', '');
@@ -86,6 +88,7 @@ $("#btn-bayar-aset").click(function () {
                 bayar_krat : bayar_krat, 
                 id : id,
                 record : record_debt,
+                gud : gud,
             },
             dataType: "json",
             success: function (response) {

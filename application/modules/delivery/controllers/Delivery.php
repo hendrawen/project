@@ -395,6 +395,7 @@ class Delivery extends CI_Controller
             'bayar_uang' => $this->input->post('bayar_uang'),
             'wp_pelanggan_id' => $id_pelanggan,
             'username' => $this->session->identity,
+            'gudang'    => $this->input->post('gudang'),
         );
         $harga_krat = $this->Aset_model->get_harga_krat();
         $jumlah_bayar = 0;
@@ -419,6 +420,7 @@ class Delivery extends CI_Controller
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
                     'username' => $this->session->identity,
+                    'gudang'    => $this->input->post('gud'),
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
@@ -444,6 +446,7 @@ class Delivery extends CI_Controller
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
                     'username' => $this->session->identity,
+                    'gudang'    => $this->input->post('gud'),
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
