@@ -40,7 +40,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon">Tanggal</span>
-                        <input type="text" class="form-control" id="filter-tgl" placeholder="Tanggal">
+                        <input type="date" class="form-control" id="filter-tgl" placeholder="Tanggal">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">

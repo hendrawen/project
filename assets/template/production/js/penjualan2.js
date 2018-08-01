@@ -2,9 +2,9 @@ var table;
 var btn_excel = $("#excel-tracking-pel");
  
 $(document).ready(function() {
-    $("#filter-tgl").datepicker({
-        dateFormat : 'yy-mm-dd',
-    });
+    // $("#filter-tgl").datepicker({
+    //     dateFormat : 'yy-mm-dd',
+    // });
     view('day');
     
     //datatables
