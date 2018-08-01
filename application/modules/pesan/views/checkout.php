@@ -128,7 +128,7 @@
 
                 <!-- Table row -->
                 <div class="row">
-                  <div class="col-xs-12 table">
+                  <div class="col-xs-12 table table-responsive">
                     <table class="table table-striped jambo_table dt-responsive nowrap">
                       <thead>
                         <tr>
@@ -216,12 +216,25 @@
 
                 <!-- this row will not appear when printing -->
                 <div class="row no-print">
-                  <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                  <div class="col-lg-4 col-sm-12 col-xs-12 form-group">
                     <input type="text" class="form-control has-feedback-left" id="single_cal3" name="tgltransaksi" placeholder="Tanggal Transaksi" aria-describedby="inputSuccess2Status3">
                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                     <span id="inputSuccess2Status3" class="sr-only">(success)</span>
                   </div>
-                  <div class="col-sm-6 col-xs-6">
+                  <div class="col-lg-4 col-sm-12 col-xs-12">
+                    
+                    <div class="form-group">
+                      <select class="form-control" name="gudang" id="gudang" require>
+                            <option value="">--Pilih Gudang--</option>
+                            <?php
+                              foreach ($gudang->result() as $key) {?>
+                                <option value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
+                              <?php }
+                            ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-sm-12 col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
                     <a href="<?php echo base_url('pesan')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
                   </div>

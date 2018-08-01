@@ -27,296 +27,127 @@ class Transaksi extends CI_Controller
     // }
     public function index()
     {   
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->input->get('start'));
-
-        if ($q <> '') {
-            $config['base_url'] = base_url() . 'transaksi/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'transaksi/index.html?q=' . urlencode($q);
-        } else {
-            $config['base_url'] = base_url() . 'transaksi/index.html';
-            $config['first_url'] = base_url() . 'transaksi/index.html';
-        }
-
-        $config['per_page'] = 10;
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->Transaksi_model->total_rows($q);
-        $transaksi = $this->Transaksi_model->get_limit_data($config['per_page'], $start, $q);
-
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
-        $data = array(
-            'transaksi_data' => $transaksi,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
-        );
         $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	    ='Transaksi';
         $data['content']		='transaksi/transaksi_list';
-        $data['transaksi']      =$this->Transaksi_model->get_data();
-
         $this->load->view('dashboard', $data);
 
     }
 
-    public function read($id)
-    {   
-        $row = $this->Transaksi_model->get_by_id($id);
-        if ($row) {
-            $data = array(
-		'id' => $row->id,
-		'id_transaksi' => $row->id_transaksi,
-		'wp_barang_id' => $row->wp_barang_id,
-		'harga' => $row->harga,
-		'qty' => $row->qty,
-		//'satuan' => $row->satuan,
-		'tgl_transaksi' => $row->tgl_transaksi,
-		'updated_at' => $row->updated_at,
-		'wp_pelanggan_id' => $row->wp_pelanggan_id,
-		'username' => $row->username,
-		'wp_status_id' => $row->wp_status_id,
-	    );
-            $data['aktif']			='Master';
-            $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
-            $data['sub_judul']	='Detail Transaksi';
-            $data['menu']			= $this->permit[0];
-            $data['submenu']		= $this->permit[1];
-            $data['content']		='transaksi_read';
-            $this->load->view('dashboard', $data);
-        } else {
-            $this->session->set_flashdata('msg', 'Data Tidak Ada');
-            redirect(site_url('som/transaksi'));
-        }
-    }
-
-    public function create()
-    {   
-        $data = array(
-            'button' => 'Simpan',
-            'action' => site_url('transaksi/create_action'),
-	    'id' => set_value('id'),
-	    'id_transaksi' => set_value('id_transaksi'),
-	    'wp_barang_id' => set_value('wp_barang_id'),
-	    'harga' => set_value('harga'),
-	    'qty' => set_value('qty'),
-	    //'satuan' => set_value('satuan'),
-	    'tgl_transaksi' => set_value('tgl_transaksi'),
-	    'updated_at' => set_value('updated_at'),
-	    'wp_pelanggan_id' => set_value('wp_pelanggan_id'),
-	    'username' => set_value('username'),
-	    'wp_status_id' => set_value('wp_status_id'),
-	);
-        $data['aktif']			='Master';
-        $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
-        $data['sub_judul']	='Tambah Transaksi';
-        $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
-        $data['content']		='transaksi_form';
-        $this->load->view('panel/dashboard', $data);
-    }
-
-    public function create_action()
-    {   
-        $this->_rules();
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->create();
-        } else {
-            $data = array(
-        		'id_transaksi' => $this->Transaksi_model->buat_kode(),
-        		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
-        		'harga' => $this->input->post('harga',TRUE),
-        		'qty' => $this->input->post('qty',TRUE),
-        		//'satuan' => $this->input->post('satuan',TRUE),
-        		'tgl_transaksi' => date('Y-m-d H:i:s'),
-        		//'updated_at' => $this->input->post('updated_at',TRUE),
-        		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
-        		'username' => $this->session->identity,
-        		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
-         );
-            $this->Transaksi_model->insert($data);
-            $this->session->set_flashdata('message', 'Simpan Data Success');
-            redirect(site_url('transaksi'));
-        }
-    }
-
-    public function update($id)
-    {   
-        $row = $this->Transaksi_model->get_by_id($id);
-
-        if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('transaksi/update_action'),
-            		'id' => set_value('id', $row->id),
-            		'id_transaksi' => set_value('id_transaksi', $row->id_transaksi),
-            		'wp_barang_id' => set_value('wp_barang_id', $row->wp_barang_id),
-            		'harga' => set_value('harga', $row->harga),
-            		'qty' => set_value('qty', $row->qty),
-            		//'satuan' => set_value('satuan', $row->satuan),
-            		'tgl_transaksi' => set_value('tgl_transaksi', $row->tgl_transaksi),
-            		'updated_at' => set_value('updated_at', $row->updated_at),
-            		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
-            		'username' => $this->session->identity,
-            		'wp_status_id' => set_value('wp_status_id', $row->wp_status_id),
-        	    );
-            $data['aktif']			='Master';
-            $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
-            $data['sub_judul']	='Edit Transaksi';
-            $data['menu']			= $this->permit[0];
-            $data['submenu']		= $this->permit[1];
-            $data['content']		='transaksi_form';
-            $this->load->view('panel/dashboard', $data);
-        } else {
-            $this->session->set_flashdata('msg', 'Data Tidak Ada');
-            redirect(site_url('transaksi'));
-        }
-    }
-
-    public function update_action()
-    {   
-        $this->_rules();
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id', TRUE));
-        } else {
-            $data = array(
-		//'id_transaksi' => $this->input->post('id_transaksi',TRUE),
-		'wp_barang_id' => $this->input->post('wp_barang_id',TRUE),
-		'harga' => $this->input->post('harga',TRUE),
-		'qty' => $this->input->post('qty',TRUE),
-		//'satuan' => $this->input->post('satuan',TRUE),
-		//'tgl_transaksi' => $this->input->post('tgl_transaksi',TRUE),
-		'updated_at' => date('Y-m-d H:i:s'),
-		'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id',TRUE),
-		'username' => $this->input->post('username',TRUE),
-		'wp_status_id' => $this->input->post('wp_status_id',TRUE),
-	    );
-
-            $this->Transaksi_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Data Success');
-            redirect(site_url('transaksi'));
-        }
-    }
-
-    public function delete($id)
-    {   
-        $row = $this->Transaksi_model->get_by_id($id);
-
-        if ($row) {
-            $this->Transaksi_model->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('transaksi'));
-        } else {
-            $this->session->set_flashdata('msg', 'Data Tidak Ada');
-            redirect(site_url('transaksi'));
-        }
-    }
-
-    public function _rules()
+    public function ajax_list()
     {
-	//$this->form_validation->set_rules('id_transaksi', 'id transaksi', 'trim|required');
-	$this->form_validation->set_rules('wp_barang_id', 'wp barang id', 'trim|required');
-	$this->form_validation->set_rules('harga', 'harga', 'trim|required');
-	$this->form_validation->set_rules('qty', 'qty', 'trim|required');
-	//$this->form_validation->set_rules('satuan', 'satuan', 'trim|required');
-	//$this->form_validation->set_rules('tgl_transaksi', 'tgl transaksi', 'trim|required');
-	//$this->form_validation->set_rules('updated_at', 'updated at', 'trim|required');
-	$this->form_validation->set_rules('wp_pelanggan_id', 'wp pelanggan id', 'trim|required');
-	$this->form_validation->set_rules('username', 'username', 'trim|required');
-	$this->form_validation->set_rules('wp_status_id', 'wp status id', 'trim|required');
+        $list = $this->Transaksi_model->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $lists) {
+            $row = array();
+            $row[] = $lists->id_transaksi;
+            $row[] = tgl_indo($lists->tgl_transaksi);
+            $row[] = $lists->jatuh_tempo;
+            $row[] = $lists->id_pelanggan;
+            $row[] = $lists->nama_pelanggan;
+            $row[] = $lists->nama_barang;
+            $row[] = $lists->qty;
+            $row[] = $lists->satuan;
+            $row[] = $lists->kota;
+            $row[] = $lists->kecamatan;
+            $row[] = $lists->kelurahan;
+            $row[] = $lists->no_telp;
+            $row[] = $lists->nama_karyawan;
+            $row[] = $lists->nama_debt;
+            $row[] = $lists->subtotal;
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+            $data[] = $row;
+        }
+
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->Transaksi_model->count_all(),
+                        "recordsFiltered" => $this->Transaksi_model->count_filtered(),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
     }
 
-    function excel()
-  {
-      $this->load->helper('exportexcel');
-      $namaFile = "transaksi_pelanggan.xls";
-      $judul = "Transaksi";
-      $tablehead = 3;
-      $tablebody = 4;
-      $nourut = 1;
-      //penulisan header
-      header("Pragma: public");
-      header("Expires: 0");
-      header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-      header("Content-Type: application/force-download");
-      header("Content-Type: application/octet-stream");
-      header("Content-Type: application/download");
-      header("Content-Disposition: attachment;filename=" . $namaFile . "");
-      header("Content-Transfer-Encoding: binary ");
+    
+    function excel($dari, $ke)
+    {
+        $this->load->helper('exportexcel');
+        $namaFile = "transaksi_pelanggan.xls";
+        $judul = "Transaksi";
+        $tablehead = 3;
+        $tablebody = 4;
+        $nourut = 1;
+        //penulisan header
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment;filename=" . $namaFile . "");
+        header("Content-Transfer-Encoding: binary ");
 
-      xlsBOF();
-      xlsWriteLabel(0, 0, "Laporan");
-      //xlsWriteLabel(1, 0, "Tanggal");
-      xlsWriteLabel(0, 1, "Transaksi Pelanggan");
-      $kolomhead = 0;
+        xlsBOF();
+        xlsWriteLabel(0, 0, "Laporan");
+        //xlsWriteLabel(1, 0, "Tanggal");
+        xlsWriteLabel(0, 1, "Transaksi Pelanggan");
+        $kolomhead = 0;
 
-      xlsWriteLabel($tablehead, $kolomhead++, "No");
-      xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
-      xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
-      xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
-      xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
-      xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
-      xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
-      xlsWriteLabel($tablehead, $kolomhead++, "QTY");
-      xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
-      xlsWriteLabel($tablehead, $kolomhead++, "Kota");
-      xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
-      xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
-      xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
-      xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
-      xlsWriteLabel($tablehead, $kolomhead++, "Debt");
-      xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+        xlsWriteLabel($tablehead, $kolomhead++, "No");
+        xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
+        xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
+        xlsWriteLabel($tablehead, $kolomhead++, "Jatuh Tempo");
+        xlsWriteLabel($tablehead, $kolomhead++, "ID Pelanggan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
+        xlsWriteLabel($tablehead, $kolomhead++, "QTY");
+        xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Kota");
+        xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
+        xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
+        xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
+        xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
+        xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+        xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
 
-      $record = $this->Transaksi_model->get_data();
-      $total = 0;
-      if ($record){
-        foreach ($record as $data) {
-            $kolombody = 0;
-            xlsWriteNumber($tablebody, $kolombody++, $nourut);
-            xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
-            xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
-            xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
-            xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
-            xlsWriteNumber($tablebody, $kolombody++, $data->qty);
-            xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->kota);
-            xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-            xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
-            xlsWriteLabel($tablebody, $kolombody++, $data->username);
-            xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
-            $tablebody++;
-            $nourut++;
-            $total += $data->subtotal;
+        $record = $this->Transaksi_model->get_data($dari, $ke);
+        $total = 0;
+        if ($record){
+            foreach ($record as $data) {
+                $kolombody = 0;
+                xlsWriteNumber($tablebody, $kolombody++, $nourut);
+                xlsWriteLabel($tablebody, $kolombody++, $data->id_transaksi);
+                xlsWriteLabel($tablebody, $kolombody++, $data->tgl_transaksi);
+                xlsWriteLabel($tablebody, $kolombody++, $data->jatuh_tempo);
+                xlsWriteLabel($tablebody, $kolombody++, $data->id_pelanggan);
+                xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
+                xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
+                xlsWriteNumber($tablebody, $kolombody++, $data->qty);
+                xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
+                xlsWriteLabel($tablebody, $kolombody++, $data->kota);
+                xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
+                xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
+                xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
+                xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+                xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
+                xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+                $tablebody++;
+                $nourut++;
+                $total += $data->subtotal;
+            }
         }
-      }
-      xlsWriteLabel($tablebody, 14, 'Total');
-      xlsWriteNumber($tablebody, 15, $total);
-      xlsEOF();
-      exit();
-  }
+        xlsWriteLabel($tablebody, 14, 'Total');
+        xlsWriteNumber($tablebody, 15, $total);
+        xlsEOF();
+        exit();
+    }
 
     public function word()
     {   
-        $cek = get_permission('Transaksi Penjualan', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         header("Content-type: application/vnd.ms-word");
         header("Content-Disposition: attachment;Filename=transaksi.doc");
 

@@ -7,6 +7,13 @@ class Pesan_model extends CI_Model{
   {
     parent::__construct();
     //Codeigniter : Write Less Do More
+	}
+	
+	function get_gudang()
+  {
+    # code...
+    $this->db->select('id, nama_gudang');
+    return $this->db->get('wp_gudang');
   }
 
   public function get_all_product(){

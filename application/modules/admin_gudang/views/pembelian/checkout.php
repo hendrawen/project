@@ -172,6 +172,20 @@
                     </table>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                    
+                    <div class="form-group">
+                      <select class="form-control" name="gudang" id="gudang" require>
+                            <option value="">--Pilih Gudang--</option>
+                            <?php
+                              foreach ($gudang->result() as $key) {?>
+                                <option value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
+                              <?php }
+                            ?>
+                      </select>
+                  </div>
+                </div>
 
 
                 <div class="row no-print">

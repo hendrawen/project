@@ -378,9 +378,9 @@ class Pembayaranaset extends CI_Controller
         echo json_encode(array('status' => $status, 'pesan' => $pesan, 'id' => $id));
     }
 
-    function get_idpelanggan($id_pelanggan)
+    function get_id_sup($id_sup)
     {
-        $id = $this->Aset_model->get_id_pelanggan($id_pelanggan);
+        $id = $this->Aset_model->get_id_sup($id_sup);
         echo json_encode($id->id);
     }
 

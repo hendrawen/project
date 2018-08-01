@@ -109,7 +109,7 @@ $("#btn-bayar-aset").click(function () {
 
 function get_id_sup(id) {
     $.ajax({
-        url: base_url+"pembayaranaset/get_idpelanggan/"+id,
+        url: base_url+"pembayaranaset/get_id_sup/"+id,
         dataType: "json",
         success: function (response) {
             $("#id").val(response);

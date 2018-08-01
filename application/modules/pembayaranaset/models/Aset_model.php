@@ -112,10 +112,10 @@ class Aset_model extends CI_Model
         return $record->result();
     }
 
-    function get_id_pelanggan($id_pelanggan)
+    function get_id_sup($id_sup)
     {
-        $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
-        return $this->db->get('wp_pelanggan',1)->row();
+        $this->db->where('wp_suplier.id_suplier', $id_sup);
+        return $this->db->get('wp_suplier',1)->row();
 
     }
 

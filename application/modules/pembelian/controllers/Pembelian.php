@@ -46,6 +46,7 @@ class Pembelian extends CI_Controller{
     $data['content']		= 'checkout';
     $data['data']=$this->pembelian->get_all_product();
     $data['profile']=$this->pembelian->get_profile();
+    $data['gudang'] = $this->pembelian->get_gudang();
     //$data['jenis_pembayaran']=$this->Pesan_model->get_jenis_pembayaran();
 		$data['generate_invoice'] = $this->pembelian->generatekode_invoice();
     $data['get_total'] = $this->get_total();
@@ -253,12 +254,13 @@ class Pembelian extends CI_Controller{
   						"wp_barang_id"    => $items['wp_barang_id'],
   						"harga"       		=> $items['price'],
   						//"subtotal"       	=> $items['subtotal'][$key],
-              "tgl_transaksi" => $tgl_bayar,
+              "tgl_transaksi"   => $tgl_bayar,
   						"wp_suplier_id" 				=> $wp_suplier_id,
-  						"satuan"				=> $items['satuan'],
+  						"satuan"				  => $items['satuan'],
               "subtotal"        => $items['subtotal'],
-              //"status"      => $status,
-              "username"      => $this->session->identity,
+              //"status"        => $status,
+              "username"        => $this->session->identity,
+              "gudang"          => $this->input->post('gudang'),
   					);
         }
         $detail = array(
@@ -267,6 +269,13 @@ class Pembelian extends CI_Controller{
           'created_at' => date('Y-m-d'),
 
          );
+         $pembayaran = array(
+           'id_suplier' => $wp_suplier_id,
+           'id_transaksi' => $id_transaksi,
+           'tgl_bayar'  => $tgl_bayar,
+           'username'   => $this->session->identity,
+         );
+          $this->db->insert('wp_pembayaranbarang', $pembayaran);
           $this->db->insert('wp_detail_transaksistok', $detail);
   				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){ $this->cart->destroy();
