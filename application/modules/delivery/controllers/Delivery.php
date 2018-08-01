@@ -47,7 +47,7 @@ class Delivery extends CI_Controller
             'judul'			=>'Dashboard',
             'sub_judul'	    =>'Delivery',
             'content'		=>'tarik_aset',
-            'gudang'        => $this->Aset_model->get_gudang(),
+            'gudang'         => $this->Aset_model->get_gudang(),
         );
         $data['menu']			= $this->permit[0];
 		$data['submenu']		= $this->permit[1];
@@ -72,9 +72,9 @@ class Delivery extends CI_Controller
         $this->session->unset_userdata('id_transaksi');
         $total = 0;
         $i = 0;
-           $query = $this->Aset_model->get_track($cari);
-           $sum = $this->Aset_model->sum_get_track($cari);
-           $query2 = $this->Aset_model->get_min_track($cari);
+           $query = $this->dep->get_track($cari);
+           $sum = $this->dep->sum_get_track($cari);
+           $query2 = $this->dep->get_min_track($cari);
               foreach ($query2 as $key) {
                 $this->temb_bayar[$i]['id_transaksi']= $key->id_transaksi;
                 $this->temb_bayar[$i]['sisa']= $key->sisa;
@@ -86,35 +86,30 @@ class Delivery extends CI_Controller
              ;
             foreach ($query as $key) { ?>
                <tr>
+                   <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                    <td><?php echo $key->id_pelanggan ?></td>
                    <td><?php echo $key->nama_pelanggan ?></td>
-                   <td><?php echo $key->turun_krat ?></td>
-                   <td><?php echo tgl_indo($key->tanggal) ?></td>
-                   <td><?php echo $key->bayar_krat ?></td>
-                   <td><?php echo number_format($key->bayar_uang) ?></td>
+                   <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
+                   <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
+                   <td><?php echo tgl_indo($key->tgl_bayar) ?></td>
   
                <tr>;
                  <input type="hidden" id="id_track_aset" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="id_track_aset" required="">
            <?php }
            ;
-           if ($sum->num_rows() !== 0) {
-                foreach ($sum->result() as $key) { ?>
-                <tr>
-                <tr><td colspan="5" class="text-right">Total Piutang</td><td><?php echo $key->turun_krat ?></td></tr>
-                </tr>
-                <tr><td colspan="5" class="text-right">Total Bayar</td><td><?php echo $key->piutang ?></td></tr>
-                  <tr><td colspan="5" class="text-right">Sisa Piutang</td><td><?php echo $key->sisa ?></td></tr>
-                <?php }
-           } else {
-               '';
-           }
-           
+           foreach ($sum as $key) { ?>
+              <tr>
+               <th colspan="6">Total ASET</th>
+                  <th colspan="1">Rp. <?php echo number_format($key->sisa,2,",",".") ?> </th>
+  
+              </tr>
+              <?php }
     }
   
     public function cek()
     {
       # code...
-      print_r ($this->session->userdata('id_transaksi'));
+    //   print_r ($this->session->userdata('id_transaksi'));
       
     }
 
@@ -389,7 +384,6 @@ class Delivery extends CI_Controller
 
     function bayar_aset()
     {
-        $gudang = $this->input->post('gudang');
         $id_pelanggan = $this->input->post('id');
         $record_debt = $this->input->post('record');
         $jenis = $this->input->post('jenis');
@@ -401,7 +395,6 @@ class Delivery extends CI_Controller
             'bayar_uang' => $this->input->post('bayar_uang'),
             'wp_pelanggan_id' => $id_pelanggan,
             'username' => $this->session->identity,
-            'gudang'    => $gudang,
         );
         $harga_krat = $this->Aset_model->get_harga_krat();
         $jumlah_bayar = 0;
@@ -426,7 +419,6 @@ class Delivery extends CI_Controller
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
                     'username' => $this->session->identity,
-                    'gudang'    => $gudang,
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
@@ -452,7 +444,6 @@ class Delivery extends CI_Controller
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
                     'username' => $this->session->identity,
-                    'gudang'    => $gudang,
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
