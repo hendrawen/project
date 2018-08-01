@@ -1,3 +1,13 @@
+<?php if ($this->session->flashdata('message')): ?>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-warning alert-dismissible fade in" role="alert" id="message"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
 <div class="x_panel">
   <div class="x_title">
     <h2>Dev Muat <small>Data Muat</small></h2>
@@ -21,66 +31,39 @@
 
   <div class="x_content">
     <div class="row" style="margin-bottom: 10px">
-        <div class="col-md-4">
-            <?php echo anchor(site_url('admin_gudang/muat/create'),'<i class="fa fa-plus"> Create</i>' , 'class="btn btn-primary"'); ?>
-        </div>
-        <div class="col-md-4 text-center">
-            <div style="margin-top: 8px" id="message">
-                <?php echo $this->session->userdata('message') <> '' ? '<div class="alert alert-success">'.$this->session->userdata('message').'</div>' : ''; ?>
-            </div>
+        <div class="col-md-12 text-right">
+            <a class="btn btn-success" href="<?php echo base_url('admin_gudang/muat/create') ?>">Tambah</a>
         </div>
     </div>
     <div class="table-responsive">
-      <table id="datatable" class="table table-striped jambo_table table-bordered dt-responsive nowrap">
+      <table id="table_muat" class="table table-striped jambo_table table-bordered ">
           <thead>
+          <tr>
+                <th rowspan ="2" class="wider_kecamatan text-center">Tanggal</th>
+                <th rowspan ="2" class="wider_kecamatan text-center">Gudang</th>
+                <th rowspan ="2" class="wider_kecamatan text-center">Nama Debt</th>
+                <th rowspan ="2" class="wider_kecamatan text-center">Nama Barang</th>
+                <th colspan ="2" class="text-center">Muat</th>
+                <th colspan ="2" class="text-center">Terkirim</th>
+                <th colspan ="2" class="text-center">Kembali</th>
+                <th colspan ="2" class="text-center">Retur</th>
+                <th colspan ="2" class="text-center">Rusak</th>
+                <th colspan ="2" class="text-center">Aset</th>
+                <th rowspan ="2" class="wider_kecamatan text-center">Keterangan</th>
+                <th rowspan ="2" class="wider_kecamatan text-center">Creator</th>
+                <th rowspan ="2"  class="wider_kecamatan text-center">Aksi</th>
+            </tr>
             <tr>
-                <th>No</th>
-                <th>Muat Krat</th>
-                <th>Muat Dust</th>
-                <th>Terkirim Krat</th>
-                <th>Terkirim Botol</th>
-                <th>Kembali Krat</th>
-                <th>Kembali Botol</th>
-                <th>Retur Krat</th>
-                <th>Keterangan</th>
-                <th>Created At</th>
-                <th>Username</th>
-                <th>Nama Barang</th>
-                <th>Nama Gudang</th>
-                <th>Action</th>
+              <?php 
+                for ($i=1; $i < 7 ; $i++) {?>
+                  <th class="text-center">Qty</th>
+                  <th class="text-center">Satuan</th>
+                <?php }
+              ?>
+              
             </tr>
           </thead>
-          <tbody>
-            <?php
-            $start = 0;
-            foreach ($muat_data as $muat)
-            {
-                ?>
-                <tr>
-                  <td width="80px"><?php echo ++$start ?></td>
-                  <td><?php echo $muat->muat_krat ?></td>
-                  <td><?php echo $muat->muat_dust ?></td>
-                  <td><?php echo $muat->terkirim_krat ?></td>
-                  <td><?php echo $muat->terkirim_btl ?></td>
-                  <td><?php echo $muat->kembali_krat ?></td>
-                  <td><?php echo $muat->kembali_btl ?></td>
-                  <td><?php echo $muat->retur_krat ?></td>
-                  <td><?php echo $muat->keterangan ?></td>
-                  <td><?php echo $muat->created_at ?></td>
-                  <td><?php echo $muat->username ?></td>
-                  <td><?php echo $muat->nama_barang ?></td>
-                  <td><?php echo $muat->nama_gudang ?></td>
-                  <td style="text-align:center" width="200px">
-                    <?php
-                    echo anchor(site_url('admin_gudang/muat/update/'.$muat->id), '<button type="button" class="btn btn-info btn-xs"><i class="fa fa-pencil"> Update</i></button>');
-                    echo '&nbsp;';
-                    echo anchor(site_url('admin_gudang/muat/delete/'.$muat->id),'<button type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"> Hapus</i></button>','onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
-                    ?>
-                  </td>
-                </tr>
-                <?php
-            }
-            ?>
+          <tbody> 
           </tbody>
       </table>
     </div>

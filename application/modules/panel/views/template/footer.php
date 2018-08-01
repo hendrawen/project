@@ -184,7 +184,7 @@
     <?php if ($this->uri->segment(2) == 'validator'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/sudavalidator/kpivalidator.js"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'muat'): ?>
+    <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/muat.js"></script>
     <?php endif; ?>
     
