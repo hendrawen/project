@@ -20,22 +20,22 @@ $(document).ready(function () {
 });
 
 $("#button_aset").click(function(){
-    id_pelanggan = $("#id_track_aset").val();
-    $("#tabel_cari_aset").show();
-    $.ajax({
-        type: "POST",
-        url: base_url+"delivery/cek_data",
-        data: {id_pelanggan : id_pelanggan},
-        dataType: "html",
-        success: function (response) {
-            data = JSON.parse(response);
-            record_debt = data.id;
-            $("#tabel_cari_aset").show();
-            $("#result_aset").html(data.pesan);
-            get_id_pelanggan(id_pelanggan);
-            status = data.status;
+        var judul=$("#id_track_aset").val();
+       console.log(judul);
+        if(judul!=""){
+            $("#result2").html(base_url+"assets/ajax-loader.gif");
+              $.ajax({
+                     type : "POST",
+                  url  : (base_url+"delivery/track_aset"),
+                  data:"judul="+judul,
+
+                  success:function(data){
+                    $("#result_aset").html(data);
+                    $("#id_track_aset").val();
+                  }
+           });
+           $('#tabel_cari_aset').show();
         }
-    });
 });
 
 $("#btn-bayar-aset").click(function () { 
@@ -44,6 +44,7 @@ $("#btn-bayar-aset").click(function () {
     record = record_debt;
     jenis = $("#jenis").val();
     id = $("#id").val();
+    gudang = $("#gudang").val();
     //inputan
     str_bayar_uang = $("#bayar_uang").val();
     bayar_uang = str_bayar_uang.replace('.', '');
@@ -85,6 +86,7 @@ $("#btn-bayar-aset").click(function () {
                 bayar_uang : bayar_uang, 
                 bayar_krat : bayar_krat, 
                 id : id,
+                gudang : gudang,
                 record : record_debt,
             },
             dataType: "json",
