@@ -177,7 +177,7 @@
                   <div class="col-md-6 col-sm-12 col-xs-12">
                     
                     <div class="form-group">
-                      <select class="form-control" name="gudang" id="gudang" require>
+                      <select class="form-control" name="gudang" id="gudang" required>
                             <option value="">--Pilih Gudang--</option>
                             <?php
                               foreach ($gudang->result() as $key) {?>

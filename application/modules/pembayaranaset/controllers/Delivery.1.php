@@ -5,19 +5,12 @@ if (!defined('BASEPATH'))
 
 class Delivery extends CI_Controller
 {
-    private $permit;
     function __construct()
     {
         parent::__construct();
         $this->load->model('Aset_model');
         $this->load->model('dep/Dep_model', 'dep');
-        if (!$this->ion_auth->logged_in()) {//cek login ga?
-			redirect('login','refresh');
-			}else{
-					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
-							redirect('login','refresh');
-					}
-		}
+        
         $this->load->library('form_validation');
     }
 
@@ -32,8 +25,6 @@ class Delivery extends CI_Controller
             'sub_judul' 	=>'Delivery',
             'content'		=>'list',
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -45,12 +36,9 @@ class Delivery extends CI_Controller
             'aktif'			=>'delivery',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	    =>'Delivery',
+            'sub_judul'	=>'Delivery',
             'content'		=>'tarik_aset',
-            'gudang'         => $this->Aset_model->get_gudang(),
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -109,7 +97,7 @@ class Delivery extends CI_Controller
     public function cek()
     {
       # code...
-    //   print_r ($this->session->userdata('id_transaksi'));
+      print_r ($this->session->userdata('id_transaksi'));
       
     }
 
@@ -137,9 +125,7 @@ class Delivery extends CI_Controller
             'sub_judul'	=>'Aset',
             'content'		=>'form',
             'pelanggan_list' => $this->Aset_model->get_pelanggan(),
-        );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
+      	);
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -198,9 +184,7 @@ class Delivery extends CI_Controller
                 'sub_judul'	=>'Aset',
                 'content'		=>'form',
                 'pelanggan_list' => $this->Aset_model->get_pelanggan(),
-                );
-            $data['menu']			= $this->permit[0];
-		    $data['submenu']		= $this->permit[1];
+        	    );
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
@@ -332,43 +316,29 @@ class Delivery extends CI_Controller
         $record = $this->Aset_model->get_penarikan($id_pelanggan);
         $pesan = '';
         $status = 'T';
-
-        $piutang = 0;
-        $bayar = 0;
-        $sisa = 0;
         $id = array();
         if ($record) {
             foreach ($record as $row) {
-                $piutang += $row->turun_krat;
-                $bayar += $row->piutang;
                 $id[] = array(
                     'id_pelanggan' => $row->id_pelanggan,
                     'id' => $row->id,
                     'nama_pelanggan' => $row->nama_pelanggan,
-                    'turun_krat' => $row->turun_krat,
                     'piutang' => $row->piutang,
                     'tgl_penarikan' => $row->tgl_penarikan,
                     'bayar' => $row->bayar_krat,
                     'bayar' => $row->bayar_uang,
                 );
-                $tgl = ($row->bayar_krat > 0 ) ? $row->tgl_penarikan: '';
                 $pesan .= '
                     <tr>
                         <td>'.$row->id_pelanggan.'</td>
                         <td>'.$row->nama_pelanggan.'</td>
-                        <td>'.$row->turun_krat.'</td>
-                        <td>'.$tgl.'</td>
+                        <td>'.$row->piutang.'</td>
+                        <td>'.$row->tgl_penarikan.'</td>
                         <td>'.$row->bayar_krat.'</td>
-                        <td>'.number_format($row->bayar_uang).'</td>
+                        <td>'.$row->bayar_uang.'</td>
                     </tr>';
             }
-            $sisa = $piutang-$bayar;
-            $pesan .= '
-            <tr><td colspan="5" class="text-right">Total Piutang</td><td>'.$piutang.'</td></tr>
-            <tr><td colspan="5" class="text-right">Total Bayar</td><td>'.$bayar.'</td></tr>
-            <tr><td colspan="5" class="text-right">Sisa Piutang</td><td>'.$sisa.'</td></tr>
-            ';
-            ($sisa > 0)? $status = 'F' : $status = 'T';
+            ($record[0]->tgl_penarikan == '')? $status = 'F' : $status = 'T';
         } else {
             $pesan = '<td colspan=5>No result found</td>';
             $status = 'T';
@@ -394,8 +364,6 @@ class Delivery extends CI_Controller
             'bayar_krat' => $this->input->post('bayar_krat'),
             'bayar_uang' => $this->input->post('bayar_uang'),
             'wp_pelanggan_id' => $id_pelanggan,
-            'username' => $this->session->identity,
-            'gudang'    => $this->input->post('gudang'),
         );
         $harga_krat = $this->Aset_model->get_harga_krat();
         $jumlah_bayar = 0;
@@ -410,62 +378,81 @@ class Delivery extends CI_Controller
         $asis_debt = array();
 
         for ($i=0; $i < sizeof($record_debt); $i++) {
-            if ($jumlah_bayar >= $record_debt[$i]['turun_krat']) {
-                $jumlah_bayar -= $record_debt[$i]['turun_krat'];
-                
-                $penarikan[$i] = array(
-                    'tgl_penarikan' => $data['tgl_penarikan'],
-                    'bayar_krat' => $record_debt[$i]['turun_krat'],
-                    'bayar_uang' => $record_debt[$i]['turun_krat'] * $harga_krat,
-                    'wp_asis_debt_id' => $record_debt[$i]['id'],
-                    'wp_pelanggan_id' => $id_pelanggan,
-                    'username' => $this->session->identity,
-                    'gudang'    => $this->input->post('gud'),
-                );
-                $asis_debt[$i] = array (
-                    'id' => $record_debt[$i]['id'],
-                    // 'bayar_krat' => $record_debt[$i]['turun_krat'],
-                    'piutang' => $record_debt[$i]['piutang'] + $record_debt[$i]['turun_krat'],
-                    // 'bayar_uang' => $record_debt[$i]['turun_krat'] * $harga_krat,
-                );
-                if ($jenis == 'krat') {
-                    unset($penarikan[$i]['bayar_uang']);
-                    unset($asis_debt[$i]['bayar_uang']);
-                } else {
-                    unset($penarikan[$i]['bayar_krat']);
-                    unset($asis_debt[$i]['bayar_krat']);
-                }
+            if ($jumlah_bayar >= $record_debt[$i]['piutang']) {
+                $jumlah_bayar -= $record_debt[$i]['piutang'];
+                echo $record_debt[$i]['piutang'].' dibayar. sisa : '.$jumlah_bayar;
+                echo '<br/ >';
+                // $penarikan[$i] = array(
+                //     'tgl_penarikan' => $data['tgl_penarikan'],
+                //     'bayar_krat' => $record_debt[$i]['piutang'],
+                //     'bayar_uang' => $record_debt[$i]['piutang'] * $harga_krat,
+                //     'wp_asis_debt_id' => $record_debt[$i]['id'],
+                //     'wp_pelanggan_id' => $id_pelanggan,
+                // );
+                // $asis_debt[$i] = array (
+                //     'id' => $record_debt[$i]['id'],
+                //     'bayar_krat' => $record_debt[$i]['piutang'],
+                //     'bayar_uang' => $record_debt[$i]['piutang'] * $harga_krat,
+                // );
+                // if ($jenis == 'krat') {
+                //     unset($penarikan[$i]['bayar_uang']);
+                //     unset($asis_debt[$i]['bayar_uang']);
+                // } else {
+                //     unset($penarikan[$i]['bayar_krat']);
+                //     unset($asis_debt[$i]['bayar_krat']);
+                // }
                 
             } else {
-                $sisa = $record_debt[$i]['turun_krat'] - $jumlah_bayar;
-                
-                $penarikan[$i] = array(
-                    'tgl_penarikan' => $data['tgl_penarikan'],
-                    'bayar_krat' => $jumlah_bayar,
-                    'bayar_uang' => $jumlah_bayar * $harga_krat,
-                    'wp_asis_debt_id' => $record_debt[$i]['id'],
-                    'wp_pelanggan_id' => $id_pelanggan,
-                    'username' => $this->session->identity,
-                    'gudang'    => $this->input->post('gud'),
-                );
-                $asis_debt[$i] = array (
-                    'id' => $record_debt[$i]['id'],
-                    // 'bayar_krat' => $jumlah_bayar,
-                    'piutang' => $record_debt[$i]['piutang'] + $jumlah_bayar,
-                );
-                if ($jenis == 'krat') {
-                    unset($penarikan[$i]['bayar_uang']);
-                    unset($asis_debt[$i]['bayar_uang']);
-                } else {
-                    unset($penarikan[$i]['bayar_krat']);
-                    unset($asis_debt[$i]['bayar_krat']);
-                }
+                $sisa = $record_debt[$i]['piutang'] - $jumlah_bayar;
                 $jumlah_bayar = 0;
+                echo $record_debt[$i]['piutang'].' belum lunas. sisa : '.$sisa;
+                echo '<br/ >';
+                // $penarikan[$i] = array(
+                //     'tgl_penarikan' => $data['tgl_penarikan'],
+                //     'bayar_krat' => $sisa,
+                //     'bayar_uang' => $sisa * $harga_krat,
+                //     'wp_asis_debt_id' => $record_debt[$i]['id'],
+                //     'wp_pelanggan_id' => $id_pelanggan,
+                // );
+                // $asis_debt[$i] = array (
+                //     'id' => $record_debt[$i]['id'],
+                //     'bayar_krat' => $sisa,
+                //     'bayar_uang' => $sisa * $harga_krat,
+                // );
+                // if ($jenis == 'krat') {
+                //     unset($penarikan[$i]['bayar_uang']);
+                //     unset($asis_debt[$i]['bayar_uang']);
+                // } else {
+                //     unset($penarikan[$i]['bayar_krat']);
+                //     unset($asis_debt[$i]['bayar_krat']);
+                // }
+            }
+            $penarikan[$i] = array(
+                'tgl_penarikan' => $data['tgl_penarikan'],
+                'bayar_krat' => $record_debt[$i]['piutang'],
+                'bayar_uang' => $record_debt[$i]['piutang'] * $harga_krat,
+                'wp_asis_debt_id' => $record_debt[$i]['id'],
+                'wp_pelanggan_id' => $id_pelanggan,
+            );
+            $asis_debt[$i] = array (
+                'id' => $record_debt[$i]['id'],
+                'bayar_krat' => $record_debt[$i]['piutang'],
+                'bayar_uang' => $record_debt[$i]['piutang'] * $harga_krat,
+            );
+            if ($jenis == 'krat') {
+                unset($penarikan[$i]['bayar_uang']);
+                unset($asis_debt[$i]['bayar_uang']);
+            } else {
+                unset($penarikan[$i]['bayar_krat']);
+                unset($asis_debt[$i]['bayar_krat']);
             }
         }
-        // exit();
+        print_r($penarikan);
+        echo '<br/ >';
+        print_r($asis_debt);
+        exit();
         $insert = $this->Aset_model->insert_penarikan($penarikan, $asis_debt);
-        if ($insert == 'T') {
+        if ($insert) {
             echo json_encode(array('status' => (bool)TRUE, 'message' => 'Data berhasil diproses'));
         } else {
             echo json_encode(array('status' => (bool)FALSE, 'message' => 'Data gagal diproses'));

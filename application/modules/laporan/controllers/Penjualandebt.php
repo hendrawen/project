@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PenjualanDebt extends CI_Controller {
+class Penjualandebt extends CI_Controller {
     private $month = array('Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
   
   public function __construct()
@@ -302,6 +302,7 @@ class PenjualanDebt extends CI_Controller {
     xlsEOF();
     exit();
   }
+
 
 }
 

@@ -7,7 +7,7 @@ $(document).ready(function () {
     $("#form-input-uang").hide();
     $("#form-input-krat").show();
 
-    $("#jenis").change(function (e) { 
+    $("#jenis").change(function (e) {
         if ($(this).val() == 'krat') {
             $("#form-input-krat").show();
             $("#form-input-uang").hide();
@@ -16,41 +16,40 @@ $(document).ready(function () {
             $("#form-input-uang").show();
         }
     });
-    
+
 });
 
 $("#button_aset").click(function(){
-    id_pelanggan = $("#id_track_aset").val();
+    sp = $("#id_track_suplier").val();
     $("#tabel_cari_aset").show();
     $.ajax({
         type: "POST",
-        url: base_url+"delivery/cek_data",
-        data: {id_pelanggan : id_pelanggan},
+        url: base_url+"pembayaranaset/cek_data",
+        data: {sp : sp},
         dataType: "html",
         success: function (response) {
             data = JSON.parse(response);
             record_debt = data.id;
             $("#tabel_cari_aset").show();
             $("#result_aset").html(data.pesan);
-            get_id_pelanggan(id_pelanggan);
+            get_id_sup(sp);
             status = data.status;
         }
     });
 });
 
-$("#btn-bayar-aset").click(function () { 
+$("#btn-bayar-aset").click(function () {
     tgl_input = $("input[name=tgl_bayar]").val();
     tgl = format_tgl(tgl_input);
     record = record_debt;
     jenis = $("#jenis").val();
     id = $("#id").val();
-    gud = $("#gudang").val();
-    alert(gud);
+    gudang = $('#gudang').val();
     //inputan
     str_bayar_uang = $("#bayar_uang").val();
     bayar_uang = str_bayar_uang.replace('.', '');
     bayar_krat = $("#bayar_krat").val();
-    
+
     if (status == 'T') {
         alert('Data ini tidak memiliki piutang');
         return false;
@@ -80,15 +79,15 @@ $("#btn-bayar-aset").click(function () {
     } else {
         $.ajax({
             type: "POST",
-            url: base_url+"delivery/bayar_aset",
+            url: base_url+"pembayaranaset/bayar_aset",
             data: {
-                tgl : tgl, 
+                tgl : tgl,
                 jenis : jenis,
-                bayar_uang : bayar_uang, 
-                bayar_krat : bayar_krat, 
+                bayar_uang : bayar_uang,
+                bayar_krat : bayar_krat,
                 id : id,
                 record : record_debt,
-                gud : gud,
+                gudang : gudang
             },
             dataType: "json",
             success: function (response) {
@@ -98,21 +97,21 @@ $("#btn-bayar-aset").click(function () {
                     $('#form-tarik-aset')[0].reset();
                     $("#tabel_cari_aset").hide();
                     $("#id_track_aset").val('');
-                    document.location = base_url+'delivery/penarikan';
+                    document.location = base_url+'pembayaranaset/penarikan';
                 } else {
                     status = 'F';
                     alert('Data gagal diproses');
                 }
             }
-        });  
+        });
     }
     //end konfirmasi
-    
+
 });
 
-function get_id_pelanggan(id) {
+function get_id_sup(id) {
     $.ajax({
-        url: base_url+"delivery/get_idpelanggan/"+id,
+        url: base_url+"pembayaranaset/get_id_sup/"+id,
         dataType: "json",
         success: function (response) {
             $("#id").val(response);
@@ -125,7 +124,7 @@ function format_tgl(tgl) {
     day = tgl.substr(3,2);
     year = tgl.substr(-4);
     date = year+'-'+month+'-'+day;
-    return date;   
+    return date;
 }
 
 function pesan_sukses() {
@@ -140,10 +139,10 @@ function pesan_gagal() {
 
 function get_total_harga(krat) {
     $.ajax({
-        url: base_url+"delivery/get_harga_krat",
+        url: base_url+"pembayaranaset/get_harga_krat",
         dataType: "json",
         success: function (response) {
-            
+
         }
     });
 }

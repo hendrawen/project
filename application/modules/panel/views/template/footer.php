@@ -97,6 +97,10 @@
     <?php if($this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/delivery.js" charset="utf-8"></script>
     <?php endif; ?>
+
+        <?php if($this->uri->segment(1) == 'pembayaranaset'): ?>
+          <script src="<?php echo base_url()?>assets/template/production/js/pembayaranaset.js" charset="utf-8"></script>
+        <?php endif; ?>
     <?php if ($this->uri->segment(1) == 'market'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/market.js" charset="utf-8"></script>
       <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
@@ -125,12 +129,6 @@
       <script src="<?php echo base_url()?>assets/template/production/js/penjualan2.js"></script>
     <?php endif; ?>
 
-	  <?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(1) == 'laporan' && $this->uri->segment(3) == 'penjualan_debt'): ?>
-      <link rel="stylesheet" href="<?php echo base_url()?>assets/jquery-ui/jquery-ui.css">
-      <script src="<?php echo base_url()?>assets/jquery-ui/jquery-ui.js"></script>
-      <script src="<?php echo base_url()?>assets/template/production/js/penjualan_debt_new.js"></script>
-    <?php endif; ?>
-    
     <?php if ($this->uri->segment(2) == 'area'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_area.js" charset="utf-8"></script>
     <?php endif; ?>
@@ -184,10 +182,10 @@
     <?php if ($this->uri->segment(2) == 'validator'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/sudavalidator/kpivalidator.js"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'muat'): ?>
+    <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/muat.js"></script>
     <?php endif; ?>
-    
+
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
     <script>
