@@ -86,7 +86,7 @@ class Aset_model extends CI_Model
     }
     
     function sum_get_track($cari){
-        $this->db->select('wp_asis_debt.turun_krat, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang, wp_asis_debt.piutang, sum(wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa');
+        $this->db->select('sum(wp_asis_debt.turun_krat) as turun_krat, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang, wp_asis_debt.piutang, sum(wp_asis_debt.turun_krat - wp_asis_debt.piutang) as sisa');
         $this->db->from('wp_asis_debt');
         $this->db->join('wp_transaksi', 'wp_asis_debt.id_transaksi = wp_transaksi.id');
         $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
