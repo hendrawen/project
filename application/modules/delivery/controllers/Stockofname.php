@@ -8,66 +8,122 @@ class Stockofname extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Muat_model');
+        $this->load->model('Stockofname_model');
         $this->load->library('form_validation');
     }
 
     public function index()
-    {
+    {   
+        $barang = $this->get_barang();
+        
+        $temp = array();
+        $index = 0;
+        foreach ($barang as $row) {
+            $temp[$index]['nama_barang'] = $row->nama_barang;
+            $list_satuan = $this->num_rows($row->nama_barang);
+            foreach ($list_satuan as $st) {
+                $temp[$index]['satuan'][] = $st->satuan;
+            }
+            $index++;
+        }
+
         $data = array(
             'aktif'			=>'delivery',
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
-            'sub_judul'	=>'Muat',
-            'barang'   => $this->Muat_model->get_barang(),
-            'satuan'   => $this->Muat_model->get_satuanbarang(),
+            'sub_judul'	    =>'Muat',
             'content'		=>'muat/wp_debt_stock',
         );
+        $data['barang'] = $temp;
+        $data['barangall'] = $this->get_barang_all();
         $this->load->view('panel/dashboard', $data);
+    }
+
+    function get_barang()
+    {
+        $this->db->select('distinct(id),nama_barang, satuan');
+        $this->db->group_by('nama_barang');
+        $this->db->order_by('nama_barang', 'asc');
+        return $this->db->get('wp_barang')->result();   
+    }
+
+    function get_barang_all()
+    {
+        $this->db->select('id,nama_barang, satuan');
+        $this->db->order_by('nama_barang', 'asc');
+        return $this->db->get('wp_barang')->result();   
+    }
+
+    function num_rows($value)
+    {
+        $this->db->select('satuan');
+        $this->db->where('nama_barang', $value);
+        return $this->db->get('wp_barang')->result();
     }
 
     public function ajax_list()
     {
-        $list = $this->Muat_model->get_datatables();
+        $list = $this->Stockofname_model->get_datatables();
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $lists) {
             $row = array();
             $row[] = tgl_indo($lists->tanggal);
-            // $row[] = $lists->nama_gudang;
-            // $row[] = $lists->nama_debt;
-            $row[] = $lists->nama_barang;
-            $row[] = $lists->muat;
-            $row[] = $lists->satuan;
-            $row[] = $lists->terkirim;
-            $row[] = $lists->satuan_terkirim;
-            $row[] = $lists->kembali;
-            $row[] = $lists->satuan_kembali;
-            $row[] = $lists->return;
-            $row[] = $lists->satuan_return;
-            $row[] = $lists->rusak;
-            $row[] = $lists->satuan_rusak;
+            $row[] = $lists->nama_gudang;
+
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            $row[] = "";
+            //$row[] = $lists->stok;
+            // $row[] = $lists->rusak;
+            // $row[] = $lists->satuan_rusak;
             $row[] = $lists->aset_krat;
             $row[] = $lists->aset_btl;
-            $row[] = $lists->keterangan;
-            $row[] = $lists->nama;
-            $row[] = '
-            <a href="'.base_url('delivery/muat/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
-            <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
-                     ';
 
             $data[] = $row;
         }
 
         $output = array(
                         "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->Muat_model->count_all(),
-                        "recordsFiltered" => $this->Muat_model->count_filtered(),
+                        "recordsTotal" => $this->Stockofname_model->count_all(),
+                        "recordsFiltered" => $this->Stockofname_model->count_filtered(),
                         "data" => $data,
                 );
         //output to json format
         echo json_encode($output);
     }
+
+    function cek()
+        {
+            $list = $this->Stockofname_model->get_datatables();
+            $data = array();
+            //$no = $_POST['start'];
+            foreach ($list as $key) {
+                $row = array();
+                if ($key->barang == $key->wp_barang_id) {
+                        if ($key->gudang == $key->wp_gudang_id) {
+                            $row[] = $key->stok;
+                        }
+                }
+                $data[] = $row;
+            }
+    
+            $output = array(
+                            "draw" => $_POST['draw'],
+                            "recordsTotal" => $this->Stockofname_model->count_all(),
+                            "recordsFiltered" => $this->Stockofname_model->count_filtered(),
+                            "data" => $data,
+                    );
+            //output to json format
+            print_r($output);
+        }
 
     public function create()
     {
@@ -89,9 +145,9 @@ class Stockofname extends CI_Controller
             'judul'			=>'Dashboard',
             'sub_judul'	=>'Muat',
             'content'		=>'muat/wp_debt_muat_form',
-            'barang_list' => $this->Muat_model->get_barang(),
-            'gudang_list' => $this->Muat_model->get_gudang(),
-            'karyawan'    => $this->Muat_model->get_karyawan(),
+            'barang_list' => $this->Stockofname_model->get_barang(),
+            'gudang_list' => $this->Stockofname_model->get_gudang(),
+            'karyawan'    => $this->Stockofname_model->get_karyawan(),
       	);
         $this->load->view('panel/dashboard', $data);
     }
@@ -123,7 +179,7 @@ class Stockofname extends CI_Controller
                 'id_karyawan' => $this->input->post('debt',TRUE),
                 'username' => $this->session->identity,
     	    );
-            $this->Muat_model->insert($data);
+            $this->Stockofname_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('delivery/muat'));
         }
@@ -131,7 +187,7 @@ class Stockofname extends CI_Controller
 
     public function update($id)
     {
-        $row = $this->Muat_model->get_by_id($id);
+        $row = $this->Stockofname_model->get_by_id($id);
 
         if ($row) {
             $data = array(
@@ -155,8 +211,8 @@ class Stockofname extends CI_Controller
                 'judul'			=>'Dashboard',
                 'sub_judul'	=>'Muat',
                 'content'		=>'muat/wp_debt_muat_form',
-                'barang_list' => $this->Muat_model->get_barang(),
-                'gudang_list' => $this->Muat_model->get_gudang(),
+                'barang_list' => $this->Stockofname_model->get_barang(),
+                'gudang_list' => $this->Stockofname_model->get_gudang(),
         	    );
             $this->load->view('panel/dashboard', $data);
         } else {
@@ -186,7 +242,7 @@ class Stockofname extends CI_Controller
         		'wp_gudang_id' => $this->input->post('wp_gudang_id',TRUE),
 	         );
 
-            $this->Muat_model->update($this->input->post('id', TRUE), $data);
+            $this->Stockofname_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('delivery/muat'));
         }
@@ -194,10 +250,10 @@ class Stockofname extends CI_Controller
 
     public function delete($id)
     {
-        $row = $this->Muat_model->get_by_id($id);
+        $row = $this->Stockofname_model->get_by_id($id);
 
         if ($row) {
-            $this->Muat_model->delete($id);
+            $this->Stockofname_model->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
             redirect(site_url('delivery/muat'));
         } else {
@@ -251,7 +307,7 @@ class Stockofname extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Username");
 	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
 
-	foreach ($this->Muat_model->get_all() as $data) {
+	foreach ($this->Stockofname_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
@@ -276,31 +332,7 @@ class Stockofname extends CI_Controller
         exit();
     }
 
-    function cek()
-    {      
-      $barang = $this->Muat_model->get_namabarang();
-      
-      $temp = array();
-      $j = 0;
-      for ($i=0; $i < sizeof($barang); $i++) { 
-        if ($i == 0) {
-          $temp[$j]['nama_barang'] = $barang[$i]->nama_barang;
-          $temp[$j][$barang[$i]->satuan] = $barang[$i]->satuan;
-        } else if ($i > 0){
-          if ($temp[$j]['nama_barang'] == $barang[$i]->nama_barang){
-            $temp[$j][$barang[$i]->satuan] = $barang[$i]->satuan;
-          } else {
-            $temp[$j]['nama_barang'] = $barang[$i]->nama_barang;
-            $temp[$j][$barang[$i]->satuan] = $barang[$i]->satuan;
-          }
-        }
-        $j++;
-      }
-      
-      echo "<pre>";
-      print_r ($temp);
-      echo "</pre>";
-    }
+    
 
 }
 

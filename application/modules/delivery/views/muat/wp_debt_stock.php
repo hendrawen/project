@@ -38,20 +38,27 @@
     <div class="table-responsive">
       <table id="table_stockofname" class="table table-striped jambo_table table-bordered ">
           <thead>
-          <tr>
-                <th rowspan ="2" class="wider_kecamatan text-center">Tanggal</th>
-                <th rowspan ="2" class="wider_kecamatan text-center">Gudang</th>
-                <?php foreach ($barang as $key) { ?>
-                    <th colspan ="2" class="text-center"><?php echo $key->nama_barang; ?></th>
-                <?php }?>
-                <th rowspan ="2" class="wider_kecamatan text-center">Rusak</th>
-                <th rowspan ="2" class="wider_kecamatan text-center">Aset</th>
+            <tr>
+              <th rowspan ="2" class="wider_kecamatan text-center">Tanggal</th>
+              <th rowspan ="2" class="wider_kecamatan text-center">Gudang</th>
+              <?php
+                for ($i=0; $i < sizeof($barang) ; $i++) :?>
+                  <th colspan ="<?php echo sizeof($barang[$i]['satuan']) ?>"><?php echo $barang[$i]['nama_barang']?></th>
+              <?php endfor?>
+              <th colspan="4" class="wider_kecamatan text-center">Rusak</th>
+              <th colspan="2" class="wider_kecamatan text-center">Aset</th>
             </tr>
             <tr>
-              <?php foreach ($barang as $key) { ?>
+              <?php foreach ($barangall as $key):?>
                   <th><?php echo $key->satuan ?></th>
-              <?php } ?>
-            </tr>
+              <?php endforeach?> 
+                  <th>Krat</th> 
+                  <th>Botol</th>
+                  <th>Dus</th> 
+                  <th>Pcs</th> 
+                  <th>Krat</th> 
+                  <th>Botol</th> 
+            </tr> 
           </thead>
           <tbody> 
           </tbody>
