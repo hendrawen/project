@@ -60,13 +60,13 @@ class Penjualandebt extends CI_Controller {
       echo json_encode($output);
   }
 
-  function excel_tanggal($tanggal, $debt)
+  function excel_tanggal($tanggal, $debt,$status)
   {
     $this->load->helper('exportexcel');
     $namaFile = "transaksi_debt_harian.xls";
     $judul = "Transaksi Debt";
-    $tablehead = 4;
-    $tablebody = 5;
+    $tablehead = 5;
+    $tablebody = 6;
     $nourut = 1;
     //penulisan header
     header("Pragma: public");
@@ -83,8 +83,10 @@ class Penjualandebt extends CI_Controller {
     xlsWriteLabel(0, 1, "Harian");
     xlsWriteLabel(1, 0, "Tanggal");
     xlsWriteLabel(1, 1, tgl_indo($tanggal));
-    xlsWriteLabel(2, 0, "Status");
+    xlsWriteLabel(2, 0, "Nama Debt");
     xlsWriteLabel(2, 1, $this->mLap->get_debt_id($debt));
+    xlsWriteLabel(3, 0, "Status");
+    xlsWriteLabel(3, 1, $this->mLap->get_status_id($status));
     $kolomhead = 0;
 
     xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -105,7 +107,7 @@ class Penjualandebt extends CI_Controller {
     xlsWriteLabel($tablehead, $kolomhead++, "Status");
     xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
 
-    $record = $this->mLap->laporan_tanggal($tanggal, $debt);
+    $record = $this->mLap->laporan_tanggal($tanggal, $debt, $status);
     $total = 0;
     if ($record){
       foreach ($record as $data) {
@@ -138,13 +140,13 @@ class Penjualandebt extends CI_Controller {
     exit();
   }
 
-  function excel_bulan($dari, $ke, $tahun, $debt)
+  function excel_bulan($dari, $ke, $tahun, $debt, $status)
   {
     $this->load->helper('exportexcel');
     $namaFile = "transaksi_debt_bulan.xls";
     $judul = "Transaksi Debt";
-    $tablehead = 6;
-    $tablebody = 7;
+    $tablehead = 7;
+    $tablebody = 8;
     $nourut = 1;
     //penulisan header
     header("Pragma: public");
@@ -172,6 +174,9 @@ class Penjualandebt extends CI_Controller {
     xlsWriteLabel(4, 0, "Status");
     xlsWriteLabel(4, 1, $this->mLap->get_debt_id($debt));
 
+    xlsWriteLabel(5, 0, "Status");
+    xlsWriteLabel(5, 1, $this->mLap->get_status_id($status));
+
     $kolomhead = 0;
 
     xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -192,7 +197,7 @@ class Penjualandebt extends CI_Controller {
     xlsWriteLabel($tablehead, $kolomhead++, "Status");
     xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
 
-    $record = $this->mLap->laporan_bulan($dari, $ke, $tahun, $debt);
+    $record = $this->mLap->laporan_bulan($dari, $ke, $tahun, $debt, $status);
     $total = 0;
     if ($record){
       foreach ($record as $data) {
@@ -225,13 +230,13 @@ class Penjualandebt extends CI_Controller {
     exit();
   }
 
-  function excel_tahun($tahun, $debt)
+  function excel_tahun($tahun, $debt, $status)
   {
     $this->load->helper('exportexcel');
     $namaFile = "transaksi_debt_tahun.xls";
     $judul = "Transaksi Debt";
-    $tablehead = 4;
-    $tablebody = 5;
+    $tablehead = 5;
+    $tablebody = 6;
     $nourut = 1;
     //penulisan header
     header("Pragma: public");
@@ -248,8 +253,10 @@ class Penjualandebt extends CI_Controller {
     xlsWriteLabel(0, 1, "Tahun");
     xlsWriteLabel(1, 0, "Tahun");
     xlsWriteLabel(1, 1, $tahun);
-    xlsWriteLabel(2, 0, "Status");
+    xlsWriteLabel(2, 0, "Nama Debt");
     xlsWriteLabel(2, 1, $this->mLap->get_debt_id($debt));
+    xlsWriteLabel(3, 0, "Status");
+    xlsWriteLabel(3, 1, $this->mLap->get_status_id($status));
     $kolomhead = 0;
 
     xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -270,7 +277,7 @@ class Penjualandebt extends CI_Controller {
     xlsWriteLabel($tablehead, $kolomhead++, "Status");
     xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
 
-    $record = $this->mLap->laporan_tahun($tahun, $debt);
+    $record = $this->mLap->laporan_tahun($tahun, $debt, $status);
     $total = 0;
     if ($record){
       foreach ($record as $data) {

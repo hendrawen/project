@@ -46,6 +46,7 @@ class Penjualan extends CI_Controller {
       'sub_judul'	=>'Laporan',
       'content'		=>'debt/main',
       'list_debt'		=>$this->PenjualanDebt_model->get_debt(),
+      'list_status'		=>$this->Penjualan_model->get_status(),
       'month' => $this->month,
   );
   $this->load->view('panel/dashboard', $data);

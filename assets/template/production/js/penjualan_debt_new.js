@@ -46,9 +46,14 @@ $(document).ready(function() {
                 data.ke = $('#filter-bulan-ke').val();
                 data.tahun = $('#filter-tahun').val();
                 data.tahun2 = $('#filter-tahun2').val();
+
                 data.debt = $('#filter-debt').val();
                 data.debt2 = $('#filter-debt2').val();
                 data.debt3 = $('#filter-debt3').val();
+
+                data.status = $('#filter-status').val();
+                data.status2 = $('#filter-status2').val();
+                data.status3 = $('#filter-status3').val();
             }
         },
         //Set column definition initialisation properties.
@@ -97,6 +102,7 @@ function excel_tanggal() {
     
     tgl = $("#filter-tgl").val();
     debt = $("#filter-debt").val();
+    status = $("#filter-status").val();
     
     if (tgl == '') {
       tgl = 'semua';
@@ -104,7 +110,11 @@ function excel_tanggal() {
     if (debt == '') {
       debt = 'semua';
     }
-    window.location = base_url + 'laporan/penjualandebt/excel_tanggal/'+tgl+'/'+debt;
+    if (status == '') {
+      status = 'semua';
+    }
+
+    window.location = base_url + 'laporan/penjualandebt/excel_tanggal/'+tgl+'/'+debt+'/'+status;
 }
 
 function excel_bulan() {
@@ -113,6 +123,7 @@ function excel_bulan() {
     ke = $("#filter-bulan-ke").val();
     tahun = $("#filter-tahun").val();
     debt = $("#filter-debt2").val();
+    status = $("#filter-status2").val();
 
     if (dari == '') {
       dari = 'semua';
@@ -130,20 +141,28 @@ function excel_bulan() {
       debt = 'semua';
     }
 
-    window.location = base_url + 'laporan/penjualandebt/excel_bulan/'+dari+'/'+ke+'/'+tahun+'/'+debt;
+    if (status == '') {
+      status = 'semua';
+    }
+
+    window.location = base_url + 'laporan/penjualandebt/excel_bulan/'+dari+'/'+ke+'/'+tahun+'/'+debt+'/'+status;
 }
 
 function excel_tahun() {
     
     tahun = $("#filter-tahun2").val();
     debt = $("#filter-debt3").val();
+    status = $("#filter-status3").val();
     if (tahun == '') {
       tahun = 'semua';
     }
-    if (debt == '') {
-      debt = 'semua';
+    if (status == '') {
+      status = 'semua';
     }
-    window.location = base_url + 'laporan/penjualandebt/excel_tahun/'+tahun+'/'+debt;
+    if (debt == '') {
+        debt = 'semua';
+      }
+    window.location = base_url + 'laporan/penjualandebt/excel_tahun/'+tahun+'/'+debt+'/'+status;
 }
 
 function formatCurrency(num) {

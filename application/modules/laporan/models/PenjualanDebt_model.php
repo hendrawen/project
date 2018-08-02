@@ -70,6 +70,16 @@ class PenjualanDebt_model extends CI_Model {
             $this->db->where('wp_transaksi.username', $this->input->post('debt3'));
         }
 
+        if ($this->input->post('status')) {
+            $this->db->where('wp_status_id', $this->input->post('status'));
+        }
+        if ($this->input->post('status2')) {
+            $this->db->where('wp_status_id', $this->input->post('status2'));
+        }
+        if ($this->input->post('status3')) {
+            $this->db->where('wp_status_id', $this->input->post('status3'));
+        }
+
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         
@@ -153,7 +163,7 @@ class PenjualanDebt_model extends CI_Model {
         }
     }
 
-    function laporan_tanggal($tanggal, $debt)
+    function laporan_tanggal($tanggal, $debt, $status)
     {
         $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
             wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
@@ -173,12 +183,16 @@ class PenjualanDebt_model extends CI_Model {
         if ($debt != 'semua') {
             $this->db->where('wp_transaksi.username', $debt);
         }
+
+        if ($status != 'semua') {
+            $this->db->where('wp_status_id', $status);
+        }
         
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         return $this->db->get($this->table)->result();
         
     }
-    function laporan_bulan($dari, $ke, $tahun, $debt)
+    function laporan_bulan($dari, $ke, $tahun, $debt, $status)
     {
         $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
             wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
@@ -203,12 +217,15 @@ class PenjualanDebt_model extends CI_Model {
         if ($debt != 'semua') {
             $this->db->where('wp_transaksi.username', $debt);
         }
+        if ($status != 'semua') {
+            $this->db->where('wp_status_id', $status);
+        }
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         return $this->db->get()->result();
         
     }
-    function laporan_tahun($tahun, $debt)
+    function laporan_tahun($tahun, $debt, $status)
     {
         $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
             wp_transaksi.qty, wp_transaksi.tgl_transaksi, wp_transaksi.updated_at,
@@ -229,10 +246,30 @@ class PenjualanDebt_model extends CI_Model {
         if ($debt != 'semua') {
             $this->db->where('wp_transaksi.username', $debt);
         }
+        if ($status != 'semua') {
+            $this->db->where('wp_status_id', $status);
+        }
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         return $this->db->get()->result();
         
+    }
+
+    function get_status()
+    {
+        return $this->db->get('wp_status')->result();
+    }
+
+    function get_status_id($id)
+    {
+        if ($id == 'semua') {
+            return 'semua';
+        } else {
+            $this->db->select('nama_status');
+            $this->db->where('id', $id);
+            $hasil =  $this->db->get('wp_status')->row();
+            return $hasil->nama_status;
+        }
     }
 
 
