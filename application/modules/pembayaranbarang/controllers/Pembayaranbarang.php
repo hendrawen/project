@@ -160,7 +160,7 @@ class Pembayaranbarang extends CI_Controller{
              <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
                  <td><?php echo $key->id_suplier ?></td>
                  <td><?php echo $key->nama_suplier ?></td>
-                 <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
+                 <td><?php echo $key->id_transaksi ?></td>
                  <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
                  <td><?php echo ($key->bayar > 0)? tgl_indo($key->tgl_bayar):'' ?></td>
                  <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td>

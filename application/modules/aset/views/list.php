@@ -43,7 +43,7 @@
                 <th>Gudang</th>
                 <th>Aset Krat</th>
                 <th>Aset Botol</th>
-                <th>Action</th>
+                <th style="text-align:center" width="200px">Action</th>
             </tr>
           </thead>
           <tbody>

@@ -89,7 +89,7 @@
           <form action="#" id="form-tarik-aset" method="post">
             <div id="pesan-post">
             </div>
-            <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+            <div class="col-md-43 col-sm-3 col-lg-3 col-xs-12 form-group">
               <label for="fullname">Tanggal Bayar/Tarik * :</label>
               <div class="controls">
                   <div class="col-md-12 xdisplay_inputx form-group has-feedback">
@@ -99,20 +99,31 @@
                   </div>
               </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+            <div class="col-md-3 col-sm-3 col-lg-3 col-xs-12 form-group">
               <label for="jenis">Jenis Pembayaran * :</label>
               <select name="jenis" id="jenis" class="form-control">
                 <option value="krat" selected>Krat</option>
                 <option value="uang">Uang</option>
               </select>
             </div>
-            <div id="form-input-uang" class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+            <div id="form-input-uang" class="col-md-3 col-sm-3 col-lg-3 col-xs-12 form-group">
               <label for="bayar_uang">Bayar Uang (Rp.) *</label>
               <input type="text" id="bayar_uang" class="form-control" onkeyup="FormatCurrency(this)" autocomplete="off" placeholder="Masukkan jumlah bayar">
             </div>
-            <div id="form-input-krat" class="col-md-4 col-sm-4 col-lg-4 col-xs-12 form-group">
+            <div id="form-input-krat" class="col-md-3 col-sm-3 col-lg-3 col-xs-12 form-group">
               <label for="bayar_krat">Bayar Krat *</label>
               <input type="text" id="bayar_krat" class="form-control" autocomplete="off" placeholder="Masukkan jumlah bayar">
+            </div>
+            <div id="form-input-krat" class="col-md-3 col-sm-3 col-lg-3 col-xs-12 form-group">
+              <label for="bayar_krat">Gudang</label>
+              <select name="gudang" class="form-control" id="gudang">
+                <option value="">Pilih Gudang</option>
+                <?php 
+                  foreach ($gudang->result() as $key) {?>
+                    <option value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
+                  <?php }
+                ?>
+              </select>
             </div>
             <!-- <input type="hidden" name="sudah" id="sudah"> -->
             <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
