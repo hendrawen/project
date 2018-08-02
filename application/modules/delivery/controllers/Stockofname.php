@@ -54,11 +54,56 @@ class Stockofname extends CI_Controller
         return $this->db->get('wp_barang')->result();   
     }
 
+    function tes2()
+    {
+        $this->db->select('distinct(id),nama_barang, satuan');
+        $this->db->group_by('nama_barang');
+        $this->db->order_by('nama_barang', 'asc');
+        $hasil = $this->db->get('wp_barang')->result();   
+        
+        echo "<pre>";
+        print_r ($hasil);
+        echo "</pre>";
+        
+    }
+
+    function tes()
+    {
+        $this->db->select('wp_barang.id,nama_barang, satuan');
+        $this->db->join('wp_stok', 'wp_stok.wp_barang_id = wp_barang.id', 'left');
+        $this->db->join('wp_gudang', 'wp_gudang.id = wp_stok.wp_gudang_id', 'inner');
+        $this->db->order_by('nama_barang', 'asc');
+        $hasil = $this->db->get('wp_barang')->result();   
+        
+        echo "<pre>";
+        print_r ($hasil);
+        echo "</pre>";
+        
+
+    }
+
     function num_rows($value)
     {
         $this->db->select('satuan');
         $this->db->where('nama_barang', $value);
         return $this->db->get('wp_barang')->result();
+    }
+
+    function get_jumlah_stok($id_barang, $id_gudang =null)
+    {
+        $this->db->select('sum(stok) as jumlah');
+        
+        $this->db->where('wp_barang_id', $id_barang);
+        // $this->db->where('wp_gudang_id', $id_gudang);
+        $hasil = $this->db->get('wp_stok')->row();
+        if ($hasil) {
+            return $hasil->jumlah;
+        } else {
+            return 0;
+        }
+
+        
+        
     }
 
     public function ajax_list()
@@ -70,18 +115,25 @@ class Stockofname extends CI_Controller
             $row = array();
             $row[] = tgl_indo($lists->tanggal);
             $row[] = $lists->nama_gudang;
+            $barang = $this->get_barang();
+        
+            foreach ($barang as $obj) {
+                $list_satuan = $this->num_rows($obj->nama_barang);
+                foreach ($list_satuan as $st) {
 
+                    $row[] = $this->get_jumlah_stok($obj->id);
+                }
+            }
+            
             $row[] = "";
             $row[] = "";
             $row[] = "";
             $row[] = "";
-            $row[] = "";
-            $row[] = "";
-            $row[] = "";
-            $row[] = "";
-            $row[] = "";
-            $row[] = "";
-            //$row[] = $lists->stok;
+            // $row[] = "";
+            // $row[] = "";
+            // $row[] = "";
+            // $row[] = "";
+            // $row[] = $lists->stok;
             // $row[] = $lists->rusak;
             // $row[] = $lists->satuan_rusak;
             $row[] = $lists->aset_krat;
@@ -89,41 +141,15 @@ class Stockofname extends CI_Controller
 
             $data[] = $row;
         }
-
         $output = array(
-                        "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->Stockofname_model->count_all(),
-                        "recordsFiltered" => $this->Stockofname_model->count_filtered(),
-                        "data" => $data,
+                "draw" => $_POST['draw'],
+                "recordsTotal" => $this->Stockofname_model->count_all(),
+                "recordsFiltered" => $this->Stockofname_model->count_filtered(),
+                "data" => $data,
                 );
         //output to json format
         echo json_encode($output);
     }
-
-    function cek()
-        {
-            $list = $this->Stockofname_model->get_datatables();
-            $data = array();
-            //$no = $_POST['start'];
-            foreach ($list as $key) {
-                $row = array();
-                if ($key->barang == $key->wp_barang_id) {
-                        if ($key->gudang == $key->wp_gudang_id) {
-                            $row[] = $key->stok;
-                        }
-                }
-                $data[] = $row;
-            }
-    
-            $output = array(
-                            "draw" => $_POST['draw'],
-                            "recordsTotal" => $this->Stockofname_model->count_all(),
-                            "recordsFiltered" => $this->Stockofname_model->count_filtered(),
-                            "data" => $data,
-                    );
-            //output to json format
-            print_r($output);
-        }
 
     public function create()
     {

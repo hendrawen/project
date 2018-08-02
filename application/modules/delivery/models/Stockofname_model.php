@@ -20,11 +20,13 @@ class Stockofname_model extends CI_Model
     private function _get_datatables_query()
     {
         //filter table_call
-        $this->db->select('wp_debt_muat.id, wp_debt_muat.wp_barang_id, wp_debt_muat.wp_gudang_id, wp_debt_muat.tanggal, wp_gudang.id as gudang, wp_gudang.nama_gudang, wp_barang.id as barang, wp_barang.nama_barang, wp_stok.id, wp_stok.wp_gudang_id, wp_stok.wp_barang_id, wp_stok.stok, wp_debt_muat.rusak, wp_debt_muat.satuan_rusak, wp_aset.aset_krat, wp_aset.aset_btl');
+        $this->db->select('wp_debt_muat.id, wp_debt_muat.tanggal, wp_gudang.id as gudang, wp_gudang.nama_gudang, wp_barang.nama_barang, wp_stok.wp_barang_id, wp_stok.wp_gudang_id, wp_stok.stok, wp_debt_muat.rusak, wp_debt_muat.satuan_rusak, wp_aset.aset_krat, wp_aset.aset_btl');
         $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
         $this->db->join('wp_stok', 'wp_stok.wp_gudang_id = wp_gudang.id', 'inner');
         $this->db->join('wp_aset', 'wp_aset.gudang = wp_gudang.id', 'inner');
+        $this->db->order_by('wp_barang.nama_barang', 'asc');
+        
         $this->db->from($this->table);
         $i = 0;
 
