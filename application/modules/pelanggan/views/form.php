@@ -40,7 +40,7 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                           </div>
                           <div class="form-group">
                             <label>Nama Dagang</label>
-                            <input type="text" class="form-control" name="nama_dagang" placeholder="Masukkan nomer telp." value="<?php echo $nama_dagang; ?>" required="required">
+                            <input type="text" class="form-control" name="nama_dagang" placeholder="Masukkan nama dagang" value="<?php echo $nama_dagang; ?>" required="required">
                           </div>
                           <div class="form-group">
                             <label>Kategori Dagang</label>

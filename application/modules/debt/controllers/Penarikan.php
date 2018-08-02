@@ -30,6 +30,7 @@ class Penarikan extends CI_Controller {
             'judul'			=>'Dashboard',
             'sub_judul'	    =>'Delivery',
             'content'		=>'penarikan/tarik_aset',
+            'gudang'         => $this->Aset_model->get_gudang(),
         );
         $this->load->view('dashboard', $data);
     }
@@ -181,6 +182,7 @@ class Penarikan extends CI_Controller {
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
                     'username' => $this->session->identity,
+                    'gudang'    => $this->input->post('gud'),
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],
@@ -206,6 +208,7 @@ class Penarikan extends CI_Controller {
                     'wp_asis_debt_id' => $record_debt[$i]['id'],
                     'wp_pelanggan_id' => $id_pelanggan,
                     'username' => $this->session->identity,
+                    'gudang'    => $this->input->post('gud'),
                 );
                 $asis_debt[$i] = array (
                     'id' => $record_debt[$i]['id'],

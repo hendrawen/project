@@ -69,13 +69,14 @@
                   <label for="color">Sumber Data</label>
                   <select id="color" name="color" class="form-control">
                   <option disabled selected>--Pilih--</option>
-                  <option value="Due Date" <?php if ($color =='Due Date') { echo "selected";}?>>Due Date</option>    
-                  <option value="Hijau" <?php if ($color =='Hijau') { echo "selected";}?>>Hijau</option>
-                  <option value="Biru" <?php if ($color =='Biru') { echo "selected";}?>>Biru</option>
-                  <option value="Kuning" <?php if ($color =='Kuning') { echo "selected";}?>>Kuning</option>
-                  <option value="Orange" <?php if ($color =='Orange') { echo "selected";}?>>Orange</option>
-                  <option value="Jingga" <?php if ($color =='Jingga') { echo "selected";}?>>Jingga</option>
-                  <option value="Hijau Muda" <?php if ($color =='Hijau Muda') { echo "selected";}?>>Hijau Muda</option>
+                  <option <?php if( $color=='Due Date'){echo "selected"; } ?> value="Due Date">Due Date</option>
+                  <option <?php if( $color=='Hijau'){echo "selected"; } ?> value="Hijau">Hijau</option>
+                  <option <?php if( $color=='Biru'){echo "selected"; } ?> value="Biru">Biru</option>
+                  <option <?php if( $color=='Kuning'){echo "selected"; } ?> value="Kuning">Kuning</option>
+                  <option <?php if( $color=='Orange'){echo "selected"; } ?> value="Orange">Orange</option>
+                  <option <?php if( $color=='Jingga'){echo "selected"; } ?> value="Jingga">Jingga</option>
+                  <option <?php if( $color=='Hijau Muda'){echo "selected"; } ?> value="Hijau Muda">Hijau Muda</option>
+                  <option <?php if( $color=='New Customer'){echo "selected"; } ?> value="New Customer">New Customer</option>
                   </select>
               </div>
               <div class="form-group">
