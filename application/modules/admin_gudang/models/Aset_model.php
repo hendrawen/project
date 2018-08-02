@@ -93,37 +93,37 @@ class Aset_model extends CI_Model
         return $hsl->result();
     }
 
-    function get_penarikan($id_pelanggan)
+    function get_penarikan($id_supplier)
     {
-        $this->db->select('wp_asis_debt.id, wp_asis_debt.turun_krat, wp_asis_debt.piutang, 
-            wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_asis_debt.tanggal as tgl_penarikan, wp_asis_debt.bayar_krat, wp_asis_debt.bayar_uang');
-        $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
-        $this->db->where("wp_asis_debt.piutang <> wp_asis_debt.turun_krat");
+        $this->db->select('wp_asis_aset.id, wp_asis_aset.tanggal, wp_asis_aset.turun_krat, wp_asis_aset.piutang,
+            wp_suplier.id_suplier, wp_suplier.nama_suplier,
+            wp_asis_aset.tanggal as tgl_penarikan, wp_asis_aset.bayar_krat, wp_asis_aset.bayar_uang');
+        $this->db->where('wp_suplier.id_suplier', $id_supplier);
+        $this->db->where("wp_asis_aset.piutang <> wp_asis_aset.turun_krat");
 
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
-        $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
-        $this->db->where('wp_asis_debt.username', $this->session->identity);
-        $this->db->group_by('wp_asis_debt.id');
-        
-        $this->db->order_by('wp_asis_debt.id', 'asc');
-        
-        $record = $this->db->get('wp_asis_debt');
-        
+        $this->db->join('wp_suplier', 'wp_suplier.id = wp_asis_aset.id_suplier', 'inner');
+        $this->db->join('wp_pembayaran_aset', 'wp_pembayaran_aset.id_aset = wp_asis_aset.id', 'left');
+        $this->db->group_by('wp_asis_aset.id');
+
+        $this->db->order_by('wp_asis_aset.id', 'asc');
+
+        $record = $this->db->get('wp_asis_aset');
+
         return $record->result();
     }
 
-    function get_id_pelanggan($id_pelanggan)
+    function get_id_sup($id_sup)
     {
-        $this->db->where('wp_pelanggan.id_pelanggan', $id_pelanggan);
-        return $this->db->get('wp_pelanggan',1)->row();
-        
+        $this->db->where('wp_suplier.id_suplier', $id_sup);
+        return $this->db->get('wp_suplier',1)->row();
+
     }
 
     function insert_penarikan($data, $data2)
     {
         $respon = 'F';
         $this->db->trans_begin();
-        $this->db->insert_batch('wp_penarikan', $data);
+        $this->db->insert_batch('wp_pembayaran_aset', $data);
         $this->update_debt($data2);
         if ($this->db->trans_status() === FALSE)
         {
@@ -138,7 +138,7 @@ class Aset_model extends CI_Model
 
     function update_debt($data)
     {
-        $this->db->update_batch('wp_asis_debt', $data, 'id');
+        $this->db->update_batch('wp_asis_aset', $data, 'id');
     }
 
     function get_harga_krat()
@@ -147,6 +147,18 @@ class Aset_model extends CI_Model
         $record = $this->db->get('wp_krat_kosong')->row();
         return $record->harga;
     }
+
+    function get_gudang(){
+      $this->db->order_by('nama_gudang');
+      return $this->db->get('wp_gudang')->result();
+    }
+
+    function cari_suplier($idsuplier){
+		$this->db->like('id_suplier', $idsuplier , 'both');
+		$this->db->order_by('id_suplier', 'ASC');
+		$this->db->limit(10);
+		return $this->db->get('wp_suplier')->result();
+	}
 
 }
 

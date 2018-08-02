@@ -23,71 +23,45 @@
   <div class="x_content">
     <form action="<?php echo $action; ?>" method="post" class="form-horizontal">
       <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Nama Pelanggan <?php echo form_error('wp_pelanggan_id') ?></label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Gudang <?php echo form_error('gudang') ?></label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            <select class="form-control" name="wp_pelanggan_id" id="wp_pelanggan_id">
-              <option value="" disabled selected>-- Pilih Pelanggan --</option>
-              <?php foreach ($pelanggan_list as $key): ?>
-                <option <?php echo ($key->id == $wp_pelanggan_id)?'selected':'' ?> value="<?php echo $key->id ?>"><?php echo $key->id_pelanggan.' - '. $key->nama_pelanggan ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-      </div>
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Nama Barang <?php echo form_error('wp_barang_id') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <select class="form-control" name="wp_barang_id" id="wp_barang_id">
-            <option disabled selected>--Pilih Barang--</option>
+            <select class="form-control" name="gudang" id="gudang">
+            <option disabled selected>--Pilih Gudang--</option>
             <?php
-                  $users = $this->db->query("SELECT * FROM wp_barang");
+                  $users = $this->db->query("SELECT * FROM wp_gudang");
                   foreach($users->result() as $value){
                   $selected= '';
-                  if($wp_barang_id == $value->id){
+                  if($gudang == $value->id){
                     $selected = 'selected="selected"';
                   }
                   ?>
                   <option  value="<?php echo $value->id; ?>" <?php echo $selected;?>>
-                  <?php echo $value->id; ?> - <?php echo $value->nama_barang; ?>
+                  <?php echo $value->id; ?> - <?php echo $value->nama_gudang; ?>
                   </option>
                 <?php } ?>
             </select>
           </div>
       </div>
       <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Turun Krat <?php echo form_error('turun_krat') ?></label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Aset Krat</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" class="form-control" name="turun_krat" id="turun_krat" placeholder="Turun Krat" value="<?php echo $turun_krat; ?>" />
+          <input type="number" class="form-control" name="aset_krat" id="turun_krat" placeholder="aset krat" value="<?php echo $aset_krat; ?>" />
         </div>
       </div>
       
       <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Bayar Krat <?php echo form_error('bayar_krat') ?></label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Aset Botol</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" min="0" class="form-control" name="bayar_krat" id="bayar_krat" placeholder="Naik Krat" value="<?php echo $bayar_krat; ?>" />
+          <input type="number" min="0" class="form-control" name="aset_btl" id="aset_btl" placeholder="aset botol" value="<?php echo $aset_btl; ?>" />
         </div>
-      </div>
-      
-      <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Bayar Uang <?php echo form_error('bayar_uang') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-          <input type="number" min="0" class="form-control" name="bayar_uang" id="bayar_uang" placeholder="Bayar Uang" value="<?php echo $bayar_uang; ?>" />
-        </div>
-      </div>
-
-       <div class="row form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="int">Piutang <?php echo form_error('piutang') ?></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            <input type="number" min="0" class="form-control" name="piutang" placeholder="Piutang" value="<?php echo $piutang; ?>" />
-          </div>
       </div>
 
       <div class="row">
-        <div class="col-md-3 col-sm-3 col-xs-12"></div>
-        <div class="col-md-9 col-sm-9 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12 text-right">
           <input type="hidden" name="id" value="<?php echo $id; ?>" />
           <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
-          <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <?php echo $button ?></button>
           <a href="<?php echo site_url('aset') ?>" class="btn btn-default"><i class="fa fa-times"></i> Cancel</a>
+          <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <?php echo $button ?></button>
         </div>
       </div>
     </form>

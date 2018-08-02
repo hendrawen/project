@@ -28,7 +28,7 @@ class Stok extends CI_Controller
             'stok_data' => $stok,
             'start' => 1,
         );
-				$data['aktif']			='Master';
+		$data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	    ='Stok Barang';
@@ -44,7 +44,7 @@ class Stok extends CI_Controller
             $data = array(
 		'id' => $row->id,
 		'wp_barang_id' => $row->wp_barang_id,
-    'wp_gudang_id' => $row->wp_gudang_id,
+        'wp_gudang_id' => $row->wp_gudang_id,
 		'stok' => $row->stok,
 		'updated_at' => $row->updated_at,
 	    );
@@ -65,12 +65,12 @@ class Stok extends CI_Controller
         $data = array(
             'button' => 'Simpan',
             'action' => site_url('barang/stok/create_action'),
-	    'id' => set_value('id'),
-	    'wp_barang_id' => set_value('wp_barang_id'),
-      'wp_gudang_id' => set_value('wp_gudang_id'),
-	    'stok' => set_value('stok'),
-	    'updated_at' => set_value('updated_at'),
-	);
+            'id' => set_value('id'),
+            'wp_barang_id' => set_value('wp_barang_id'),
+            'wp_gudang_id' => set_value('wp_gudang_id'),
+            'stok' => set_value('stok'),
+            'updated_at' => set_value('updated_at'),
+	        );
 				$data['aktif']			='Master';
 				$data['title']			='Brajamarketindo';
 				$data['judul']			='Dashboard';
@@ -169,63 +169,6 @@ class Stok extends CI_Controller
 
 	//$this->form_validation->set_rules('id', 'id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
-    }
-
-    public function excel()
-    {   
-        $this->load->helper('exportexcel');
-        $namaFile = "stok.xls";
-        $judul = "stok";
-        $tablehead = 0;
-        $tablebody = 1;
-        $nourut = 1;
-        //penulisan header
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-        header("Content-Disposition: attachment;filename=" . $namaFile . "");
-        header("Content-Transfer-Encoding: binary ");
-
-        xlsBOF();
-
-        $kolomhead = 0;
-        xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Wp Barang Id");
-  xlsWriteLabel($tablehead, $kolomhead++, "Wp Gudang Id");
-	xlsWriteLabel($tablehead, $kolomhead++, "Stok");
-	xlsWriteLabel($tablehead, $kolomhead++, "Updated At");
-
-	foreach ($this->stok_model->get_all() as $data) {
-            $kolombody = 0;
-
-            //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
-            xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_barang_id);
-      xlsWriteNumber($tablebody, $kolombody++, $data->wp_gudang_id);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->stok);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->updated_at);
-
-	    $tablebody++;
-            $nourut++;
-        }
-
-        xlsEOF();
-        exit();
-    }
-    public function word()
-    {   
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Disposition: attachment;Filename=wp_stok.doc");
-
-        $data = array(
-            'wp_stok_data' => $this->stok_model->get_all(),
-            'start' => 0
-        );
-
-        $this->load->view('barang/stok/stok_doc',$data);
     }
 
 

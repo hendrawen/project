@@ -6,8 +6,8 @@ if (!defined('BASEPATH'))
 class Aset_model extends CI_Model
 {
 
-    public $table = 'wp_asis_debt';
-    public $id = 'wp_asis_debt.id';
+    public $table = 'wp_aset';
+    public $id = 'id';
     public $order = 'DESC';
 
     function __construct()
@@ -18,10 +18,9 @@ class Aset_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->select('wp_asis_debt.*, wp_barang.id_barang, wp_barang.nama_barang, wp_pelanggan.id as `id_pel`, wp_pelanggan.nama_pelanggan, wp_pelanggan.id_pelanggan');
-        $this->db->order_by($this->id, $this->order);
-        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'inner');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
+        $this->db->select('wp_aset.id, wp_gudang.nama_gudang, wp_aset.aset_krat, wp_aset.aset_btl');
+        $this->db->order_by('wp_aset.gudang', $this->order);
+        $this->db->join('wp_gudang', 'wp_gudang.id = wp_aset.gudang', 'inner');
         return $this->db->get($this->table)->result();
     }
 
@@ -29,43 +28,17 @@ class Aset_model extends CI_Model
     function get_by_id($id)
     {
         $this->db->where($this->id, $id);
-        $this->db->select('wp_asis_debt.*, wp_barang.id_barang, wp_barang.nama_barang, wp_pelanggan.id as `id_pel`, wp_pelanggan.nama_pelanggan');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'left');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
         return $this->db->get($this->table)->row();
     }
 
     // get total rows
     function total_rows($q = NULL) {
-        $this->db->like('wp_asis_debt.id', $q);
-      	$this->db->or_like('tanggal', $q);
-      	$this->db->or_like('jam', $q);
-      	$this->db->or_like('turun_krat', $q);
-        $this->db->or_like('bayar_krat', $q);
-        $this->db->or_like('bayar_uang', $q);
-      	$this->db->or_like('wp_asis_debt.username', $q);
-      	$this->db->or_like('wp_pelanggan_id', $q);
-        $this->db->select('wp_asis_debt.*, wp_barang.id_barang, wp_barang.nama_barang, wp_pelanggan.id as `id_pel`, wp_pelanggan.nama_pelanggan');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'inner');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
       	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db->order_by($this->id, $this->order);
-        $this->db->like('wp_asis_debt.id', $q);
-      	$this->db->or_like('tanggal', $q);
-      	$this->db->or_like('jam', $q);
-      	$this->db->or_like('turun_krat', $q);
-      	$this->db->or_like('bayar_krat', $q);
-        $this->db->or_like('bayar_uang', $q);
-      	$this->db->or_like('wp_asis_debt.username', $q);
-      	$this->db->or_like('wp_pelanggan_id', $q);
-        $this->db->select('wp_asis_debt.*, wp_barang.id_barang, wp_barang.nama_barang, wp_pelanggan.id as `id_pel`, wp_pelanggan.nama_pelanggan');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'inner');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
       	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
@@ -89,37 +62,6 @@ class Aset_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
-    // get data Pelanggan
-    function get_pelanggan()
-    {
-      return $this->db->get('wp_pelanggan')->result();
-    }
-
-    // get data barang
-    function get_barang()
-    {
-      return $this->db->get('wp_barang')->result();
-    }
-
-    function buat_kode(){
-        $this->db->select('RIGHT(wp_asis_debt.id_transaksi, 2) as kode', FALSE);
-        $this->db->order_by($this->id, $this->order);
-        $this->db->limit(1);
-        $query = $this->db->get($this->table, $this->id);      //cek dulu apakah ada sudah ada kode di tabel.
-        if($query->num_rows() <> 0){
-         //jika kode ternyata sudah ada.
-         $data = $query->row();
-         $kode = intval($data->kode) + 1;
-        }
-        else {
-         //jika kode belum ada
-         $kode = 1;
-        }
-        $kodemax = str_pad($kode, 2, "0", STR_PAD_LEFT); // angka 2 menunjukkan jumlah digit angka 0
-        $kodejadi = "ASD0".$kodemax;    // hasilnya ODJ-9921-0001 dst.
-        return $kodejadi;
-  }
 
 }
 
