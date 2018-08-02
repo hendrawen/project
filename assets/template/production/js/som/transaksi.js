@@ -12,13 +12,14 @@ var table;
                "data": function ( data ) {
                  data.dari = $('#dari').val();
                  data.ke = $('#ke').val();
+                 data.status = $('#filter-status').val();
                 }
            },
 
            //Set column definition initialisation properties.
            "columnDefs": [
            {
-               "targets": [ 9 ], //first column / numbering column
+               "targets": [ 0  ], //first column / numbering column
                "orderable": false, //set not orderable
            },
            ],
@@ -43,10 +44,17 @@ var table;
       $(excel_transaksi).click(function (e) {
         dari = $('#dari').val();
         ke = $('#ke').val();
-        console.log(dari);
-        console.log(ke);
+        status = $('#filter-status').val();
+        if (dari == '') {
+            dari = 'semua';
+        }
+        if (ke == '') {
+            ke = 'semua';
+        }
+        if (status == '') {
+            status = 'semua';
+        }
         
-        
-        window.location = base_url + 'som/transaksi/excel/'+dari+'/'+ke;
+        window.location = base_url + 'som/transaksi/excel/'+dari+'/'+ke+'/'+status;
         
     });

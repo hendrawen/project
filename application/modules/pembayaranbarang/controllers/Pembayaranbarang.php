@@ -179,7 +179,7 @@ class Pembayaranbarang extends CI_Controller{
 
   public function cek()
   {
-    print_r ($this->session->userdata('id_transaksi'));
+    // print_r ($this->session->userdata('id_transaksi'));
 
   }
 

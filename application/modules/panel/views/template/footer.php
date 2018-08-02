@@ -185,9 +185,16 @@
     <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/muat.js"></script>
     <?php endif; ?>
+<<<<<<< HEAD
     <?php if ($this->uri->segment(2) == 'stockofname' && $this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/stockofname.js"></script>
     <?php endif; ?>
+=======
+    <?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(3) == 'penjualan_debt'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/penjualan_debt_new.js"></script>
+    <?php endif; ?>
+
+>>>>>>> 77e916e9d32eedd950435d472fdd14d749fa7e77
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
     <script>

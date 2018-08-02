@@ -83,7 +83,7 @@ class Pembayaranbarang_model extends CI_Model{
   function cari_suplier($idsuplier){
 		$this->db->like('id_suplier', $idsuplier , 'both');
 		$this->db->order_by('id_suplier', 'ASC');
-    $this->db->where('utang <=', 'bayar');
+        $this->db->where('utang <=', 'bayar');
 		$this->db->limit(10);
 		return $this->db->get('wp_detail_transaksistok')->result();
 	}

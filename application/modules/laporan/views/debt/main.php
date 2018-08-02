@@ -55,6 +55,17 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Status</span>
+                        <select class="form-control" id="filter-status">
+                            <option value="">Pilih Status</option>
+                            <?php foreach ($list_status as $key): ?>
+                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <button
                         type="button"
                         id="btn-search"
@@ -119,6 +130,17 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Status</span>
+                        <select class="form-control" id="filter-status2">
+                            <option value="">Pilih Status</option>
+                            <?php foreach ($list_status as $key): ?>
+                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <button
                         type="button"
                         id="btn-search"
@@ -156,6 +178,17 @@
                             <option value="">Pilih Debt</option>
                             <?php foreach ($list_debt as $key): ?>
                             <option value="<?php echo $key->id_karyawan?>"><?php echo $key->nama?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Status</span>
+                        <select class="form-control" id="filter-status3">
+                            <option value="">Pilih Status</option>
+                            <?php foreach ($list_status as $key): ?>
+                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

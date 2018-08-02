@@ -84,6 +84,13 @@ $('#id_track_aset').autocomplete({
     }
 });
 
+$('#id_pembayaran_aset').autocomplete({
+    source: (base_url+"admin_gudang/pembayaran_aset/get_auto"),
+    select: function (event, ui) {
+        $('[name="title"]').val(ui.item.label);
+    }
+});
+
 $('#title3').autocomplete({
         source: (base_url+"dep/get_auto_transaksi"),
         select: function (event, ui) {
