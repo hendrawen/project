@@ -22,30 +22,41 @@
               <div class="x_content">
               <div class="row">
               <form action="#" id="form-filter2">
-              <div class="col-lg-3 col-sm-12 col-xs-12">
+              <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                   <div class="input-group">
                     <span class="input-group-addon">Dari <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
                     <input type="date" class="form-control" name="dari" id="dari">
                   </div>
                 </div>
 
-                <div class="col-lg-3 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                   <div class="input-group">
                     <span class="input-group-addon">Ke <img id="loading" src="<?=base_url();?>assets/ajax-loader.gif" alt="" style="text-align:center; display:none"></span>
                     <input type="date" class="form-control" name="ke" id="ke">
                   </div>
                 </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group">
+                        <span class="input-group-addon">Status</span>
+                        <select class="form-control" id="filter-status">
+                            <option value="">Pilih Status</option>
+                            <?php foreach ($list_status as $key): ?>
+                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
               
-                <div class="col-lg-6 col-sm-12 col-xs-12 text-right">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 text-right">
                   <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
                   <button type="button" id="excel_transaksi" class="btn btn-primary"><i class="fa fa-download"></i> Excel</button>
-                  <button type="button" id="btn-reset2" class="btn btn-info"><i class="fa fa-refresh"></i> All</button>
+                  <button type="button" id="btn-reset2" class="btn btn-info"><i class="fa fa-refresh"></i> Reload</button>
                 </div>
               </form>
               </div>
               <div class="table-responsive">
               <!-- <?php echo anchor(site_url('som/transaksi/excel'), 'Excel', 'class="btn btn-primary"'); ?> -->
-                  <table id="table_transaksi" class="table jambo_table table-bordered" id="transaksilist">
+                  <table id="table_transaksi" class="table table-striped jambo_table table-bordered dt-responsive nowrap" id="transaksilist">
                       <thead>
                           <tr>
                             <th>No Faktur</th>
@@ -62,6 +73,7 @@
                             <th>No Telpon</th>
                             <th>Marketing</th>
                             <th>Debt</th> <!-- username-->
+                            <th>Status</th> <!-- username-->
                             <th>Jumlah</th>
                           </tr>
                       </thead>

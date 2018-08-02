@@ -4,7 +4,7 @@
       <div class="x_title">
             <h2>Jadwal List</h2>
             <div class="text-right">
-            <a href="<?php echo site_url('som/jadwal2/create'); ?>" type="button" class="btn btn-primary text-right" > <i class="fa fa-plus" ></i> Tambah Data</a>
+            <a href="<?php echo site_url('jadwal/create'); ?>" type="button" class="btn btn-primary text-right" > <i class="fa fa-plus" ></i> Tambah Data</a>
             </div>
             <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>

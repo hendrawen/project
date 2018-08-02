@@ -118,7 +118,7 @@
                     <div class="row no-print">
                       <div class="col-xs-12">
                         <!--<button type="submit" class="btn btn-primary pull-right" id="printButton" onclick="javascript:void(0);"><i class="fa fa-print"></i> Simpan & Cetak</button> -->
-                        <a href="javascript:void(0)" id="printButton" class="btn btn-primary pull-right">Save & Print</a>
+                        <a href="javascript:void(0);" id="printButton" class="btn btn-primary pull-right">Save & Print</a>
                       </div>
                     </div>
 
@@ -127,6 +127,9 @@
       </div>
 </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="assets/jquery-1.10.2.js" type="text/JavaScript" language="javascript"></script>
+    <script src="assets/jquery-ui-1.10.4.custom.js"></script>
+    <script src="assets/jquery.PrintArea.js" type="text/JavaScript" language="javascript"></script>
     <script type="text/javascript">
 
     $(document).ready(function(){
@@ -169,5 +172,12 @@
 
           document.body.innerHTML = originalContents;
       }
+
+        $("#printButton").click(function(){
+            var mode = 'iframe'; //popup
+            var close = mode == "popup";
+            var options = { mode : mode, popClose : close};
+            $("div.x_content").printArea( options );
+        });
 
     </script>

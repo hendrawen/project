@@ -118,7 +118,7 @@ class Muat_model extends CI_Model
     }
 
     function get_gudang()
-    {
+    { 
       return $this->db->get('wp_gudang')->result();
     }
 
@@ -131,6 +131,23 @@ class Muat_model extends CI_Model
         return $this->db->get();   
     }
 
+
+    function get_satuanbarang()
+    {
+        //$this->db->distinct();
+        $this->db->select('satuan');
+        $this->db->order_by('nama_barang', 'desc');
+        return $this->db->get('wp_barang')->result();
+    }
+
+    function get_namabarang()
+    {
+        $this->db->distinct();
+        $this->db->select('nama_barang, satuan');
+        $this->db->order_by('nama_barang', 'asc');
+        return $this->db->get('wp_barang')->result();
+    }
+    
 }
 
 /* End of file Muat_model.php */
