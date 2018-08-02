@@ -32,6 +32,7 @@ class Transaksi extends CI_Controller
         $data['judul']			='Dashboard';
         $data['sub_judul']	    ='Transaksi';
         $data['content']		='transaksi/transaksi_list';
+        $data['list_status'] =$this->Transaksi_model->get_status();
         $this->load->view('dashboard', $data);
 
     }
@@ -57,6 +58,7 @@ class Transaksi extends CI_Controller
             $row[] = $lists->no_telp;
             $row[] = $lists->nama_karyawan;
             $row[] = $lists->nama_debt;
+            $row[] = $lists->nama_status;
             $row[] = $lists->subtotal;
 
             $data[] = $row;
@@ -73,13 +75,13 @@ class Transaksi extends CI_Controller
     }
 
     
-    function excel($dari, $ke)
+    function excel($dari, $ke, $status)
     {
         $this->load->helper('exportexcel');
         $namaFile = "transaksi_pelanggan.xls";
         $judul = "Transaksi";
-        $tablehead = 3;
-        $tablebody = 4;
+        $tablehead = 5;
+        $tablebody = 6;
         $nourut = 1;
         //penulisan header
         header("Pragma: public");
@@ -93,8 +95,13 @@ class Transaksi extends CI_Controller
 
         xlsBOF();
         xlsWriteLabel(0, 0, "Laporan");
-        //xlsWriteLabel(1, 0, "Tanggal");
         xlsWriteLabel(0, 1, "Transaksi Pelanggan");
+        xlsWriteLabel(1, 0, "Dari Tanggal");
+        xlsWriteLabel(1, 1, tgl_indo($dari));
+        xlsWriteLabel(2, 0, "Ke Tanggal");
+        xlsWriteLabel(2, 1, tgl_indo($ke));
+        xlsWriteLabel(3, 0, "Status");
+        xlsWriteLabel(3, 1, $this->Transaksi_model->get_status_id($status));
         $kolomhead = 0;
 
         xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -112,9 +119,10 @@ class Transaksi extends CI_Controller
         xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
         xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
         xlsWriteLabel($tablehead, $kolomhead++, "Debt");
+        xlsWriteLabel($tablehead, $kolomhead++, "Status");
         xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
 
-        $record = $this->Transaksi_model->get_data($dari, $ke);
+        $record = $this->Transaksi_model->get_data($dari, $ke, $status);
         $total = 0;
         if ($record){
             foreach ($record as $data) {
@@ -134,6 +142,7 @@ class Transaksi extends CI_Controller
                 xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
                 xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
                 xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
+                xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
                 xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
                 $tablebody++;
                 $nourut++;
