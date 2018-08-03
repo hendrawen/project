@@ -26,7 +26,7 @@ class Muat extends CI_Controller
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
             'sub_judul'	=>'Muat',
-            'content'		=>'muat/wp_debt_muat_list',
+            'content'		=>'wp_debt_muat_list',
         );
         $this->load->view('panel/dashboard', $data);
     }
@@ -57,7 +57,7 @@ class Muat extends CI_Controller
             $row[] = $lists->keterangan;
             $row[] = $lists->nama_karyawan;
             $row[] = '
-            <a href="'.base_url('delivery/muat/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+            <a href="'.base_url('muat/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 
@@ -78,7 +78,7 @@ class Muat extends CI_Controller
     {
         $data = array(
             'button' => 'Create',
-            'action' => site_url('delivery/muat/create_action'),
+            'action' => site_url('muat/create_action'),
       	    'id' => set_value('id'),
       	    'muat' => set_value('muat',0),
       	    'terkirim' => set_value('terkirim',0),
@@ -99,7 +99,7 @@ class Muat extends CI_Controller
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
             'sub_judul'	=>'Muat',
-            'content'		=>'muat/wp_debt_muat_form',
+            'content'		=>'wp_debt_muat_form',
             'barang_list' => $this->muat_barang->get_barang(),
             'gudang_list' => $this->muat_barang->get_gudang(),
             'karyawan'    => $this->muat_barang->get_karyawan(),
@@ -137,7 +137,7 @@ class Muat extends CI_Controller
     	    );
             $this->muat_barang->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('delivery/muat'));
+            redirect(site_url('muat'));
         }
     }
 
@@ -148,7 +148,7 @@ class Muat extends CI_Controller
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('delivery/muat/update_action'),
+                'action' => site_url('muat/update_action'),
                     'id' => set_value('id', $row->id),
                     'tanggal' => set_value('tanggal', $row->tanggal),
             		'muat' => set_value('muat', $row->muat),
@@ -179,7 +179,7 @@ class Muat extends CI_Controller
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('delivery/muat'));
+            redirect(site_url('muat'));
         }
     }
 
@@ -214,7 +214,7 @@ class Muat extends CI_Controller
 
             $this->muat_barang->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('delivery/muat'));
+            redirect(site_url('muat'));
         }
     }
 

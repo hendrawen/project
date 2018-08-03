@@ -8,9 +8,9 @@ class Muat_model extends CI_Model
 
     public $id = 'id';
     var $table = 'wp_debt_muat';
-    var $column_order = array('tanggal','nama_gudang','nama_debt','nama_barang','username', null); //set column field database for datatable orderable
-    var $column_search = array('tanggal','nama_gudang','nama','nama_barang','username'); //set column field database for datatable searchable
-    var $order = array('tanggal' => 'DESC'); // default order
+    var $column_order = array('wp_debt_muat.tanggal','wp_gudang.nama_gudang','wp_barang.nama_barang','wp_debt_muat.username', null); //set column field database for datatable orderable
+    var $column_search = array('wp_gudang.nama_gudang','nama_barang', 'b.nama'); //set column field database for datatable searchable
+    var $order = array('wp_debt_muat.tanggal' => 'DESC'); // default order
 
     public function __construct()
     {
@@ -20,7 +20,7 @@ class Muat_model extends CI_Model
     private function _get_datatables_query()
     {
         //filter table_call
-        $this->db->select('wp_debt_muat.id, wp_debt_muat.tanggal, wp_gudang.nama_gudang, b.nama as nama_debt, wp_barang.nama_barang, wp_debt_muat.muat, wp_debt_muat.satuan, wp_debt_muat.terkirim, wp_debt_muat.satuan_terkirim, wp_debt_muat.kembali, wp_debt_muat.satuan_kembali, wp_debt_muat.return, wp_debt_muat.satuan_return, wp_debt_muat.rusak, wp_debt_muat.satuan_rusak, wp_debt_muat.aset_krat, wp_debt_muat.aset_btl, wp_debt_muat.keterangan, wp_karyawan.nama');
+        $this->db->select('wp_debt_muat.id, wp_debt_muat.tanggal, wp_gudang.nama_gudang, b.nama as nama_debt, wp_barang.nama_barang, wp_debt_muat.muat, wp_debt_muat.satuan, wp_debt_muat.terkirim, wp_debt_muat.satuan_terkirim, wp_debt_muat.kembali, wp_debt_muat.satuan_kembali, wp_debt_muat.return, wp_debt_muat.satuan_return, wp_debt_muat.rusak, wp_debt_muat.satuan_rusak, wp_debt_muat.aset_krat, wp_debt_muat.aset_btl, wp_debt_muat.keterangan, wp_karyawan.nama as nama_karyawan');
         $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_debt_muat.username', 'inner');
@@ -118,7 +118,7 @@ class Muat_model extends CI_Model
     }
 
     function get_gudang()
-    {
+    { 
       return $this->db->get('wp_gudang')->result();
     }
 
@@ -131,6 +131,23 @@ class Muat_model extends CI_Model
         return $this->db->get();   
     }
 
+
+    function get_satuanbarang()
+    {
+        //$this->db->distinct();
+        $this->db->select('satuan');
+        $this->db->order_by('nama_barang', 'desc');
+        return $this->db->get('wp_barang')->result();
+    }
+
+    function get_namabarang()
+    {
+        $this->db->distinct();
+        $this->db->select('nama_barang, satuan');
+        $this->db->order_by('nama_barang', 'asc');
+        return $this->db->get('wp_barang')->result();
+    }
+    
 }
 
 /* End of file Muat_model.php */

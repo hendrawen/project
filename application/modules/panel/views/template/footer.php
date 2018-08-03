@@ -65,7 +65,32 @@
     <script src="<?php echo base_url()?>assets/template/production/js/dataTables.rowsGroup.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/jquery.cookie.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
+    
+
+    
+    
+    
+    <script src="<?php echo base_url()?>assets/template/production/js/jquery.PrintArea.js"></script>
+
+    
+    <?php
+	    if ($this->uri->segment(1) == 'pelanggan') {?>
+    <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
+    <?php
+	  } ?>
+
+    <?php
+	    if ($this->uri->segment(1) == 'jadwal') {?>
+    <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
+    <?php
+	  } ?>
+
+    <?php
+	    if ($this->uri->segment(1) !== 'muat') {?>
+      <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script>
+      <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
+      <script src="<?php echo base_url()?>assets/template/production/js/kebutuhan.js"></script>
 
     <script src="<?php echo base_url()?>assets/template/production/js/suplier.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js"></script>
@@ -73,18 +98,9 @@
     <script src="<?php echo base_url()?>assets/template/production/js/transaksi_admin.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/piutang.js"></script>
     <script src="<?php echo base_url()?>assets/template/production/js/dept.js"></script>
-
-    <script src="<?php echo base_url()?>assets/template/production/js/jadwal.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/pembayaran.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
-    <script src="<?php echo base_url()?>assets/template/production/js/jquery.PrintArea.js"></script>
-
-    <script src="<?php echo base_url()?>assets/template/vendors/validator/validator.js"></script>
-    <?php
-	    if ($this->uri->segment(1) == 'pelanggan') {?>
-    <script src="<?php echo base_url()?>assets/template/production/js/pelanggan.js"></script>
     <?php
 	  } ?>
+
     <?php
 	    if ($this->uri->segment(1) == 'effectifcall') {?>
     <script src="<?php echo base_url()?>assets/template/production/js/effectifcall.js"></script>
@@ -182,12 +198,17 @@
     <?php if ($this->uri->segment(2) == 'validator'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/sudavalidator/kpivalidator.js"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'delivery'): ?>
+    <?php if ($this->uri->segment(1) == 'muat'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/muat.js"></script>
     <?php endif; ?>
     <?php if ($this->uri->segment(2) == 'stockofname' && $this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/stockofname.js"></script>
     <?php endif; ?>
+
+    <?php if ($this->uri->segment(1) == 'stok_opname'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/stok_opname.js"></script>
+    <?php endif; ?>
+
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>
     <script>

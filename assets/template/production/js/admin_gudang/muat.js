@@ -9,27 +9,18 @@ var table;
            // Load data for the table's content from an Ajax source
            "ajax": {
             "url": (base_url+"admin_gudang/muat/ajax_list/"),
-            "type": "POST",
-            "data": function ( data ) {
-             }
+            "type": "POST"
             },
 
            //Set column definition initialisation properties.
            "columnDefs": [
            {
-               "targets": [ 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ], //first column / numbering column
+               "targets": [  4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 ], //first column / numbering column
                "orderable": false, //set not orderable
            },
            ],
          });
 
-         $('#btn-filter2').click(function(){ //button filter event click
-             reload_table();//reload datatable ajax   //just reload table
-         });
-         $('#btn-reset2').click(function(){ //button reset event click
-             $('#form-filter2')[0].reset();
-             reload_table();//reload datatable ajax
-         });
      });
 
 

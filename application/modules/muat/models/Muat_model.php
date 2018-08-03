@@ -86,9 +86,6 @@ class Muat_model extends CI_Model
     function get_by_id($id)
     {
         $this->db->where('wp_debt_muat.id', $id);
-        $this->db->select('wp_debt_muat.*, wp_barang.id_barang, wp_barang.nama_barang, wp_gudang.nama_gudang');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
-        $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
         return $this->db->get($this->table)->row();
     }
 
