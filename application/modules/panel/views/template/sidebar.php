@@ -123,7 +123,7 @@
                         <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>aset">Aset Awal</a></li>
                         <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok Awal</a></li>
                         <li><a href="<?php echo base_url();?>muat">Muat Barang</a></li>
-                        <li><a href="<?php echo base_url();?>delivery/stockofname">Stock Opname</a></li>
+                        <li><a href="<?php echo base_url();?>stok_opname">Stock Opname</a></li>
                       </ul>
                   </li>
 

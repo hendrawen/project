@@ -10,7 +10,7 @@
 <?php endif; ?>
 <div class="x_panel">
   <div class="x_title">
-    <h2>Dev Muat <small>Data Muat</small></h2>
+    <h2>Stok & Aset <small>Opname</small></h2>
     <ul class="nav navbar-right panel_toolbox">
       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </li>
@@ -45,22 +45,21 @@
                 for ($i=0; $i < sizeof($barang) ; $i++) :?>
                   <th colspan ="<?php echo sizeof($barang[$i]['satuan']) ?>"><?php echo $barang[$i]['nama_barang']?></th>
               <?php endfor?>
-              <th colspan="4" class="wider_kecamatan text-center">Rusak</th>
+              <th colspan="<?php echo $jumlah_satuan ?>" class="wider_kecamatan text-center">Rusak</th>
               <th colspan="2" class="wider_kecamatan text-center">Aset</th>
             </tr>
             <tr>
               <?php foreach ($barangall as $key):?>
                   <th><?php echo $key->satuan ?></th>
               <?php endforeach?> 
-                  <th>Krat</th> 
-                  <th>Botol</th>
-                  <th>Dus</th> 
-                  <th>Pcs</th> 
+              <?php foreach ($satuan as $key):?>
+                  <th><?php echo $key->satuan_rusak ?></th>
+              <?php endforeach?>
                   <th>Krat</th> 
                   <th>Botol</th> 
             </tr> 
           </thead>
-          <tbody> 
+          <tbody id="tbody-stok"> 
           </tbody>
       </table>
     </div>

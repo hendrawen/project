@@ -75,6 +75,9 @@
     <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'admin_gudang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/admin_gudang/muat.js"></script>
     <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'stok_opname' && $this->uri->segment(1) == 'admin_gudang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/admin_gudang/stok_opname.js"></script>
+    <?php endif; ?>
     <?php if ($this->uri->segment(2) == 'pembayaran_aset' && $this->uri->segment(1) == 'admin_gudang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/admin_gudang/pembayaranaset.js"></script>
     <?php endif; ?>
