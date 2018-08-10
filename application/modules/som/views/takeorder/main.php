@@ -114,6 +114,8 @@
               <th>Satuan</th>
               <th>Tanggal Kirim</th>
               <th>Status</th>
+              <th>Creator</th>
+              <th>Melalui</th>
               <th>Sumber Data</th>
               <th>Keterangan</th>
               <th>Aksi</th>

@@ -6,9 +6,9 @@ class Model_cs extends CI_Model {
     public $id = 'id';
   var $table = 'v_activecall';
   var $table2 = 'wp_list_effectif';
-  var $column_order = array('tanggal','id_pelanggan','nama_pelanggan','barang','qty','satuan','tgl_kirim','status', 'sumber_data', 'keterangan', null); //set column field database for datatable orderable
-  var $column_search = array('tanggal','id_pelanggan','nama_pelanggan','status','tgl_kirim'); //set column field database for datatable searchable
-  var $order = array('tanggal' => 'DESC'); // default order
+  var $column_order = array('v_activecall.tanggal','v_activecall.id_pelanggan','v_activecall.nama_pelanggan','v_activecall.barang','v_activecall.qty','v_activecall.satuan','v_activecall.tgl_kirim','v_activecall.status', 'v_activecall.sumber_data', 'v_activecall.keterangan', null); //set column field database for datatable orderable
+  var $column_search = array('v_activecall.tanggal','v_activecall.id_pelanggan','v_activecall.nama_pelanggan','v_activecall.status','v_activecall.tgl_kirim'); //set column field database for datatable searchable
+  var $order = array('v_activecall.tanggal' => 'DESC'); // default order
 
   public function __construct()
   {
@@ -20,25 +20,28 @@ class Model_cs extends CI_Model {
      //filter table_call
      if($this->input->post('status')!=="")
      {
-        $this->db->like('status', $this->input->post('status'));
+        $this->db->like('v_activecall.status', $this->input->post('status'));
      }
      if($this->input->post('tanggal')!=="semua")
      {
-         $this->db->like('month(tanggal)', $this->input->post('tanggal'));
+         $this->db->like('month(v_activecall.tanggal)', $this->input->post('tanggal'));
      }
      if($this->input->post('tahun')!=="semua")
      {
-         $this->db->like('year(tanggal)', $this->input->post('tahun'));
+         $this->db->like('year(v_activecall.tanggal)', $this->input->post('tahun'));
      }
      if($this->input->post('sumber_data')!=="semua")
      {
-         $this->db->like('sumber_data', $this->input->post('sumber_data'));
+         $this->db->like('v_activecall.sumber_data', $this->input->post('sumber_data'));
      }
      if($this->input->post('melalui')!=="semua")
      {
-         $this->db->like('by_status', $this->input->post('melalui'));
+         $this->db->like('v_activecall.by_status', $this->input->post('melalui'));
      }
-     $this->db->where('username',  $this->session->identity);
+     $this->db->select('v_activecall.id, v_activecall.tanggal, v_activecall.id_pelanggan, v_activecall.nama_pelanggan, v_activecall.barang, v_activecall.qty, v_activecall.satuan, v_activecall.tgl_kirim, v_activecall.status, v_activecall.by_status, v_activecall.sumber_data, v_activecall.keterangan, v_activecall.username, b.nama as creator');
+     
+     $this->db->join('wp_karyawan as b', 'b.id_karyawan = v_activecall.username', 'left');
+     $this->db->where('v_activecall.username',  $this->session->identity);
      $this->db->from($this->table);
      $i = 0;
 

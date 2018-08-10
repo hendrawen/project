@@ -55,6 +55,8 @@ class Takeorder extends CI_Controller {
             $row[] = $lists->satuan;
             $row[] = tgl_indo($lists->tgl_kirim);
             $row[] = $lists->status;
+            $row[] = $lists->creator;
+            $row[] = $lists->by_status;
             $row[] = $lists->sumber_data;
             $row[] = $lists->keterangan;
             $row[] = '
