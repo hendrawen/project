@@ -56,18 +56,124 @@ class Debt_model extends CI_Model {
         return $count->t;
     }
 
-    function get_barang($date, $id_karyawan)
+    function get_muat($date, $id_karyawan)
     {
-        $this->db->select('
-        (muat_krat + muat_dust) as muat,
-        (terkirim_krat + terkirim_btl) as terkirim,
-        (kembali_krat + kembali_btl) as kembali, retur_krat, keterangan, rusak
-        ');
+        $this->db->select('muat, satuan');
         if($id_karyawan != 'semua')
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(created_at)', $date);
+        $this->db->where('DATE(tanggal)', $date);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $pesan = "";
+        $size = sizeof($result) -1;
+        for ($i=0; $i <= $size; $i++) {
+            if ($i < $size) {
+                $pesan .= $result[$i]->muat.' '.$result[$i]->satuan.' dan ';
+            } else if ($i == $size){
+                $pesan .= $result[$i]->muat.' '.$result[$i]->satuan;
+            }
+        }
+        return $pesan;
+    }
+
+    function get_terkirim($date, $id_karyawan)
+    {
+        $this->db->select('terkirim, satuan_terkirim');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('DATE(tanggal)', $date);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $pesan = "";
+        $size = sizeof($result) -1;
+        for ($i=0; $i <= $size; $i++) {
+            if ($i < $size) {
+                $pesan .= $result[$i]->terkirim.' '.$result[$i]->satuan_terkirim.' dan ';
+            } else if ($i == $size){
+                $pesan .= $result[$i]->terkirim.' '.$result[$i]->satuan_terkirim;
+            }
+        }
+        return $pesan;
+    }
+
+    function get_kembali($date, $id_karyawan)
+    {
+        $this->db->select('kembali, satuan_kembali');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('DATE(tanggal)', $date);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $pesan = "";
+        $size = sizeof($result) -1;
+        for ($i=0; $i <= $size; $i++) {
+            if ($i < $size) {
+                $pesan .= $result[$i]->kembali.' '.$result[$i]->satuan_kembali.' dan ';
+            } else if ($i == $size){
+                $pesan .= $result[$i]->kembali.' '.$result[$i]->satuan_kembali;
+            }
+        }
+        return $pesan;
+    }
+
+    function get_return($date, $id_karyawan)
+    {
+        $this->db->select('return, satuan_return');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('DATE(tanggal)', $date);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $pesan = "";
+        $size = sizeof($result) -1;
+        for ($i=0; $i <= $size; $i++) {
+            if ($i < $size) {
+                $pesan .= $result[$i]->return.' '.$result[$i]->satuan_return.' dan ';
+            } else if ($i == $size){
+                $pesan .= $result[$i]->return.' '.$result[$i]->satuan_return;
+            }
+        }
+        return $pesan;
+    }
+
+    function get_rusak($date, $id_karyawan)
+    {
+        $this->db->select('rusak, satuan_rusak');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('DATE(tanggal)', $date);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $pesan = "";
+        $size = sizeof($result) -1;
+        for ($i=0; $i <= $size; $i++) {
+            if ($i < $size) {
+                $pesan .= $result[$i]->rusak.' '.$result[$i]->satuan_rusak.' dan ';
+            } else if ($i == $size){
+                $pesan .= $result[$i]->rusak.' '.$result[$i]->satuan_rusak;
+            }
+        }
+        return $pesan;
+    }
+
+    function get_barang($date, $id_karyawan)
+    {
+        $this->db->select('
+        muat as muat,
+        terkirim as terkirim,
+        kembali as kembali, 
+        return, 
+        keterangan, rusak');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('DATE(tanggal)', $date);
         $result = $this->db->get('wp_debt_muat')->row();
         $resArray = array();
         if ($result) {
@@ -75,7 +181,7 @@ class Debt_model extends CI_Model {
                 'muat' => $result->muat,
                 'terkirim' => $result->terkirim,
                 'kembali' => $result->kembali,
-                'return' => $result->retur_krat,
+                'return' => $result->return,
                 'keterangan' => $result->keterangan,
                 'rusak' => $result->rusak,
             );
@@ -120,10 +226,10 @@ class Debt_model extends CI_Model {
         $this->db->where('tanggal', $date);
         if($id_karyawan != 'semua')
         {
-            $this->db->join('wp_asis_debt', 'wp_asis_debt.id = wp_penarikan.wp_asis_debt_id', 'inner');
+            // $this->db->join('wp_asis_debt', 'wp_asis_debt.id = wp_penarikan.wp_asis_debt_id', 'inner');
             $this->db->where('wp_asis_debt.username', $id_karyawan);
         }
-        $this->db->group_by('tanggal');
+        $this->db->group_by('wp_asis_debt.tanggal');
         $this->db->from('wp_asis_debt');
         $result = $this->db->get()->row();
         $resArray = array();
@@ -176,6 +282,116 @@ class Debt_model extends CI_Model {
 
     
 
+    // function get total barang
+    function get_total_muat($tahun, $bulan, $id_karyawan)
+    {
+        $this->db->select('muat, satuan');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('year(tanggal)', $tahun);
+        $this->db->where('month(tanggal)', $bulan);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $total_krat = 0; $total_dus = 0;
+        foreach ($result as $key) {
+            if ($key->satuan == 'Krat') {
+                $total_krat += $key->muat;
+            } else if ($key->satuan == 'Dus'){
+                $total_dus += $key->muat;
+            }
+        }
+        $pesan = $total_krat.' Krat dan '.$total_dus.' Dus';
+        return $pesan;
+    }
+
+    function get_total_terkirim($tahun, $bulan, $id_karyawan)
+    {
+        $this->db->select('terkirim, satuan_terkirim');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('year(tanggal)', $tahun);
+        $this->db->where('month(tanggal)', $bulan);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $total_krat = 0; $total_dus = 0;
+        foreach ($result as $key) {
+            if ($key->satuan_terkirim == 'Krat') {
+                $total_krat += $key->terkirim;
+            } else if ($key->satuan_terkirim == 'Dus'){
+                $total_dus += $key->terkirim;
+            }
+        }
+        $pesan = $total_krat.' Krat dan '.$total_dus.' Dus';
+        return $pesan;
+    }
+
+    function get_total_kembali($tahun, $bulan, $id_karyawan)
+    {
+        $this->db->select('kembali, satuan_kembali');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('year(tanggal)', $tahun);
+        $this->db->where('month(tanggal)', $bulan);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $total_krat = 0; $total_dus = 0;
+        foreach ($result as $key) {
+            if ($key->satuan_kembali == 'Krat') {
+                $total_krat += $key->kembali;
+            } else if ($key->satuan_kembali == 'Dus'){
+                $total_dus += $key->kembali;
+            }
+        }
+        $pesan = $total_krat.' Krat dan '.$total_dus.' Dus';
+        return $pesan;
+    }
+
+    function get_total_return($tahun, $bulan, $id_karyawan)
+    {
+        $this->db->select('return, satuan_return');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('year(tanggal)', $tahun);
+        $this->db->where('month(tanggal)', $bulan);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $total_krat = 0; $total_dus = 0;
+        foreach ($result as $key) {
+            if ($key->satuan_return == 'Krat') {
+                $total_krat += $key->return;
+            } else if ($key->satuan_return == 'Dus'){
+                $total_dus += $key->return;
+            }
+        }
+        $pesan = $total_krat.' Krat dan '.$total_dus.' Dus';
+        return $pesan;
+    }
+
+    function get_total_rusak($tahun, $bulan, $id_karyawan)
+    {
+        $this->db->select('rusak, satuan_rusak');
+        if($id_karyawan != 'semua')
+        {
+            $this->db->where('username', $id_karyawan);
+        }
+        $this->db->where('year(tanggal)', $tahun);
+        $this->db->where('month(tanggal)', $bulan);
+        $result = $this->db->get('wp_debt_muat')->result();
+        $total_krat = 0; $total_dus = 0;
+        foreach ($result as $key) {
+            if ($key->satuan_rusak == 'Krat') {
+                $total_krat += $key->rusak;
+            } else if ($key->satuan_rusak == 'Dus'){
+                $total_dus += $key->rusak;
+            }
+        }
+        $pesan = $total_krat.' Krat dan '.$total_dus.' Dus';
+        return $pesan;
+    }
 }
 
 /* End of file Debt_model.php */

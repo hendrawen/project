@@ -57,10 +57,14 @@ class Debt extends CI_Controller {
             $penarikan = $this->model->get_penarikan($days[$i], $id_karyawan);
 
             $kas = $this->model->get_value($days[$i], $id_karyawan);
-
+            
             $count['jadwal'] += $cust_jadwal; $count['actual'] += $cust_actual;
+            
             $count['muat'] += $barang['muat']; $count['terkirim'] += $barang['terkirim'];
-            $count['kembali'] += $barang['kembali']; $count['return'] += $barang['return']; $count['rusak'] += $barang['rusak'];
+            $count['kembali'] += $barang['kembali']; 
+            $count['return'] += $barang['return']; 
+            $count['rusak'] += $barang['rusak'];
+
             $count['target'] += $target; $count['qty'] += $qty;
             $count['krat'] += $penarikan['krat']; 
             $count['botol'] += $penarikan['botol'];
@@ -68,6 +72,18 @@ class Debt extends CI_Controller {
             $count['debet'] += $kas['debet'];
             $count['kredit'] += $kas['kredit'];
             
+
+            $barang_muat = $this->model->get_muat($days[$i],$id_karyawan);
+            $barang_terkirim = $this->model->get_terkirim($days[$i],$id_karyawan);
+            $barang_kembali = $this->model->get_kembali($days[$i],$id_karyawan);
+            $barang_return = $this->model->get_return($days[$i],$id_karyawan);
+            $barang_rusak = $this->model->get_rusak($days[$i],$id_karyawan);
+
+            $total_muat = $this->model->get_total_muat($tahun, $bulan, $id_karyawan);
+            $total_terkirim = $this->model->get_total_terkirim($tahun, $bulan, $id_karyawan);
+            $total_kembali = $this->model->get_total_kembali($tahun, $bulan, $id_karyawan);
+            $total_return = $this->model->get_total_return($tahun, $bulan, $id_karyawan);
+            $total_rusak = $this->model->get_total_rusak($tahun, $bulan, $id_karyawan);
             $result .= 
             "<tr>
                 <td>".tgl_indo($days[$i])."</td>
@@ -75,11 +91,11 @@ class Debt extends CI_Controller {
                 <td>".angka($cust_actual)."</td>
                 <td>".$this->persentase($cust_actual, $cust_jadwal)."</td>
 
-                <td>".angka($barang['muat'])."</td>
-                <td>".angka($barang['terkirim'])."</td>
-                <td>".angka($barang['kembali'])."</td>
-                <td>".angka($barang['return'])."</td>
-                <td>".angka($barang['rusak'])."</td>
+                <td>".$barang_muat."</td>
+                <td>".$barang_terkirim."</td>
+                <td>".$barang_kembali."</td>
+                <td>".$barang_return."</td>
+                <td>".$barang_rusak."</td>
 
                 <td>".angka($target)."</td>
                 <td>".angka($qty)."</td>
@@ -101,11 +117,12 @@ class Debt extends CI_Controller {
                 <th>".angka($count['jadwal'])."</th>
                 <th>".angka($count['actual'])."</th>
                 <th>".$this->persentase($count['actual'], $count['jadwal'])."</th>
-                <th>".angka($count['muat'])."</th>
-                <th>".angka($count['terkirim'])."</th>
-                <th>".angka($count['kembali'])."</th>
-                <th>".angka($count['return'])."</th>
-                <th>".angka($count['rusak'])."</th>
+                <th>".$total_muat."</th>
+                <th>".$total_terkirim."</th>
+                <th>".$total_kembali."</th>
+                <th>".$total_return."</th>
+                <th>".$total_rusak."</th>
+
                 <th>".angka($count['target'])."</th>
                 <th>".angka($count['qty'])."</th>
                 <th>".$this->persentase($count['qty'], $count['target'])."</th>
@@ -134,10 +151,10 @@ class Debt extends CI_Controller {
 
     function tes()
     {
-        $barang = $this->model->get_value('2018-07-14','semua');
-        echo "<pre>";
-        print_r ($barang);
-        echo "</pre>";
+        $total_muat = $this->model->get_total_muat('2018','08','semua');
+        
+        echo $total_muat;
+        
     }
 }
 
