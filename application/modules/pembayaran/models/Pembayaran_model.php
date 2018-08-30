@@ -94,4 +94,25 @@ class Pembayaran_model extends CI_Model{
 
   }
 
+  function get_faktur($faktur)
+  {
+      $this->db->select('id_transaksi as faktur, nama_pelanggan');
+      $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+      
+      $this->db->where('id_transaksi', $faktur);
+      return $this->db->get('wp_transaksi')->row();
+  }
+
+  function hapus_pembayaran($faktur)
+  {
+    $this->db->where('id_transaksi', $faktur);
+    $this->db->delete('wp_transaksi');
+    
+    $this->db->where('id_transaksi', $faktur);
+    $this->db->delete('wp_pembayaran');
+
+    $this->db->where('id_transaksi', $faktur);
+    $this->db->delete('wp_detail_transaksi');    
+  }
+
 }

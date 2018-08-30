@@ -17,7 +17,7 @@ class Pembayaran extends CI_Controller{
     }
     $this->load->model('Pembayaran_model', 'pembayaran');
     $this->load->model('dep/Dep_model', 'dep');
-    
+    $this->load->library('ion_auth');
   }
 
   function index()
@@ -67,6 +67,7 @@ class Pembayaran extends CI_Controller{
             $row[] = number_format($pembayarans->subtotal,2,",",".");
             $row[] = tgl_indo($pembayarans->tgl_bayar);
             $row[] = number_format($pembayarans->bayar,2,",",".");
+            $row[] = '<button type="button" onClick=hapus("'.$pembayarans->id_transaksi.'") class="btn btn-danger btn-xs">Hapus</button>';
             $data[] = $row;
         }
 
@@ -152,31 +153,44 @@ class Pembayaran extends CI_Controller{
               $this->temb_bayar[$i]['id_pelanggan']= $key->id_pelanggan;
               $i++;
             ?>
-           <?php }
+<?php }
            $data =  $this->session->set_userdata('id_transaksi', $this->temb_bayar);
            ;
-          foreach ($query as $key) { ?>
-             <tr>
-                 <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
-                 <td><?php echo $key->id_pelanggan ?></td>
-                 <td><?php echo $key->nama_pelanggan ?></td>
-                 <td><a class="btn btn-success btn-xs" href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a></td>
-                 <td>Rp. <?php echo number_format($key->utang,2,",",".") ?></td>
-                 <td><?php echo ($key->bayar > 0)? tgl_indo($key->tgl_bayar):'' ?></td>
-                 <td>Rp. <?php echo number_format($key->bayar,2,",",".") ?></td>
-                 <td>Rp. <?php echo number_format($key->sisa,2,",",".") ?></td>
+          foreach ($query as $key) { ?> < tr > <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
+<td><?php echo $key->id_pelanggan ?></td>
+<td><?php echo $key->nama_pelanggan ?></td>
+<td>
+    <a
+        class="btn btn-success btn-xs"
+        href="<?php echo base_url('track_pembayaran/')?><?php echo $key->id_transaksi ?>"><?php echo $key->id_transaksi ?></a>
+</td>
+<td>Rp.
+    <?php echo number_format($key->utang,2,",",".") ?></td>
+<td><?php echo ($key->bayar > 0)? tgl_indo($key->tgl_bayar):'' ?></td>
+<td>Rp.
+    <?php echo number_format($key->bayar,2,",",".") ?></td>
+<td>Rp.
+    <?php echo number_format($key->sisa,2,",",".") ?></td>
 
-             <tr>;
-               <input type="hidden" id="id_track_admin" class="form-control" value="<?php echo $key->id_pelanggan ?>" name="id_track_admin" required="">
-         <?php }
+<tr>;
+    <input
+        type="hidden"
+        id="id_track_admin"
+        class="form-control"
+        value="<?php echo $key->id_pelanggan ?>"
+        name="id_track_admin"
+        required="">
+        <?php }
          ;
          foreach ($sum as $key) { ?>
-            <tr>
-             <th colspan="7">Total Hutang</th>
-                <th colspan="1">Rp. <?php echo number_format($key->sisa,2,",",".") ?> </th>
+        <tr>
+            <th colspan="7">Total Hutang</th>
+            <th colspan="1">Rp.
+                <?php echo number_format($key->sisa,2,",",".") ?>
+            </th>
 
-            </tr>
-            <?php }
+        </tr>
+    <?php }
   }
 
   public function cek()
@@ -222,6 +236,36 @@ class Pembayaran extends CI_Controller{
     }
     $this->session->unset_userdata('id_transaksi');
     redirect(site_url('pembayaran/piutang'));
+  }
+
+  function get_faktur()
+  {
+    $faktur = $this->input->post('faktur');
+    $result = $this->pembayaran->get_faktur($faktur);
+    if ($result) {
+      echo json_encode($result);
+    } else {
+      echo json_encode((bool)false);
+    }
+  }
+
+  function cek_password()
+  {
+    $password = $this->input->post('password');
+    $username = $this->session->identity;
+    $faktur = $this->input->post('faktur');
+    
+    if ($this->ion_auth->login($username, $password, 0)){
+      $this->pembayaran->hapus_pembayaran($faktur);
+      echo json_encode((bool)true);
+    } else {
+      echo json_encode((bool)false);
+    }
+  }
+
+  function tes()
+  {
+    
   }
 
 }
