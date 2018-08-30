@@ -9,9 +9,16 @@ class Pesan_model extends CI_Model{
     //Codeigniter : Write Less Do More
 	}
 	
+	function get_by_id($id)
+	{		
+			$this->db->select('wp_transaksi.*, wp_barang.id, wp_barang.id_barang, wp_barang.nama_barang');
+			$this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'join');
+			$this->db->where('wp_transaksi.id', $id);
+			return $this->db->get('wp_transaksi')->row();
+	}
+		
 	function get_gudang()
   {
-    # code...
     $this->db->select('id, nama_gudang');
     return $this->db->get('wp_gudang');
   }

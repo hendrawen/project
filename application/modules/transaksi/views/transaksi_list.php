@@ -45,6 +45,7 @@
                               <th>Marketing</th>
                               <th>Debt</th> <!-- username-->
                               <th>Jumlah</th>
+                              <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -77,8 +78,8 @@
 
                       			<!-- <td><?php echo $key->username ?></td>
                       			<td><?php echo $key->nama_status ?></td> -->
-                            <!-- <td style="text-align:center">
-                              <a href="<?=base_url()?>transaksi/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <td style="text-align:center">
+                              <a href="<?=base_url()?>transaksi/update2/<?=$key->id_transaksi ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <a class="btn btn-default btn-sm" onclick="return swal({
                                                       title: 'Yakin akan hapus data ini?',
                                                       text: 'Anda tidak akan melihat data ini lagi!',
@@ -88,7 +89,7 @@
                                                          }, function(){
                                                             window.location.href ='<?=base_url()?>transaksi/delete/<?=$key->id ?>';
                                                                        });"><i class="glyphicon glyphicon-trash"></i></a>
-                           </td> -->
+                           </td>
                       </tr>
                       <?php } ?>
                     </tbody>

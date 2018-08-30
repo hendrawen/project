@@ -15,6 +15,46 @@ class Transaksi_model extends CI_Model
         parent::__construct();
     }
 
+    function get_transaksi($id)
+    {
+          $this->db->select('wp_transaksi.*, wp_barang.id_barang, wp_barang.nama_barang, wp_barang.harga_jual, wp_barang.satuan');
+          $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id', 'inner');
+          $this->db->where('wp_transaksi.id_transaksi', $id);
+      return $this->db->get('wp_transaksi')->result();
+    }
+    
+    function get_gudang()
+  {
+    $this->db->select('id, nama_gudang');
+    return $this->db->get('wp_gudang');
+  }
+
+  public function get_all_product(){
+		$result = $this->db->get('wp_barang');
+		return $result;
+	}
+
+  function cari_pelanggan($idpelanggan){
+		$this->db->like('id_pelanggan', $idpelanggan , 'both');
+		$this->db->order_by('id_pelanggan', 'ASC');
+    $this->db->where('status', 'Pelanggan');
+		$this->db->limit(25);
+		return $this->db->get('wp_pelanggan')->result();
+	}
+
+  public function get_profile(){
+		$result = $this->db->get('wp_profile')->result();
+		return $result;
+	}
+
+  public function get_jenis_pembayaran()
+  {
+    # code...
+    $result = $this->db->get('wp_status')->result();
+    return $result;
+  }
+
+  
     // get all
     function get_all()
     {
