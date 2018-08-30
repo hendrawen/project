@@ -52,7 +52,7 @@
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>transaksi">Penjualan</a>
                         </li>
                         <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>pembayaran"> Pembayaran</a>
-                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>delivery/penarikan"> Penarikan Aset</a>
+                        <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>penarikan"> Penarikan Aset</a>
                         <!-- <li><a <?php echo ($aktif == 'transaksi')?'class="active"':"";?> href="<?php echo base_url();?>piutang"> Piutang</a> -->
                         </li>
                         </li>
