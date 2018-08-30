@@ -1,8 +1,6 @@
-
-<!--Batas-->
 <div class="x_panel">
       <div class="x_title">
-            <h2>Transaksi List</h2>
+            <h2>Transaksi List </h2>
             <ul class="nav navbar-right panel_toolbox" style="min-width: 45px;">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -45,7 +43,7 @@
                               <th>Marketing</th>
                               <th>Debt</th> <!-- username-->
                               <th>Jumlah</th>
-                              <th>Aksi</th>
+                              <th>Action</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -71,25 +69,11 @@
 
                             <!-- <td><?php echo number_format($key->harga,2,",",".") ?></td> -->
                             <td>
-                            
                                 <?php echo $key->subtotal ?>
                             </td>
-
-
-                      			<!-- <td><?php echo $key->username ?></td>
-                      			<td><?php echo $key->nama_status ?></td> -->
-                            <td style="text-align:center">
-                              <a href="<?=base_url()?>transaksi/update2/<?=$key->id_transaksi ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
-                              <a class="btn btn-default btn-sm" onclick="return swal({
-                                                      title: 'Yakin akan hapus data ini?',
-                                                      text: 'Anda tidak akan melihat data ini lagi!',
-                                                      type: 'warning',
-                                                      showCancelButton: true,
-                                                      confirmButtonColor: '#d9534f',
-                                                         }, function(){
-                                                            window.location.href ='<?=base_url()?>transaksi/delete/<?=$key->id ?>';
-                                                                       });"><i class="glyphicon glyphicon-trash"></i></a>
-                           </td>
+                            <td>
+                                <button type="button" onClick="hapus('<?=$key->id_transaksi ?>')" class="btn btn-danger btn-xs">Hapus</button>
+                            </td>
                       </tr>
                       <?php } ?>
                     </tbody>
@@ -110,6 +94,7 @@
                         <th>Marketing</th>
                         <th>Debt</th> <!-- username-->
                         <th>Jumlah</th>
+                        <th>Action</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -160,3 +145,53 @@
                        </script>
                      </small>
                 <?php endif; ?>
+
+<!-- Modal -->
+<div
+    class="modal fade bs-example-modal-sm"
+    id="modal_hapus"
+    role="dialog"
+    data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Konfirmasi Hapus Data Transaksi Penjualan</h4>
+            </div>
+            <div class="modal-body">
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <td width="125">No Faktur</td>
+                            <td width="25">:</td>
+                            <td id="faktur"></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Pelanggan</td>
+                            <td>:</td>
+                            <td id="nama_pelanggan"></td>
+                        </tr>
+                    </table>
+                    <label for="">Masukkan password untuk konfirmasi hapus</label>
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            class="form-control"
+                            required="required">
+                        <span class="input-group-btn">
+                            <button type="button" id="btn_hapus" onClick="check_password()" class="btn btn-danger">
+                                <span class="fa fa-trash"></span>
+                                Hapus</button>
+                        </span>
+                    </div>
+                <div id="pesan"></div>
+            </div>
+            <!-- <div class="modal-footer"> <button type="button" class="btn btn-default"
+            data-dismiss="modal">Close</button> </div> -->
+        </div>
+    </div>
+</div>
