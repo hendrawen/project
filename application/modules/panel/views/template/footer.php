@@ -110,6 +110,10 @@
       <script src="<?php echo base_url()?>assets/template/production/js/laporan.js" charset="utf-8"></script>
     <?php endif; ?>
 
+    <?php if ($this->uri->segment(1) == 'transaksi'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/transaksi.js" charset="utf-8"></script>
+    <?php endif; ?>
+
     <?php if($this->uri->segment(1) == 'delivery'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/delivery.js" charset="utf-8"></script>
     <?php endif; ?>

@@ -17,6 +17,7 @@ class Transaksi extends CI_Controller
 					}
 		}
         $this->load->model('Transaksi_model');
+        $this->load->model('pesan/Pesan_model','pesan');
         $this->load->library('form_validation');
     }
 
@@ -223,6 +224,97 @@ class Transaksi extends CI_Controller
         }
     }
 
+    public function update2($id){
+        $data = $this->Transaksi_model->get_transaksi($id);
+            foreach ($data as $key) {
+                $data2 = array(
+                    'id' => $key->id_barang,
+                    'name' => $key->nama_barang,
+                    'price' => $key->harga,
+                    'qty' => $key->qty,
+                    'diskon' => $key->diskon,
+                    'wp_barang_id' => $key->id,
+                    'id_transaksi' => $key->id_transaksi,
+                    'satuan' => $key->satuan,
+                                    );							
+                $this->cart->insert($data2);
+
+                $data['aktif']			='Kebutuhan';
+                $data['title']			='Transaksi';
+                $data['judul']			='Form Transaksi';
+                $data['sub_judul']		='';
+                $data['menu']			= $this->permit[0];
+                $data['submenu']		= $this->permit[1];
+                $data['content']			= 'edit';
+                $data['data']=$this->Transaksi_model->get_all_product();
+                $data['profile']=$this->Transaksi_model->get_profile();
+                $data['generate_invoice'] = $this->Transaksi_model->generatekode_invoice();
+                $this->load->view('panel/dashboard', $data);
+                                                        
+        }
+        
+    }
+
+    function show_cart3(){
+        $output = '';
+        $no = 0;
+        foreach ($this->cart->contents() as $items) {
+            $no++;
+            $qty = ($items['price'] - str_replace(".","",$items['diskon']));
+            $total = ($qty * $items['qty']);
+            $output .='
+                <tr>
+                    <td>'.$items['id'].'</td>
+                    <td>'.$items['name'].'</td>
+        <td>'.number_format($items['price'],2,",",".").'</td>
+                    <td><input type="text" name="qty[]" size="1" value="'.$items['qty'].'" style="border:0px;background:none;"></td>
+                    <td>'.$items['satuan'].'</td>
+                    <td>'.$items['diskon'].'</td>
+                    <td>'.number_format($total,2,",",".").'</td>
+                    <td><button type="button" id="'.$items['rowid'].'" class="romove_cart_admin btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
+                </tr>
+            ';
+        }
+        $output .= '
+            <tr>
+        <th colspan="6">Total</th>
+        <th colspan="2">'.'Rp '.number_format($this->get_total3(),2,",",".").'</th>
+            </tr>
+        ';
+        return $output;
+    }
+
+    function get_total3()
+    {
+        # code...
+        $total = 0;
+        if ($this->cart->contents()) {
+            foreach ($this->cart->contents() as $items) {
+                $subtotal = $items['subtotal'] - (str_replace(".","",$items['diskon']) * $items['qty']);
+                $total += $subtotal;
+            }
+        }
+        return $total;
+    }
+
+    function load_cart3(){
+        echo $this->show_cart3();
+    }
+
+    function delete_cart(){
+		$data = array(
+			'rowid' => $this->input->post('row_id'),
+			'qty' => 0,
+		);
+		$this->cart->update($data);
+		echo $this->show_cart3();
+	}
+
+  function hapus_cart(){
+        $this->cart->destroy();
+        echo $this->show_cart3();
+    }
+    
     public function _rules()
     {
 	//$this->form_validation->set_rules('id_transaksi', 'id transaksi', 'trim|required');

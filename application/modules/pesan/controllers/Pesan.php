@@ -117,7 +117,6 @@ class Pesan extends CI_Controller{
 		echo $this->show_cart();
 	}
 
-
     function checkout_action() {
   			$this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
   			$this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
@@ -328,6 +327,6 @@ class Pesan extends CI_Controller{
   function hapus_cart(){
     $this->cart->destroy();
     echo $this->show_cart();
-  }
+	}
 
 }

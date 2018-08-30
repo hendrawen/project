@@ -16,6 +16,7 @@
     });
 
   $('#detail_cart').load(base_url+"dep/load_cart");
+  $('#detail_cart3').load(base_url+"transaksi/load_cart3");
 
   $('#id_barang').on('input',function(){
 
@@ -119,5 +120,39 @@
         }
       });
     });
+
+
+    //hapus data cart
+
+    $(document).on('click','.romove_cart_admin',function(){
+        var row_id=$(this).attr("id");
+        $.ajaxSetup({
+            data: {
+                csrf_test_name: $.cookie('csrf_cookie_name')
+            }
+        });
+        $.ajax({
+          url : (base_url+"transaksi/delete_cart"),
+          method : "POST",
+          data : {row_id : row_id},
+          success :function(data){
+            $('#detail_cart3').html(data);
+          }
+        });
+      });
+      $(document).on('click','.hapus_cart_admin',function(){
+        $.ajaxSetup({
+            data: {
+                csrf_test_name: $.cookie('csrf_cookie_name')
+            }
+        });
+        $.ajax({
+          url : (base_url+"transaksi/hapus_cart"),
+          method : "POST",
+          success :function(data){
+            $('#detail_cart3').html(data);
+          }
+        });
+      });
 
   });
