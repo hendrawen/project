@@ -457,6 +457,31 @@ class Transaksi extends CI_Controller
         $this->load->view('transaksi/transaksi_doc',$data);
     }
 
+    function get_faktur()
+    {
+      $faktur = $this->input->post('faktur');
+      $result = $this->Transaksi_model->get_faktur($faktur);
+      if ($result) {
+        echo json_encode($result);
+      } else {
+        echo json_encode((bool)false);
+      }
+    }
+  
+    function cek_password()
+    {
+      $password = $this->input->post('password');
+      $username = $this->session->identity;
+      $faktur = $this->input->post('faktur');
+      
+      if ($this->ion_auth->login($username, $password, 0)){
+        $this->Transaksi_model->hapus_pembayaran($faktur);
+        echo json_encode((bool)true);
+      } else {
+        echo json_encode((bool)false);
+      }
+    }
+
 }
 
 /* End of file transaksi.php */
