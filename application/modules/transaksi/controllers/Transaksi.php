@@ -223,7 +223,7 @@ class Transaksi extends CI_Controller
             redirect(site_url('transaksi'));
         }
     }
-
+    
     public function update2($id){
         $data = $this->Transaksi_model->get_transaksi($id);
             foreach ($data as $key) {
@@ -236,7 +236,15 @@ class Transaksi extends CI_Controller
                     'wp_barang_id' => $key->id,
                     'id_transaksi' => $key->id_transaksi,
                     'satuan' => $key->satuan,
-                                    );							
+                    'id_pelanggan' => $key->id_pelanggan,
+                    'nama_pelanggan' => $key->nama_pelanggan,
+                    'nama_dagang' => $key->nama_dagang,
+                    'alamat' => $key->alamat,
+                    'no_telp' => $key->no_telp,
+                    'nama_status' => $key->nama_status,
+                    'nama_gudang' => $key->nama_gudang,
+                    'bayar' => $key->bayar,
+                    );							
                 $this->cart->insert($data2);
 
                 $data['aktif']			='Kebutuhan';
@@ -245,16 +253,59 @@ class Transaksi extends CI_Controller
                 $data['sub_judul']		='';
                 $data['menu']			= $this->permit[0];
                 $data['submenu']		= $this->permit[1];
-                $data['content']			= 'edit';
-                $data['data']=$this->Transaksi_model->get_all_product();
-                $data['profile']=$this->Transaksi_model->get_profile();
+                $data['content']	    = 'edit';
+                $data['data']           = $this->Transaksi_model->get_all_product();
+                $data['profile']        = $this->Transaksi_model->get_profile();
                 $data['generate_invoice'] = $this->Transaksi_model->generatekode_invoice();
-                $this->load->view('panel/dashboard', $data);
-                                                        
-        }
-        
+                $this->load->view('panel/dashboard', $data);            
+        }   
     }
 
+    public function checkout()
+    {	
+        $data['aktif']			='Kebutuhan';
+        $data['title']			='Transaksi';
+        $data['judul']			='Form Transaksi';
+        $data['sub_judul']		='';
+        $data['menu']			= $this->permit[0];
+        $data['submenu']		= $this->permit[1];
+        $data['content']		= 'checkout';
+        $data['data']=$this->Transaksi_model->get_all_product();
+        $data['profile']=$this->Transaksi_model->get_profile();
+        $data['gudang']= $this->Transaksi_model->get_gudang();
+        $data['jenis_pembayaran']=$this->Transaksi_model->get_jenis_pembayaran();
+        $data['generate_invoice'] = $this->Transaksi_model->generatekode_invoice();
+        $data['get_total'] = $this->get_total3();
+        $this->load->view('panel/dashboard', $data);
+    }
+
+    function get_barang(){
+		$kode=$this->input->post('id_barang');
+		$data=$this->Transaksi_model->get_data_barang_bykode($kode);
+		echo json_encode($data);
+	}
+
+  function get_pelanggan(){
+		$kode=$this->input->post('id_pelanggan');
+		$data=$this->Transaksi_model->get_data_pelanggan_bykode($kode);
+		echo json_encode($data);
+	}
+
+  function add_to_cart(){
+		$data = array(
+			'id' => $this->input->post('id_barang'),
+			'name' => $this->input->post('nama_barang'),
+			'price' => $this->input->post('harga_jual'),
+            'qty' => $this->input->post('qty'),
+            'diskon' => 0,
+            'wp_barang_id' => $this->input->post('id'),
+            'id_transaksi' => $this->input->post('id_transaksi'),
+            'satuan' => $this->input->post('satuan'),
+		);
+		$this->cart->insert($data);
+		echo $this->show_cart3();
+    }
+    
     function show_cart3(){
         $output = '';
         $no = 0;
