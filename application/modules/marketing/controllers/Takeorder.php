@@ -57,7 +57,7 @@ class Takeorder extends CI_Controller {
             $row[] = $lists->sumber_data;
             $row[] = $lists->keterangan;
             $row[] = '
-            <a href="'.base_url('effectifcall/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+            <a href="'.base_url('marketing/takeorder/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 
@@ -135,7 +135,7 @@ class Takeorder extends CI_Controller {
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('takeorder/update_action'),
+                'action' => site_url('marketing/takeorder/update_action'),
             		'id' => set_value('id', $row->id),
             		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
             		'barang' => set_value('barang', $row->barang),
@@ -162,10 +162,6 @@ class Takeorder extends CI_Controller {
 
     public function update_action()
     {   
-        $cek = get_permission('Effectif Call', $this->permit[1]);
-        if (!$cek) {//cek admin ga?
-            redirect('panel','refresh');
-        }
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
@@ -184,7 +180,7 @@ class Takeorder extends CI_Controller {
                 'updated_at' => date('Y-m-d H:i:s'),
                 'username' => $this->session->identity,
               );
-            $this->effectif->update($this->input->post('id', TRUE), $data);
+            $this->takeorder->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('marketing/takeorder'));
         }
@@ -192,7 +188,7 @@ class Takeorder extends CI_Controller {
 
     public function ajax_delete($id)
     {   
-        $this->effectif->delete_by_id($id);
+        $this->takeorder->delete_by_id($id);
         echo json_encode(array("status" => TRUE));
     }
 

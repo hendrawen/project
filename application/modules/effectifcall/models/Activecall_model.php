@@ -7,7 +7,7 @@ class Activecall_model extends CI_Model{
   var $table = 'v_activecall';
   var $table2 = 'wp_list_effectif';
   var $column_order = array('v_activecall.tanggal','v_activecall.id_pelanggan','v_activecall.nama_pelanggan','v_activecall.barang','v_activecall.qty','v_activecall.satuan','v_activecall.tgl_kirim','v_activecall.status', 'v_activecall.sumber_data', 'v_activecall.keterangan', null); //set column field database for datatable orderable
-  var $column_search = array('v_activecall.tanggal','v_activecall.id_pelanggan','v_activecall.nama_pelanggan','v_activecall.status','v_activecall.tgl_kirim'); //set column field database for datatable searchable
+  var $column_search = array('v_activecall.tanggal','v_activecall.id_pelanggan','v_activecall.nama_pelanggan','v_activecall.status','v_activecall.tgl_kirim','b.nama'); //set column field database for datatable searchable
   var $order = array('v_activecall.tanggal' => 'DESC'); // default order
 
   public function __construct()
@@ -21,6 +21,10 @@ class Activecall_model extends CI_Model{
      if($this->input->post('status')!=="")
      {
         $this->db->like('v_activecall.status', $this->input->post('status'));
+     }
+     if($this->input->post('hari')!=="semua")
+     {
+         $this->db->like('date(v_activecall.tanggal)', $this->input->post('hari'));
      }
      if($this->input->post('tanggal')!=="semua")
      {
@@ -190,9 +194,10 @@ class Activecall_model extends CI_Model{
     {
         # code...
         $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
-        $this->db->where('wp_jabatan.nama_jabatan', 'Vaidator');
+        $this->db->where('wp_jabatan.nama_jabatan', 'Validator');
         $this->db->or_where('wp_jabatan.nama_jabatan', 'Marketing');
         $this->db->or_where('wp_jabatan.nama_jabatan', 'Som');
+        $this->db->or_where('wp_jabatan.nama_jabatan', 'Customer Service');
         $this->db->join('wp_jabatan', 'wp_jabatan.id = wp_karyawan.wp_jabatan_id', 'left');
         return $this->db->get('wp_karyawan');       
     }

@@ -17,7 +17,7 @@ var table;
                  data.sumber_data = $('#sumber_data').val();
                  data.melalui = $('#melalui').val();
                  data.creator = $('#creator').val();
-                
+                 data.hari = $('#hari').val();
                 }
            },
 

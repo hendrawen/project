@@ -17,6 +17,7 @@ $(document).ready(function () {
                 data.akses = $('#akses').val();
                 data.sumber_data = $('#sumber_data').val();
                 data.melalui = $('#melalui').val();
+                data.hari = $('#hari').val();
             }
         },
 

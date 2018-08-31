@@ -42,7 +42,7 @@
                     </ul>
                   </li>
                   
-                  <li><a><i class="fa fa-history"></i> History Transaksi<span class="fa fa-chevron-down"></span></a>
+                  <!-- <li><a><i class="fa fa-history"></i> History Transaksi<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a <?php echo ($aktif == 'debt')?'class="active"':"";?> href="<?php echo site_url('debt/history_trx/harian');?>"> Harian</a>
                       </li>
@@ -71,7 +71,7 @@
                       <li><a <?php echo ($aktif == 'debt')?'class="active"':"";?> href="<?php echo site_url('debt/history_aset/tahunan');?>"> Tahunan</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
                   <li><a <?php echo ($aktif == 'debt')?'class="active"':"";?> href="<?php echo site_url('debt/kpi')?>"><i class="fa fa-sort"></i> KPI</a>
                   </li>
                 </ul>

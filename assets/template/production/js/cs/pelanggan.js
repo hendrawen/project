@@ -83,7 +83,7 @@ var table;
         var id_kota = element.attr("id_kota");
         $("#loader-kecamatan").show();
         $.ajax({
-          url: base_url+'som/pelanggan/get_kecamatan/'+id_kota,
+          url: base_url+'customerservice/pelanggan/get_kecamatan/'+id_kota,
           dataType: 'html',
           success : function (data) {
             $("#loader-kecamatan").hide();
@@ -101,7 +101,7 @@ var table;
         $("#loader-kelurahan").show();
         var id_kecamatan = element.attr("id_kecamatan");
         $.ajax({
-          url: base_url+'som/pelanggan/get_kelurahan/'+id_kecamatan,
+          url: base_url+'customerservice/pelanggan/get_kelurahan/'+id_kecamatan,
           dataType: 'html',
           success : function (data) {
             $("#loader-kelurahan").hide();

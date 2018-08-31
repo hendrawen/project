@@ -24,6 +24,10 @@ class Takeorder_model extends CI_Model {
      {
         $this->db->like('status', $this->input->post('status'));
      }
+     if($this->input->post('hari')!=="semua")
+     {
+         $this->db->like('date(tanggal)', $this->input->post('hari'));
+     }
      if($this->input->post('tanggal')!=="semua")
      {
          $this->db->like('month(tanggal)', $this->input->post('tanggal'));

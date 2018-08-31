@@ -45,7 +45,7 @@
                     </a>
                   </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                       <div class="animated flipInY col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="tile-stats">
                           <div class="count">
@@ -65,4 +65,4 @@
                           <h3>Penjualan Bulanan</h3>
                         </div>
                       </div>
-                    </div>
+                    </div> -->

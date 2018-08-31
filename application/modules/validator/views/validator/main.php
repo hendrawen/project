@@ -45,6 +45,16 @@
               <option value="Kunjungan">Kunjungan</option>
           </select>
         </div>
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="hari"
+                        name="hari"
+                        placeholder="Tanggal"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')">
+        </div>
         <div class="col-md-2 col-sm-12 col-xs-12 form-group">
           <select class="form-control select2" data-width="100%" name="tanggal" id="tanggal">
              <option value="" readonly>Bulan</option>
@@ -73,7 +83,7 @@
             </select>
         </div>
         <input type="hidden" name="akses" id="akses" value="<?php echo $this->session->userdata('username'); ?>">
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
           <div class="text-right">
             <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
             <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> All</button>

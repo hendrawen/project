@@ -74,7 +74,7 @@ class Customerservice extends CI_Controller {
             $row[] = $lists->sumber_data;
             $row[] = $lists->keterangan;
             $row[] = '
-            <a href="'.base_url('effectifcall/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+            <a href="'.base_url('customerservice/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 

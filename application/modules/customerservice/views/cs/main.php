@@ -22,11 +22,11 @@
     <p class="text-muted font-13 m-b-30">
       <div class="row">
         <form id="form-filter2" class="form-horizontal">
-        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
           <?php echo $form_status; ?>
         </div>
         <!-- sumberdata -->
-        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
           <select name="sumber_data" class="form-control" id="sumber_data">
               <option value="semua">Sumber Data</option>
               <option value="Due Date">Due Date</option>
@@ -40,15 +40,29 @@
           </select>
         </div>
         <!-- melalui -->
-        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
           <select name="melalui" class="form-control" id="melalui">
               <option value="semua">Melalui</option>
               <option value="Call">Call</option>
               <option value="Kunjungan">Kunjungan</option>
           </select>
         </div>
+
+        <!-- hari -->
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="hari"
+                        name="hari"
+                        placeholder="Tanggal"
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')">
+        </div>
+        <!-- end hari -->
+
         <!-- bulan -->
-        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
           <select class="form-control select2" data-width="100%" name="tanggal" id="tanggal">
              <option value="" readonly>Bulan</option>
              <option value="1">Januari</option>
@@ -66,7 +80,7 @@
          </select>
         </div>
         <!-- tahun -->
-        <div class="col-md-3 col-sm-3 col-xs-12 form-group">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group">
           <select name="tahun" id="tahun" class="form-control">
             <option selected="selected" value="">Tahun</option>
             <?php
@@ -77,7 +91,7 @@
             </select>
         </div>
         <input type="hidden" name="akses" id="akses" value="<?php echo $this->session->userdata('username'); ?>">
-        <div class="col-md-2 col-sm-12 col-xs-12 form-group">
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
           <div class="text-right">
             <button type="button" id="btn-filter2" class="btn btn-success"><i class="fa fa-filter"></i> Filter</button>
             <button type="button" id="btn-reset2" class="btn btn-warning"><i class="fa fa-refresh"></i> All</button>

@@ -23,6 +23,10 @@ class Validator_model extends CI_Model {
         {
             $this->db->like('v_activecall.status', $this->input->post('status'));
         }
+        if($this->input->post('hari')!=="semua")
+        {
+            $this->db->like('date(v_activecall.tanggal)', $this->input->post('hari'));
+        }
         if($this->input->post('tanggal')!=="semua")
         {
             $this->db->like('month(v_activecall.tanggal)', $this->input->post('tanggal'));
