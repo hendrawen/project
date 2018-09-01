@@ -365,6 +365,123 @@ class Transaksi extends CI_Controller
         $this->cart->destroy();
         echo $this->show_cart3();
     }
+
+    function checkout_action() {
+        $this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
+        $this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
+        $this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
+        $this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
+        $this->form_validation->set_rules('id', 'wp_pelanggan_id', 'required|trim');
+        $this->form_validation->set_rules('wp_status_id', 'wp_status_id', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE){
+    $this->session->set_flashdata('message','Data belum lengkap !');
+            $this->checkout(); // tampilkan apabila ada error
+        }else{
+    $status = $this->input->post('wp_status_id');
+    //status lunas
+    if ($status=="1")
+    {
+    $kp = $this->input->post('idpesan', true);
+            $wp_pelanggan_id = $this->input->post('id', true);
+            $wp_status_id = $this->input->post('wp_status_id', true);
+            $tg = date('Y-m-d H-i-s');
+              $tg2 = date('Y-m-d');
+              $tg3 = $this->input->post('tgltransaksi', true);
+            $result = array();
+            foreach($kp AS $key => $val){
+                $result[] = array(
+                    "id_transaksi" 		=> $_POST['id_transaksi'][$key],
+                    "qty"          		=> $_POST['qty'][$key],
+                    "wp_barang_id"    => $_POST['wp_barang_id'][$key],
+                    "harga"       		=> $_POST['harga'][$key],
+                    "subtotal"       	=> $_POST['subtotal'][$key],
+        "wp_pelanggan_id" => $wp_pelanggan_id,
+                    "tgl_transaksi" 				=> tgl_simpan2($tg3),
+                    "wp_status_id"				=> $wp_status_id,
+                      "diskon"        => $this->input->post('diskon'),
+                      "username"      => $this->session->identity,
+                      "gudang"				=> $this->input->post('gudang'),
+                );
+              }
+              $detail = array(
+      'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
+      'utang' => $this->input->post('hutang',TRUE),
+      'bayar' => $this->input->post('bayar', TRUE),
+      'created_at' => date('Y-m-d'),
+      //'updated_at' => $this->input->post('updated_at',TRUE),
+      //'created_at' => mdate($datestring, $time),
+               );
+              $pembayaran = array(
+                  'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
+                  'id_pelanggan' => $wp_pelanggan_id,
+                  'bayar' => $this->get_total3(),
+                  'tgl_bayar' => tgl_simpan2($tg3),
+                  'username' => $this->session->identity,
+              );
+              $this->db->update('wp_detail_transaksi', $detail, 'id_transaksi');
+              $this->db->update('wp_pembayaran', $pembayaran, 'id_pelanggan');
+            $res = $this->db->update_batch('wp_transaksi', $result, 'id_transaksi'); // fungsi dari codeigniter untuk menyimpan multi array
+            if($res){$this->cart->destroy();
+                $this->session->set_flashdata('message','sukses !');
+                redirect('transaksi');
+            }else{
+                $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+            }
+          }
+          //status hutang
+  else {
+    $kp = $this->input->post('idpesan', true);
+            $wp_pelanggan_id = $this->input->post('id', true);
+            $wp_status_id = $this->input->post('wp_status_id', true);
+            $tg = date('Y-m-d H-i-s');
+              $tg2 = date('Y-m-d');
+              $tg3 = $this->input->post('tgltransaksi', true);
+            $result = array();
+            foreach($kp AS $key => $val){
+                $result[] = array(
+                    "id_transaksi" 		=> $_POST['id_transaksi'][$key],
+                    "qty"          		=> $_POST['qty'][$key],
+                    "wp_barang_id"    => $_POST['wp_barang_id'][$key],
+                    "harga"       		=> $_POST['harga'][$key],
+                    "subtotal"       	=> $_POST['subtotal'][$key],
+        "wp_pelanggan_id" => $wp_pelanggan_id,
+                    "tgl_transaksi" 				=> tgl_simpan2($tg3),
+                    "wp_status_id"				=> $wp_status_id,
+        "diskon"        => $this->input->post('diskon'),
+                      "username"    => $this->session->identity,
+                      "gudang"				=> $this->input->post('gudang'),
+                );
+    }
+    $data = array(
+      'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
+      'utang' => $this->input->post('hutang',TRUE),
+      'bayar' => $this->input->post('bayar', TRUE),
+      'created_at' => date('Y-m-d'),
+      //'updated_at' => $this->input->post('updated_at',TRUE),
+      //'created_at' => mdate($datestring, $time),
+               );
+              $pembayaran = array(
+                  'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
+                  'id_pelanggan' => $wp_pelanggan_id,
+                  'bayar' => $this->input->post('bayar', true),
+                  'tgl_bayar' => tgl_simpan2($tg3),
+                  'username' => $this->session->identity
+              );
+              $this->db->update('wp_detail_transaksi', $data);
+              $this->db->update('wp_pembayaran', $pembayaran);
+            $res = $this->db->update_batch('wp_transaksi', $result, 'id_transaksi'); // fungsi dari codeigniter untuk menyimpan multi array
+            if($res){$this->cart->destroy();
+                $this->session->set_flashdata('message','sukses !');
+                redirect('transaksi');
+            }else{
+                $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
+            }
+  }
+
+
+        }
+}
     
     public function _rules()
     {

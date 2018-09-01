@@ -5,7 +5,7 @@
                     <strong>Warning !</strong> Silahkan melakukan penambahan produk terlebih dahulu.
                   </div>
                 <div class="text-right">
-                <a href="'.base_url('pesan').'" type="button"  class="btn btn-success text-right"><i class="fa fa-plus-circle"></i> Input Transaksi</a>
+                <a href="'.base_url('transaksi').'" type="button"  class="btn btn-success text-right"><i class="fa fa-plus-circle"></i> Input Transaksi</a>
                 </div>';
 					else:
 ?>
@@ -54,7 +54,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content" id="printable">
-              <form method="POST" action="<?php echo site_url('transaksi/update_action');?>">
+              <form method="POST" action="<?php echo site_url('transaksi/checkout_action');?>">
               <section class="content invoice">
                 <!-- title row -->
                 <div class="row">
@@ -239,7 +239,7 @@
                       <select class="form-control" name="gudang" id="gudang" required>
                             <option value="">--Pilih Gudang--</option>
                             <?php
-                              foreach ($gudang->result() as $key) {?>
+                              foreach ($gudang->result() as $key) { ?>
                                 <option value="<?php echo $key->id ?>"><?php echo $key->nama_gudang ?></option>
                               <?php }
                             ?>

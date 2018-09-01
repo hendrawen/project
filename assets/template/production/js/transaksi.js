@@ -260,7 +260,7 @@
                 $("#nama_pelanggan").text(response.nama_pelanggan);
                 $("#password").val("");
                 $("#modal_hapus").modal('show');
-            }
+            }z
         },
         error: function (request, status, error) {
             alert(request.responseText);

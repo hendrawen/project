@@ -72,6 +72,8 @@
                                 <?php echo $key->subtotal ?>
                             </td>
                             <td>
+                                <!-- <button onClick="hapus('<?=$key->id_transaksi ?>')" class="btn btn-primary btn-xs">Edit</button> -->
+                                <a class="btn btn-primary btn-xs" href="<?php echo base_url();?>transaksi/update2/<?=$key->id_transaksi ?>">Edit</a>
                                 <button type="button" onClick="hapus('<?=$key->id_transaksi ?>')" class="btn btn-danger btn-xs">Hapus</button>
                             </td>
                       </tr>
@@ -158,7 +160,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Konfirmasi Hapus Data Transaksi Penjualan</h4>
+                <h4 class="modal-title">Konfirmasi Edit/Hapus Data Transaksi Penjualan</h4>
             </div>
             <div class="modal-body">
 
@@ -174,7 +176,7 @@
                             <td id="nama_pelanggan"></td>
                         </tr>
                     </table>
-                    <label for="">Masukkan password untuk konfirmasi hapus</label>
+                    <label for="">Masukkan password untuk konfirmasi edit/hapus</label>
                     <div class="input-group">
                         <input
                             type="password"
@@ -184,8 +186,8 @@
                             required="required">
                         <span class="input-group-btn">
                             <button type="button" id="btn_hapus" onClick="check_password()" class="btn btn-danger">
-                                <span class="fa fa-trash"></span>
-                                Hapus</button>
+                                <!-- <span class="fa fa-trash"></span> -->
+                                OK</button>
                         </span>
                     </div>
                 <div id="pesan"></div>
