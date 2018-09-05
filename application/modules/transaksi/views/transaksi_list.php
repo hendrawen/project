@@ -65,7 +65,7 @@
                             <td><?php echo $key->kelurahan ?></td>
                             <td><?php echo $key->no_telp ?></td>
                             <td><?php echo $key->nama_karyawan ?></td>
-                            <td><?php echo $key->username ?></td>
+                            <td><?php echo $key->nama_debt ?></td>
 
                             <!-- <td><?php echo number_format($key->harga,2,",",".") ?></td> -->
                             <td>
