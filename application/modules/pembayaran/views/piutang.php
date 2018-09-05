@@ -45,7 +45,7 @@
             </div>
             <div class="row">
               <div class="table-responsive">
-              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari" style="display: none;">
+              <table class="table jambo_table table-bordered dt-responsive nowrap" id="tabel_cari">
                     <thead>
                       <th>Tanggal Transaksi</th>
                       <th>ID Pelanggan</th>

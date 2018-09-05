@@ -7,7 +7,7 @@ class Admin_gudang extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Ion_auth_model');
-    if (!$this->ion_auth->logged_in()) {//cek login ga?
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
                 if (!$this->ion_auth->in_group('Admin Gudang')) {//cek admin ga?
