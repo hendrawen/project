@@ -157,7 +157,7 @@ class Pembayaran extends CI_Controller{
 <?php }
            $data =  $this->session->set_userdata('id_transaksi', $this->temb_bayar);
            ;
-          foreach ($query as $key) { ?> < tr > <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
+          foreach ($query as $key) { ?> <tr> <td><?php echo tgl_indo($key->tgl_transaksi) ?></td>
 <td><?php echo $key->id_pelanggan ?></td>
 <td><?php echo $key->nama_pelanggan ?></td>
 <td>

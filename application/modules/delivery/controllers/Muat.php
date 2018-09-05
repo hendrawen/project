@@ -82,6 +82,7 @@ class Muat extends CI_Controller
       	    'id' => set_value('id'),
       	    'muat' => set_value('muat',0),
       	    'terkirim' => set_value('terkirim',0),
+      	    'kembali' => set_value('kembali',0),
       	    'return' => set_value('return',0),
       	    'rusak' => set_value('rusak',0),
       	    'aset_krat' => set_value('aset_krat',0),

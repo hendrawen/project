@@ -60,9 +60,9 @@ class Penarikan extends CI_Controller {
                 <td>'.$row->nama.'</td>
                 <td>'.$row->nama_debt.'</td>
                 <td>'.$row->total.'</td>
-                <td>'.tgl_indo($row->tgl_penarikan).'</td>
+                <td>'.(($row->bayar_krat > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
                 <td>'.$row->bayar_krat.'</td>
-                <td>'.tgl_indo($row->tgl_penarikan).'</td>
+                <td>'.(($row->bayar_uang > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
                 <td>'.$row->bayar_uang.'</td>
                 <td>'.$row->jumlah.'</td>
                 <td>'.$row->sisa.'</td>
@@ -121,9 +121,9 @@ class Penarikan extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->nama_debt.'</td>
             <td>'.$row->total.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.(($row->bayar_krat > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
             <td>'.$row->bayar_krat.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.(($row->bayar_uang > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
             <td>'.$row->bayar_uang.'</td>
             <td>'.$row->jumlah.'</td>
             <td>'.$row->sisa.'</td>
@@ -179,9 +179,9 @@ class Penarikan extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->nama_debt.'</td>
             <td>'.$row->total.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.(($row->bayar_krat > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
             <td>'.$row->bayar_krat.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.(($row->bayar_uang > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
             <td>'.$row->bayar_uang.'</td>
             <td>'.$row->jumlah.'</td>
             <td>'.$row->sisa.'</td>
@@ -223,9 +223,9 @@ class Penarikan extends CI_Controller {
             <td>'.$row->nama.'</td>
             <td>'.$row->nama_debt.'</td>
             <td>'.$row->total.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.(($row->bayar_krat > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
             <td>'.$row->bayar_krat.'</td>
-            <td>'.tgl_indo($row->tgl_penarikan).'</td>
+            <td>'.(($row->bayar_uang > 0 )? tgl_indo($row->tgl_penarikan):'').'</td>
             <td>'.number_format($row->bayar_uang).'</td>
             <td>'.$row->jumlah.'</td>
             <td>'.$row->sisa.'</td>
