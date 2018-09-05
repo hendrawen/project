@@ -52,6 +52,36 @@ class Penjualan extends CI_Controller {
   $this->load->view('panel/dashboard', $data);
   }
 
+  function pembayaran_debt()
+  {
+    $data = array(
+      'aktif'			=>'laporan',
+      'title'			=>'Brajamarketindo',
+      'judul'			=>'Dashboard',
+      'sub_judul'	=>'Laporan',
+      'content'		=>'debt/pembayaran',
+      'list_debt'		=>$this->PenjualanDebt_model->get_debt(),
+      'list_status'		=>$this->Penjualan_model->get_status(),
+      'month' => $this->month,
+    );
+    $this->load->view('panel/dashboard', $data);
+  }
+
+  function penarikan_debt()
+  {
+    $data = array(
+      'aktif'			=>'laporan',
+      'title'			=>'Brajamarketindo',
+      'judul'			=>'Dashboard',
+      'sub_judul'	=>'Laporan',
+      'content'		=>'debt/penarikan',
+      'list_debt'		=>$this->PenjualanDebt_model->get_debt(),
+      'list_status'		=>$this->Penjualan_model->get_status(),
+      'month' => $this->month,
+    );
+    $this->load->view('panel/dashboard', $data);
+  }
+
   function harian()
   {   
       $data = array(
