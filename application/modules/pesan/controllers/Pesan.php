@@ -18,14 +18,15 @@ class Pesan extends CI_Controller{
   }
 
   public function index()
-  {
+  {	
+		$this->cart->destroy();
     $data['aktif']			='Kebutuhan';
     $data['title']			='Transaksi';
     $data['judul']			='Form Transaksi';
 		$data['sub_judul']		='';
 		$data['menu']			= $this->permit[0];
     $data['submenu']		= $this->permit[1];
-    $data['content']			= 'main';
+		$data['content']			= 'main';
     $data['data']=$this->Pesan_model->get_all_product();
     $data['profile']=$this->Pesan_model->get_profile();
     $data['generate_invoice'] = $this->Pesan_model->generatekode_invoice();
@@ -39,6 +40,7 @@ class Pesan extends CI_Controller{
 		    foreach ($result as $row)
 		     	$arr_result[] = array(
 					'label'			=> $row->id_pelanggan,
+					'id_pelanggan' => $row->id_pelanggan,
 					'nama_pelanggan'	=> $row->nama_pelanggan,
           'alamat' => $row->alamat,
           'nama_dagang' => $row->nama_dagang,
@@ -227,11 +229,9 @@ class Pesan extends CI_Controller{
   					redirect('transaksi');
   				}else{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
-  				}
-        }
-
-
   			}
+      }
+  	}
   }
 
   public function cek()

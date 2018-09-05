@@ -426,7 +426,7 @@ class Excel extends CI_Controller {
         xlsBOF();
         xlsWriteLabel(0, 0, "Laporan");
         xlsWriteLabel(1, 0, "Periode");
-        xlsWriteLabel(0, 1, "Bulanan");
+        xlsWriteLabel(0, 1, "Harian");
         xlsWriteLabel(1, 1, $day);
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");

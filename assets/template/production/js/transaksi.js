@@ -105,6 +105,7 @@
         }
       });
     });
+
     $(document).on('click','.hapus_cart',function(){
       $.ajaxSetup({
           data: {
@@ -122,6 +123,8 @@
 
 
     //update data cart 
+    $('#detail_cart3').load(base_url+"transaksi/load_cart3");
+
     $('.add_cart3').click(function(){
             var id    = $(this).data("id");
             var nama_barang  = $(this).data("nama_barang");
@@ -137,8 +140,6 @@
             }
             });
         });
-
-    $('#detail_cart3').load(base_url+"transaksi/load_cart3");
 
     $('#id_barang').on('input',function(){
         var id_barang=$(this).val();
@@ -227,6 +228,7 @@
           }
         });
       });
+
       $(document).on('click','.hapus_cart3',function(){
         $.ajaxSetup({
             data: {

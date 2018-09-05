@@ -1,5 +1,6 @@
 $(document).ready(function() {
   load_Pembayaran();
+  view('day');
 });
 
     $("#berdasarkan").change(function() {
@@ -250,3 +251,33 @@ $(document).ready(function() {
     load_Pembayaran();
   });
 
+  function view(value) {
+    if (value == 'day') {
+        $("#view_day").show();
+        $("#view_month").hide();
+        $("#view_year").hide();
+    } else if (value == 'month') {
+        $("#view_day").hide();
+        $("#view_month").show();
+        $("#view_year").hide();
+    } else if (value == 'year') {
+        $("#view_day").hide();
+        $("#view_month").hide();
+        $("#view_year").show();
+    }
+    $('#form-laporan')[0].reset();
+}
+
+function formatCurrency(num) {
+  num = num.toString().replace(/\$|\./g,'');
+  if(isNaN(num))
+  num = "0";
+  sign = (num == (num = Math.abs(num)));
+  num = Math.floor(num*100+0.50000000001);
+  cents = num;
+  num = Math.floor(num/100).toString();
+  for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+  num = num.substring(0,num.length-(4*i+3))+'.'+
+  num.substring(num.length-(4*i+3));
+  return (((sign)?'':'-') + num);
+   }

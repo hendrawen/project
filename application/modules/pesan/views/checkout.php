@@ -87,6 +87,7 @@
                                     <br><span name="nama_dagang" id="nama_dagang">Nama Dagang</span>
                                     <br><span name="alamat" id="alamat">Alamat</span>
                                     <br>Telp : <span name="no_telp" id="no_telp"></span>
+                                    <br><span name="label" id="label">ID Pelanggan</span>
                                 </address>
                   </div>
                   <!-- /.col -->
@@ -98,7 +99,7 @@
                                           Echo tgl_indo($date);
                                         ?>
                     <br>
-                    <b>ID Pelanggan:</b> <span name="idpelanggan" id="idpelanggan">ID Pelanggan</span>
+                    
                   </div>
                   <!-- /.col -->
                 </div>
@@ -207,7 +208,7 @@
                     <p class="lead">Pembayaran</p>
                     <div class="form-group">
                       <label for="">Jumlah Bayar</label>
-                      <input type="text" name="bayar" placeholder="Rp." class="form-control" value="0">
+                      <input type="text" name="bayar" placeholder="Rp." class="form-control" value="0" readonly>
                     </div>
                   </div>
                   <!-- /.col -->

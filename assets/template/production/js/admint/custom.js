@@ -113,6 +113,7 @@ $('#autoidtransaksi2').autocomplete({
         select: function (event, ui) {
             $('[name="id_pelanggan"]').val(ui.item.label);
             document.getElementById('nama_pelanggan').innerHTML = ui.item.nama_pelanggan;
+            document.getElementById('id_pelanggan').innerHTML = ui.item.id_pelanggan;
             $('[name="id"]').val(ui.item.id);
             document.getElementById('alamat').innerHTML = ui.item.alamat;
             document.getElementById('nama_dagang').innerHTML = ui.item.nama_dagang;

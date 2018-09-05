@@ -5,13 +5,12 @@
     <option disabled selected>--Pilih Nama Barang--</option>
         <?php
           $users = $this->db->query("SELECT * FROM wp_barang");
-          foreach($users->result() as $value){
-          $selected= '';
-          ?>
+          foreach($users->result() as $value):
+          $selected= '';?>
           <option  value="<?php echo $value->id_barang; ?>"  <?php echo $selected;?> >
           <?php echo $value->id_barang; ?> - <?php echo $value->nama_barang; ?>
           </option>
-    <?php } ?>
+    <?php endforeach ?>
     </select>
   </div>
   <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $generate_invoice; ?>">
