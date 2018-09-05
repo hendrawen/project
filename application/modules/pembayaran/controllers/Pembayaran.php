@@ -68,6 +68,7 @@ class Pembayaran extends CI_Controller{
             $row[] = tgl_indo($pembayarans->tgl_bayar);
             $row[] = number_format($pembayarans->bayar,2,",",".");
             $row[] = '<button type="button" onClick=hapus("'.$pembayarans->id_transaksi.'") class="btn btn-danger btn-xs">Hapus</button>';
+            $row[] = '<button type="button" onClick=hapus("'.$pembayarans->id_transaksi.'") class="btn btn-primary btn-xs">Edit</button>';
             $data[] = $row;
         }
 

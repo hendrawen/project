@@ -24,7 +24,7 @@ class Transaksi_model extends CI_Model
           $this->db->join('wp_gudang', 'wp_gudang.id = wp_transaksi.gudang', 'join');
           $this->db->join('wp_detail_transaksi', 'wp_detail_transaksi.id_transaksi = wp_transaksi.id_transaksi', 'join');
           $this->db->where('wp_transaksi.id_transaksi', $id);
-      return $this->db->get('wp_transaksi')->result();
+          return $this->db->get('wp_transaksi')->result();
     }
     
     function get_gudang()

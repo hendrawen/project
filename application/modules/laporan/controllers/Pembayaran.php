@@ -27,7 +27,8 @@ class Pembayaran extends CI_Controller {
             'title'			=>'Brajamarketindo',
             'judul'			=>'Dashboard',
             'sub_judul'	    =>'Pembayaran',
-            'content'		=>'pembayaran_harian',
+            'content'		=>'pembayaran/laporan',
+            'month' => $this->month,
         );
         $this->load->view('panel/dashboard', $data);
     }
