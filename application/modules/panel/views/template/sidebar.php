@@ -65,13 +65,14 @@
                       </ul>
                   </li>
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('laporan/penjualan/');?>"><i class="fa fa-line-chart"></i> Report Penjualan</a>
-                    <li><a><i class="fa fa-line-chart"></i> Report Pembayaran <span class="fa fa-chevron-down"></span></a>
+                  <li><a <?php echo ($aktif == 'laporan')?'class="active"':"";?> href="<?php echo base_url('laporan/pembayaran/utama');?>"><i class="fa fa-line-chart"></i> Report Pembayaran</a>
+                    <!-- <li><a><i class="fa fa-line-chart"></i> Report Pembayaran <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_bulanan">Pembayaran Bulanan</a></li>
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
                       </ul>
-                    </li>
+                    </li> -->
                     <li><a><i class="fa fa-line-chart"></i> Report ASET <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>laporan/penarikan/harian">Penarikan Harian</a></li>

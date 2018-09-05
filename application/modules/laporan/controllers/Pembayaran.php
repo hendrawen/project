@@ -20,7 +20,7 @@ class Pembayaran extends CI_Controller {
     }
     
 
-    function pembayaran_harian()
+    function utama()
     {
         $data = array(
             'aktif'			=>'laporan',
