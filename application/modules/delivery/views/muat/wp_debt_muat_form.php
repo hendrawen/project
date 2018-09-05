@@ -114,6 +114,24 @@
               <option value="Pcs" <?php if ($satuan_kirim=='Pcs') {echo "selected";}?>>Pcs</option>
             </select>
           </div>
+
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('kembali') ?>
+          <label for="terkirim">kembali</label>
+            <input type="text" name="kembali" id="kembali" value="<?php echo $kembali; ?>" placeholder="input terkirim" class="form-control">
+          </div>
+          <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+          <?php echo form_error('satuan_kembali') ?>
+          <label for="satuan_terkirim">Satuan Kembali</label>
+            <select name="satuan_kembali" id="satuan_kembali" class="form-control">
+              <option value="">--Satuan--</option>
+              <option value="Krat" <?php if ($satuan_kembali=='Krat') {echo "selected";}?>>Krat</option>
+              <option value="Botol" <?php if ($satuan_kembali=='Botol') {echo "selected";}?>>Botol</option>
+              <option value="Dus" <?php if ($satuan_kembali=='Dus') {echo "selected";}?>>Dus</option>
+              <option value="Pcs" <?php if ($satuan_kembali=='Pcs') {echo "selected";}?>>Pcs</option>
+            </select>
+          </div>
+
           <div class="col-md-3 col-sm-12 col-xs-12 form-group">
           <label for="return">Retur</label>
           <?php echo form_error('return') ?>

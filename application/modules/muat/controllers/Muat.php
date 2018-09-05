@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -8,7 +7,6 @@ class Muat extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Muat_model', 'muat_barang');
         $this->load->library('form_validation');
         if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
@@ -16,7 +14,8 @@ class Muat extends CI_Controller
 					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
 							redirect('login','refresh');
 					}
-		}
+        }
+        $this->load->model('Muat_model', 'muat_barang');
     }
 
     public function index()
@@ -82,6 +81,7 @@ class Muat extends CI_Controller
       	    'id' => set_value('id'),
       	    'muat' => set_value('muat',0),
       	    'terkirim' => set_value('terkirim',0),
+      	    'kembali' => set_value('kembali',0),
       	    'return' => set_value('return',0),
       	    'rusak' => set_value('rusak',0),
       	    'aset_krat' => set_value('aset_krat',0),
