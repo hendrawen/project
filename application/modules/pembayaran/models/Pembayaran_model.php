@@ -9,7 +9,7 @@ class Pembayaran_model extends CI_Model{
 
   public $id = 'id_transaksi';
   var $table = 'vdetail_pembayaran';
-  var $column_order = array('id_transaksi', 'tgl_kirim', 'jatuh_tempo', 'id_pelanggan','nama_pelanggan', 'nama_barang', 'qty', 'satuan', 'kelurahan', 'kecamatan', 'no_telp', 'nama', 'username', 'subtotal', 'tgl_bayar', 'bayar'); //set column field database for datatable orderable
+  var $column_order = array('id_transaksi', 'tgl_kirim', 'jatuh_tempo', 'id_pelanggan','nama_pelanggan', 'nama_barang', 'qty', 'satuan', 'kelurahan', 'kecamatan', 'no_telp', 'nama', 'b.nama', 'subtotal', 'tgl_bayar', 'bayar'); //set column field database for datatable orderable
   var $column_search = array('id_pelanggan','nama_pelanggan','id_transaksi', 'jatuh_tempo'); //set column field database for datatable searchable
   var $order = array('id_transaksi' => 'DESC'); // default order
 
@@ -20,7 +20,9 @@ class Pembayaran_model extends CI_Model{
 
   private function _get_datatables_query()
   {
-
+     $this->db->select('vdetail_pembayaran.id_transaksi, vdetail_pembayaran.tgl_transaksi, vdetail_pembayaran.jatuh_tempo, vdetail_pembayaran.id_pelanggan, vdetail_pembayaran.nama_pelanggan, vdetail_pembayaran.nama_barang, vdetail_pembayaran.qty, vdetail_pembayaran.satuan, vdetail_pembayaran.kelurahan, vdetail_pembayaran.kecamatan, vdetail_pembayaran.no_telp, vdetail_pembayaran.nama, b.nama as nama_debt, vdetail_pembayaran.subtotal, vdetail_pembayaran.tgl_bayar, sum(vdetail_pembayaran.bayar) as bayar, sum(vdetail_pembayaran.jumlah_bayar) as jumlah_bayar, vdetail_pembayaran.sisa_hutang, `vdetail_pembayaran.nama_status`');
+     $this->db->join('wp_karyawan as b', 'b.id_karyawan = vdetail_pembayaran.username', 'left');
+     $this->db->group_by('id_transaksi, nama_barang');
      //add custom filter here
      $this->db->from($this->table);
      $i = 0;

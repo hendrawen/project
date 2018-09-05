@@ -63,10 +63,10 @@ class Pembayaran extends CI_Controller{
             $row[] = $pembayarans->kecamatan;
             $row[] = $pembayarans->no_telp;
             $row[] = $pembayarans->nama;
-            $row[] = $pembayarans->username;
+            $row[] = $pembayarans->nama_debt;
             $row[] = number_format($pembayarans->subtotal,2,",",".");
-            $row[] = tgl_indo($pembayarans->tgl_bayar);
-            $row[] = number_format($pembayarans->bayar,2,",",".");
+            $row[] = (($pembayarans->bayar > 0)) ? tgl_indo($pembayarans->tgl_bayar) : '';
+            $row[] = (($pembayarans->bayar >= $pembayarans->subtotal) ? number_format($pembayarans->subtotal,2,',','.') : number_format($pembayarans->bayar,2,',','.'));
             $row[] = '<button type="button" onClick=hapus("'.$pembayarans->id_transaksi.'") class="btn btn-danger btn-xs">Hapus</button>';
             $row[] = '<button type="button" onClick=hapus("'.$pembayarans->id_transaksi.'") class="btn btn-primary btn-xs">Edit</button>';
             $data[] = $row;
