@@ -185,8 +185,8 @@
                 id="table-penarikan-debt"
                 class="table table-striped jambo_table table-bordered dt-responsive nowrap">
                 <thead>
-                    <tr>
-                        <th>No</th>
+                <tr>
+                        <th>#</th>
                         <th>No Faktur</th>
                         <th>Tgl Kirim</th>
                         <th>Jatuh Tempo</th>
@@ -201,11 +201,13 @@
                         <th>Surveyor</th>
                         <th>Debt</th>
                         <th>Jumlah</th>
-                        <th>Tgl Bayar</th>
+                        <th>Tgl Penarikan</th>
                         <th>Bayar</th>
-                        <th>Jumlah Bayar</th>
-                        <th>Sisa Hutang</th>
-                        <th class"wider"="class"wider"">Status</th>
+                        <th>Tgl Penarikan</th>
+                        <th>Bayar (Rp.)</th>
+                        <th>Jumlah</th>
+                        <th>Sisa ASET</th>
+                        <th class="wider">Status</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

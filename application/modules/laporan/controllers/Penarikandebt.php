@@ -64,13 +64,13 @@ class Penarikandebt extends CI_Controller {
       echo json_encode($output);
   }
 
-  function excel_tanggal($tanggal, $debt,$status)
+  function excel_tanggal($tanggal, $debt)
   {
     $this->load->helper('exportexcel');
-    $namaFile = "transaksi_debt_harian.xls";
-    $judul = "Transaksi Debt";
-    $tablehead = 5;
-    $tablebody = 6;
+    $namaFile = "penarikan_debt_harian.xls";
+    $judul = "Penarikan Debt";
+    $tablehead = 4;
+    $tablebody = 5;
     $nourut = 1;
     //penulisan header
     header("Pragma: public");
@@ -89,10 +89,8 @@ class Penarikandebt extends CI_Controller {
     xlsWriteLabel(1, 1, tgl_indo($tanggal));
     xlsWriteLabel(2, 0, "Nama Debt");
     xlsWriteLabel(2, 1, $this->mLap->get_debt_id($debt));
-    xlsWriteLabel(3, 0, "Status");
-    xlsWriteLabel(3, 1, $this->mLap->get_status_id($status));
     $kolomhead = 0;
-
+    
     xlsWriteLabel($tablehead, $kolomhead++, "No");
     xlsWriteLabel($tablehead, $kolomhead++, "No Faktur");
     xlsWriteLabel($tablehead, $kolomhead++, "Tgl Kirim");
@@ -102,17 +100,27 @@ class Penarikandebt extends CI_Controller {
     xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
     xlsWriteLabel($tablehead, $kolomhead++, "QTY");
     xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
-    xlsWriteLabel($tablehead, $kolomhead++, "Kota");
     xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
     xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
     xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
     xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
     xlsWriteLabel($tablehead, $kolomhead++, "Debt");
-    xlsWriteLabel($tablehead, $kolomhead++, "Status");
     xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+    xlsWriteLabel($tablehead, $kolomhead++, "Tgl Penarikan");
+    xlsWriteLabel($tablehead, $kolomhead++, "Bayar");
+    xlsWriteLabel($tablehead, $kolomhead++, "Tgl Penarikan");
+    xlsWriteLabel($tablehead, $kolomhead++, "Bayar (Rp.)");
+    xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+    xlsWriteLabel($tablehead, $kolomhead++, "Sisa Aset");
+    xlsWriteLabel($tablehead, $kolomhead++, "Status");
 
-    $record = $this->mLap->laporan_tanggal($tanggal, $debt, $status);
-    $total = 0;
+    $record = $this->mLap->laporan_tanggal($tanggal, $debt);
+    $total = array();
+    $total['total'] = 0;
+    $total['bayar_krat'] = 0;
+    $total['bayar_uang'] = 0;
+    $total['jumlah'] = 0;
+    $total['sisa'] = 0;
     if ($record){
       foreach ($record as $data) {
           $kolombody = 0;
@@ -125,30 +133,43 @@ class Penarikandebt extends CI_Controller {
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
           xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
-          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
           xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
           xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
           xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
-          xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+          xlsWriteLabel($tablebody, $kolombody++, $data->total);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_penarikan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->bayar_krat);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_penarikan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->bayar_uang);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jumlah);
+          xlsWriteLabel($tablebody, $kolombody++, $data->sisa);
+          xlsWriteLabel($tablebody, $kolombody++, $data->status);
           $tablebody++;
           $nourut++;
-          $total += $data->subtotal;
+          $total['total'] += $data->total;
+          $total['bayar_krat'] += $data->bayar_krat;
+          $total['bayar_uang'] += $data->bayar_uang;
+          $total['jumlah'] += $data->jumlah;
+          $total['sisa'] += $data->sisa;
       }
     }
-    xlsWriteLabel($tablebody, 14, 'Total');
-    xlsWriteNumber($tablebody, 15, $total);
+    xlsWriteLabel($tablebody, 13, 'Total');
+    xlsWriteNumber($tablebody, 14, $total['total']);
+    xlsWriteNumber($tablebody, 16, $total['bayar_krat']);
+    xlsWriteNumber($tablebody, 18, $total['bayar_uang']);
+    xlsWriteNumber($tablebody, 19, $total['jumlah']);
+    xlsWriteNumber($tablebody, 20, $total['sisa']);
     xlsEOF();
     exit();
   }
 
-  function excel_bulan($dari, $ke, $tahun, $debt, $status)
+  function excel_bulan($dari, $ke, $tahun, $debt)
   {
     $this->load->helper('exportexcel');
-    $namaFile = "transaksi_debt_bulan.xls";
-    $judul = "Transaksi Debt";
+    $namaFile = "penarikan_debt_bulan.xls";
+    $judul = "Penarikan Debt";
     $tablehead = 7;
     $tablebody = 8;
     $nourut = 1;
@@ -178,9 +199,6 @@ class Penarikandebt extends CI_Controller {
     xlsWriteLabel(4, 0, "Status");
     xlsWriteLabel(4, 1, $this->mLap->get_debt_id($debt));
 
-    xlsWriteLabel(5, 0, "Status");
-    xlsWriteLabel(5, 1, $this->mLap->get_status_id($status));
-
     $kolomhead = 0;
 
     xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -192,17 +210,27 @@ class Penarikandebt extends CI_Controller {
     xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
     xlsWriteLabel($tablehead, $kolomhead++, "QTY");
     xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
-    xlsWriteLabel($tablehead, $kolomhead++, "Kota");
     xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
     xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
     xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
     xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
     xlsWriteLabel($tablehead, $kolomhead++, "Debt");
-    xlsWriteLabel($tablehead, $kolomhead++, "Status");
     xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+    xlsWriteLabel($tablehead, $kolomhead++, "Tgl Penarikan");
+    xlsWriteLabel($tablehead, $kolomhead++, "Bayar");
+    xlsWriteLabel($tablehead, $kolomhead++, "Tgl Penarikan");
+    xlsWriteLabel($tablehead, $kolomhead++, "Bayar (Rp.)");
+    xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+    xlsWriteLabel($tablehead, $kolomhead++, "Sisa Aset");
+    xlsWriteLabel($tablehead, $kolomhead++, "Status");
 
-    $record = $this->mLap->laporan_bulan($dari, $ke, $tahun, $debt, $status);
-    $total = 0;
+    $record = $this->mLap->laporan_bulan($dari, $ke, $tahun, $debt);
+    $total = array();
+    $total['total'] = 0;
+    $total['bayar_krat'] = 0;
+    $total['bayar_uang'] = 0;
+    $total['jumlah'] = 0;
+    $total['sisa'] = 0;
     if ($record){
       foreach ($record as $data) {
           $kolombody = 0;
@@ -215,30 +243,43 @@ class Penarikandebt extends CI_Controller {
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
           xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
-          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
           xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
           xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
           xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
-          xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+          xlsWriteLabel($tablebody, $kolombody++, $data->total);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_penarikan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->bayar_krat);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_penarikan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->bayar_uang);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jumlah);
+          xlsWriteLabel($tablebody, $kolombody++, $data->sisa);
+          xlsWriteLabel($tablebody, $kolombody++, $data->status);
           $tablebody++;
           $nourut++;
-          $total += $data->subtotal;
+          $total['total'] += $data->total;
+          $total['bayar_krat'] += $data->bayar_krat;
+          $total['bayar_uang'] += $data->bayar_uang;
+          $total['jumlah'] += $data->jumlah;
+          $total['sisa'] += $data->sisa;
       }
     }
-    xlsWriteLabel($tablebody, 14, 'Total');
-    xlsWriteNumber($tablebody, 15, $total);
+    xlsWriteLabel($tablebody, 13, 'Total');
+    xlsWriteNumber($tablebody, 14, $total['total']);
+    xlsWriteNumber($tablebody, 16, $total['bayar_krat']);
+    xlsWriteNumber($tablebody, 18, $total['bayar_uang']);
+    xlsWriteNumber($tablebody, 19, $total['jumlah']);
+    xlsWriteNumber($tablebody, 20, $total['sisa']);
     xlsEOF();
     exit();
   }
 
-  function excel_tahun($tahun, $debt, $status)
+  function excel_tahun($tahun, $debt)
   {
     $this->load->helper('exportexcel');
-    $namaFile = "transaksi_debt_tahun.xls";
-    $judul = "Transaksi Debt";
+    $namaFile = "penarikan_debt_tahun.xls";
+    $judul = "Penarikan Debt";
     $tablehead = 5;
     $tablebody = 6;
     $nourut = 1;
@@ -259,8 +300,6 @@ class Penarikandebt extends CI_Controller {
     xlsWriteLabel(1, 1, $tahun);
     xlsWriteLabel(2, 0, "Nama Debt");
     xlsWriteLabel(2, 1, $this->mLap->get_debt_id($debt));
-    xlsWriteLabel(3, 0, "Status");
-    xlsWriteLabel(3, 1, $this->mLap->get_status_id($status));
     $kolomhead = 0;
 
     xlsWriteLabel($tablehead, $kolomhead++, "No");
@@ -272,17 +311,27 @@ class Penarikandebt extends CI_Controller {
     xlsWriteLabel($tablehead, $kolomhead++, "Nama Barang");
     xlsWriteLabel($tablehead, $kolomhead++, "QTY");
     xlsWriteLabel($tablehead, $kolomhead++, "Satuan");
-    xlsWriteLabel($tablehead, $kolomhead++, "Kota");
     xlsWriteLabel($tablehead, $kolomhead++, "Kecamatan");
     xlsWriteLabel($tablehead, $kolomhead++, "Kelurahan");
     xlsWriteLabel($tablehead, $kolomhead++, "No Telpon");
     xlsWriteLabel($tablehead, $kolomhead++, "Surveyor");
     xlsWriteLabel($tablehead, $kolomhead++, "Debt");
-    xlsWriteLabel($tablehead, $kolomhead++, "Status");
     xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+    xlsWriteLabel($tablehead, $kolomhead++, "Tgl Penarikan");
+    xlsWriteLabel($tablehead, $kolomhead++, "Bayar");
+    xlsWriteLabel($tablehead, $kolomhead++, "Tgl Penarikan");
+    xlsWriteLabel($tablehead, $kolomhead++, "Bayar (Rp.)");
+    xlsWriteLabel($tablehead, $kolomhead++, "Jumlah");
+    xlsWriteLabel($tablehead, $kolomhead++, "Sisa Aset");
+    xlsWriteLabel($tablehead, $kolomhead++, "Status");
 
-    $record = $this->mLap->laporan_tahun($tahun, $debt, $status);
-    $total = 0;
+    $record = $this->mLap->laporan_tahun($tahun, $debt);
+    $total = array();
+    $total['total'] = 0;
+    $total['bayar_krat'] = 0;
+    $total['bayar_uang'] = 0;
+    $total['jumlah'] = 0;
+    $total['sisa'] = 0;
     if ($record){
       foreach ($record as $data) {
           $kolombody = 0;
@@ -295,44 +344,46 @@ class Penarikandebt extends CI_Controller {
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_barang);
           xlsWriteNumber($tablebody, $kolombody++, $data->qty);
           xlsWriteLabel($tablebody, $kolombody++, $data->satuan);
-          xlsWriteLabel($tablebody, $kolombody++, $data->kota);
           xlsWriteLabel($tablebody, $kolombody++, $data->kecamatan);
           xlsWriteLabel($tablebody, $kolombody++, $data->kelurahan);
           xlsWriteLabel($tablebody, $kolombody++, $data->no_telp);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_karyawan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->nama);
           xlsWriteLabel($tablebody, $kolombody++, $data->nama_debt);
-          xlsWriteLabel($tablebody, $kolombody++, $data->nama_status);
-          xlsWriteNumber($tablebody, $kolombody++, $data->subtotal);
+          xlsWriteLabel($tablebody, $kolombody++, $data->total);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_penarikan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->bayar_krat);
+          xlsWriteLabel($tablebody, $kolombody++, $data->tgl_penarikan);
+          xlsWriteLabel($tablebody, $kolombody++, $data->bayar_uang);
+          xlsWriteLabel($tablebody, $kolombody++, $data->jumlah);
+          xlsWriteLabel($tablebody, $kolombody++, $data->sisa);
+          xlsWriteLabel($tablebody, $kolombody++, $data->status);
           $tablebody++;
           $nourut++;
-          $total += $data->subtotal;
+          $total['total'] += $data->total;
+          $total['bayar_krat'] += $data->bayar_krat;
+          $total['bayar_uang'] += $data->bayar_uang;
+          $total['jumlah'] += $data->jumlah;
+          $total['sisa'] += $data->sisa;
       }
     }
-    xlsWriteLabel($tablebody, 14, 'Total');
-    xlsWriteNumber($tablebody, 15, $total);
+    xlsWriteLabel($tablebody, 13, 'Total');
+    xlsWriteNumber($tablebody, 14, $total['total']);
+    xlsWriteNumber($tablebody, 16, $total['bayar_krat']);
+    xlsWriteNumber($tablebody, 18, $total['bayar_uang']);
+    xlsWriteNumber($tablebody, 19, $total['jumlah']);
+    xlsWriteNumber($tablebody, 20, $total['sisa']);
     xlsEOF();
     exit();
   }
 
   function tes()
   {
-    $this->db->select('wp_pembayaran.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as `jatuh_tempo`, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, wp_transaksi.qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_pelanggan.kecamatan, wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, wp_transaksi.subtotal, wp_pembayaran.tgl_bayar, wp_pembayaran.bayar, wp_detail_transaksi.bayar as `jumlah_bayar`, (wp_detail_transaksi.utang - wp_detail_transaksi.bayar) as `sisa_hutang`, wp_status.nama_status');
-        $this->db->from('wp_pembayaran');
-        $this->db->where('wp_pembayaran.bayar >=', 0);
-        $this->db->join('wp_transaksi', 'wp_pembayaran.id_transaksi = wp_transaksi.id_transaksi');
-        $this->db->join('wp_pelanggan', 'wp_transaksi.wp_pelanggan_id = wp_pelanggan.id');
-        $this->db->join('wp_barang', 'wp_transaksi.wp_barang_id = wp_barang.id');
-        $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
-        $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
-        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
-        $data = $this->db->get()->result();
-        
+    
+    $data = $this->mLap->laporan_tanggal('semua','semua');
+    
         echo "<pre>";
         print_r ($data);
         echo "</pre>";
-        
   }
 
 

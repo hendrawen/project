@@ -17,9 +17,7 @@ class PenarikanDebt_model extends CI_Model {
     private function _get_datatables_query()
     {
 
-        $this->db->select("wp_penarikan.username, wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as jatuh_tempo, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, SUM(wp_asis_debt.turun_krat) as qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_asis_debt.tanggal as tgl_penarikan, wp_pelanggan.kecamatan,wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, SUM(wp_asis_debt.turun_krat) AS total, SUM(wp_asis_debt.bayar_krat) as bayar_krat,  wp_asis_debt.bayar_uang, sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga)) as jumlah, (sum(wp_asis_debt.turun_krat) - sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))) as sisa, IF (sum(wp_asis_debt.turun_krat) > (sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))), 'Masih ada ASET', 'Tidak ada ASET') as status");
-        
-
+        $this->db->select("wp_penarikan.username, wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as jatuh_tempo, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, SUM(wp_asis_debt.turun_krat) as qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_asis_debt.tanggal as tgl_penarikan, wp_pelanggan.kecamatan,wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, SUM(wp_asis_debt.turun_krat) AS total, SUM(wp_asis_debt.bayar_krat) as bayar_krat,  wp_asis_debt.bayar_uang, sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga)) as jumlah, (sum(wp_asis_debt.turun_krat) - sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))) as sisa, IF (sum(wp_asis_debt.turun_krat) > (sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))), 'Masih ada ASET', 'Tidak ada ASET') as `status`");
         $this->db->join('wp_transaksi', 'wp_transaksi.id = wp_asis_debt.id_transaksi', 'left');
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'left');
         $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'left');
@@ -27,11 +25,6 @@ class PenarikanDebt_model extends CI_Model {
         $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
 
-
-        /*
-        wp_penarikan.username = '$username' and
-        date(wp_asis_debt.tanggal) = '$day'
-         */
         if ($this->input->post('tanggal')) {
             $this->db->where('date(wp_asis_debt.tanggal)', $this->input->post('tanggal'));
         }
@@ -62,7 +55,7 @@ class PenarikanDebt_model extends CI_Model {
             $this->db->where('wp_penarikan.username', $this->input->post('debt3'));
         }
         
-        $this->db->order_by('wp_asis_debt.wp_pelanggan_id', 'DESC');
+        // $this->db->order_by('wp_asis_debt.wp_pelanggan_id', 'DESC');
         $this->db->from('wp_asis_debt, wp_krat_kosong');
         
         $i = 0;
@@ -145,50 +138,42 @@ class PenarikanDebt_model extends CI_Model {
         }
     }
 
-    function laporan_tanggal($tanggal, $debt, $status)
+    function laporan_tanggal($tanggal, $debt)
     {
-        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
-            wp_transaksi.qty, wp_pembayaran.tgl_bayar, wp_transaksi.updated_at,
-            wp_pembayaran.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
-            wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
-            wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp, nama_status,
-            wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, b.nama as nama_debt, wp_transaksi.subtotal,
-            DATE_ADD(wp_asis_debt.tanggal, INTERVAL 14 day) as `jatuh_tempo`');
-        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_pembayaran.username', 'left');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
-        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+        $this->db->select("wp_penarikan.username, wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as jatuh_tempo, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, SUM(wp_asis_debt.turun_krat) as qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_asis_debt.tanggal as tgl_penarikan, wp_pelanggan.kecamatan,wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, SUM(wp_asis_debt.turun_krat) AS total, SUM(wp_asis_debt.bayar_krat) as bayar_krat,  wp_asis_debt.bayar_uang, sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga)) as jumlah, (sum(wp_asis_debt.turun_krat) - sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))) as sisa, IF (sum(wp_asis_debt.turun_krat) > (sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))), 'Masih ada ASET', 'Tidak ada ASET') as status");
+        $this->db->join('wp_transaksi', 'wp_transaksi.id = wp_asis_debt.id_transaksi', 'left');
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'left');
+        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'left');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'left');
+        $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
+        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
+
         if ($tanggal != 'semua') {
             $this->db->where('date(wp_asis_debt.tanggal)', $tanggal);
         }
         if ($debt != 'semua') {
             $this->db->where('wp_penarikan.username', $debt);
         }
-
-        if ($status != 'semua') {
-            $this->db->where('wp_status_id', $status);
-        }
-        
-        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
-        return $this->db->get($this->table)->result();
+        $this->db->order_by('wp_asis_debt.wp_pelanggan_id', 'DESC');
+        return $this->db->get('wp_asis_debt, wp_krat_kosong')->result();
         
     }
-    function laporan_bulan($dari, $ke, $tahun, $debt, $status)
+    function laporan_bulan($dari, $ke, $tahun, $debt)
     {
-        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
-            wp_transaksi.qty, wp_pembayaran.tgl_bayar, wp_transaksi.updated_at,
-            wp_pembayaran.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
-            wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
-            wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp, nama_status,
-            wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, b.nama as nama_debt, wp_transaksi.subtotal,
-            DATE_ADD(wp_asis_debt.tanggal, INTERVAL 14 day) as `jatuh_tempo`');
-        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_pembayaran.username', 'left');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
-        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        
+        $this->db->select("wp_penarikan.username, wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as jatuh_tempo, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, SUM(wp_asis_debt.turun_krat) as qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_asis_debt.tanggal as tgl_penarikan, wp_pelanggan.kecamatan,wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, SUM(wp_asis_debt.turun_krat) AS total, SUM(wp_asis_debt.bayar_krat) as bayar_krat,  wp_asis_debt.bayar_uang, sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga)) as jumlah, (sum(wp_asis_debt.turun_krat) - sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))) as sisa, IF (sum(wp_asis_debt.turun_krat) > (sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))), 'Masih ada ASET', 'Tidak ada ASET') as status");
+        $this->db->join('wp_transaksi', 'wp_transaksi.id = wp_asis_debt.id_transaksi', 'left');
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'left');
+        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'left');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'left');
+        $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
+        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
+
+        if ($dari != 'semua' && $ke == 'semua') {
+            $this->db->where('month(wp_asis_debt.tanggal)', $dari);
+        }
+        if ($ke != 'semua' && $dari == 'semua') {
+            $this->db->where('month(wp_asis_debt.tanggal)', $ke);
+        }
         if ($ke != 'semua' && $dari != 'semua') {
             $this->db->where('month(wp_asis_debt.tanggal) >=', $dari);
             $this->db->where('month(wp_asis_debt.tanggal) <=', $ke);
@@ -199,40 +184,32 @@ class PenarikanDebt_model extends CI_Model {
         if ($debt != 'semua') {
             $this->db->where('wp_penarikan.username', $debt);
         }
-        if ($status != 'semua') {
-            $this->db->where('wp_status_id', $status);
-        }
-        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
-        $this->db->from($this->table);
+        
+        $this->db->order_by('wp_asis_debt.wp_pelanggan_id', 'DESC');
+        $this->db->from('wp_asis_debt, wp_krat_kosong');
         return $this->db->get()->result();
         
     }
-    function laporan_tahun($tahun, $debt, $status)
+
+    function laporan_tahun($tahun, $debt)
     {
-        $this->db->select('wp_transaksi.id, wp_transaksi.id_transaksi, wp_transaksi.harga,
-            wp_transaksi.qty, wp_pembayaran.tgl_bayar, wp_transaksi.updated_at,
-            wp_pembayaran.username, wp_barang.nama_barang, wp_pelanggan.nama_pelanggan,
-            wp_status.nama_status, wp_pelanggan.id_pelanggan, wp_pelanggan.kota,
-            wp_pelanggan.kecamatan, wp_pelanggan.kelurahan, , wp_pelanggan.no_telp, nama_status,
-            wp_barang.satuan, wp_karyawan.nama as `nama_karyawan`, b.nama as nama_debt, wp_transaksi.subtotal,
-            DATE_ADD(wp_asis_debt.tanggal, INTERVAL 14 day) as `jatuh_tempo`');
-        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_pembayaran.username', 'left');
-        $this->db->join('wp_barang', 'wp_barang.id = wp_transaksi.wp_barang_id');
-        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
-        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        
+        $this->db->select("wp_penarikan.username, wp_transaksi.id_transaksi, wp_transaksi.tgl_transaksi, DATE_ADD(wp_transaksi.tgl_transaksi, INTERVAL 14 DAY) as jatuh_tempo, wp_pelanggan.id_pelanggan, wp_pelanggan.nama_pelanggan, wp_barang.nama_barang, SUM(wp_asis_debt.turun_krat) as qty, wp_barang.satuan, wp_pelanggan.kelurahan, wp_asis_debt.tanggal as tgl_penarikan, wp_pelanggan.kecamatan,wp_pelanggan.no_telp, wp_karyawan.nama, b.nama as nama_debt, SUM(wp_asis_debt.turun_krat) AS total, SUM(wp_asis_debt.bayar_krat) as bayar_krat,  wp_asis_debt.bayar_uang, sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga)) as jumlah, (sum(wp_asis_debt.turun_krat) - sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))) as sisa, IF (sum(wp_asis_debt.turun_krat) > (sum(wp_asis_debt.bayar_krat+(wp_asis_debt.bayar_uang/wp_krat_kosong.harga))), 'Masih ada ASET', 'Tidak ada ASET') as status");
+        $this->db->join('wp_transaksi', 'wp_transaksi.id = wp_asis_debt.id_transaksi', 'left');
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'left');
+        $this->db->join('wp_barang', 'wp_barang.id = wp_asis_debt.wp_barang_id', 'left');
+        $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'left');
+        $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
+        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
+
         if ($tahun != 'semua') {
             $this->db->where('year(wp_asis_debt.tanggal)', $tahun);
         }
         if ($debt != 'semua') {
             $this->db->where('wp_penarikan.username', $debt);
         }
-        if ($status != 'semua') {
-            $this->db->where('wp_status_id', $status);
-        }
-        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
-        $this->db->from($this->table);
+        
+        $this->db->order_by('wp_asis_debt.wp_pelanggan_id', 'DESC');
+        $this->db->from('wp_asis_debt, wp_krat_kosong');
         return $this->db->get()->result();
         
     }
