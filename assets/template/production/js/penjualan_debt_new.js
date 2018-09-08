@@ -8,6 +8,7 @@ $(document).ready(function() {
     view('day');
     
     //datatables
+    table.destroy();
     table = $('#table-penjualan-debt-admin2').DataTable({ 
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;

@@ -45,8 +45,8 @@ class Pembayarandebt extends CI_Controller {
         $row[] = $lap->nama_debt;
         $row[] = number_format($lap->subtotal,2,',','.');
         $row[] = (($lap->bayar > 0 )? tgl_indo($lap->tgl_bayar):'');
-        $row[] = (($lap->bayar >= $lap->subtotal) ? number_format($lap->subtotal,2,',','.') : number_format($lap->bayar,2,',','.'));
-        $row[] = (($lap->bayar >= $lap->subtotal) ? number_format($lap->subtotal,2,',','.') : number_format($lap->jumlah_bayar,2,',','.'));
+        $row[] = (($lap->bayar >= $lap->subtotal) ? $lap->subtotal : $lap->bayar);
+        $row[] = (($lap->bayar >= $lap->subtotal) ? $lap->subtotal : $lap->jumlah_bayar);
         $row[] = number_format($lap->sisa_hutang,2,',','.');
         $row[] = $lap->nama_status;
         $data[] = $row;

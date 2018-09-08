@@ -42,6 +42,7 @@
                     <div class="input-group">
                     <span class="input-group-addon">Nama Produk </span>
                     <select class="form-control" id="id_barang_hari">
+                        <option value="">Semua Produk</option>
                         <?php foreach ($list_barang->result() as $row): ?>
                         <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
                         <?php endforeach; ?>
@@ -105,6 +106,7 @@
                     <div class="input-group">
                     <span class="input-group-addon">Nama Produk </span>
                     <select class="form-control" id="id_barang_bulan">
+                        <option value="">Semua Produk</option>
                         <?php foreach ($list_barang->result() as $row): ?>
                         <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
                         <?php endforeach; ?>
@@ -146,6 +148,7 @@
                     <div class="input-group">
                     <span class="input-group-addon">Nama Produk </span>
                     <select class="form-control" id="id_barang_tahun">
+                        <option value="">Semua Produk</option>
                         <?php foreach ($list_barang->result() as $row): ?>
                         <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
                         <?php endforeach; ?>

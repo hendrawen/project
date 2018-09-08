@@ -29,7 +29,9 @@ $(document).ready(function() {
                 }, 0 );
              // Update footer
             $( api.column( 16 ).footer() ).html(
-                $("#total").html('Total Pembayaran : Rp. '+formatCurrency(total))
+                $("#total").html('Total Pembayaran : Rp. '+formatCurrency(total)),
+                console.log(total)
+                
             );
         },
         "processing": true, //Feature control the processing indicator.
