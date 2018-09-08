@@ -44,9 +44,9 @@ class Penarikandebt extends CI_Controller {
         $row[] = $lap->nama;
         $row[] = $lap->nama_debt;
         $row[] = $lap->total;
-        $row[] = tgl_indo($lap->tgl_penarikan);
+        $row[] = (($lap->bayar_krat > 0 )? tgl_indo($lap->tgl_penarikan):'');
         $row[] = $lap->bayar_krat;
-        $row[] = tgl_indo($lap->tgl_penarikan);
+        $row[] = (($lap->bayar_uang > 0 )? tgl_indo($lap->tgl_penarikan):'');
         $row[] = $lap->bayar_uang;
         $row[] = $lap->jumlah;
         $row[] = $lap->sisa;

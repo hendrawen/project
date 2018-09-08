@@ -62,9 +62,9 @@ class Penarikan extends CI_Controller{
             $row[] = $key->nama;
             $row[] = $key->nama_debt;
             $row[] = number_format($key->total,2,",",".");
-            $row[] = tgl_indo($key->tgl_penarikan);
+            $row[] = (($key->bayar_krat > 0 )? tgl_indo($key->tgl_penarikan):'');
             $row[] = number_format($key->bayar_krat,2,",",".");
-            $row[] = tgl_indo($key->tgl_penarikan);
+            $row[] = (($key->bayar_uang > 0 )? tgl_indo($key->tgl_penarikan):'');
             $row[] = number_format($key->bayar_uang,2,",",".");
             $row[] = number_format($key->jumlah,2,",",".");
             $row[] = $key->sisa;
