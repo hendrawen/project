@@ -17,22 +17,69 @@ class Area extends CI_Controller {
               }
         }
         $this->load->model('som/Model_laporan', 'mLap');
-        $this->load->model('Models_laporan', 'area');
-        
-        $this->load->library('table');
+        $this->load->model('Area_model', 'area');
+    }
+
+    function index()
+    {
+        $data = array(
+            'aktif'			=>'laporan',
+            'title'			=>'Brajamarketindo',
+            'judul'			=>'Dashboard',
+            'sub_judul'	    =>'Aset',
+            'content'		=>'area/index',
+            'month'         => $this->month,
+        );
+        $this->load->view('panel/dashboard', $data);
+    }
+
+    function ajax_list()
+    {
+        $list = $this->area->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $lap) {
+            $no++;
+            $row = array();
+            $row[] = $lap->id_transaksi;
+            $row[] = tgl_indo($lap->tgl_transaksi);
+            $row[] = tgl_indo($lap->jatuh_tempo);
+            $row[] = $lap->id_pelanggan;
+            $row[] = $lap->nama_pelanggan;
+            $row[] = $lap->nama_barang;
+            $row[] = $lap->qty;
+            $row[] = $lap->satuan;
+            $row[] = $lap->kota;
+            $row[] = $lap->kecamatan;
+            $row[] = $lap->kelurahan;
+            $row[] = $lap->no_telp;
+            $row[] = $lap->nama_karyawan;
+            $row[] = $lap->nama_debt;
+            $row[] = $lap->subtotal;
+            $data[] = $row;
+        }
+
+        $output = array(
+          "draw" => $_POST['draw'],
+          "recordsTotal" => $this->area->count_all(),
+          "recordsFiltered" => $this->area->count_filtered(),
+          "data" => $data,
+          );
+        //output to json format
+        echo json_encode($output);
     }
 
     function tahun()
-  {   
-      $data = array(
-          'aktif'			=>'laporan',
-          'title'			=>'Brajamarketindo',
-          'judul'			=>'Dashboard',
-          'sub_judul'	=>'Laporan',
-          'content'		=>'som/transaksi/laporan_area',
-      );
-      $this->load->view('panel/dashboard', $data);
-  }
+    {   
+        $data = array(
+            'aktif'			=>'laporan',
+            'title'			=>'Brajamarketindo',
+            'judul'			=>'Dashboard',
+            'sub_judul'	=>'Laporan',
+            'content'		=>'som/transaksi/laporan_area',
+        );
+        $this->load->view('panel/dashboard', $data);
+    }
 
   function load_area()
   { 
@@ -246,32 +293,6 @@ class Area extends CI_Controller {
     }
     echo $opt;
   }
-
-  function template_table()
-    {
-        $template = array(
-            'table_open'            => ' <table id="datatable" class="table table-striped table-bordered">',
-            // 'table_open'            => '<table id="example" class="table table-striped jambo_table table-bordered dt-responsive nowrap">',
-            'thead_open'            => '<thead>',
-            'thead_close'           => '</thead>',
-            'heading_row_start'     => '<tr>',
-            'heading_row_end'       => '</tr>',
-            'heading_cell_start'    => '<th>',
-            'heading_cell_end'      => '</th>',
-            'tbody_open'            => '<tbody>',
-            'tbody_close'           => '</tbody>',
-            'row_start'             => '<tr>',
-            'row_end'               => '</tr>',
-            'cell_start'            => '<td>',
-            'cell_end'              => '</td>',
-            'row_alt_start'         => '<tr>',
-            'row_alt_end'           => '</tr>',
-            'cell_alt_start'        => '<td>',
-            'cell_alt_end'          => '</td>',
-            'table_close'           => '</table>'
-        );
-        $this->table->set_template($template);
-    }
 
 }
 

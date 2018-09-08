@@ -18,7 +18,61 @@ class Produk extends CI_Controller {
                   redirect('login','refresh');
               }
         }
+        $this->load->model('Penjualan_produk', 'produk');
+        
     }
+
+    function index()
+    {
+      $data = array(
+          'aktif'			=>'laporan',
+          'title'			=>'Brajamarketindo',
+          'judul'			=>'Dashboard',
+          'sub_judul'	    =>'Aset',
+          'content'		=>'produk/produk',
+          'month'         => $this->month,
+          'list_barang' => $this->produk->get_produk(),
+      );
+    $this->load->view('panel/dashboard', $data);
+    }
+
+    function ajax_list()
+    {
+
+        $list = $this->produk->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $lap) {
+            $no++;
+            $row = array();
+            $row[] = $lap->id_transaksi;
+            $row[] = tgl_indo($lap->tgl_transaksi);
+            $row[] = tgl_indo($lap->jatuh_tempo);
+            $row[] = $lap->id_pelanggan;
+            $row[] = $lap->nama_pelanggan;
+            $row[] = $lap->nama_barang;
+            $row[] = $lap->qty;
+            $row[] = $lap->satuan;
+            $row[] = $lap->kota;
+            $row[] = $lap->kecamatan;
+            $row[] = $lap->kelurahan;
+            $row[] = $lap->no_telp;
+            $row[] = $lap->nama_karyawan;
+            $row[] = $lap->nama_debt;
+            $row[] = $lap->subtotal;
+            $data[] = $row;
+        }
+
+        $output = array(
+                        "draw" => $_POST['draw'],
+                        "recordsTotal" => $this->produk->count_all(),
+                        "recordsFiltered" => $this->produk->count_filtered(),
+                        "data" => $data,
+                );
+        //output to json format
+        echo json_encode($output);
+    }
+
 
     function get_all()
   {

@@ -8,7 +8,7 @@ $(document).ready(function() {
     view('day');
     
     //datatables
-    table = $('#table-penjualan-debt').DataTable({ 
+    table = $('#table-penjualan-debt-admin2').DataTable({ 
         "footerCallback": function ( row, data, start, end, display ) {
             var api = this.api(), data;
  
@@ -78,7 +78,7 @@ function refresh() {
 
 function reload_table()
 {
-    $('#table-penjualan-debt').DataTable().ajax.reload();//reload datatable ajax
+    $('#table-penjualan-debt-admin2').DataTable().ajax.reload();//reload datatable ajax
 }
 
 function view(value) {

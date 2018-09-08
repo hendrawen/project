@@ -1,118 +1,84 @@
-
-
+var table;
+var btn_excel = $("#excel-tracking-pel");
 
 $(document).ready(function () {
-    get_all();
-  });
+	// $("#filter-tgl").datepicker({
+	//     dateFormat : 'yy-mm-dd',
+	// });
+	view('day');
 
-  function get_all() {
-    $("#loading").show();
-    $.ajax({
-      url: base_url+'laporan/produk/get_all/',
-      type: 'POST',
-      dataType: 'html',
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    })
-  }
+	//datatables
+	table = $('#table-laporan-produk').DataTable({
+		"processing": true, //Feature control the processing indicator.
+		"serverSide": true, //Feature control DataTables' server-side processing mode.
+		"order": [], //Initial no order.
+		"lengthMenu": [
+			[10, 25, 50, -1],
+			[10, 25, 50, "All"]
+		],
+		// Load data for the table's content from an Ajax source
+		"ajax": {
+			"url": base_url + "laporan/produk/ajax_list",
+			"type": "POST",
+			"data": function (data) {
+				data.tanggal = $('#filter-tgl').val();
+				data.dari = $('#filter-bulan-dari').val();
+				data.ke = $('#filter-bulan-ke').val();
+				data.tahun = $('#filter-tahun').val();
+				data.tahun2 = $('#filter-tahun2').val();
 
-/* -------------
-  ----- Produk ---
-  --------------*/
-  // harian
-  $("#btn-produk-harian").click(function() {
-    day = $("#produk-hari").val();
-    id_barang = $("#id_barang").val();
-    $("#loading").show();
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $.cookie('csrf_cookie_name')
-        }
-    });
-    $.ajax({
-      url: base_url+'laporan/produk/load_produk_harian/',
-      type: 'POST',
-      dataType: 'html',
-      data: {day: day, id_barang : id_barang},
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    });
-  });
+				data.barang1 = $('#id_barang_hari').val();
+				data.barang2 = $('#id_barang_bulan').val();
+				data.barang3 = $('#id_barang_tahun').val();
 
-  //bulanan
-  $("#btn-produk-bulanan").click(function() {
-    from = $("#produk-from").val();
-    to = $("#produk-to").val();
-    year = $("#produk-year").val();
-    id_barang = $("#id_barang").val();
-    $("#loading").show();
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $.cookie('csrf_cookie_name')
-        }
-    });
-    $.ajax({
-      url: base_url+'laporan/produk/load_produk_bulanan/',
-      type: 'POST',
-      dataType: 'html',
-      data: {from: from, to : to, year : year, id_barang : id_barang},
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    });
-  });
+			}
+		},
+		//Set column definition initialisation properties.
+		"columnDefs": [{
+			"targets": [0 - 1], //first column / numbering column
+			"orderable": false, //set not orderable
+		}, ],
+	});
 
-  // tahunan
-  $("#btn-produk-tahun").click(function() {
-    tahun = $("#tahun").val();
-    id_barang = $("#id_barang").val();
-    $("#loading").show();
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $.cookie('csrf_cookie_name')
-        }
-    });
-    $.ajax({
-      url: base_url+'laporan/produk/load_produk_tahun/',
-      type: 'POST',
-      dataType: 'html',
-      data: {tahun: tahun, id_barang : id_barang},
-      success : function (data) {
-        $("#loading").hide();
-        $("#tbody").html(data);
-      }
-    });
-  });
+});
 
-  /* -------------
-  -- end Produk --
-  --------------*/
+
+function search() {
+	reload_table();
+}
+
+function refresh() {
+	$('#form-laporan')[0].reset();
+	reload_table();
+}
+
+function reload_table() {
+	$('#table-laporan-produk').DataTable().ajax.reload(); //reload datatable ajax
+}
+
+
+
 
   /*
   --- produk ---
   */
- $("#excel_produk").click(function() {
-    t = $("#tahun").val();
-    i = $("#id_barang").val();
+ $("#excel_produk_tahunan").click(function() {
+    t = $("#filter-tahun2").val();
+    i = $("#id_barang_tahun").val();
     window.location = base_url + 'som/excel/produk/'+t+'/'+i;
   });
 
-  $("#excel_produk_bulanan").click(function() {
-    f = $("#produk-from").val();
-    t = $("#produk-to").val();
-    y = $("#produk-year").val();
-    i = $("#id_barang").val();
+  $("#produk_excel_bulanan").click(function() {
+    f = $("#filter-bulan-dari").val();
+    t = $("#filter-bulan-ke").val();
+    y = $("#filter-tahun").val();
+    i = $("#id_barang_bulan").val();
     window.location = base_url + 'som/excel/produk_bulanan/'+f+'/'+t+'/'+y+'/'+i;
   });
   
   $("#excel_produk_harian").click(function() {
-    t = $("#produk-hari").val();
-    i = $("#id_barang").val();
+    t = $("#filter-tgl").val();
+    i = $("#id_barang_hari").val();
     window.location = base_url + 'som/excel/produk_harian/'+t+'/'+i;
   });
 
@@ -120,6 +86,20 @@ $(document).ready(function () {
   --- end produk ---
   */
 
- $("#btn-refresh").click(function () { 
-    get_all();
-  });
+ function view(value) {
+	if (value == 'day') {
+		$("#view_day").show();
+		$("#view_month").hide();
+		$("#view_year").hide();
+	} else if (value == 'month') {
+		$("#view_day").hide();
+		$("#view_month").show();
+		$("#view_year").hide();
+	} else if (value == 'year') {
+		$("#view_day").hide();
+		$("#view_month").hide();
+		$("#view_year").show();
+	}
+	$('#form-laporan')[0].reset();
+}
+

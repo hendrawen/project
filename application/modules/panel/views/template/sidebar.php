@@ -64,8 +64,8 @@
                         <li><a href="<?php echo base_url();?>effectifcall">Customer Service / Validator</a></li>
                       </ul>
                   </li>
-                  <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('laporan/penjualan/');?>"><i class="fa fa-line-chart"></i> Report Penjualan</a>
-                  <li><a <?php echo ($aktif == 'laporan')?'class="active"':"";?> href="<?php echo base_url('laporan/pembayaran/utama');?>"><i class="fa fa-line-chart"></i> Report Pembayaran</a>
+                  <!-- <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url('laporan/penjualan/');?>"><i class="fa fa-line-chart"></i> Report Penjualan</a>
+                  <li><a <?php echo ($aktif == 'laporan')?'class="active"':"";?> href="<?php echo base_url('laporan/pembayaran/utama');?>"><i class="fa fa-line-chart"></i> Report Pembayaran</a> -->
                     <!-- <li><a><i class="fa fa-line-chart"></i> Report Pembayaran <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                       <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_harian">Pembayaran Harian</a></li>
@@ -73,45 +73,44 @@
                         <li><a href="<?php echo base_url();?>laporan/pembayaran/pembayaran_tahunan">Pembayaran Tahunan</a></li>
                       </ul>
                     </li> -->
-                    <li><a><i class="fa fa-line-chart"></i> Report ASET <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-line-chart"></i> Report <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>laporan/penarikan/harian">Penarikan Harian</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penarikan/bulanan">Penarikan Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penarikan/tahunan">Penarikan Tahunan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan">Penjualan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/utama">Pembayaran</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penarikan">Penarikan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk">Trx Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area">Trx Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing">Trx Marketing</a></li>
                       </ul>
                     </li>
-                    <li><a><i class="fa fa-line-chart"></i> Report Trx Produk <span class="fa fa-chevron-down"></span></a>
+                    <!-- <li><a><i class="fa fa-line-chart"></i> Report Trx Produk <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_harian">Penjualan Harian Per Produk</a></li>
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_bulanan">Penjualan Bulanan Per Produk</a></li>
                         <li><a href="<?php echo base_url();?>laporan/produk/produk_tahun">Penjualan Tahunan Per Produk</a></li>
                       </ul>
-                    </li>
-                    <li><a><i class="fa fa-line-chart"></i> Report Trx Area <span class="fa fa-chevron-down"></span></a>
+                    </li> -->
+                    <!-- <li><a><i class="fa fa-line-chart"></i> Report Trx Area <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>laporan/area/harian">Penjualan Harian Per Area</a></li>
                         <li><a href="<?php echo base_url();?>laporan/area/bulanan">Penjualan Bulanan Per Area</a></li>
                         <li><a href="<?php echo base_url();?>laporan/area/tahun">Penjualan Tahunan Per Area</a></li>
                       </ul>
-                    </li>
-                    <li><a><i class="fa fa-line-chart"></i> Report Trx Marketing <span class="fa fa-chevron-down"></span></a>
+                    </li> -->
+                    <!-- <li><a><i class="fa fa-line-chart"></i> Report Trx Marketing <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>laporan/marketing/harian_marketing">Penjualan Harian Marketing</a></li>
                         <li><a href="<?php echo base_url();?>laporan/marketing/bulanan_marketing">Penjualan Bulanan Marketing</a></li>
                         <li><a href="<?php echo base_url();?>laporan/marketing/tahunan_marketing">Penjualan Tahunan Marketing</a></li>
                       </ul>
-                    </li>
+                    </li> -->
                   <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>laporan/penjualan/penjualan_debt">Penjualan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_harian">Pembayaran Harian</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_bulanan">Pembayaran Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/debt_tahunan">Pembayaran Tahunan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/penarikan/harian">Penarikan Harian</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/penarikan/bulanan">Penarikan Bulanan</a></li>
-                        <li><a href="<?php echo base_url();?>lap_dep/penarikan/tahunan">Penarikan Tahunan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/pembayaran_debt">Pembayaran</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/penarikan_debt">Penarikan</a></li>
                       </ul>
-                    </li>
+                  </li>
                   <li><a href="<?php echo base_url();?>tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
                   <li><a href="<?php echo base_url();?>tracking_aset"><i class="fa fa-search"></i> Tracking Aset</a></li>
                   <li><a href="<?php echo base_url();?>market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>

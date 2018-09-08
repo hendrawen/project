@@ -1,14 +1,9 @@
-<style>
-    th {
-        white-space: nowrap;
-    }
-</style>
 <div class="x_panel">
     <div class="x_title">
 
-        <div class="row">
+    <div class="row">
             <div class="col-md-4">
-                <h2>Laporan Penjualan Debt</h2>
+                <h2>Laporan Penarikan</h2>
             </div>
             <div class="col-md-4">
                 <h2 id="total"></h2>
@@ -37,7 +32,7 @@
         <form action="#" method="post" id="form-laporan">
             <!-- view-day -->
             <div id="view_day" class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon">Tanggal</span>
                         <input type="date" class="form-control" id="filter-tgl" placeholder="Tanggal">
@@ -45,27 +40,15 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <div class="input-group">
-                        <span class="input-group-addon">Nama Debt</span>
-                        <select class="form-control" id="filter-debt">
-                            <option value="">Pilih Debt</option>
-                            <?php foreach ($list_debt as $key): ?>
-                            <option value="<?php echo $key->id_karyawan?>"><?php echo $key->nama?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <span class="input-group-addon">Nama Produk </span>
+                    <select class="form-control" id="id_barang_hari">
+                        <?php foreach ($list_barang->result() as $row): ?>
+                        <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
+                        <?php endforeach; ?>
+                    </select>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group">
-                        <span class="input-group-addon">Status</span>
-                        <select class="form-control" id="filter-status">
-                            <option value="">Pilih Status</option>
-                            <?php foreach ($list_status as $key): ?>
-                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right">
                     <button
                         type="button"
                         id="btn-search"
@@ -73,19 +56,19 @@
                         class="btn btn-success">
                         <i class="fa fa-search"></i>
                         Search</button>
-                    <button type="button" onclick="excel_tanggal()" class="btn btn-primary">
+                    <button type="button" id="excel_produk_harian" class="btn btn-primary">
                         <i class="fa fa-download"></i>
                         Excel</button>
                     <button type="button" id="btn-refresh" onclick="refresh()" class="btn btn-info">
                         <i class="fa fa-refresh"></i>
                         Reload</button>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-right"></div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-right"></div>
             </div>
             <!-- end-view-day -->
             <!-- view-month -->
             <div id="view_month" class="row" style="display:none">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon">Bulan dari</span>
                         <select class="form-control" id="filter-bulan-dari">
@@ -96,7 +79,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon">Bulan ke</span>
                         <select class="form-control" id="filter-bulan-ke">
@@ -107,7 +90,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="input-group">
                         <span class="input-group-addon">Tahun</span>
                         <select class="form-control" id="filter-tahun">
@@ -118,29 +101,17 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="input-group">
-                        <span class="input-group-addon">Nama Debt</span>
-                        <select class="form-control" id="filter-debt2">
-                            <option value="">Pilih Debt</option>
-                            <?php foreach ($list_debt as $key): ?>
-                            <option value="<?php echo $key->id_karyawan?>"><?php echo $key->nama?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <span class="input-group-addon">Nama Produk </span>
+                    <select class="form-control" id="id_barang_bulan">
+                        <?php foreach ($list_barang->result() as $row): ?>
+                        <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
+                        <?php endforeach; ?>
+                    </select>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group">
-                        <span class="input-group-addon">Status</span>
-                        <select class="form-control" id="filter-status2">
-                            <option value="">Pilih Status</option>
-                            <?php foreach ($list_status as $key): ?>
-                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
                     <button
                         type="button"
                         id="btn-search"
@@ -148,7 +119,7 @@
                         class="btn btn-success">
                         <i class="fa fa-search"></i>
                         Search</button>
-                    <button type="button" onclick="excel_bulan()" class="btn btn-primary">
+                    <button type="button" id="produk_excel_bulanan" class="btn btn-primary">
                         <i class="fa fa-download"></i>
                         Excel</button>
                     <button type="button" id="btn-refresh" onclick="refresh()" class="btn btn-info">
@@ -173,27 +144,15 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                     <div class="input-group">
-                        <span class="input-group-addon">Nama Debt</span>
-                        <select class="form-control" id="filter-debt3">
-                            <option value="">Pilih Debt</option>
-                            <?php foreach ($list_debt as $key): ?>
-                            <option value="<?php echo $key->id_karyawan?>"><?php echo $key->nama?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <span class="input-group-addon">Nama Produk </span>
+                    <select class="form-control" id="id_barang_tahun">
+                        <?php foreach ($list_barang->result() as $row): ?>
+                        <option value="<?php echo $row->id;?>"><?php echo $row->nama_barang;?></option>
+                        <?php endforeach; ?>
+                    </select>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group">
-                        <span class="input-group-addon">Status</span>
-                        <select class="form-control" id="filter-status3">
-                            <option value="">Pilih Status</option>
-                            <?php foreach ($list_status as $key): ?>
-                            <option value="<?php echo $key->id?>"><?php echo $key->nama_status?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 text-right">
                     <button
                         type="button"
                         id="btn-search"
@@ -201,7 +160,7 @@
                         class="btn btn-success">
                         <i class="fa fa-search"></i>
                         Search</button>
-                    <button type="button" onclick="excel_tahun()" class="btn btn-primary">
+                    <button type="button" id="excel_produk_tahunan" class="btn btn-primary">
                         <i class="fa fa-download"></i>
                         Excel</button>
                     <button type="button" id="btn-refresh" onclick="refresh()" class="btn btn-info">
@@ -215,11 +174,10 @@
         <hr>
         <div class="table-responsive">
             <table
-                id="table-penjualan-debt-admin2"
-                class="table table-striped jambo_table table-bordered dt-responsive nowrap">
+                id="table-laporan-produk"
+                class="table table-striped jambo_table table-bordered nowrap">
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>No Faktur</th>
                         <th>Tgl Kirim</th>
                         <th>Jatuh Tempo</th>
@@ -234,7 +192,6 @@
                         <th>No Telpon</th>
                         <th>Surveyor</th>
                         <th>Debt</th>
-                        <th>Status</th>
                         <th>Jumlah</th>
                     </tr>
                 </thead>
