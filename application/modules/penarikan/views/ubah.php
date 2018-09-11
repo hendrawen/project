@@ -1,7 +1,13 @@
 
 
 
+<?php
 
+echo "<pre>";
+print_r ($detail);
+echo "</pre>";
+
+?>
 <?php if ($this->session->flashdata('message')): ?>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -56,15 +62,17 @@
     <div class="x_content">
 
         <!-- start form for validation -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 form-group">
                 <label for="fullname">ID Pelanggan * :</label>
                 <input
                     type="text"
                     id="id_track_aset"
+                    value="<?=$detail[0]->id_pelanggan?>"
                     class="form-control"
                     placeholder="Masukkan ID Pelanggan"
                     name="id_track_aset"
+                    readonly="true"
                     required="">
             </div>
         </div>
@@ -74,7 +82,7 @@
                     <i class="fa fa-search"></i>
                     Cek</button>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="table-responsive">
                 <table
@@ -88,7 +96,25 @@
                         <th>Bayar Krat</th>
                         <th>Bayar Uang (Rp.)</th>
                     </thead>
-                    <tbody id="result_aset"></tbody>
+                    <tbody>
+
+                    <?php
+                    foreach ($detail as $key):
+                        if ($key->bayar_krat > 0 || $key->bayar_uang > 0 ):
+                    ?>
+                    <tr>
+                    <td><?=$key->id_pelanggan?></td>
+                    <td><?=$key->nama_pelanggan?></td>
+                    <td><?=$key->nama_pelanggan?></td>
+                    <td><?=tgl_indo($key->tgl_penarikan)?></td>
+                    <td><?=$key->bayar_krat?></td>
+                    <td><?=$key->bayar_uang?></td>
+                    </tr>
+                    <?php
+                    endif;
+                    endforeach;
+                    ?>
+                    </tbody>
                 </table>
             </div>
         </div>

@@ -137,7 +137,7 @@
                     
                     <input type="hidden" name="id" id="id">
                     
-                    <label for="">Masukkan password untuk konfirmasi hapus</label>
+                    <label id="label_keterangan" for="">Masukkan password untuk konfirmasi hapus</label>
                     <div class="input-group">
                         <input
                             type="password"

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Penarikan extends CI_Controller{
 
-  private $permit;
+  private $permit = false;
   public function __construct()
   { 
     parent::__construct();
@@ -17,6 +17,7 @@ class Penarikan extends CI_Controller{
     }
     $this->load->model('Penarikan_model', 'model');
     $this->load->model('dep/Dep_model', 'dep');
+    $this->load->model('delivery/Aset_model');
     $this->load->library('ion_auth');
   }
 
@@ -69,7 +70,18 @@ class Penarikan extends CI_Controller{
             $row[] = number_format($key->jumlah,2,",",".");
             $row[] = $key->sisa;
             $row[] = $key->status;
-            $row[] = '<button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>';
+            $edit = '
+            <button type="button" onClick=edit("'.$key->id.'") class="btn btn-primary btn-xs">Edit</button>
+            <button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>
+            ';
+            $hapus = '
+            <button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>
+            ';
+            if ($key->satuan == 'Krat' || $key->satuan == 'Botol') {
+              $row[] = $edit;
+            } else {
+              $row[] = $hapus;
+            }
             $data[] = $row;
         }
 
@@ -257,5 +269,38 @@ class Penarikan extends CI_Controller{
       echo json_encode((bool)false);
     }
   }
+
+  function cek_password_edit()
+  {
+    $password = $this->input->post('password');
+    $username = $this->session->identity;
+    $faktur = $this->input->post('faktur');
+    if ($this->ion_auth->login($username, $password, 0)){
+      $this->permit = true;
+      echo json_encode((bool)true);
+    } else {
+      echo json_encode((bool)false);
+    }
+  }
+
+  public function update($faktur)
+    {
+      // if ($this->permit == false) {
+      //   redirect('penarikan','refresh');
+      // } else {
+        $aset = $this->Aset_model->get_all();
+        $data = array(
+            'aset_data' => $aset,
+            'aktif'			=>'delivery',
+            'title'			=>'Brajamarketindo',
+            'judul'			=>'Dashboard',
+            'sub_judul'	=>'Penarikan',
+            'content'		=>'ubah',
+            'gudang'    => $this->Aset_model->get_gudang(),
+            'detail'    => $this->model->get_by_id($faktur),
+        );
+        $this->load->view('panel/dashboard', $data);
+      // }
+    }
 
 }

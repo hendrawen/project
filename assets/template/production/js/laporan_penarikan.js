@@ -51,7 +51,7 @@ function search() {
 }
 
 function refresh() {
-	$('#form-laporan')[0].reset();
+	// $('#form-laporan')[0].reset();
 	reload_table();
 }
 
@@ -74,7 +74,7 @@ function view(value) {
 		$("#view_month").hide();
 		$("#view_year").show();
 	}
-	$('#form-laporan')[0].reset();
+	// $('#form-laporan')[0].reset();
 }
 
 // bulan

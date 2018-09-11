@@ -106,7 +106,6 @@ class Aset_model extends CI_Model
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_asis_debt.wp_pelanggan_id', 'inner');
         $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
         $this->db->group_by('wp_asis_debt.id');
-        
         $this->db->order_by('wp_asis_debt.id', 'asc');
         
         $record = $this->db->get('wp_asis_debt');

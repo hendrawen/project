@@ -51,6 +51,43 @@ function hapus(faktur) {
                 $("#nama_pelanggan").text(response.nama_pelanggan);
                 $("#id").val(response.id);
                 $("#password").val("");
+
+                $(".modal-title").text('Konfirmasi Hapus Data Penarikan');
+                $("#label_keterangan").text('Masukkan password untuk konfirmasi hapus');
+                $("#btn_hapus").text('Hapus');
+                $("#modal_hapus").modal('show');
+                save_method = 'hapus';
+            }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function edit(faktur) {
+    $("#pesan").html("");
+    $("#password").val("");
+    $.ajax({
+        type: "post",
+        url: base_url + "penarikan/get_faktur",
+        data: {
+            faktur: faktur
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response == false) {
+                alert('No Faktur tidak diketahui');
+            } else {
+                $("#faktur").text(response.faktur);
+                $("#nama_pelanggan").text(response.nama_pelanggan);
+                $("#id").val(response.id);
+                $("#password").val("");
+                save_method = 'ubah';
+
+                $(".modal-title").text('Konfirmasi Ubah Data Penarikan');
+                $("#label_keterangan").text('Masukkan password untuk konfirmasi ubah');
+                $("#btn_hapus").text('Update');
                 $("#modal_hapus").modal('show');
             }
         },
@@ -60,9 +97,47 @@ function hapus(faktur) {
     });
 }
 
+
+
 function check_password() {
+
+    if (save_method == 'hapus') {
+        hapus_action(); 
+    } else if(save_method == 'ubah'){
+        edit_action();
+    }   
+}
+
+function edit_action() {
     password = $("#password").val();
     id = $("#id").val();
+    faktur = $("#faktur").text();
+    $.ajax({
+        type: "post",
+        url: base_url + "penarikan/cek_password_edit",
+        data: {
+            password: password,
+            faktur: id
+        },
+        dataType: "json",
+        success: function (response) {
+            pesan_cek();
+            if (response) {
+                location.href = base_url+'penarikan/update/'+faktur;
+            } else {
+                pesan_gagal('Password salah');
+            }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function hapus_action() {
+    password = $("#password").val();
+    id = $("#id").val();
+    
     $.ajax({
         type: "post",
         url: base_url + "penarikan/cek_password",
