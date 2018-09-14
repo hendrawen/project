@@ -245,8 +245,8 @@ class Transaksi extends CI_Controller
     
     public function update2($id){
         $this->cart->destroy();
-        $data = $this->Transaksi_model->get_transaksi($id);
-            foreach ($data as $key) {
+        $data3 = $this->Transaksi_model->get_transaksi($id);
+            foreach ($data3 as $key) {
                 $data2 = array(
                     'id' => $key->id_barang,
                     'name' => $key->nama_barang,
@@ -254,20 +254,26 @@ class Transaksi extends CI_Controller
                     'qty' => $key->qty,
                     'diskon' => $key->diskon,
                     'wp_barang_id' => $key->id,
-                    'id_transaksi' => $key->id_transaksi,
                     'satuan' => $key->satuan,
-                    'id_pelanggan' => $key->id_pelanggan,
-                    'nama_pelanggan' => $key->nama_pelanggan,
-                    'nama_dagang' => $key->nama_dagang,
-                    'alamat' => $key->alamat,
-                    'no_telp' => $key->no_telp,
-                    'nama_status' => $key->nama_status,
-                    'nama_gudang' => $key->nama_gudang,
-                    'bayar' => $key->bayar,
-                    'wp_pelanggan_id' => $key->wp_pelanggan_id,
                     );							
                 $this->cart->insert($data2);
                 }
+
+            foreach ($data3 as $value) {
+                $data = array(
+                    'id_transaksi' => $value->id_transaksi,
+                    'id_pelanggan' => $value->id_pelanggan,
+                    'nama_pelanggan' => $value->nama_pelanggan,
+                    'nama_dagang' => $value->nama_dagang,
+                    'alamat' => $value->alamat,
+                    'no_telp' => $value->no_telp,
+                    'nama_status' => $value->nama_status,
+                    'nama_gudang' => $value->nama_gudang,
+                    'bayar' => $value->bayar,
+                    'wp_pelanggan_id' => $value->wp_pelanggan_id,
+                    
+                    );
+            }
                 $data['aktif']			='Kebutuhan';
                 $data['title']			='Transaksi';
                 $data['judul']			='Form Transaksi';
@@ -283,6 +289,22 @@ class Transaksi extends CI_Controller
 
     public function checkout()
     {	
+        $data2 = $this->Transaksi_model->get_transaksi($this->session->userdata('id_transaksi_sess'));
+        foreach ($data2 as $value) {
+            $data = array(
+                'id_transaksi' => $value->id_transaksi,
+                'id_pelanggan' => $value->id_pelanggan,
+                'nama_pelanggan' => $value->nama_pelanggan,
+                'nama_dagang' => $value->nama_dagang,
+                'alamat' => $value->alamat,
+                'no_telp' => $value->no_telp,
+                'nama_status' => $value->nama_status,
+                'nama_gudang' => $value->nama_gudang,
+                'bayar' => $value->bayar,
+                'wp_pelanggan_id' => $value->wp_pelanggan_id,
+                );
+        }
+        
         $data['aktif']			='Kebutuhan';
         $data['title']			='Transaksi';
         $data['judul']			='Form Transaksi';
@@ -321,6 +343,13 @@ class Transaksi extends CI_Controller
             'wp_barang_id' => $this->input->post('id'),
             'id_transaksi' => $this->input->post('id_transaksi'),
             'satuan' => $this->input->post('satuan'),
+            'id_pelanggan' => $this->input->post('id_pelanggan'),
+            'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id'),
+            'nama_pelanggan' => $this->input->post('nama_pelanggan'),
+            'alamat' => $this->input->post('alamat'),
+            'nama_dagang' => $this->input->post('nama_dagang'),
+            'no_telp' => $this->input->post('no_telp'),
+            'bayar' => $this->input->post('bayar'),
 		);
 		$this->cart->insert($data);
 		echo $this->show_cart3();
@@ -439,18 +468,21 @@ class Transaksi extends CI_Controller
                   'tgl_bayar' => tgl_simpan2($tg3),
                   'username' => $this->session->identity,
               );
-              $this->db->update('wp_detail_transaksi', $detail, 'id_transaksi');
-              $this->db->update('wp_pembayaran', $pembayaran, 'id_transaksi');
-            $res = $this->db->update_batch('wp_transaksi', $result, 'id_transaksi'); // fungsi dari codeigniter untuk menyimpan multi array
-            if($res){$this->cart->destroy();
+              $this->cart->destroy();
+              $this->db->insert('wp_detail_transaksi', $detail);
+              $this->db->insert('wp_pembayaran', $pembayaran);
+              $res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk 
+              if($res)
+              {
+                $this->cart->destroy();
                 $this->session->set_flashdata('message','sukses !');
                 redirect('transaksi');
-            }else{
+              } else {
                 $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
             }
           }
           //status hutang
-  else {
+    else {
     $kp = $this->input->post('idpesan', true);
             $wp_pelanggan_id = $this->input->post('id', true);
             $wp_status_id = $this->input->post('wp_status_id', true);
@@ -488,9 +520,10 @@ class Transaksi extends CI_Controller
                   'tgl_bayar' => tgl_simpan2($tg3),
                   'username' => $this->session->identity
               );
-              $this->db->update('wp_detail_transaksi', $data, 'id_transaksi');
-              $this->db->update('wp_pembayaran', $pembayaran, 'id_transaksi');
-            $res = $this->db->update_batch('wp_transaksi', $result, 'id_transaksi'); // fungsi dari codeigniter untuk menyimpan multi array
+              $this->cart->destroy();
+              $this->db->insert('wp_detail_transaksi', $data);
+              $this->db->insert('wp_pembayaran', $pembayaran);
+            $res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
             if($res)
             {
                 $this->cart->destroy();
@@ -617,6 +650,19 @@ class Transaksi extends CI_Controller
       } else {
         echo json_encode((bool)false);
       }
+    }
+
+    function cek_password_edit()
+    {
+        $password = $this->input->post('password');
+        $username = $this->session->identity;
+        $faktur = $this->input->post('faktur');
+        if ($this->ion_auth->login($username, $password, 0)){
+        $this->permit = true;
+        echo json_encode((bool)true);
+        } else {
+        echo json_encode((bool)false);
+        }
     }
 
 }

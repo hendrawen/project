@@ -18,10 +18,51 @@ class Pembayaran_model extends CI_Model{
       parent::__construct();
   }
 
+  function get_pembayaran($id)
+    {
+        $this->db->select('v_detail.id_pelanggan, v_detail.nama_pelanggan, v_detail.utang, v_detail.bayar, v_detail.id_transaksi, v_detail.tgl_transaksi, v_detail.jatuh_tempo, sum(v_detail.sisa) as sisa, v_detail.selisih, v_detail.tgl_bayar');
+        $this->db->where('id_transaksi', $id);
+        $data = $this->db->get('v_detail');
+        return $data->result();
+    }
+
+    function get_track($id){
+        $this->db->select('*');
+        $this->db->where('id_transaksi', $id);
+        $hsl = $this->db->get('v_detail');
+        if($hsl->num_rows() == 0){
+            // echo '<tr><td colspan="9"><center><div class="alert alert-danger" role="alert">Pelanggan Dengan No. ID : '.$id.' Tidak Memiliki Utang</div></center></td></tr>';
+            return FALSE;
+        } else {
+          return $hsl->result();
+        }
+      }
+    
+    //   function sum_get_track($cari){
+    //     $this->db->select('sum(sisa) as sisa');
+    //     $this->db->where('id_pelanggan', $cari);
+    //     $hsl = $this->db->get('v_detail');
+    //     return $hsl->result();
+    //   }
+    
+    //   function get_min_track($cari){
+    //     $this->db->order_by('id_transaksi', 'ASC');
+    //     $this->db->select('id_transaksi, sisa, id_pelanggan');
+    //     $this->db->where('id_pelanggan', $cari);
+    //     $hsl = $this->db->get('v_detail');
+    //     return $hsl->result();
+    //   }
+
+      function update_pembayaran($id, $data)
+      {
+          $this->db->where('id_transaksi', $id);
+          return $this->db->update('wp_pembayaran', $data);
+      }
+
   private function _get_datatables_query()
   {
      $this->db->select('vdetail_pembayaran.id_transaksi, vdetail_pembayaran.tgl_transaksi, vdetail_pembayaran.jatuh_tempo, vdetail_pembayaran.id_pelanggan, vdetail_pembayaran.nama_pelanggan, vdetail_pembayaran.nama_barang, vdetail_pembayaran.qty, vdetail_pembayaran.satuan, vdetail_pembayaran.kelurahan, vdetail_pembayaran.kecamatan, vdetail_pembayaran.no_telp, vdetail_pembayaran.nama, b.nama as nama_debt, vdetail_pembayaran.subtotal, vdetail_pembayaran.tgl_bayar, sum(vdetail_pembayaran.bayar) as bayar, sum(vdetail_pembayaran.jumlah_bayar) as jumlah_bayar, vdetail_pembayaran.sisa_hutang, `vdetail_pembayaran.nama_status`');
-     $this->db->join('wp_karyawan as b', 'b.id_karyawan = vdetail_pembayaran.username', 'left');
+     $this->db->join('wp_karyawan as b', 'b.id_karyawan = vdetail_pembayaran.username', 'inner');
      $this->db->group_by('id_transaksi, nama_barang');
      //add custom filter here
      $this->db->from($this->table);
@@ -93,14 +134,12 @@ class Pembayaran_model extends CI_Model{
   {
       $this->db->where($this->id2, $id);
       return $this->db->update($this->table2, $data);
-
   }
 
   function get_faktur($faktur)
   {
       $this->db->select('id_transaksi as faktur, nama_pelanggan');
       $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
-      
       $this->db->where('id_transaksi', $faktur);
       return $this->db->get('wp_transaksi')->row();
   }
@@ -111,10 +150,11 @@ class Pembayaran_model extends CI_Model{
     $this->db->delete('wp_transaksi');
     
     $this->db->where('id_transaksi', $faktur);
+    $this->db->delete('wp_detail_transaksi');
+    
+    $this->db->where('id_transaksi', $faktur);
     $this->db->delete('wp_pembayaran');
 
-    $this->db->where('id_transaksi', $faktur);
-    $this->db->delete('wp_detail_transaksi');    
   }
 
 }

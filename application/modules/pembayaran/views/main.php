@@ -1,3 +1,14 @@
+<?php if ($this->session->flashdata('message')): ?>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="alert alert-success alert-dismissible fade in" role="alert" id="message"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+        <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+
 <a
     href="<?php echo base_url('pembayaran/piutang'); ?>"
     type="button"
@@ -124,7 +135,8 @@
                             <td id="nama_pelanggan"></td>
                         </tr>
                     </table>
-                    <label for="">Masukkan password untuk konfirmasi hapus</label>
+                    
+                    <label id="label_keterangan" for="">Masukkan password untuk konfirmasi hapus</label>
                     <div class="input-group">
                         <input
                             type="password"

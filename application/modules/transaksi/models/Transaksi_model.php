@@ -182,7 +182,7 @@ function get_data_pelanggan_bykode($kode){
     // delete data
     function delete($id)
     {
-        $this->db->where($this->id, $id);
+        $this->db->where_in('id_transaksi', $id);
         $this->db->delete($this->table);
     }
 
@@ -247,6 +247,15 @@ function get_data_pelanggan_bykode($kode){
     $this->db->where('id_transaksi', $faktur);
     $this->db->delete('wp_pembayaran');
 
+  }
+
+  function insert_detail($detail)
+  {
+      if (sizeof($detail) == 0) {
+          $this->db->insert('bm_detail_transaksi', $detail);
+      } else {
+          $this->db->insert_batch('bm_detail_transaksi', $detail);
+      }
   }
 
 }

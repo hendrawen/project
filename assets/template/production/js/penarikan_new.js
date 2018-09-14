@@ -97,8 +97,6 @@ function edit(faktur) {
     });
 }
 
-
-
 function check_password() {
 
     if (save_method == 'hapus') {

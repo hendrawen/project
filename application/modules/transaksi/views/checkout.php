@@ -13,9 +13,9 @@
 <div class="row">
   <form action="#" id="form_checkout" class="form-horizontal">
     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-    <?php foreach($this->cart->contents() as $items): ?>
-      <input type="text" name="id_pelanggan" id="autoidtransaksi2" class="form-control" value="<?php echo $items['id_pelanggan'];?>" placeholder="Masukkan ID Pelanggan" required="">
-    <?php endforeach; ?>
+    
+      <input type="text" name="id_pelanggan" id="autoidtransaksi2" class="form-control" value="<?php echo $id_pelanggan; ?>" placeholder="Masukkan ID Pelanggan" required="">
+    
     </div>
 </form>
 </div>
@@ -85,14 +85,12 @@
                   <div class="col-sm-4 invoice-col">
                     Kepada
                         <address>
-                        <?php $i = 1; ?>
-                        <?php foreach($this->cart->contents() as $items): ?>
-                            <strong><span name="nama_pelanggan" id="nama_pelanggan"><?php echo $items['nama_pelanggan'];?></span></strong>
-                            <br><span name="nama_dagang" id="nama_dagang"><?php echo $items['nama_dagang'];?></span>
-                            <br><span name="alamat" id="alamat"><?php echo $items['alamat'];?></span>
-                            <br>Telp : <span name="no_telp" id="no_telp"><?php echo $items['no_telp'];?></span>
-                        <?php $i++; ?>
-                        <?php endforeach; ?>
+                        
+                            <strong><span name="nama_pelanggan" id="nama_pelanggan"><?php echo $nama_pelanggan;?></span></strong>
+                            <br><span name="nama_dagang" id="nama_dagang"><?php echo $nama_dagang;?></span>
+                            <br><span name="alamat" id="alamat"><?php echo $alamat;?></span>
+                            <br>Telp : <span name="no_telp" id="no_telp"><?php echo $no_telp; ?></span>
+                        
                         </address>
                   </div>
                   <!-- /.col -->
@@ -104,7 +102,7 @@
                                           Echo tgl_indo($date);
                                         ?>
                     <br>
-                    <b>ID Pelanggan:</b> <span name="idpelanggan" id="idpelanggan">ID Pelanggan</span>
+                    <b>ID Pelanggan:</b> <span name="idpelanggan" id="idpelanggan"> <?php echo $id_pelanggan;?> </span>
                   </div>
                   <!-- /.col -->
                 </div>
@@ -119,10 +117,10 @@
                 <input type="hidden" name="idpesan[]" value="<?php echo rand(1,10000);?>">
 								<input type="hidden" name="hutang" value="<?php echo $get_total ?>">
 								<input type="hidden" name="diskon" value="<?php echo $this->session->userdata('diskon') ?>">
-                  <input type="text" name="id_transaksi_hutang" id="id_transaksi_hutang" value="<?php echo $items['id_transaksi']; ?>">
-                  <input type="hidden" name="id" id="id" readonly value="<?php echo $items['wp_pelanggan_id'];?>" class="form-control">
+                  <input type="text" name="id_transaksi_hutang" id="id_transaksi_hutang" value="<?php echo $id_transaksi ?>">
+                  <input type="hidden" name="id" id="id" readonly value="<?php echo $wp_pelanggan_id;?>" class="form-control">
                   <input type="hidden" name="wp_barang_id[]" readonly value="<?php echo $items['wp_barang_id'];?>">
-                  <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $items['id_transaksi'];?>">
+                  <input type="hidden" name="id_transaksi[]" readonly value="<?php echo $id_transaksi;?>">
                   <input type="hidden" name="subtotal[]" value="<?php echo $total ?>"></td>
                   <input type="hidden" name="harga[]" value="<?php echo $items['price'];?>"></td>
                   <input type="hidden" readonly value="<?php echo $items['id'];?>" style="border:0px;background:none;">
@@ -213,11 +211,9 @@
                     <p class="lead">Pembayaran</p>
                     <div class="form-group">
                       <label for="">Jumlah Bayar</label>
-                      <?php $i = 1; ?>
-                        <?php foreach($this->cart->contents() as $items): ?>
-                        <input type="text" name="bayar" placeholder="Rp." class="form-control" value="<?php echo $items['bayar']?>" readonly>
-                        <?php $i++; ?>
-                       <?php endforeach; ?>
+                      
+                        <input type="text" name="bayar" placeholder="Rp." class="form-control" value="<?php echo $bayar; ?>" readonly>
+                       
                     </div>
                   </div>
                   <!-- /.col -->

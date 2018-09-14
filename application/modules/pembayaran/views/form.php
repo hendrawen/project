@@ -31,7 +31,7 @@
                   <div class="x_content">
 
                     <!-- start form for validation -->
-                    <form action="<?php echo base_url(). 'pembayaran/update_action'; ?>" method="post">
+                    <form action="<?php echo base_url().'pembayaran/update_action'; ?>" method="post">
                       <div class="form-group">
                         <label for="fullname">ID Pelanggan * :</label>
                         <input type="text" id="title" class="form-control" placeholder="Masukkan ID Pelanggan" name="id_pelanggan" required="">

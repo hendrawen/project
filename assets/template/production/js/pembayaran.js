@@ -2,6 +2,7 @@ var save_method; //for save method string
 var table;
 $(document).ready(function () {
     table = $('#tbl_pembayaran').dataTable({
+        "destroy": true,
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
@@ -34,6 +35,8 @@ function refresh_table() {
 }
 
 function hapus(faktur) {
+    $("#pesan").html("");
+    $("#password").val("");
     $.ajax({
         type: "post",
         url: base_url + "pembayaran/get_faktur",
@@ -47,7 +50,45 @@ function hapus(faktur) {
             } else {
                 $("#faktur").text(response.faktur);
                 $("#nama_pelanggan").text(response.nama_pelanggan);
+                //$("#id").val(response.id);
                 $("#password").val("");
+
+                $(".modal-title").text('Konfirmasi Hapus Data Pembayaran');
+                $("#label_keterangan").text('Masukkan password untuk konfirmasi hapus');
+                $("#btn_hapus").text('Hapus');
+                $("#modal_hapus").modal('show');
+                save_method = 'hapus';
+            }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function edit(faktur) {
+    $("#pesan").html("");
+    $("#password").val("");
+    $.ajax({
+        type: "post",
+        url: base_url + "pembayaran/get_faktur",
+        data: {
+            faktur: faktur
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response == false) {
+                alert('No Faktur tidak diketahui');
+            } else {
+                $("#faktur").text(response.faktur);
+                $("#nama_pelanggan").text(response.nama_pelanggan);
+                //$("#id").val(response.id);
+                $("#password").val("");
+                save_method = 'ubah';
+
+                $(".modal-title").text('Konfirmasi Ubah Data Pembayaran');
+                $("#label_keterangan").text('Masukkan password untuk konfirmasi ubah');
+                $("#btn_hapus").text('Update');
                 $("#modal_hapus").modal('show');
             }
         },
@@ -58,6 +99,41 @@ function hapus(faktur) {
 }
 
 function check_password() {
+    
+    if (save_method == 'hapus') {
+        hapus_action(); 
+    } else if(save_method == 'ubah'){
+        edit_action();
+    }   
+}
+
+function edit_action() {
+    password = $("#password").val();
+    //id = $("#id").val();
+    faktur = $("#faktur").text();
+    $.ajax({
+        type: "post",
+        url: base_url + "pembayaran/cek_password_edit",
+        data: {
+            password: password,
+            faktur: faktur
+        },
+        dataType: "json",
+        success: function (response) {
+            pesan_cek();
+            if (response) {
+                location.href = base_url+'pembayaran/update/'+faktur;
+            } else {
+                pesan_gagal('Password salah');
+            }
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function hapus_action() {
     password = $("#password").val();
     faktur = $("#faktur").text();
     $.ajax({
@@ -73,7 +149,7 @@ function check_password() {
             if (response) {
                 pesan_sukses('Berhasil dihapus');
                 setTimeout(() => {
-                    refresh_table();
+                    location.reload();
                     $("#modal_hapus").modal('hide');
                     $("#pesan").html("");
                     $("#password").val("");

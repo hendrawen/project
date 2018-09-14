@@ -158,6 +158,8 @@ class Dep_model extends CI_Model{
 	}
 
   function get_track($cari){
+    // $this->db->select('v_detail.*, wp_pembayaran.id_pelanggan');
+    // $this->db->join('wp_pembayaran', 'wp_pembayaran.id_transaksi = v_detail.id_transaksi', 'join');
     $this->db->where('id_pelanggan', $cari);
     $hsl = $this->db->get('v_detail');
     if($hsl->num_rows() == 0){
@@ -203,11 +205,10 @@ class Dep_model extends CI_Model{
     return $this->db->get('v_event')->result();
   }
 
-  function update($id, $data)
+  function update_pembayaran($id, $data)
   {
-      $this->db->where('id', $id);
-      return $this->db->update('wp_detail_transaksi', $data);
-
+      $this->db->where('id_transaksi', $id);
+      return $this->db->update('wp_pembayaran', $data);
   }
 
 

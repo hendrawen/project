@@ -13,7 +13,10 @@
     <?php endforeach ?>
     </select>
   </div>
-  <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $generate_invoice; ?>">
+   
+  <input type="hidden" name="id_transaksi" id="id_transaksi" value="<?php echo $id_transaksi; ?>">     
+  <?php $this->session->set_userdata('id_transaksi_sess', $id_transaksi) ?>
+
   <input type="hidden" name="id" id="id" class="form-control">
   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
       <input type="text" name="nama_barang" id="nama_barang" placeholder="Nama Barang" readonly class="form-control">
@@ -30,6 +33,15 @@
   <div class="col-md-2 col-sm-12 col-xs-12 form-group">
       <input type="text" class="form-control" name="diskon" id="diskon" placeholder="input diskon (Rp.)" autocomplete="off" onkeyup="FormatCurrency(this)" >
   </div>
+     
+    <!-- <input type="hidden" name="id_pelanggan" id="id_pelanggan" value="<?php echo $id_pelanggan; ?>" placeholder="Id Pelanggan" readonly class="form-control">
+    <input type="hidden" name="wp_pelanggan_id" id="wp_pelanggan_id" value="<?php echo $wp_pelanggan_id; ?>" placeholder="Pelanggan Id" readonly class="form-control">
+    <input type="hidden" name="nama_pelanggan" id="nama_pelanggan" value="<?php echo $nama_pelanggan; ?>" placeholder="Nama Pelanggan" readonly class="form-control">
+    <input type="hidden" name="alamat" id="alamat" value="<?php echo $alamat; ?>" placeholder="Alamat" readonly class="form-control">
+    <input type="hidden" name="nama_dagang" id="nama_dagang" value="<?php echo $nama_dagang; ?>" placeholder="Nama Dagang" readonly class="form-control">
+    <input type="hidden" name="no_telp" id="no_telp" value="<?php echo $no_telp; ?>" placeholder="No Telp" readonly class="form-control">
+    <input type="hidden" name="bayar" id="bayar" value="<?php echo $bayar; ?>" placeholder="Bayar" readonly class="form-control"> -->
+
   <div class="col-md-12 col-sm-12 col-xs-12 form-group text-right">
       <button type="button"  class="add_cart3 btn btn-success"><i class="fa fa-shopping-cart"></i> Tambah</button>
   </div>
