@@ -3,154 +3,154 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Penarikan extends CI_Controller{
 
-  private $permit = false;
-  public function __construct()
-  { 
-    parent::__construct();
-    //Codeigniter : Write Less Do More
-    if (!$this->ion_auth->logged_in()) {//cek login ga?
-        redirect('login','refresh');
-        }else{
-                if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
-                        redirect('login','refresh');
-                }
-    }
-    $this->load->model('Penarikan_model', 'model');
-    $this->load->model('dep/Dep_model', 'dep');
-    $this->load->model('delivery/Aset_model');
-    $this->load->library('ion_auth');
+    private $permit = false;
+    public function __construct()
+    { 
+        parent::__construct();
+        //Codeigniter : Write Less Do More
+        if (!$this->ion_auth->logged_in()) {//cek login ga?
+            redirect('login','refresh');
+        } else {
+            if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+                redirect('login','refresh');
+        }
+      }
+      $this->load->model('Penarikan_model', 'model');
+      $this->load->model('dep/Dep_model', 'dep');
+      $this->load->model('delivery/Aset_model');
+      $this->load->library('ion_auth');
   }
 
   function index()
   { 
-    $data['aktif']			='Penarikan';
-    $data['title']			='Brajamarketindo';
-    $data['judul']			='Dashboard';
-    $data['sub_judul']	='Penarikan';
-    $data['content']		='main';
-    $this->load->view('panel/dashboard', $data);
+      $data['aktif']			='Penarikan';
+      $data['title']			='Brajamarketindo';
+      $data['judul']			='Dashboard';
+      $data['sub_judul']	='Penarikan';
+      $data['content']		='main';
+      $this->load->view('panel/dashboard', $data);
   }
 
   function piutang()
   { 
-    $data['aktif']			='Dashboard';
-    $data['title']			='Brajamarketindo';
-    $data['judul']			='Dashboard';
-    $data['sub_judul']	='Penarikan';
-    $data['content']		='piutang';
-    $this->load->view('panel/dashboard',$data);
+      $data['aktif']			='Dashboard';
+      $data['title']			='Brajamarketindo';
+      $data['judul']			='Dashboard';
+      $data['sub_judul']	='Penarikan';
+      $data['content']		='piutang';
+      $this->load->view('panel/dashboard',$data);
   }
 
   public function ajax_list()
-    {
-        $list = $this->model->get_datatables();
-        $data = array();
-        $no = $_POST['start'];
+  {
+      $list = $this->model->get_datatables();
+      $data = array();
+      $no = $_POST['start'];
 
-        foreach ($list as $key) {
-            $row = array();
-            $row[] = $key->id_transaksi;
-            $row[] = tgl_indo($key->tgl_transaksi);
-            $row[] = tgl_indo($key->jatuh_tempo);
-            $row[] = $key->id_pelanggan;
-            $row[] = $key->nama_pelanggan;
-            $row[] = $key->nama_barang;
-            $row[] = $key->qty;
-            $row[] = $key->satuan;
-            $row[] = $key->kelurahan;
-            $row[] = $key->kecamatan;
-            $row[] = $key->no_telp;
-            $row[] = $key->nama;
-            $row[] = $key->nama_debt;
-            $row[] = number_format($key->total,2,",",".");
-            $row[] = (($key->bayar_krat > 0 )? tgl_indo($key->tgl_penarikan):'');
-            $row[] = number_format($key->bayar_krat,2,",",".");
-            $row[] = (($key->bayar_uang > 0 )? tgl_indo($key->tgl_penarikan):'');
-            $row[] = number_format($key->bayar_uang,2,",",".");
-            $row[] = number_format($key->jumlah,2,",",".");
-            $row[] = $key->sisa;
-            $row[] = $key->status;
-            $edit = '
-            <button type="button" onClick=edit("'.$key->id.'") class="btn btn-primary btn-xs">Edit</button>
-            <button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>
-            ';
-            $hapus = '
-            <button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>
-            ';
-            if ($key->satuan == 'Krat' || $key->satuan == 'Botol') {
-              $row[] = $edit;
-            } else {
-              $row[] = $hapus;
-            }
-            $data[] = $row;
-        }
+      foreach ($list as $key) {
+          $row = array();
+          $row[] = $key->id_transaksi;
+          $row[] = tgl_indo($key->tgl_transaksi);
+          $row[] = tgl_indo($key->jatuh_tempo);
+          $row[] = $key->id_pelanggan;
+          $row[] = $key->nama_pelanggan;
+          $row[] = $key->nama_barang;
+          $row[] = $key->qty;
+          $row[] = $key->satuan;
+          $row[] = $key->kelurahan;
+          $row[] = $key->kecamatan;
+          $row[] = $key->no_telp;
+          $row[] = $key->nama;
+          $row[] = $key->nama_debt;
+          $row[] = number_format($key->total,2,",",".");
+          $row[] = (($key->bayar_krat > 0 )? tgl_indo($key->tgl_penarikan):'');
+          $row[] = number_format($key->bayar_krat,2,",",".");
+          $row[] = (($key->bayar_uang > 0 )? tgl_indo($key->tgl_penarikan):'');
+          $row[] = number_format($key->bayar_uang,2,",",".");
+          $row[] = number_format($key->jumlah,2,",",".");
+          $row[] = $key->sisa;
+          $row[] = $key->status;
+          $edit = '
+          <button type="button" onClick=edit("'.$key->id.'") class="btn btn-primary btn-xs">Edit</button>
+          <button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>
+          ';
+          $hapus = '
+          <button type="button" onClick=hapus("'.$key->id.'") class="btn btn-danger btn-xs">Hapus</button>
+          ';
+          if ($key->satuan == 'Krat' || $key->satuan == 'Botol') {
+            $row[] = $edit;
+          } else {
+            $row[] = $hapus;
+          }
+          $data[] = $row;
+      }
 
-        $output = array(
-                        "draw" => $_POST['draw'],
-                        "recordsTotal" => $this->model->count_all(),
-                        "recordsFiltered" => $this->model->count_filtered(),
-                        "data" => $data,
-                );
-        //output to json format
-        echo json_encode($output);
+      $output = array(
+                      "draw" => $_POST['draw'],
+                      "recordsTotal" => $this->model->count_all(),
+                      "recordsFiltered" => $this->model->count_filtered(),
+                      "data" => $data,
+              );
+      //output to json format
+      echo json_encode($output);
   }
 
   function transaksi()
   { 
-    $data['aktif']			='aset';
-    $data['title']			='Brajamarketindo';
-    $data['judul']			='Pembayaran';
-    $data['sub_judul']	='Form';
-    $data['content']		='form';
-    $data['menu']			= $this->permit[0];
-    $data['submenu']		= $this->permit[1];
-    $this->load->view('panel/dashboard', $data);
+      $data['aktif']			='aset';
+      $data['title']			='Brajamarketindo';
+      $data['judul']			='Pembayaran';
+      $data['sub_judul']	='Form';
+      $data['content']		='form';
+      $data['menu']			= $this->permit[0];
+      $data['submenu']		= $this->permit[1];
+      $this->load->view('panel/dashboard', $data);
   }
 
   function get_autocomplete(){
-		if (isset($_GET['term'])) {
-		  	$result = $this->model->cari_pelanggan($_GET['term']);
-		   	if (count($result) > 0) {
-		    foreach ($result as $row)
-		     	$arr_result[] = array(
-					'label'			=> $row->id_pelanggan,
-					'utang'	=> $row->sisa,
-          'transaksi' => $row->id_transaksi,
-          'id' => $row->id,
-          'sudah' => $row->bayar,
-          'jumlah' => $row->utang,
-				);
-		     	echo json_encode($arr_result);
-		   	}
-		}
+      if (isset($_GET['term'])) {
+          $result = $this->model->cari_pelanggan($_GET['term']);
+          if (count($result) > 0) {
+              foreach ($result as $row)
+                  $arr_result[] = array(
+                    'label'			=> $row->id_pelanggan,
+                    'utang'	=> $row->sisa,
+                    'transaksi' => $row->id_transaksi,
+                    'id' => $row->id,
+                    'sudah' => $row->bayar,
+                    'jumlah' => $row->utang,
+                );
+                echo json_encode($arr_result);
+          }
+      }
 	}
 
   public function update_action()
   { 
-    $test = str_replace(".","", $this->input->post('bayar'));
-    $test2 = $this->input->post('sudah');
-    $hasil = $test+$test2;
-    $data = array(
-        // 'id_suplier' => $this->input->post('id_suplier',TRUE),
-        'bayar' => $hasil,
-        'created_at' => date('Y-m-d'),
-        );
-    $this->model->update($this->input->post('id', TRUE), $data);
-    $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
-    redirect(site_url('dep'));
+      $test = str_replace(".","", $this->input->post('bayar'));
+      $test2 = $this->input->post('sudah');
+      $hasil = $test+$test2;
+      $data = array(
+          // 'id_suplier' => $this->input->post('id_suplier',TRUE),
+          'bayar' => $hasil,
+          'created_at' => date('Y-m-d'),
+          );
+      $this->model->update($this->input->post('id', TRUE), $data);
+      $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
+      redirect(site_url('dep'));  
   }
 
   function get_auto(){
-		if (isset($_GET['term'])) {
-		  	$result = $this->dep->cek_piutang($_GET['term']);
-		   	if (count($result) > 0) {
-		    foreach ($result as $row)
-		     	$arr_result[] = array(
-					'label'			=> $row->id_pelanggan,
-				);
-		     	echo json_encode($arr_result);
-		   	}
-		}
+      if (isset($_GET['term'])) {
+          $result = $this->dep->cek_piutang($_GET['term']);
+          if (count($result) > 0) {
+          foreach ($result as $row)
+            $arr_result[] = array(
+            'label'			=> $row->id_pelanggan,
+          );
+            echo json_encode($arr_result);
+          }
+      }
 	}
 
   public function track_transaksi(){
@@ -303,4 +303,63 @@ class Penarikan extends CI_Controller{
       // }
     }
 
+    public function get_penarikan($id)
+    {
+      
+      $result = $this->model->get_penarikan($id);
+      echo json_encode($result);
+    }
+
+    public function updating_penarikan()
+    {
+      $input = array(
+        'id_penarikan' => $this->input->post('id_penarikan'),
+        'tgl_penarikan' => $this->input->post('tgl_bayar'),
+        'bayar_uang' => str_replace('.','',$this->input->post('bayar_uang')),
+        'bayar_krat' => $this->input->post('bayar_krat'),
+        'gudang' => $this->input->post('gudang'),
+      );
+
+      $asis_debt = array(
+        'id' => $this->input->post('id_asis_debt'), 
+        'tanggal' => $input['tgl_penarikan'],
+        'bayar_krat' => $input['bayar_krat'],
+        'bayar_uang' => $input['bayar_uang'], 
+        'gudang' => $input['gudang'], 
+      );
+      // cek krat atau uang
+      if ($this->input->post('bayar_uang') == 0) {
+        unset($input['bayar_uang']);
+        unset($asis_debt['bayar_uang']);
+      } else {
+        unset($input['bayar_krat']);
+        unset($asis_debt['bayar_krat']);
+      }
+
+      $harga_krat = $this->model->harga_krat_kosong();
+
+      $rec_asis_debt = $this->model->get_asis_debt($asis_debt['id']);
+      $rec_penarikan = $this->model->get_penarikan($input['id_penarikan']);
+      if ($this->input->post('bayar_uang') == 0) {
+          $bayar_krat = $rec_asis_debt->bayar_krat - $rec_penarikan->bayar_krat;
+          $asis_debt['bayar_krat'] = $bayar_krat + $input['bayar_krat'];
+          $asis_debt['piutang'] = $bayar_krat + $input['bayar_krat'] + ($rec_asis_debt->bayar_uang / $harga_krat);
+      } else {
+          $bayar_uang = $rec_asis_debt->bayar_uang - $rec_penarikan->bayar_uang;
+          $asis_debt['bayar_uang'] = $bayar_uang + $input['bayar_uang'];
+          $asis_debt['piutang'] = ($bayar_uang / $harga_krat) + ($input['bayar_uang'] / $harga_krat) + ($rec_asis_debt->bayar_krat);
+      }
+
+      // $result['penarikan'] = $input;
+      // $result['asis_debt'] = $asis_debt;
+      // echo "<pre>";
+      // print_r ($result);
+      // echo "</pre>";
+      
+      $this->model->update_penarikan($input, $asis_debt);
+      echo json_encode((bool)true);
+      
+      //update wp_penarikan
+      // update wp_asis_debt
+    }
 }

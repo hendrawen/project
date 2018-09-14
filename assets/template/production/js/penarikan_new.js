@@ -192,3 +192,44 @@ $("#password").keypress(function (e) {
         check_password();
     }
 });
+
+function ubah_penarikan(id) {
+    
+    $.ajax({
+        type: "GET",
+        url: base_url+"penarikan/get_penarikan/"+id,
+        dataType: "json",
+        success: function (response) {
+            if (response) {
+                $("#form-tarik-aset-update")[0].reset();
+                $('[name="tgl_bayar"]').val(response.tgl_penarikan);
+                $('[name="bayar_uang"]').val(response.bayar_uang);
+                $('[name="bayar_krat"]').val(response.bayar_krat);
+                $('[name="gudang"]').val(response.gudang);
+                $('[name="id_penarikan"]').val(response.id_penarikan);
+                $('[name="id_asis_debt"]').val(response.id_asis_debt);
+                if (response.bayar_uang == 0) {
+                    $("#form_bayar_uang").hide();
+                    $("#form_bayar_krat").show();
+                } else {
+                    $("#form_bayar_uang").show();
+                    $("#form_bayar_krat").hide();
+                }
+                $("#modal_edit_penarikan").modal('show');
+            }
+        }
+    });
+}
+
+function update_data_penarikan() {
+    $.ajax({
+        type: "POST",
+        url: base_url+"penarikan/updating_penarikan",
+        data: $("#form-tarik-aset-update").serialize(),
+        dataType: "json",
+        success: function (response) {
+            $("#modal_edit_penarikan").modal('hide');
+            location.reload();
+        }
+    });
+}
