@@ -24,6 +24,7 @@ class PenarikanDebt_model extends CI_Model {
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan', 'left');
         $this->db->join('wp_penarikan', 'wp_penarikan.wp_asis_debt_id = wp_asis_debt.id', 'left');
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
+        $this->db->group_by('wp_transaksi.id_transaksi');
 
         if ($this->input->post('tanggal')) {
             $this->db->where('date(wp_asis_debt.tanggal)', $this->input->post('tanggal'));
