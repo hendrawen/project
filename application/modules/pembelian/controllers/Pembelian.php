@@ -83,7 +83,7 @@ class Pembelian extends CI_Controller{
     $this->load->view('panel/dashboard',$data);
   }
 
-  function list()
+  function list_pembelian()
   { 
     $data['aktif']			='Dashboard';
     $data['title']			='Brajamarketindo';
