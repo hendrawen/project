@@ -137,7 +137,11 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
               <label for="bayar">Bayar (Rp.) *</label>
-                <!-- <input type="hidden" name="id_transaksi" value="<?php echo $key->id_transaksi; ?>" id="idtransaksi" class="form-control"> -->
+              <?php
+                  foreach ($record as $key) { ?>
+                      <input type="hidden" name="id_transaksi" value="<?php echo $key->id_transaksi; ?>" id="idtransaksi" class="form-control">
+                      <input type="hidden" name="sisa" value="<?php echo $key->sisa; ?>" id="sisa" class="form-control">
+                  <?php } ?>
                 <input type="text" name="bayar" id="bayar" class="form-control" onkeyup="FormatCurrency(this)" autocomplete="off" placeholder="Masukkan jumlah bayar" required>
             </div>
             <!-- <input type="hidden" name="sudah" id="sudah"> -->

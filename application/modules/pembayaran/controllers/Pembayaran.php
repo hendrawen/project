@@ -279,37 +279,63 @@ class Pembayaran extends CI_Controller{
   { 
     $list = $this->session->userdata('id_transaksi');
     $jumlah_bayar = str_replace(".","", $this->input->post('bayar'));
-    $id = $list[0]['id_transaksi'];
-
-    $sisa = '';
-    for ($i=0; $i < sizeof($list); $i++) {
-      if ($jumlah_bayar > $list[$i]['sisa']) {
-          $jumlah_bayar -= $list[$i]['sisa'];
-          $data = array(
-            'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
-            'bayar' => $list[$i]['sisa'],
-            //'id_transaksi' => $list[$i]['id_transaksi'],
-            //'id_pelanggan' => $id_pelanggan,
-            'username' => $this->session  ->identity,
-          );
-          $this->dep->update_pembayaran($id, $data);
-          $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
-      } else if($jumlah_bayar <= $list[$i]['sisa']) {
-        
+    $id = $this->input->post('id_transaksi');
+    $sisa = $this->input->post('sisa');  
+    
+    if ($jumlah_bayar <= $sisa) {
+        $sisa3 = $jumlah_bayar - $sisa;
         $data = array(
           'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
           'bayar' => $jumlah_bayar,
-          //'id_transaksi' => $list[$i]['id_transaksi'] ,
+          //'id_transaksi' => $list[$i]['id_transaksi'],
           //'id_pelanggan' => $id_pelanggan,
           'username' => $this->session->identity,
-        );
+          );
         $this->dep->update_pembayaran($id, $data);
-        $jumlah_bayar ='';
         $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
-      }
+    } else if ($jumlah_bayar > $sisa) {
+        $sisa3 = $jumlah_bayar - $sisa;
+        $data = array(
+          'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
+          'bayar' => abs($sisa3),
+          //'id_transaksi' => $list[$i]['id_transaksi'],
+          //'id_pelanggan' => $id_pelanggan,
+          'username' => $this->session->identity,
+          );
+        $this->dep->update_pembayaran($id, $data);
+        $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
     }
-    $this->session->unset_userdata('id_transaksi');
     redirect(site_url('pembayaran'));
+    
+    // $sisa = '';
+    // for ($i=0; $i < sizeof($list); $i++) {
+    //   if ($jumlah_bayar > $list[$i]['sisa']) {
+    //       $jumlah_bayar -= $list[$i]['sisa'];
+    //       $data = array(
+    //         'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
+    //         'bayar' => $list[$i]['sisa'],
+    //         //'id_transaksi' => $list[$i]['id_transaksi'],
+    //         //'id_pelanggan' => $id_pelanggan,
+    //         'username' => $this->session->identity,
+    //       );
+    //       $this->dep->update_pembayaran($id, $data);
+    //       $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
+    //   } else if($jumlah_bayar <= $list[$i]['sisa']) {
+        
+    //     $data = array(
+    //       'tgl_bayar' => date('Y-m-d', strtotime($this->input->post('tgl_bayar'))),
+    //       'bayar' => $jumlah_bayar,
+    //       //'id_transaksi' => $list[$i]['id_transaksi'] ,
+    //       //'id_pelanggan' => $id_pelanggan,
+    //       'username' => $this->session->identity,
+    //     );
+    //     $this->dep->update_pembayaran($id, $data);
+    //     $jumlah_bayar ='';
+    //     $this->session->set_flashdata('message', 'Pembayaran Berhasil !!!');
+    //   }
+    // }
+    // //$this->session->unset_userdata('id_transaksi');
+    // redirect(site_url('pembayaran'));
   }
 
 }

@@ -37,21 +37,6 @@ class Pembayaran_model extends CI_Model{
           return $hsl->result();
         }
       }
-    
-    //   function sum_get_track($cari){
-    //     $this->db->select('sum(sisa) as sisa');
-    //     $this->db->where('id_pelanggan', $cari);
-    //     $hsl = $this->db->get('v_detail');
-    //     return $hsl->result();
-    //   }
-    
-    //   function get_min_track($cari){
-    //     $this->db->order_by('id_transaksi', 'ASC');
-    //     $this->db->select('id_transaksi, sisa, id_pelanggan');
-    //     $this->db->where('id_pelanggan', $cari);
-    //     $hsl = $this->db->get('v_detail');
-    //     return $hsl->result();
-    //   }
 
       function update_pembayaran($id, $data)
       {
@@ -61,8 +46,8 @@ class Pembayaran_model extends CI_Model{
 
   private function _get_datatables_query()
   {
-     $this->db->select('vdetail_pembayaran.id_transaksi, vdetail_pembayaran.tgl_transaksi, vdetail_pembayaran.jatuh_tempo, vdetail_pembayaran.id_pelanggan, vdetail_pembayaran.nama_pelanggan, vdetail_pembayaran.nama_barang, vdetail_pembayaran.qty, vdetail_pembayaran.satuan, vdetail_pembayaran.kelurahan, vdetail_pembayaran.kecamatan, vdetail_pembayaran.no_telp, vdetail_pembayaran.nama, b.nama as nama_debt, vdetail_pembayaran.subtotal, vdetail_pembayaran.tgl_bayar, sum(vdetail_pembayaran.bayar) as bayar, sum(vdetail_pembayaran.jumlah_bayar) as jumlah_bayar, vdetail_pembayaran.sisa_hutang, `vdetail_pembayaran.nama_status`, `c.utang`');
-     $this->db->join('v_detail as c', 'c.id_transaksi = vdetail_pembayaran.id_transaksi', 'inner');
+     $this->db->select('vdetail_pembayaran.id_transaksi, vdetail_pembayaran.tgl_transaksi, vdetail_pembayaran.jatuh_tempo, vdetail_pembayaran.id_pelanggan, vdetail_pembayaran.nama_pelanggan, vdetail_pembayaran.nama_barang, vdetail_pembayaran.qty, vdetail_pembayaran.satuan, vdetail_pembayaran.kelurahan, vdetail_pembayaran.kecamatan, vdetail_pembayaran.no_telp, vdetail_pembayaran.nama, b.nama as nama_debt, vdetail_pembayaran.subtotal, vdetail_pembayaran.tgl_bayar, sum(vdetail_pembayaran.bayar) as bayar, sum(vdetail_pembayaran.jumlah_bayar) as jumlah_bayar, vdetail_pembayaran.sisa_hutang, `vdetail_pembayaran.nama_status`');
+     //$this->db->join('v_detail as c', 'c.id_transaksi = vdetail_pembayaran.id_transaksi', 'inner');
      $this->db->join('wp_karyawan as b', 'b.id_karyawan = vdetail_pembayaran.username', 'left');
      $this->db->group_by('id_transaksi, nama_barang');
      //add custom filter here
