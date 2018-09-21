@@ -160,7 +160,7 @@ class Pesan extends CI_Controller{
 					$detail = array(
             'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
             'utang' => $this->input->post('hutang',TRUE),
-            'bayar' => $this->input->post('bayar', TRUE),
+            'bayar' => $this->get_total(),
             'created_at' => date('Y-m-d'),
             //'updated_at' => $this->input->post('updated_at',TRUE),
             //'created_at' => mdate($datestring, $time),
