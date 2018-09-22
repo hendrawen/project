@@ -333,7 +333,7 @@ function edit_action() {
         success: function (response) {
             pesan_cek();
             if (response) {
-                location.href = base_url+'transaksi/update2/'+faktur;
+                location.href = base_url+'transaksi/checkout/'+faktur;
             } else {
                 pesan_gagal('Password salah');
             }

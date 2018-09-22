@@ -171,7 +171,7 @@ class Karyawan extends CI_Controller
             $data['aktif']			='Karyawan';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
-            $data['sub_judul']	='Edit Karyawan';
+            $data['sub_judul']	    ='Edit Karyawan';
             $data['content']		='karyawan_form_edit';
             $this->load->view('panel/dashboard', $data);
         } else {

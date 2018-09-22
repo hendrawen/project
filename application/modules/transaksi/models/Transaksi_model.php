@@ -86,7 +86,7 @@ function get_data_pelanggan_bykode($kode){
                 'alamat' => $data->alamat,
                 'no_telp' => $data->no_telp,
                 'kota'    => $data->kota,
-                );
+            );
         }
     }
     return $hasil;
@@ -174,9 +174,28 @@ function get_data_pelanggan_bykode($kode){
 
     // update data
     function update($id, $data)
+    {   
+        unset($data['id_transaksi']);
+        $this->db->where('id_transaksi', $id);
+        $this->db->update_batch($this->table, $data);
+    }
+
+    function ubah($id, $data)
     {
-        $this->db->where($this->id, $id);
-        $this->db->update($this->table, $data);
+        $this->db->where('id_transaksi', $id);
+        $this->db->update('wp_transaksi', $data);
+    }
+
+    function update_detail($id, $data)
+    {
+        $this->db->where('id_transaksi', $id);
+        $this->db->update('wp_detail_transaksi', $data);
+    }
+
+    function update_pembayaran($id, $data)
+    {
+        $this->db->where('id_transaksi', $id);
+        $this->db->update('wp_pembayaran', $data);
     }
 
     // delete data
@@ -252,9 +271,18 @@ function get_data_pelanggan_bykode($kode){
   function insert_detail($detail)
   {
       if (sizeof($detail) == 0) {
-          $this->db->insert('bm_detail_transaksi', $detail);
+          $this->db->insert('wp_detail_transaksi', $detail);
       } else {
-          $this->db->insert_batch('bm_detail_transaksi', $detail);
+          $this->db->insert_batch('wp_detail_transaksi', $detail);
+      }
+  }
+
+  function insert_bayar($detail)
+  {
+      if (sizeof($detail) == 0) {
+          $this->db->insert('wp_pembayaran', $detail);
+      } else {
+          $this->db->insert_batch('wp_pembayaran', $detail);
       }
   }
 

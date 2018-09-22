@@ -287,12 +287,22 @@ class Transaksi extends CI_Controller
                 $this->load->view('panel/dashboard', $data);            
     }
 
-    public function checkout()
+    public function checkout($id)
     {	
-        $data2 = $this->Transaksi_model->get_transaksi($this->session->userdata('id_transaksi_sess'));
+        // $data2 = $this->Transaksi_model->get_transaksi($this->session->userdata('id_transaksi_sess'));
+        $data2 = $this->Transaksi_model->get_transaksi($id);
         foreach ($data2 as $value) {
             $data = array(
+                'id' => $value->id_barang,
+                'name' => $value->nama_barang,
+                'price' => $value->harga,
+                'qty' => $value->qty,
+                'subtotal' => $value->subtotal,
+                'diskon' => $value->diskon,
+                'wp_barang_id' => $value->id,
+                'satuan' => $value->satuan,
                 'id_transaksi' => $value->id_transaksi,
+                'tgl_transaksi' => Date($value->tgl_transaksi),
                 'id_pelanggan' => $value->id_pelanggan,
                 'nama_pelanggan' => $value->nama_pelanggan,
                 'nama_dagang' => $value->nama_dagang,
@@ -300,32 +310,89 @@ class Transaksi extends CI_Controller
                 'no_telp' => $value->no_telp,
                 'nama_status' => $value->nama_status,
                 'nama_gudang' => $value->nama_gudang,
+                'gudang' => $value->gudang,
                 'bayar' => $value->bayar,
+                'wp_status_id' => $value->wp_status_id,
                 'wp_pelanggan_id' => $value->wp_pelanggan_id,
                 );
         }
         
-        $data['aktif']			='Kebutuhan';
-        $data['title']			='Transaksi';
-        $data['judul']			='Form Transaksi';
-        $data['sub_judul']		='';
+        $data['aktif']			= 'Kebutuhan';
+        $data['title']			= 'Transaksi';
+        $data['judul']			= 'Form Transaksi';
+        $data['sub_judul']		= '';
         $data['menu']			= $this->permit[0];
         $data['submenu']		= $this->permit[1];
-        $data['content']		= 'checkout';
+        $data['content']		= 'edit2';
         $data['data']=$this->Transaksi_model->get_all_product();
         $data['profile']=$this->Transaksi_model->get_profile();
-        $data['gudang']= $this->Transaksi_model->get_gudang();
+        $data['data_gudang']= $this->Transaksi_model->get_gudang();
         $data['jenis_pembayaran']=$this->Transaksi_model->get_jenis_pembayaran();
         $data['generate_invoice'] = $this->Transaksi_model->generatekode_invoice();
-        $data['get_total'] = $this->get_total3();
+        //$data['get_total'] = $this->get_total3();
         $this->load->view('panel/dashboard', $data);
     }
 
+    public function update_bayar()
+    {   
+        $id = $this->input->post('id_transaksi', TRUE);
+        $subtotal = $this->input->post('subtotal', TRUE);
+        $status = $this->input->post('wp_status_id', TRUE);
+        
+        //lunas 
+        if ($status == "1") {
+            $data = array(
+                'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id', TRUE),
+                'wp_status_id' => $status,
+                'tgl_transaksi' => $this->input->post('tgltransaksi', TRUE),
+                'gudang' => $this->input->post('gudang', TRUE),
+            );
+            $detail = array('bayar' => $subtotal);
+            $pembayaran = array('bayar' => $subtotal,
+                                'username' => $this->session->identity
+                            );
+            $this->Transaksi_model->update_detail($id, $detail);
+            $this->Transaksi_model->update_pembayaran($id, $pembayaran);
+
+            $simpan = $this->Transaksi_model->ubah($id, $data); // fungsi dari codeigniter untuk 
+            if($simpan){
+                $this->session->set_flashdata('message','sukses !');
+                redirect('transaksi');
+            } else {
+                $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali !');
+                redirect('transaksi');
+            }
+        } else {
+            $data = array(
+                'wp_pelanggan_id' => $this->input->post('wp_pelanggan_id', TRUE),
+                'wp_status_id' => $status,
+                'tgl_transaksi' => $this->input->post('tgltransaksi', TRUE),
+                'gudang' => $this->input->post('gudang', TRUE),
+            );
+            $detail = array('bayar' => $this->input->post('bayar', TRUE));
+            $pembayaran = array('bayar' => $this->input->post('bayar', TRUE),
+                                'username' => $this->session->identity
+                            );
+            $this->Transaksi_model->update_detail($id, $detail);
+            $this->Transaksi_model->update_pembayaran($id, $pembayaran);
+
+            $simpan = $this->Transaksi_model->ubah($id, $data); // fungsi dari codeigniter untuk 
+            if($simpan){
+                $this->session->set_flashdata('message','sukses !');
+                redirect('transaksi');
+            } else {
+                $this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali !');
+                redirect('transaksi');
+            }
+        }
+
+    }
+
     function get_barang(){
-		$kode=$this->input->post('id_barang');
-		$data=$this->Transaksi_model->get_data_barang_bykode($kode);
-		echo json_encode($data);
-	}
+        $kode=$this->input->post('id_barang');
+        $data=$this->Transaksi_model->get_data_barang_bykode($kode);
+        echo json_encode($data);
+    }
 
   function get_pelanggan(){
 		$kode=$this->input->post('id_pelanggan');
@@ -384,18 +451,18 @@ class Transaksi extends CI_Controller
         return $output;
     }
 
-    function get_total3()
-    {
-        # code...
-        $total = 0;
-        if ($this->cart->contents()) {
-            foreach ($this->cart->contents() as $items) {
-                $subtotal = $items['subtotal'] - (str_replace(".","",$items['diskon']) * $items['qty']);
-                $total += $subtotal;
-            }
-        }
-        return $total;
-    }
+    // function get_total3()
+    // {
+    //     # code...
+    //     $total = 0;
+    //     if ($this->cart->contents()) {
+    //         foreach ($this->cart->contents() as $items) {
+    //             $subtotal = $items['subtotal'] - (str_replace(".","",$items['diskon']) * $items['qty']);
+    //             $total += $subtotal;
+    //         }
+    //     }
+    //     return $total;
+    // }
 
     function load_cart3(){
         echo $this->show_cart3();
@@ -416,27 +483,28 @@ class Transaksi extends CI_Controller
     }
 
     function checkout_action() {
-        $this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
-        $this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
-        $this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
-        $this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
-        $this->form_validation->set_rules('id', 'wp_pelanggan_id', 'required|trim');
-        $this->form_validation->set_rules('wp_status_id', 'wp_status_id', 'required|trim');
+    $this->form_validation->set_rules('qty[]', 'qty', 'required|trim');
+    $this->form_validation->set_rules('wp_barang_id[]', 'wp_barang_id', 'required|trim');
+    $this->form_validation->set_rules('harga[]', 'harga', 'required|trim');
+    $this->form_validation->set_rules('subtotal[]', 'subtotal', 'required|trim');
+    $this->form_validation->set_rules('id', 'wp_pelanggan_id', 'required|trim');
+    $this->form_validation->set_rules('wp_status_id', 'wp_status_id', 'required|trim');
 
-        if ($this->form_validation->run() == FALSE){
-        $this->session->set_flashdata('message','Data belum lengkap !');
-            $this->checkout(); // tampilkan apabila ada error
-        }else{
+    if ($this->form_validation->run() == FALSE){
+    $this->session->set_flashdata('message','Data belum lengkap !');
+        $this->checkout(); // tampilkan apabila ada error
+    } else {
     $status = $this->input->post('wp_status_id');
+    
     //status lunas
-    if ($status=="1")
-    {
-    $kp = $this->input->post('idpesan', true);
+    
+        if ($status=="1") {
+            $kp = $this->input->post('idpesan', true);
             $wp_pelanggan_id = $this->input->post('id', true);
             $wp_status_id = $this->input->post('wp_status_id', true);
-            $tg = date('Y-m-d H-i-s');
-              $tg2 = date('Y-m-d');
-              $tg3 = $this->input->post('tgltransaksi', true);
+            $tg  = date('Y-m-d H-i-s');
+            $tg2 = date('Y-m-d');
+            $tg3 = $this->input->post('tgltransaksi', true);
             $result = array();
             foreach($kp AS $key => $val){
                 $result[] = array(
@@ -456,7 +524,7 @@ class Transaksi extends CI_Controller
               $detail = array(
                 'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
                 'utang' => $this->input->post('hutang',TRUE),
-                'bayar' => $this->input->post('bayar', TRUE),
+                'bayar' => $this->get_total3(),
                 'created_at' => date('Y-m-d'),
                 //'updated_at' => $this->input->post('updated_at',TRUE),
                 //'created_at' => mdate($datestring, $time),
@@ -468,13 +536,11 @@ class Transaksi extends CI_Controller
                   'tgl_bayar' => tgl_simpan2($tg3),
                   'username' => $this->session->identity,
               );
-              $this->cart->destroy();
-              $this->db->insert('wp_detail_transaksi', $detail);
-              $this->db->insert('wp_pembayaran', $pembayaran);
-              $res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk 
-              if($res)
-              {
-                $this->cart->destroy();
+              $res = $this->Transaksi_model->update('wp_transaksi', $result, 'id_transaksi'); // fungsi dari codeigniter untuk 
+              if($res){
+                $this->remove_cart();
+                $this->Transaksi_model->insert_detail($detail);
+                $this->Transaksi_model->insert_bayar($pembayaran);
                 $this->session->set_flashdata('message','sukses !');
                 redirect('transaksi');
               } else {
@@ -505,13 +571,13 @@ class Transaksi extends CI_Controller
                       "gudang"				=> $this->input->post('gudang'),
                 );
     }
-    $data = array(
-      'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
-      'utang' => $this->input->post('hutang',TRUE),
-      'bayar' => $this->input->post('bayar', TRUE),
-      'created_at' => date('Y-m-d'),
-      //'updated_at' => $this->input->post('updated_at',TRUE),
-      //'created_at' => mdate($datestring, $time),
+            $data = array(
+            'id_transaksi' => $this->input->post('id_transaksi_hutang', TRUE),
+            'utang' => $this->input->post('hutang',TRUE),
+            'bayar' => $this->input->post('bayar', TRUE),
+            'created_at' => date('Y-m-d'),
+            //'updated_at' => $this->input->post('updated_at',TRUE),
+            //'created_at' => mdate($datestring, $time),
                );
               $pembayaran = array(
                   'id_transaksi' => $this->input->post('id_transaksi_hutang', true),
@@ -520,13 +586,14 @@ class Transaksi extends CI_Controller
                   'tgl_bayar' => tgl_simpan2($tg3),
                   'username' => $this->session->identity
               );
-              $this->cart->destroy();
+              $this->cart->remove_cart();
               $this->db->insert('wp_detail_transaksi', $data);
               $this->db->insert('wp_pembayaran', $pembayaran);
+
             $res = $this->db->insert_batch('wp_transaksi', $result); // fungsi dari codeigniter untuk menyimpan multi array
             if($res)
             {
-                $this->cart->destroy();
+                $this->remove_cart();
                 $this->session->set_flashdata('message','sukses !');
                 redirect('transaksi');
             }else{
@@ -534,6 +601,11 @@ class Transaksi extends CI_Controller
             }
           }
         }
+    }
+
+    function remove_cart()
+    {
+        $this->cart->destroy();
     }
     
     public function _rules()
