@@ -113,7 +113,7 @@ class Pembayaran_barang extends CI_Controller{
         );
     $this->pembayaran->update($this->input->post('id', TRUE), $data);
     $this->session->set_flashdata('message', 'Pembayaran berhasil !!!');
-    redirect(site_url('admin_gudang/pembayaran_barang'));
+    redirect(site_url('bendahara/pembayaran_barang'));
   }
 
   function get_auto(){
@@ -227,7 +227,7 @@ class Pembayaran_barang extends CI_Controller{
       }
     }
     $this->session->unset_userdata('id_transaksi');
-    redirect(site_url('admin_gudang/pembayaran_barang/barang'));
+    redirect(site_url('bendahara/pembayaran_barang/barang'));
   }
 
 }

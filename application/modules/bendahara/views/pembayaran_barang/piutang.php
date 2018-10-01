@@ -89,7 +89,7 @@
         <div class="x_content">
 
           <!-- start form for validation -->
-          <form action="<?php echo base_url(). 'admin_gudang/pembayaran_barang/track_pembayaran2'; ?>" method="post">
+          <form action="<?php echo base_url(). 'bendahara/pembayaran_barang/track_pembayaran2'; ?>" method="post">
             <div class="col-md-6 col-sm-12 col-xs-12 form-group">
               <label for="fullname">Tanggal Transaksi * :</label>
               <div class="controls">
@@ -108,7 +108,7 @@
             <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>">
             <input type="hidden" id="id" name="id" />
             <div class="form-group text-right">
-            <a href="<?php echo base_url('admin_gudang/pembayaran_barang'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
+            <a href="<?php echo base_url('bendahara/pembayaran_barang'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
               <button type="submit" class="btn btn-success"><i class="fa fa-credit-card"></i> Bayar</button>
             </div>
           </form>

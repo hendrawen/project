@@ -68,7 +68,7 @@
                                                       showCancelButton: true,
                                                       confirmButtonColor: '#d9534f',
                                                          }, function(){
-                                                            window.location.href ='<?=base_url()?>pembelian/delete/<?=$key->id ?>';
+                                                            window.location.href ='<?=base_url()?>bendahara/pembelian/delete/<?=$key->id ?>';
                                                                        });"><i class="fa fa-folder"></i> Delete</a>
                            </td>
                       </tr>

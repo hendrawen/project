@@ -13,7 +13,7 @@
       </div>
           <div class="row">
             <div class="col-md-6">
-                <a href="<?php echo site_url('admin_gudang/pembayaran_barang/barang'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo site_url('bendahara/pembayaran_barang/barang'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
             </div>
           </div>
             <div class="col-md-6 text-right">
@@ -63,7 +63,7 @@
                                                       showCancelButton: true,
                                                       confirmButtonColor: '#d9534f',
                                                          }, function(){
-                                                            window.location.href ='<?=base_url()?>pembelian/delete/<?=$key->id ?>';
+                                                            window.location.href ='<?=base_url()?>bendahara/pembelian/delete/<?=$key->id ?>';
                                                                        });"><i class="fa fa-folder"></i> Delete</a>
                            </td>
                       </tr>

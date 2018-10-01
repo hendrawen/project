@@ -81,6 +81,27 @@
     <?php if ($this->uri->segment(2) == 'pembayaran_aset' && $this->uri->segment(1) == 'bendahara'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/bendahara/pembayaranaset.js"></script>
     <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'kas' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/kas.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'sumberdata' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/sumberdata.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'sudavalidator' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/sudavalidator.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'effectivecall' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/kpieffectifecall.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'validator' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/kpivalidator.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'debt' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/kpi-debt.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'marketing' && $this->uri->segment(1) == 'bendahara'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/kpimarketing.js"></script>
+    <?php endif; ?>
 
     <script src="<?= base_url('assets/template/production/js/bendahara/custom.js')?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

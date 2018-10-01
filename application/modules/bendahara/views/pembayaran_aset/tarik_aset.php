@@ -127,7 +127,7 @@
             <input type="hidden" id="id" name="id" />
 
             <div class="form-group text-right">
-              <a href="<?php echo base_url('admin_gudang/pembayaran_aset'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a>
+              <!-- <a href="<?php echo base_url('bendahara/pembayaran_aset/penarikan'); ?>" type="button" class="btn btn-default" > <i class="fa fa-arrow-left"></i> Kembali</a> -->
               <button type="button" id="btn-bayar-aset" class="btn btn-success"><i class="fa fa-credit-card"></i> Bayar</button>
             </div>
 

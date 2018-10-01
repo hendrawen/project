@@ -34,8 +34,18 @@
                   <li><a <?php echo ($aktif == 'pembayaran_barang')?'class="active"':"";?> href="<?php echo site_url('bendahara/pembayaran_barang/barang')?>"><i class="fa fa-credit-card"></i> Pembayaran Barang</a></li>
                   <li><a <?php echo ($aktif == 'pembayaran_aset')?'class="active"':"";?> href="<?php echo site_url('bendahara/pembayaran_aset/penarikan')?>"><i class="fa fa-money"></i> Pembayaran Aset</a></li>
                   <li><a <?php echo ($aktif == 'kas')?'class="active"':"";?> href="<?php echo site_url('bendahara/kas')?>"><i class="fa fa-bank"></i> Kas</a></li>
-                  <li><a <?php echo ($aktif == 'repot-kas')?'class="active"':"";?> href="<?php echo site_url('bendahara/report_kas')?>"><i class="fa fa-file"></i> Report Kas</a></li>
-                  <li><a <?php echo ($aktif == 'kpi')?'class="active"':"";?> href="<?php echo site_url('bendahara/kpi')?>"><i class="fa fa-bars"></i> KPI</a></li>
+                  <!-- <li><a <?php echo ($aktif == 'repot-kas')?'class="active"':"";?> href="<?php echo site_url('bendahara/report_kas')?>"><i class="fa fa-file"></i> Report Kas</a></li> -->
+                  <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>bendahara/sumberdata">Sumber Data Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>bendahara/sudavalidator">Sumber Data Validator</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>bendahara/effectivecall">Activity Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>bendahara/validator">Activity Validator</a></li>
+
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>bendahara/debt">Debt & Delivery</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>bendahara/marketing">Marketing</a></li>
+                    </ul>
+                  </li>
                   </li>
                 </ul>
               </div>

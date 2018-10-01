@@ -5,7 +5,7 @@
                     <strong>Warning !</strong> Silahkan melakukan penambahan produk terlebih dahulu.
                   </div>
                 <div class="text-right">
-                <a href="'.base_url('admin_gudang/pembelian/barang').'" type="button"  class="btn btn-success text-right"><i class="fa fa-plus-circle"></i> Input Transaksi</a>
+                <a href="'.base_url('bendahara/pembelian/barang').'" type="button"  class="btn btn-success text-right"><i class="fa fa-plus-circle"></i> Input Transaksi</a>
                 </div>';
 					else:
 ?>
@@ -50,7 +50,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content" id="printable">
-              <form method="POST" action="<?php echo site_url('admin_gudang/pembelian/checkout_action');?>">
+              <form method="POST" action="<?php echo site_url('bendahara/pembelian/checkout_action');?>">
               <section class="content invoice">
                 <!-- title row -->
                 <div class="row">
@@ -191,7 +191,7 @@
                 <div class="row no-print">
                   <div class="col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                    <a href="<?php echo base_url('admin_gudang/pembelian/barang')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
+                    <a href="<?php echo base_url('bendahara/pembelian/barang')?>" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Back</a>
                   </div>
                 </div>
               </section>

@@ -36,7 +36,9 @@ class Login extends CI_Controller
                 redirect('validator','refresh');
             } elseif ($this->ion_auth->in_group('Asisten Debt')) {
 				redirect('asdebt','refresh');
-            }else{
+            } elseif ($this->ion_auth->in_group('Bendahara')) {
+				redirect('bendahara','refresh');
+			}else{
                 redirect('login','refresh');
             }
         }

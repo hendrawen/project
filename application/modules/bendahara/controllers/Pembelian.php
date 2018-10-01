@@ -76,7 +76,7 @@ class Pembelian extends CI_Controller{
     $this->load->view('dashboard',$data);
   }
 
-  function list()
+  function list_pembelian()
   { 
     $data['aktif']			='pembelian';
     $data['title']			='Brajamarketindo';
@@ -260,7 +260,7 @@ class Pembelian extends CI_Controller{
   				$res = $this->db->insert_batch('wp_transaksistok', $result); // fungsi dari codeigniter untuk menyimpan multi array
   				if($res){ $this->cart->destroy();
   					$this->session->set_flashdata('message','Transaksi berhasil !');
-  					redirect('admin_gudang/pembelian');
+  					redirect('bendahara/pembelian');
   				}else{
   					$this->session->set_flashdata('message','Terjadi kesalahan, mohon periksa kembali pesanan anda !');
   		    }
@@ -475,10 +475,10 @@ class Pembelian extends CI_Controller{
        if ($row) {
            $this->pembelian->delete($id);
            $this->session->set_flashdata('message', 'Hapus Data Sukses');
-           redirect(site_url('pembelian'));
+           redirect(site_url('bendahara/pembelian'));
        } else {
            $this->session->set_flashdata('message', 'Record Tidak Ada');
-           redirect(site_url('pembelian'));
+           redirect(site_url('bendahara/pembelian'));
        }
      }
 
