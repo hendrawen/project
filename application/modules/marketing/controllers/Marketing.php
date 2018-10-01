@@ -224,7 +224,7 @@ class Marketing extends CI_Controller{
           // upload gambar 2
           $this->upload->do_upload('photo_toko');
           $stat = $this->input->post('status');
-          if ($stat!="Responden"){
+          if ($stat!=="Responden" && $stat!=="Leads"){
           $test = $this->input->post('id_pelanggan', true);
           }else{
           $test = '';

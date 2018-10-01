@@ -29,7 +29,7 @@ function get() {
     }
     $("#loading").show();
     $.ajax({
-        url: base_url+'kpi/marketing/list',
+        url: base_url+'kpi/marketing/list_marketing',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -51,7 +51,7 @@ function get_now() {
 
     $("#loading").show();
     $.ajax({
-        url: base_url+'kpi/marketing/list',
+        url: base_url+'kpi/marketing/list_marketing',
         type: 'POST',
         dataType: 'html',
         data : {

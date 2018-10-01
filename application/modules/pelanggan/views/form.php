@@ -96,6 +96,7 @@ $url2 = base_url('assets/uploads/').$photo_toko;
                             <label>Status</label>
                             <select class="form-control" name="status" required="required">
                               <option value="">--Status--</option>
+															<option <?php if( $status=='Leads'){echo "selected"; } ?> value="Leads">Leads</option>
                               <option <?php if( $status=='Responden'){echo "selected"; } ?> value="Responden">Responden</option>
                               <option <?php if( $status=='Pelanggan'){echo "selected"; } ?> value="pelanggan">Pelanggan</option>
                             </select>

@@ -40,7 +40,10 @@ class Auth extends CI_Controller {
 				redirect('validator','refresh');
 			} elseif ($this->ion_auth->in_group('Asisten Debt')) {
 				redirect('asdebt','refresh');
-			}else{
+			} elseif ($this->ion_auth->in_group('Kepala Cabang')) {
+				redirect('kepala_cabang','refresh');
+			}
+			else{
 				redirect('login','refresh');
 			}
 		}

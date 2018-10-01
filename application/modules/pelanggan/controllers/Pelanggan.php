@@ -234,10 +234,10 @@ class Pelanggan extends CI_Controller{
           // upload gambar 2
           $this->upload->do_upload('photo_toko');
           $stat = $this->input->post('status');
-          if ($stat!="Responden"){
-          $test = $this->input->post('id_pelanggan', true);
+          if ($stat!=="Responden" && $stat!=="Leads"){
+          	$test = $this->input->post('id_pelanggan', true);
           }else{
-          $test = '';
+          	$test = '';
           }
           $hasil2 = $this->upload->data();
           if ($hasil1['file_name']=='' && $hasil2['file_name']==''){
