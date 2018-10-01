@@ -134,7 +134,7 @@
     <?php if ($this->uri->segment(2) == 'pembayaran'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_pembayaran.js" charset="utf-8"></script>
     <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'marketing'): ?>
+    <?php if ($this->uri->segment(1) == 'laporan' && $this->uri->segment(2) == 'marketing'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/laporan_marketing.js" charset="utf-8"></script>
     <?php endif; ?>
     <?php if ($this->uri->segment(2) == 'produk'): ?>

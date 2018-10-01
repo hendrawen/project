@@ -34,7 +34,7 @@ class Debt extends CI_Controller {
         $this->load->view('panel/dashboard', $data);
     }
 
-    function list()
+    function list_debt()
     {
         $bulan = $this->input->post('month');
         $tahun = $this->input->post('year');
