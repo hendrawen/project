@@ -65,9 +65,9 @@ class Pembayaran extends CI_Controller{
             $row[] = $pembayarans->no_telp;
             $row[] = $pembayarans->nama;
             $row[] = $pembayarans->nama_debt;
-            $row[] = number_format($pembayarans->jumlah_bayar,2,",",".");
+            $row[] = number_format($pembayarans->subtotal,2,",",".");
             $row[] = (($pembayarans->bayar > 0)) ? tgl_indo($pembayarans->tgl_bayar) : '';
-            $row[] = number_format($pembayarans->sisa_hutang,2,',','.');
+            $row[] = number_format($pembayarans->bayar,2,',','.');
             $row[] = '<button type="button" onClick=edit("'.$pembayarans->id_transaksi.'") class="btn btn-primary btn-xs">Edit</button>&nbsp;<button type="button" onClick=hapus("'.$pembayarans->id_transaksi.'") class="btn btn-danger btn-xs">Hapus</button>';
             $data[] = $row;
         }
