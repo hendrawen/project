@@ -2,7 +2,7 @@
   <form action="#" id="form_checkout" class="form-horizontal">
     <div class="col-md-12 col-sm-12 col-xs-12 form-group">
     
-      <input type="text" name="id_pelanggan" id="autoidtransaksi2" class="form-control" value="<?php echo $id_pelanggan; ?>" placeholder="Masukkan ID Pelanggan" required="">
+      <input type="text" name="id_pelanggan" id="autoidtransaksi2" class="form-control" value="<?php echo $id_pelanggan; ?>" placeholder="Masukkan ID Pelanggan" readonly>
     
     </div>
 </form>
@@ -41,9 +41,9 @@
             </div>
             <div class="x_content" id="printable">
               <form method="POST" action="<?php echo site_url('transaksi/update_bayar');?>">
-              <input type="text" name="wp_pelanggan_id" id="" value="<?php echo $wp_pelanggan_id; ?>">
-              <input type="text" name="id_transaksi" id="" value="<?php echo $id_transaksi; ?>">
-              <input type="text" name="subtotal" id="" value="<?php echo $subtotal; ?>">
+              <input type="hidden" name="wp_pelanggan_id" id="" value="<?php echo $wp_pelanggan_id; ?>">
+              <input type="hidden" name="id_transaksi" id="" value="<?php echo $id_transaksi; ?>">
+              <input type="hidden" name="subtotal" id="" value="<?php echo $subtotal; ?>">
               <section class="content invoice">
                 <!-- title row -->
                 <div class="row">

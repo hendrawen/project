@@ -75,9 +75,9 @@
                     <th>No. Telp</th>
                     <th>Surveyor</th>
                     <th>DEBT</th>
-                    <th>Jumlah Bayar</th>
+                    <th>Jumlah</th>
                     <th>Tgl Bayar</th>
-                    <th>Sisa Hutang</th>
+                    <th>Bayar</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -97,9 +97,9 @@
                     <th>No. Telp</th>
                     <th>Surveyor</th>
                     <th>DEBT</th>
-                    <th>Jumlah Bayar</th>
+                    <th>Jumlah</th>
                     <th>TGL Bayar</th>
-                    <th>Sisa Hutang</th>
+                    <th>Bayar</th>
                     <th>Action</th>
                 </tr>
             </tfoot>
