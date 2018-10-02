@@ -29,7 +29,7 @@ function get() {
     }
     $("#loading").show();
     $.ajax({
-        url: base_url+'kpi/debt/list',
+        url: base_url+'kpi/debt/list_debt',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -51,7 +51,7 @@ function get_now() {
 
     $("#loading").show();
     $.ajax({
-        url: base_url+'kpi/debt/list',
+        url: base_url+'kpi/debt/list_debt',
         type: 'POST',
         dataType: 'html',
         data : {

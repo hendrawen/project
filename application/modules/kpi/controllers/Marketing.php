@@ -6,7 +6,7 @@ class Marketing extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Marketing_model','model');
+        $this->load->model('Marketing_model', 'model');
         if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
@@ -34,7 +34,7 @@ class Marketing extends CI_Controller {
         $this->load->view('panel/dashboard', $data);
     }
 
-    function list()
+    function list_marketing()
     {
         $bulan = $this->input->post('month');
         $tahun = $this->input->post('year');

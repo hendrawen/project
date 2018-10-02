@@ -40,9 +40,16 @@ class Auth extends CI_Controller {
 				redirect('validator','refresh');
 			} elseif ($this->ion_auth->in_group('Asisten Debt')) {
 				redirect('asdebt','refresh');
+<<<<<<< HEAD
 			} elseif ($this->ion_auth->in_group('Bendahara')) {
 				redirect('bendahara','refresh');
 			}else{
+=======
+			} elseif ($this->ion_auth->in_group('Kepala Cabang')) {
+				redirect('kepala_cabang','refresh');
+			}
+			else{
+>>>>>>> 5bf097d198faea48f81a71b02fee79def4cb325f
 				redirect('login','refresh');
 			}
 		}
