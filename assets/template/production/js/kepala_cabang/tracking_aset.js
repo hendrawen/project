@@ -1,5 +1,5 @@
 var table;
-var btn_excel = $("#excel-tracking-pel");
+var btn_excel = $("#excel-tracking");
  
 $(document).ready(function() {
     $('#filter-kota').select2();
@@ -17,7 +17,7 @@ $(document).ready(function() {
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": base_url+"kepala_cabang/tracking/ajax_list",
+            "url": base_url+"kepala_cabang/tracking_aset/ajax_list",
             "type": "POST",
             "data": function ( data ) {
                 data.tahun = $('#tahun-tracking').val();
@@ -31,7 +31,7 @@ $(document).ready(function() {
         //Set column definition initialisation properties.
         "columnDefs": [
         { 
-            "targets": [0,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32], //first column / numbering column
+            "targets": [0,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56], //first column / numbering column
             "orderable": false, //set not orderable
         },
         ],
@@ -48,7 +48,6 @@ $(document).ready(function() {
         $('#tahun-tracking').val("").trigger('change');
         $('#filter-kota').val("").trigger('change');
         $('#filter-kecamatan').val("").trigger('change');
-        $('#filter-warna').val("all").trigger('change');
         $('#filter-marketing').val("").trigger('change');
         reload_table_tracking();
     });
@@ -78,7 +77,7 @@ $(btn_excel).click(function (e) {
         marketing = 'semua';
     }
     
-    window.location = base_url + 'kepala_cabang/tracking/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna+'/'+marketing;
+    window.location = base_url + 'kepala_cabang/tracking_aset/download_excel/'+tahun+'/'+kota+'/'+kecamatan+'/'+warna+'/'+marketing;
 });
 
 $("#filter-kota").change(function(event) {
@@ -98,3 +97,4 @@ $("#filter-kota").change(function(event) {
 	  }
 	})
   });
+
