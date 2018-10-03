@@ -11,7 +11,7 @@ class Pembayaran extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
-					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+					if (!$this->ion_auth->in_group('Kepala Cabang')) {//cek admin ga?
 							redirect('login','refresh');
 					}
 		}
@@ -30,7 +30,7 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran/laporan',
             'month' => $this->month,
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function load_pembayaran_harian()
@@ -165,7 +165,7 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_bulanan',
             'month'         => $this->month,
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function load_pembayaran_bulanan()
@@ -241,7 +241,7 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_tahunan',
             'month'         => $this->month,
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function load_pembayaran_tahunan()
@@ -341,7 +341,7 @@ class Pembayaran extends CI_Controller {
             'sub_judul'	    =>'Pembayaran',
             'content'		=>'pembayaran_debtharian',
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function load_debt_harian()
@@ -419,7 +419,7 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_debtbulanan',
             'month'         => $this->month,
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function load_debt_bulanan()
@@ -498,7 +498,7 @@ class Pembayaran extends CI_Controller {
             'content'		=>'pembayaran_debtahunan',
             'month'         => $this->month,
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function load_debt_tahunan()

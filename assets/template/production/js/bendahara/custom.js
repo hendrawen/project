@@ -256,7 +256,7 @@ function formatCurrency(num) {
                       type : "POST",
                    url  : (base_url+"delivery/track_aset"),
                    data:"judul="+judul,
- 
+
                    success:function(data){
                      $("#result3").html(data);
                      $("#id_track_aset").val();
@@ -265,11 +265,11 @@ function formatCurrency(num) {
             $('#tabel_cari_aset').show();
          }
      }
- 
+
      $("#button_aset").click(function(){
         search_aset();
      });
- 
+
      $('#id_track_aset').keyup(function(e) {
          if(e.keyCode == 13) {
             search_aset();

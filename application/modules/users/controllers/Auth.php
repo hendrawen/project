@@ -40,16 +40,12 @@ class Auth extends CI_Controller {
 				redirect('validator','refresh');
 			} elseif ($this->ion_auth->in_group('Asisten Debt')) {
 				redirect('asdebt','refresh');
-<<<<<<< HEAD
 			} elseif ($this->ion_auth->in_group('Bendahara')) {
 				redirect('bendahara','refresh');
-			}else{
-=======
 			} elseif ($this->ion_auth->in_group('Kepala Cabang')) {
 				redirect('kepala_cabang','refresh');
 			}
 			else{
->>>>>>> 5bf097d198faea48f81a71b02fee79def4cb325f
 				redirect('login','refresh');
 			}
 		}
@@ -62,7 +58,7 @@ class Auth extends CI_Controller {
 		//validate form input
 		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
 		$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
-		
+
 	if ($this->form_validation->run() == true)
 		{
 
@@ -727,6 +723,3 @@ class Auth extends CI_Controller {
 		}
 	}
 }
-
-
-

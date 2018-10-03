@@ -34,13 +34,13 @@ class Login extends CI_Controller
                 redirect('customerservice','refresh');
             } elseif ($this->ion_auth->in_group('Validator')) {
                 redirect('validator','refresh');
-            }elseif ($this->ion_auth->in_group('Kepala Cabang')) {
-				redirect('kepala_cabang','refresh');
-			} elseif ($this->ion_auth->in_group('Asisten Debt')) {
-				redirect('asdebt','refresh');
-            } elseif ($this->ion_auth->in_group('Bendahara')) {
-				redirect('bendahara','refresh');
-			}else{
+            } elseif ($this->ion_auth->in_group('Kepala Cabang')) {
+								redirect('kepala_cabang','refresh');
+						} elseif ($this->ion_auth->in_group('Asisten Debt')) {
+								redirect('asdebt','refresh');
+			      } elseif ($this->ion_auth->in_group('Bendahara')) {
+								redirect('bendahara','refresh');
+						} else{
                 redirect('login','refresh');
             }
         }

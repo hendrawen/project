@@ -68,20 +68,6 @@
       $uri2 = $this->uri->segment(2);
     ?>
 
-    <?php if ($uri1 == 'bendahara' && ($uri2 == 'pembelian' || $uri2 == 'pembayaran_barang')): ?>
-    <script src="<?= base_url('assets/template/production/js/bendahara/pembelian.js')?>"></script>
-    <?php endif; ?>
-
-    <?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'bendahara'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/muat.js"></script>
-    <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'stok_opname' && $this->uri->segment(1) == 'bendahara'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/stok_opname.js"></script>
-    <?php endif; ?>
-    <?php if ($this->uri->segment(2) == 'pembayaran_aset' && $this->uri->segment(1) == 'bendahara'): ?>
-      <script src="<?php echo base_url()?>assets/template/production/js/bendahara/pembayaranaset.js"></script>
-    <?php endif; ?>
-
 		<?php if ($this->uri->segment(2) == 'tracking' && $this->uri->segment(1) == 'kepala_cabang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/tracking.js"></script>
     <?php endif; ?>
@@ -97,7 +83,7 @@
 		<?php if ($this->uri->segment(2) == 'produk' && $this->uri->segment(1) == 'kepala_cabang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/produkshare.js"></script>
     <?php endif; ?>
-		
+
 		<?php if ($this->uri->segment(2) == 'growth_pelanggan' && $this->uri->segment(1) == 'kepala_cabang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/growth.js"></script>
     <?php endif; ?>
@@ -106,7 +92,26 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/gtransaksi.js"></script>
     <?php endif; ?>
 
-    <script src="<?= base_url('assets/template/production/js/bendahara/custom.js')?>"></script>
+		<?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/laporan_penjualan.js"></script>
+    <?php endif; ?>
+
+		<?php if ($this->uri->segment(2) == 'penjualan' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/penjualan2.js"></script>
+    <?php endif; ?>
+
+		<?php if ($this->uri->segment(2) == 'pembayaran' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/pembayaran.js"></script>
+    <?php endif; ?>
+
+		<?php if ($this->uri->segment(2) == 'pembayaran' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/laporan_pembayaran.js"></script>
+    <?php endif; ?>
+
+		<?php if ($this->uri->segment(2) == 'pembayaran' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/custom.js"></script>
+    <?php endif; ?>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/build/js/custom.min.js"></script>

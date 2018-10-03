@@ -32,8 +32,8 @@
                   </li>
                   <li><a><i class="fa fa-line-chart"></i> Report <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>laporan/penjualan">Penjualan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/pembayaran/utama">Pembayaran</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/penjualan">Penjualan</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/pembayaran/utama">Pembayaran</a></li>
                         <li><a href="<?php echo base_url();?>laporan/penarikan">Penarikan</a></li>
                         <li><a href="<?php echo base_url();?>laporan/produk">Trx Produk</a></li>
                         <li><a href="<?php echo base_url();?>laporan/area">Trx Area</a></li>
