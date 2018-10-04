@@ -50,7 +50,11 @@
 									<li><a href="<?php echo base_url();?>kepala_cabang/tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
                   <li><a href="<?php echo base_url();?>kepala_cabang/tracking_aset"><i class="fa fa-search"></i> Tracking Aset</a></li>
                   <li><a href="<?php echo base_url();?>kepala_cabang/market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
+<<<<<<< HEAD
                   <li><a href="<?php echo base_url();?>kepala_cabang/produk_share"><i class="fa fa-share-alt"></i> Produk Share</a></li>
+=======
+                  <li><a href="<?php echo base_url();?>kepala_cabang/produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>
+>>>>>>> 61c9758cb26c3599644fa8f801225ad4771425aa
                   <li><a href="<?php echo base_url();?>kepala_cabang/growth_pelanggan"><i class="fa fa-users"></i> Growth Pelanggan</a></li>
                   <li><a href="<?php echo base_url();?>kepala_cabang/gtransaksi"><i class="fa fa-pie-chart"></i> Growth Transaksi</a></li>
 
