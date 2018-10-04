@@ -139,7 +139,7 @@ $(document).ready(function() {
 
     $("#excel_pembayaran_harian").click(function() {
       tgl = $("#tgl").val();
-      window.location = base_url + 'laporan/excel/pembayaran_harian/'+tgl;
+      window.location = base_url + 'kepala_cabang/excel/pembayaran_harian/'+tgl;
     });
 
 
@@ -171,8 +171,8 @@ $(document).ready(function() {
       b1 = $("#bulan_dari").val();
       b2 = $("#bulan_ke").val();
       t = $("#tahun").val();
-      alert(b1+' '+b2+' '+t);
-      window.location = base_url + 'laporan/excel/pembayaran_bulanan/'+b1+'/'+b2+'/'+t;
+      // alert(b1+' '+b2+' '+t);
+      window.location = base_url + 'kepala_cabang/excel/pembayaran_bulanan/'+b1+'/'+b2+'/'+t;
     });
 
     $("#btn-search_tahun").click(function() {
@@ -198,7 +198,7 @@ $(document).ready(function() {
     // tahunan
     $("#pembayaran_excel_tahunan").click(function() {
       t = $("#tahunan").val();
-      window.location = base_url + 'laporan/excel/pembayaran_tahunan/'+t;
+      window.location = base_url + 'kepala_cabang/excel/pembayaran_tahunan/'+t;
     });
 
 
@@ -214,7 +214,7 @@ $(document).ready(function() {
           }
       });
       $.ajax({
-        url: base_url+'laporan/load_penarikan_bulanan/',
+        url: base_url+'kepala_cabang/load_penarikan_bulanan/',
         type: 'POST',
         dataType: 'html',
         data: {from : bulan_dari, to : bulan_ke, tahun : tahun},
@@ -230,7 +230,7 @@ $(document).ready(function() {
       b1 = $("#bulan_dari").val();
       b2 = $("#bulan_ke").val();
       t = $("#tahun").val();
-      window.location = base_url + 'laporan/excel/Penarikan_bulanan/'+b1+'/'+b2+'/'+t;
+      window.location = base_url + 'kepala_cabang/excel/Penarikan_bulanan/'+b1+'/'+b2+'/'+t;
     });
 
 

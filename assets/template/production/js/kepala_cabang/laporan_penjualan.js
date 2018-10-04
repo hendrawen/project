@@ -6,7 +6,7 @@ $(document).ready(function () {
 function get_all() {
   $("#loading").show();
   $.ajax({
-    url: base_url+'laporan/penjualan/get_all/',
+    url: base_url+'kepala_cabang/penjualan/get_all/',
     type: 'POST',
     dataType: 'html',
     success : function (data) {
@@ -19,7 +19,7 @@ function get_all() {
 function get_all_tracking() {
     $("#loading").show();
     $.ajax({
-      url: base_url+'laporan/penjualan/load_pelanggan_all/',
+      url: base_url+'kepala_cabang/penjualan/load_pelanggan_all/',
       type: 'POST',
       dataType: 'html',
       success : function (data) {
@@ -38,7 +38,7 @@ function get_all_tracking() {
         }
     });
     $.ajax({
-      url: base_url+'laporan/penjualan/load_harian/',
+      url: base_url+'kepala_cabang/penjualan/load_harian/',
       type: 'POST',
       dataType: 'html',
       data: {tgl: tgl},
@@ -61,7 +61,7 @@ function get_all_tracking() {
         }
     });
     $.ajax({
-      url: base_url+'laporan/penjualan/load_bulanan/',
+      url: base_url+'kepala_cabang/penjualan/load_bulanan/',
       type: 'POST',
       dataType: 'html',
       data: {from : bulan_dari, to : bulan_ke, tahun : tahun},
@@ -81,7 +81,7 @@ function get_all_tracking() {
         }
     });
     $.ajax({
-      url: base_url+'laporan/penjualan/load_tahunan/',
+      url: base_url+'kepala_cabang/penjualan/load_tahunan/',
       type: 'POST',
       dataType: 'html',
       data: {tahun: tahun},
@@ -125,11 +125,11 @@ function get_all_tracking() {
     window.location = base_url + 'som/excel/tahunan/'+t;
   });
 
-  $("#btn-refresh").click(function () { 
+  $("#btn-refresh").click(function () {
     get_all();
   });
 
-  $("#btn-refresh-tracking").click(function () { 
+  $("#btn-refresh-tracking").click(function () {
     get_all_tracking();
-    
+
   });
