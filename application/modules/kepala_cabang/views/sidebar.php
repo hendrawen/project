@@ -42,9 +42,9 @@
                   </li>
                   <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/penjualan_debt">Penjualan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/pembayaran_debt">Pembayaran</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penjualan/penarikan_debt">Penarikan</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/penjualan/penjualan_debt">Penjualan</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/penjualan/pembayaran_debt">Pembayaran</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/penjualan/penarikan_debt">Penarikan</a></li>
                       </ul>
                   </li>
 									<li><a href="<?php echo base_url();?>kepala_cabang/tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
