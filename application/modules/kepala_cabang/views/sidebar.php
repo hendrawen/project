@@ -34,10 +34,10 @@
                       <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>kepala_cabang/penjualan">Penjualan</a></li>
                         <li><a href="<?php echo base_url();?>kepala_cabang/pembayaran/utama">Pembayaran</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/penarikan">Penarikan</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/produk">Trx Produk</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/area">Trx Area</a></li>
-                        <li><a href="<?php echo base_url();?>laporan/marketing">Trx Marketing</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/penarikan">Penarikan</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/produk">Trx Produk</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/area">Trx Area</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/marketing">Trx Marketing</a></li>
                       </ul>
                   </li>
                   <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>

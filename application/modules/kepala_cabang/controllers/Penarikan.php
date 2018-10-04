@@ -11,7 +11,7 @@ class Penarikan extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
-					if (!$this->ion_auth->in_group('Super User')) {//cek admin ga?
+					if (!$this->ion_auth->in_group('Kepala Cabang')) {//cek admin ga?
 							redirect('login','refresh');
 					}
 		}
@@ -31,7 +31,7 @@ class Penarikan extends CI_Controller {
             'content'		=>'penarikan/laporan',
             'month'         => $this->month,
         );
-        $this->load->view('panel/dashboard', $data);
+        $this->load->view('dashboard', $data);
     }
 
     function ajax_list()
