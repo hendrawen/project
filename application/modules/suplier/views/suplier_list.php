@@ -76,7 +76,7 @@
                           <div class="col-md-6">
                               <a></a>
                           		<?php echo anchor(site_url('suplier/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                          		<?php echo anchor(site_url('suplier/word'), 'Word', 'class="btn btn-primary"'); ?>
+                          		<?php //echo anchor(site_url('suplier/word'), 'Word', 'class="btn btn-primary"'); ?>
                   	    </div>
                       </div>
                     </div>
@@ -92,7 +92,7 @@
                                        showConfirmButton: true,
                                        type: 'error' },
                                        function(){
-                                         location.reload();
+                                        //  location.reload();
                                      });
                                </script>
                              </small>
@@ -109,7 +109,7 @@
                                        showConfirmButton: true,
                                        type: 'success' },
                                        function(){
-                                         location.reload();
+                                        //  location.reload();
                                        }
                                      );
                                </script>

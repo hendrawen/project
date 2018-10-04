@@ -30,14 +30,16 @@
                 <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo base_url();?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
                 <!-- master Data -->
-                  <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>suplier">Suplier</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>gudang">Gudang</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang">Barang</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
-                      <!-- <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>barang/stok">Stok</a></li> -->
+                  <li <?= ($aktif == 'Karyawan' || $aktif == 'Supplier' || $aktif == 'Gudang' || $aktif == 'Barang' || $aktif == 'Pelanggan' || $aktif == 'Master')?'class="active"':''?> >
+                  <a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" 
+                    <?= ($aktif == 'Karyawan' || $aktif == 'Supplier' || $aktif == 'Gudang' || $aktif == 'Barang' || $aktif == 'Pelanggan' || $aktif == 'Master')?'style="display:block"':'' ?>>
+                      <li <?=($aktif == 'Karyawan')?'class="current-page"':''?> ><a href="<?php echo base_url();?>karyawan">Karyawan</a></li>
+                      <li <?=($aktif == 'Supplier')?'class="current-page"':''?>><a href="<?php echo base_url();?>suplier">Suplier</a></li>
+                      <li <?=($aktif == 'Gudang')?'class="current-page"':''?>><a href="<?php echo base_url();?>gudang">Gudang</a></li>
+                      <li <?=($aktif == 'Barang')?'class="current-page"':''?>><a href="<?php echo base_url();?>barang">Barang</a></li>
+                      <li <?=($aktif == 'Pelanggan' || $aktif == 'Master')?'class="current-page"':''?>><a href="<?php echo base_url();?>pelanggan">Pelanggan</a></li>
+                      <!-- <li><a href="<?php echo base_url();?>barang/stok">Stok</a></li> -->
                     </ul>
                   </li>
                       <li><a><i class="fa fa-bar-chart-o"></i> Transaksi<span class="fa fa-chevron-down"></span></a>

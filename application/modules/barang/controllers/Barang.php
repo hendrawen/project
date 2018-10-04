@@ -48,7 +48,7 @@ class Barang extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['aktif']			='Master';
+        $data['aktif']			='Barang';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Barang';
@@ -75,7 +75,7 @@ class Barang extends CI_Controller
 		'created_at' => $row->created_at,
 		'updated_at' => $row->updated_at,
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='Barang';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Detail Barang';
@@ -105,7 +105,7 @@ class Barang extends CI_Controller
 	    'created_at' => set_value('created_at'),
 	    'updated_at' => set_value('updated_at'),
 	);
-        $data['aktif']			='Master';
+        $data['aktif']			='Barang';
         $data['title']			='Brajamarketindo';
         $data['judul']			='Dashboard';
         $data['sub_judul']	='Tambah Barang';
@@ -162,7 +162,7 @@ class Barang extends CI_Controller
         		'created_at' => set_value('created_at', $row->created_at),
         		'updated_at' => set_value('updated_at', $row->updated_at),
         	  );
-            $data['aktif']			='Master';
+            $data['aktif']			='Barang';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit Barang';

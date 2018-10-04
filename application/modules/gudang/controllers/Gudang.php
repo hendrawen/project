@@ -30,7 +30,7 @@ class Gudang extends CI_Controller
       'alamat' => set_value('alamat'),
       );
 
-      $data['aktif']			='Master';
+      $data['aktif']			='Gudang';
       $data['title']			='Brajamarketindo';
       $data['judul']			='Dashboard';
       $data['sub_judul']	='Gudang';
@@ -51,7 +51,7 @@ class Gudang extends CI_Controller
 		'nama_gudang' => $row->nama_gudang,
 		'alamat' => $row->alamat,
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='Gudang';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	    ='Detail Gudang';
@@ -101,7 +101,7 @@ class Gudang extends CI_Controller
         'nama_gudang' => set_value('nama_gudang', $row->nama_gudang),
         'alamat' => set_value('alamat', $row->alamat),
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='Gudang';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	    ='Edit gudang';
