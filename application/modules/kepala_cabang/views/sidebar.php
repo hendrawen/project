@@ -30,12 +30,51 @@
                 <ul class="nav side-menu">
                   <li><a <?php echo ($aktif == 'Dashboard')?'class="active"':"";?> href="<?php echo site_url('kepala_cabang');?>"><i class="fa fa-home"></i> Dashboard</a>
                   </li>
-                  <li><a <?php echo ($aktif == 'pembelian')?'class="active"':"";?> href="<?php echo site_url('bendahara/pembelian')?>"><i class="fa fa-shopping-cart"></i> Pembelian</a></li>
-                  <li><a <?php echo ($aktif == 'pembayaran_barang')?'class="active"':"";?> href="<?php echo site_url('bendahara/pembayaran_barang/barang')?>"><i class="fa fa-credit-card"></i> Pembayaran Barang</a></li>
-                  <li><a <?php echo ($aktif == 'pembayaran_aset')?'class="active"':"";?> href="<?php echo site_url('bendahara/pembayaran_aset/penarikan')?>"><i class="fa fa-money"></i> Pembayaran Aset</a></li>
-                  <li><a <?php echo ($aktif == 'kas')?'class="active"':"";?> href="<?php echo site_url('bendahara/kas')?>"><i class="fa fa-bank"></i> Kas</a></li>
-                  <li><a <?php echo ($aktif == 'repot-kas')?'class="active"':"";?> href="<?php echo site_url('bendahara/report_kas')?>"><i class="fa fa-file"></i> Report Kas</a></li>
-                  <li><a <?php echo ($aktif == 'kpi')?'class="active"':"";?> href="<?php echo site_url('bendahara/kpi')?>"><i class="fa fa-bars"></i> KPI</a></li>
+                  <li><a><i class="fa fa-line-chart"></i> Report <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/penjualan">Penjualan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/pembayaran/utama">Pembayaran</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penarikan">Penarikan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/produk">Trx Produk</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/area">Trx Area</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/marketing">Trx Marketing</a></li>
+                      </ul>
+                  </li>
+                  <li><a><i class="fa fa-list-alt"></i> Report Debt & Delivery <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/penjualan_debt">Penjualan</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/pembayaran_debt">Pembayaran</a></li>
+                        <li><a href="<?php echo base_url();?>laporan/penjualan/penarikan_debt">Penarikan</a></li>
+                      </ul>
+                  </li>
+									<li><a href="<?php echo base_url();?>kepala_cabang/tracking"><i class="fa fa-search"></i> Tracking Pelanggan</a></li>
+                  <li><a href="<?php echo base_url();?>kepala_cabang/tracking_aset"><i class="fa fa-search"></i> Tracking Aset</a></li>
+                  <li><a href="<?php echo base_url();?>kepala_cabang/market"><i class="fa fa-shopping-cart"></i> Market Share</a></li>
+                  <li><a href="<?php echo base_url();?>kepala_cabang/produk"><i class="fa fa-share-alt"></i> Produk Share</a></li>
+                  <li><a href="<?php echo base_url();?>kepala_cabang/growth_pelanggan"><i class="fa fa-users"></i> Growth Pelanggan</a></li>
+                  <li><a href="<?php echo base_url();?>kepala_cabang/gtransaksi"><i class="fa fa-pie-chart"></i> Growth Transaksi</a></li>
+
+                  <li><a <?php echo ($aktif == 'users')?'class="active"':"";?>><i class="fa fa-database"></i> Data Stok & Aset<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/aset">Aset Awal</a></li>
+                        <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/stok">Stok Awal</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/muat">Muat Barang</a></li>
+                        <li><a href="<?php echo base_url();?>kepala_cabang/stok_opname">Stock Opname</a></li>
+                      </ul>
+                  </li>
+
+                  <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
+
+                  <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/sumberdata">Sumber Data Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/sudavalidator">Sumber Data Validator</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/effectivecall">Activity Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/validator">Activity Validator</a></li>
+
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/debt">Debt & Delivery</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/marketing">Marketing</a></li>
+                    </ul>
                   </li>
                 </ul>
               </div>
