@@ -116,7 +116,7 @@
                                showConfirmButton: true,
                                type: 'error' },
                                function(){
-                                 location.reload();
+                                //  location.reload();
                              });
                        </script>
                      </small>
@@ -133,7 +133,7 @@
                                showConfirmButton: true,
                                type: 'success' },
                                function(){
-                                 location.reload();
+                                //  location.reload();
                                }
                              );
                        </script>

@@ -29,7 +29,7 @@ class Jabatan extends CI_Controller
       'nama_jabatan' => set_value('nama_jabatan'),
       );
 
-      $data['aktif']			='Master';
+      $data['aktif']			='Karyawan';
       $data['title']			='Brajamarketindo';
       $data['judul']			='Dashboard';
       $data['sub_judul']	='Jabatan';
@@ -37,33 +37,6 @@ class Jabatan extends CI_Controller
       $data['jabatan']   = $this->jabatan_model->get_all();
       $this->load->view('panel/dashboard', $data);
 
-    }
-
-    public function read($id)
-    {   
-        $row = $this->jabatan_model->get_by_id($id);
-        if ($row) {
-            $data = array(
-		'id_jabatan' => $row->id_jabatan,
-		'nama' => $row->nama,
-		'alamat' => $row->alamat,
-		'no_telp' => $row->no_telp,
-		'photo' => $row->photo,
-		'status' => $row->status,
-		'wp_jabatan_id' => $row->wp_jabatan_id,
-	    );
-            $data['aktif']			='Master';
-            $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
-            $data['sub_judul']	='Detail jabatan';
-            $data['content']		='jabatan_read';
-            $data['menu']			= $this->permit[0];
-	        $data['submenu']		= $this->permit[1];
-            $this->load->view('panel/dashboard', $data);
-        } else {
-            $this->session->set_flashdata('msg', 'Data Tidak Ada');
-            redirect(site_url('jabatan'));
-        }
     }
 
     public function create_action()
@@ -99,7 +72,7 @@ class Jabatan extends CI_Controller
 		'id' => set_value('id', $row->id),
 		'nama_jabatan' => set_value('nama_jabatan', $row->nama_jabatan),
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='Karyawan';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Dashboard';
             $data['sub_judul']	='Edit jabatan';
@@ -153,9 +126,9 @@ class Jabatan extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('nama_jabatan', 'nama_jabatan', 'trim|required');
-	//$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('nama_jabatan', 'nama_jabatan', 'trim|required');
+        //$this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
     public function excel()
@@ -184,24 +157,24 @@ class Jabatan extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Nama");
-	xlsWriteLabel($tablehead, $kolomhead++, "Alamat");
-	xlsWriteLabel($tablehead, $kolomhead++, "No Telp");
-	xlsWriteLabel($tablehead, $kolomhead++, "Photo");
-	xlsWriteLabel($tablehead, $kolomhead++, "Status");
-	xlsWriteLabel($tablehead, $kolomhead++, "Wp Jabatan Id");
+        xlsWriteLabel($tablehead, $kolomhead++, "Nama");
+        xlsWriteLabel($tablehead, $kolomhead++, "Alamat");
+        xlsWriteLabel($tablehead, $kolomhead++, "No Telp");
+        xlsWriteLabel($tablehead, $kolomhead++, "Photo");
+        xlsWriteLabel($tablehead, $kolomhead++, "Status");
+        xlsWriteLabel($tablehead, $kolomhead++, "Wp Jabatan Id");
 
-	foreach ($this->jabatan_model->get_all() as $data) {
+	    foreach ($this->jabatan_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->nama);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->alamat);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->no_telp);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->photo);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->status);
-	    xlsWriteNumber($tablebody, $kolombody++, $data->wp_jabatan_id);
+            xlsWriteLabel($tablebody, $kolombody++, $data->nama);
+            xlsWriteLabel($tablebody, $kolombody++, $data->alamat);
+            xlsWriteNumber($tablebody, $kolombody++, $data->no_telp);
+            xlsWriteLabel($tablebody, $kolombody++, $data->photo);
+            xlsWriteLabel($tablebody, $kolombody++, $data->status);
+            xlsWriteNumber($tablebody, $kolombody++, $data->wp_jabatan_id);
 
 	    $tablebody++;
             $nourut++;
