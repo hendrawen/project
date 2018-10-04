@@ -23,9 +23,9 @@ class Penarikan extends CI_Controller{
 
   function index()
   { 
-      $data['aktif']			='Penarikan';
+      $data['aktif']			='transaksi';
       $data['title']			='Brajamarketindo';
-      $data['judul']			='Dashboard';
+      $data['judul']			='Penarikan';
       $data['sub_judul']	='Penarikan';
       $data['content']		='main';
       $this->load->view('panel/dashboard', $data);
@@ -33,9 +33,9 @@ class Penarikan extends CI_Controller{
 
   function piutang()
   { 
-      $data['aktif']			='Dashboard';
+      $data['aktif']			='transaksi';
       $data['title']			='Brajamarketindo';
-      $data['judul']			='Dashboard';
+      $data['judul']			='Penarikan';
       $data['sub_judul']	='Penarikan';
       $data['content']		='piutang';
       $this->load->view('panel/dashboard',$data);
@@ -97,9 +97,9 @@ class Penarikan extends CI_Controller{
 
   function transaksi()
   { 
-      $data['aktif']			='aset';
+      $data['aktif']			='transaksi';
       $data['title']			='Brajamarketindo';
-      $data['judul']			='Pembayaran';
+      $data['judul']			='Penarikan';
       $data['sub_judul']	='Form';
       $data['content']		='form';
       $data['menu']			= $this->permit[0];

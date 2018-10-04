@@ -48,9 +48,9 @@ class Barang extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['aktif']			='Barang';
+        $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Barang';
         $data['sub_judul']	='Barang';
         $data['menu']			= $this->permit[0];
 	    $data['submenu']		= $this->permit[1];
@@ -75,9 +75,9 @@ class Barang extends CI_Controller
 		'created_at' => $row->created_at,
 		'updated_at' => $row->updated_at,
 	    );
-            $data['aktif']			='Barang';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Barang';
             $data['sub_judul']	='Detail Barang';
             $data['menu']			= $this->permit[0];
 	        $data['submenu']		= $this->permit[1];
@@ -105,9 +105,9 @@ class Barang extends CI_Controller
 	    'created_at' => set_value('created_at'),
 	    'updated_at' => set_value('updated_at'),
 	);
-        $data['aktif']			='Barang';
+        $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Barang';
         $data['sub_judul']	='Tambah Barang';
         $data['menu']			= $this->permit[0];
 	    $data['submenu']		= $this->permit[1];
@@ -162,9 +162,9 @@ class Barang extends CI_Controller
         		'created_at' => set_value('created_at', $row->created_at),
         		'updated_at' => set_value('updated_at', $row->updated_at),
         	  );
-            $data['aktif']			='Barang';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Barang';
             $data['sub_judul']	='Edit Barang';
             $data['menu']			= $this->permit[0];
 	        $data['submenu']		= $this->permit[1];

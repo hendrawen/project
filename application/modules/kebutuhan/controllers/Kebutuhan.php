@@ -22,10 +22,8 @@ class Kebutuhan extends CI_Controller{
   { 
     $data['aktif']			='Master';
     $data['title']			='Kebutuhan Pelanggan';
-    $data['judul']			='Data Kebutuhan Pelanggan';
+    $data['judul']			='Pelanggan';
     $data['sub_judul']		='';
-    $data['menu']			= $this->permit[0];
-	$data['submenu']		= $this->permit[1];
     $data['content']			= 'kebutuhan';
     $data['kebutuhan'] = $this->kebutuhan->show_kebutuhan();
     $this->load->view('panel/dashboard', $data);
@@ -70,10 +68,8 @@ class Kebutuhan extends CI_Controller{
 	      );
         $data['aktif']			='Master';
         $data['title']			='Data Kebutuhan';
-        $data['judul']			='Kebutuhan';
+        $data['judul']			='Pelanggan';
         $data['sub_judul']		='';
-        $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
         $data['content']			= 'form';
         $this->load->view('panel/dashboard', $data);
     }
@@ -83,10 +79,8 @@ class Kebutuhan extends CI_Controller{
       # code...
       $data['aktif']			='Master/presentasi';
       $data['title']			='Data Kebutuhan';
-      $data['judul']			='Report Kebutuhan';
+      $data['judul']			='Pelanggan';
       $data['sub_judul']		='';
-      $data['menu']			= $this->permit[0];
-	  $data['submenu']		= $this->permit[1];
       $data['content']			= 'presentasi';
       $this->load->view('panel/dashboard', $data);
 
@@ -118,7 +112,7 @@ class Kebutuhan extends CI_Controller{
        }
        $data['aktif']			='Master/presentasi';
        $data['title']			='Data Kebutuhan';
-       $data['judul']			='Report Kebutuhan';
+       $data['judul']			='Pelanggan';
        $data['sub_judul']		='';
        $data['content']			= 'presentasi';
        // $data['pesanan'] = $this->Pesanan_model->total_baru();
@@ -127,8 +121,6 @@ class Kebutuhan extends CI_Controller{
        // $sum = $this->Report_model->sum2($data);
        // $data['sum'] = $sum;
        $data['show_table'] = $this->view_table();
-       $data['menu']			= $this->permit[0];
-	   $data['submenu']		= $this->permit[1];
        $this->load->view('panel/dashboard', $data);
     }
 
@@ -176,8 +168,6 @@ class Kebutuhan extends CI_Controller{
             		'jumlah' => set_value('jumlah', $row->jumlah),
             		'tgl' => set_value('tgl', $row->tgl),
         );
-            $data['menu']			= $this->permit[0];
-            $data['submenu']		= $this->permit[1];
             $this->load->view('kebutuhan/wp_kebutuhan_form', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');

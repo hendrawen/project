@@ -22,9 +22,9 @@ class Pembayaran extends CI_Controller{
 
   function index()
   { 
-    $data['aktif']			='aset';
+    $data['aktif']			='transaksi';
     $data['title']			='Brajamarketindo';
-    $data['judul']			='Dashboard';
+    $data['judul']			='Pembayaran';
     $data['sub_judul']	='Pembayaran';
     $data['content']		='main';
     $data['menu']			= $this->permit[0];
@@ -34,9 +34,9 @@ class Pembayaran extends CI_Controller{
 
   function piutang()
   { 
-    $data['aktif']			='Dashboard';
+    $data['aktif']			='transaksi';
     $data['title']			='Brajamarketindo';
-    $data['judul']			='Dashboard';
+    $data['judul']			='Pembayaran';
     $data['sub_judul']	='Piutang';
     $data['content']		='piutang';
     $data['menu']			= $this->permit[0];
@@ -84,7 +84,7 @@ class Pembayaran extends CI_Controller{
 
   function transaksi()
   { 
-    $data['aktif']			='aset';
+    $data['aktif']			='transaksi';
     $data['title']			='Brajamarketindo';
     $data['judul']			='Pembayaran';
     $data['sub_judul']	='Form';
@@ -265,9 +265,9 @@ class Pembayaran extends CI_Controller{
   function update($id)
   { 
       $data['record']     = $this->pembayaran->get_track($id);
-      $data['aktif']			='Dashboard';
+      $data['aktif']			='transaksi';
       $data['title']			='Brajamarketindo';
-      $data['judul']			='Dashboard';
+      $data['judul']			='Pembayaran';
       $data['sub_judul']	='Edit Piutang';
       $data['content']		='edit';
       $data['menu']			  = $this->permit[0];

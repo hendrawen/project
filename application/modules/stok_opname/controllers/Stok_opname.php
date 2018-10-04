@@ -35,10 +35,10 @@ class Stok_opname extends CI_Controller {
             $index++;
         }
 
-        $data['aktif']			='Master';
+        $data['aktif']			='stok-aset';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
-        $data['sub_judul']	    ='Opname Stok & Aset';
+        $data['judul']			='Stok Opname';
+        $data['sub_judul']	    ='Data Stok Opname';
         $data['content']		='main';
         $data['barang'] = $temp;
         $data['satuan'] = $this->main->get_satuan();

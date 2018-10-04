@@ -52,9 +52,9 @@ class Karyawan extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['aktif']			='Karyawan';
+        $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Karyawan';
         $data['sub_judul']	='Karyawan';
         $data['content']		='karyawan_list';
         $data['karya']   = $this->karyawan_model->get_data();
@@ -74,9 +74,9 @@ class Karyawan extends CI_Controller
 		'status' => $row->status,
 		'wp_jabatan_id' => $row->wp_jabatan_id,
 	    );
-            $data['aktif']			='Karyawan';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Karyawan';
             $data['sub_judul']	='Detail Karyawan';
             $data['content']		='karyawan_read';
             $this->load->view('panel/dashboard', $data);
@@ -99,9 +99,9 @@ class Karyawan extends CI_Controller
 	    'status' => set_value('status'),
 	    'wp_jabatan_id' => set_value('wp_jabatan_id'),
 	);
-        $data['aktif']			='Karyawan';
+        $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Karyawan';
         $data['sub_judul']	='Tambah Karyawan';
         $data['content']		='karyawan_form';
         $this->load->view('panel/dashboard', $data);
@@ -168,9 +168,9 @@ class Karyawan extends CI_Controller
 		'status' => set_value('status', $row->status),
 		'wp_jabatan_id' => set_value('wp_jabatan_id', $row->wp_jabatan_id),
 	    );
-            $data['aktif']			='Karyawan';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Karyawan';
             $data['sub_judul']	    ='Edit Karyawan';
             $data['content']		='karyawan_form_edit';
             $this->load->view('panel/dashboard', $data);

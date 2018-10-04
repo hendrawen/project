@@ -28,9 +28,9 @@ class Stok extends CI_Controller
             'stok_data' => $stok,
             'start' => 1,
         );
-		$data['aktif']			='Master';
+		$data['aktif']			='stok-aset';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Stok';
         $data['sub_judul']	    ='Stok Barang';
         $data['content']		='stok_list';
         $data['stok']    		= $this->stok_model->get_data();
@@ -48,9 +48,9 @@ class Stok extends CI_Controller
 		'stok' => $row->stok,
 		'updated_at' => $row->updated_at,
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='stok-aset';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Stok';
             $data['sub_judul']	='Detail Stok Barang';
             $data['content']		='stok_read';
             $this->load->view('panel/dashboard', $data);
@@ -71,10 +71,10 @@ class Stok extends CI_Controller
             'stok' => set_value('stok'),
             'updated_at' => set_value('updated_at'),
 	        );
-				$data['aktif']			='Master';
+				$data['aktif']			='stok-aset';
 				$data['title']			='Brajamarketindo';
-				$data['judul']			='Dashboard';
-                $data['sub_judul']	='Stok Barang';
+				$data['judul']			='Stok';
+                $data['sub_judul']	='Tambah Stok Barang';
 				$data['content']		='stok_form';
 				$this->load->view('panel/dashboard', $data);
     }
@@ -114,9 +114,9 @@ class Stok extends CI_Controller
 		'stok' => set_value('stok', $row->stok),
 		'updated_at' => set_value('updated_at', $row->updated_at),
 	    );
-						$data['aktif']			='Master';
+						$data['aktif']			='stok-aset';
 						$data['title']			='Brajamarketindo';
-						$data['judul']			='Dashboard';
+						$data['judul']			='Stok';
                         $data['sub_judul']	='Edit Stok Barang';
 						$data['content']		='stok_form';
 						$this->load->view('panel/dashboard', $data);

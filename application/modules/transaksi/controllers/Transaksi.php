@@ -54,9 +54,9 @@ class Transaksi extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $data['aktif']			='Master';
+        $data['aktif']			='transaksi';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Penjualan';
         $data['sub_judul']	='Transaksi';
         $data['menu']			= $this->permit[0];
 	    $data['submenu']		= $this->permit[1];
@@ -84,9 +84,9 @@ class Transaksi extends CI_Controller
 		'username' => $row->username,
 		'wp_status_id' => $row->wp_status_id,
 	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='transaksi';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Penjualan';
             $data['sub_judul']	='Detail Transaksi';
             $data['menu']			= $this->permit[0];
             $data['submenu']		= $this->permit[1];
@@ -115,9 +115,9 @@ class Transaksi extends CI_Controller
 	    'username' => set_value('username'),
 	    'wp_status_id' => set_value('wp_status_id'),
 	);
-        $data['aktif']			='Master';
+        $data['aktif']			='transaksi';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Penjualan';
         $data['sub_judul']	='Tambah Transaksi';
         $data['menu']			= $this->permit[0];
 	    $data['submenu']		= $this->permit[1];
@@ -170,9 +170,9 @@ class Transaksi extends CI_Controller
             		'username' => $this->session->identity,
             		'wp_status_id' => set_value('wp_status_id', $row->wp_status_id),
         	    );
-            $data['aktif']			='Master';
+            $data['aktif']			='transaksi';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Penjualan';
             $data['sub_judul']	='Edit Transaksi';
             $data['menu']			= $this->permit[0];
             $data['submenu']		= $this->permit[1];

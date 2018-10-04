@@ -28,7 +28,7 @@ class Jenis_kebutuhan extends CI_Controller{
       );
       $data['aktif']			='Master';
         $data['title']			='Kebuthan Pelanggan';
-  		$data['judul']			='Data Kebutuhan Pelanggan';
+  		$data['judul']			='Pelanggan';
         $data['sub_judul']		='';
       $data['content']			= 'jenis';
       $this->load->view('panel/dashboard', $data);
@@ -46,7 +46,7 @@ class Jenis_kebutuhan extends CI_Controller{
           );
           $data['aktif']			='Master';
           $data['title']			='Kebuthan Pelanggan';
-          $data['judul']			='Data Kebutuhan Pelanggan';
+          $data['judul']			='Pelanggan';
           $data['sub_judul']		='';
           $data['content']			= 'form';
           $this->load->view('panel/dashboard', $data);
@@ -84,7 +84,7 @@ class Jenis_kebutuhan extends CI_Controller{
             );
             $data['aktif']			='Master';
             $data['title']			='Kebuthan Pelanggan';
-            $data['judul']			='Data Kebutuhan Pelanggan';
+            $data['judul']			='Pelanggan';
             $data['sub_judul']		='';
             $data['content']			= 'form';
             $this->load->view('panel/dashboard', $data);

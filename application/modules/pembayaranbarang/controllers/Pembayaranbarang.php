@@ -21,12 +21,10 @@ class Pembayaranbarang extends CI_Controller{
 
   function index()
   { 
-    $data['aktif']			='aset';
+    $data['aktif']			='transaksi';
     $data['title']			='Brajamarketindo';
-    $data['judul']			='Dashboard';
+    $data['judul']			='Pembayaran Barang';
     $data['sub_judul']	='Pembayaran';
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
     $data['content']		='main';
     $data['pembayaran'] =$this->pembayaran->get_data();
     $this->load->view('panel/dashboard', $data);
@@ -34,12 +32,10 @@ class Pembayaranbarang extends CI_Controller{
 
   function barang()
   { 
-    $data['aktif']			='Dashboard';
+    $data['aktif']			='transaksi';
     $data['title']			='Brajamarketindo';
-    $data['judul']			='Dashboard';
+    $data['judul']			='Pembayaran Barang';
     $data['sub_judul']	='Pembayaran';
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
     $data['content']		='piutang';
     $this->load->view('panel/dashboard',$data);
   }
@@ -82,12 +78,10 @@ class Pembayaranbarang extends CI_Controller{
 
   function transaksi()
   { 
-    $data['aktif']			='aset';
+    $data['aktif']			='transaksi';
     $data['title']			='Brajamarketindo';
-    $data['judul']			='Pembayaran';
+    $data['judul']			='Pembayaran Barang';
     $data['sub_judul']	='Form';
-    $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
     $data['content']		='form';
     $this->load->view('panel/dashboard', $data);
   }

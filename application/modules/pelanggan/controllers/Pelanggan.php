@@ -21,12 +21,10 @@ class Pelanggan extends CI_Controller{
 
   function index()
   { 
-    $data['aktif']			='Pelanggan';
+    $data['aktif']			='Master';
 		$data['title']			='Brajamarketindo';
-		$data['judul']			='Dashboard';
+		$data['judul']			='Pelanggan';
     $data['sub_judul']		='Data Pelanggan';
-    $data['menu']			= $this->permit[0];
-	  $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
     // $kotas = $this->pelanggan->get_list_kota();
 
@@ -148,9 +146,9 @@ class Pelanggan extends CI_Controller{
     {
       # code..
       $this->load->library('Googlemap');
-      $data['aktif']			='Pelanggan';
+      $data['aktif']			='Master';
   		$data['title']			='Brajamarketindo';
-  		$data['judul']			='Dashboard';
+  		$data['judul']			='Pelanggan';
   		$data['sub_judul']		='Mapping Pelanggan';
       $data['content']			= 'maps';
       $config['zoom'] = 'auto';
@@ -173,8 +171,6 @@ class Pelanggan extends CI_Controller{
         $this->googlemap->add_marker($marker);
       }
       $data['map'] = $this->googlemap->create_map();
-      $data['menu']			= $this->permit[0];
-	    $data['submenu']		= $this->permit[1];
       $this->load->view('panel/dashboard', $data);
     }
 
@@ -205,12 +201,10 @@ class Pelanggan extends CI_Controller{
               'list_kota' => $this->daerah->get_kota(),
             	'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan'),
           );
-          $data['aktif']			='Pelanggan';
+          $data['aktif']			='Master';
       		$data['title']			='Brajamarketindo';
-      		$data['judul']			='Dashboard';
+      		$data['judul']			='Pelanggan';
           $data['sub_judul']		='Pelanggan';
-          $data['menu']			= $this->permit[0];
-	        $data['submenu']		= $this->permit[1];
           $data['content']			= 'form';
           $data['id_pelanggan'] = $this->pelanggan->get_kode_pelanggan();
           $this->load->view('panel/dashboard', $data);
@@ -316,12 +310,10 @@ class Pelanggan extends CI_Controller{
             		'status' => set_value('status', $row->status),
             		'wp_karyawan_id_karyawan' => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
 	          );
-            $data['aktif']			='Pelanggan';
+            $data['aktif']			='Master';
         		$data['title']			='Edit Data Pelanggan';
         		$data['judul']			='Edit Data Pelanggan';
             $data['sub_judul']		='';
-            $data['menu']			= $this->permit[0];
-	          $data['submenu']		= $this->permit[1];
             $data['content']			= 'form';
             $this->load->view('panel/dashboard', $data);
         } else {

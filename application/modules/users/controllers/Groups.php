@@ -22,9 +22,9 @@ class Groups extends CI_Controller
 
     public function index()
     {
-        $data['aktif']		  ='Group';
-    		$data['judul']      ='Dashboard';
-    		$data['sub_judul']	='Group';
+        $data['aktif']		  ='setting';
+    		$data['judul']      ='Group';
+    		$data['sub_judul']	='List';
         $data['groups']      = $this->group->get_all();
         $data['content']    = 'group/groups';
         $data['menu']			= $this->permit[0];
@@ -41,9 +41,9 @@ class Groups extends CI_Controller
     'name' => set_value('name'),
     'description' => set_value('description'),
     );
-        $data['aktif']		  ='Group';
-    		$data['judul']      ='Dashboard';
-    		$data['sub_judul']	='Group';
+        $data['aktif']		  ='setting';
+    		$data['judul']      ='Group';
+    		$data['sub_judul']	='Tambah';
         $data['content']    ='group/table_group_form';
         $data['menu']			= $this->permit[0];
 		$data['submenu']		= $this->permit[1];
@@ -80,11 +80,9 @@ class Groups extends CI_Controller
     		'name' => set_value('name', $row->name),
     		'description' => set_value('description', $row->description),
     	    );
-            $data['aktif']		  ='Group';
-            $data['judul']      ='Dashboard';
-            $data['sub_judul']	='Edit Group';
-            $data['menu']			= $this->permit[0];
-		    $data['submenu']		= $this->permit[1];
+            $data['aktif']		  ='setting';
+            $data['judul']      ='Group';
+            $data['sub_judul']	='Edit';
             $data['content']    ='group/table_group_form';
             $this->load->view('panel/dashboard',$data);
         } else {

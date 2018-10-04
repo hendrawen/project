@@ -29,9 +29,9 @@ class Jabatan extends CI_Controller
       'nama_jabatan' => set_value('nama_jabatan'),
       );
 
-      $data['aktif']			='Karyawan';
+      $data['aktif']			='Master';
       $data['title']			='Brajamarketindo';
-      $data['judul']			='Dashboard';
+      $data['judul']			='Karyawan';
       $data['sub_judul']	='Jabatan';
       $data['content']		='jabatan_list';
       $data['jabatan']   = $this->jabatan_model->get_all();
@@ -72,9 +72,9 @@ class Jabatan extends CI_Controller
 		'id' => set_value('id', $row->id),
 		'nama_jabatan' => set_value('nama_jabatan', $row->nama_jabatan),
 	    );
-            $data['aktif']			='Karyawan';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Karyawan';
             $data['sub_judul']	='Edit jabatan';
             $data['content']		='jabatan_list';
             $data['menu']			= $this->permit[0];

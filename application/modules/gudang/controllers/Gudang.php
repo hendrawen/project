@@ -30,9 +30,9 @@ class Gudang extends CI_Controller
       'alamat' => set_value('alamat'),
       );
 
-      $data['aktif']			='Gudang';
+      $data['aktif']			='Master';
       $data['title']			='Brajamarketindo';
-      $data['judul']			='Dashboard';
+      $data['judul']			='Gudang';
       $data['sub_judul']	='Gudang';
       $data['content']		='gudang_list';
       $data['menu']			= $this->permit[0];
@@ -51,9 +51,9 @@ class Gudang extends CI_Controller
 		'nama_gudang' => $row->nama_gudang,
 		'alamat' => $row->alamat,
 	    );
-            $data['aktif']			='Gudang';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Gudang';
             $data['sub_judul']	    ='Detail Gudang';
             $data['content']		='gudang_read';
             $data['menu']			= $this->permit[0];
@@ -101,9 +101,9 @@ class Gudang extends CI_Controller
         'nama_gudang' => set_value('nama_gudang', $row->nama_gudang),
         'alamat' => set_value('alamat', $row->alamat),
 	    );
-            $data['aktif']			='Gudang';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Gudang';
             $data['sub_judul']	    ='Edit gudang';
             $data['content']		='gudang_list';
             $data['menu']			= $this->permit[0];

@@ -20,11 +20,11 @@
 
         function index(){
             $data = array(
-                'aktif'      => 'Jadwal Kunjungan',
+                'aktif'      => 'manage',
                 'menu'       => $this->permit[0],
                 'submenu'	   => $this->permit[1],
                 'content'    => 'list_jadwal',
-                'judul'      => 'Dashboard',
+                'judul'      => 'status-pelanggan',
                 'sub_judul'  => 'Jadwal Kunjungan'
             );
             if(($this->session->identity == 'administrator') || ($this->session->identity == 'som')){
@@ -48,11 +48,9 @@
         	    'tanggal'    => set_value('tanggal'),
                 'sumber_data'  => set_value('sumber_data'),
                 'ket'        => set_value('ket'),
-              'aktif'      => 'Jadwal Kunjungan',
-              'menu'       => $this->permit[0],
-              'submenu'	   => $this->permit[1],
+              'aktif'      => 'manage',
               'content'    => 'form_jadwal',
-              'judul'      => 'Dashboard',
+              'judul'      => 'status-pelanggan',
               'sub_judul'  => 'Jadwal Kunjungan',
               'pelanggan'  => $this->m_jadwal->get_data_pelanggan(),
               'm_validator'  => $this->m_jadwal->get_data_validator()
@@ -97,11 +95,9 @@
                   'tanggal'    => set_value('tanggal', $row->tanggal_kunjungan),
                   'sumber_data'    => set_value('sumber_data', $row->sumber_data),
           	    'ket'        => set_value('ket', $row->keterangan),
-                'aktif'      => 'Jadwal Kunjungan',
-                'menu'       => $this->permit[0],
-                'submenu'	   => $this->permit[1],
+                'aktif'      => 'manage',
                 'content'    => 'form_jadwal',
-                'judul'      => 'Dashboard',
+                'judul'      => 'status-pelanggan',
                 'sub_judul'  => 'Jadwal Kunjungan',
                 'pelanggan'  => $this->m_jadwal->get_data_pelanggan(),
                 'm_validator'  => $this->m_jadwal->get_data_validator()

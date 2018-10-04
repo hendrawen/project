@@ -22,9 +22,9 @@
         function index(){
 
             $data = array(
-                'aktif'      => 'Jadwal',
+                'aktif'      => 'manage',
                 'content'    => 'jadwal',
-                'judul'      => 'Dashboard',
+                'judul'      => 'status-pelanggan',
                 'sub_judul'  => 'Jadwal'
             );
             $data['jadwal'] = $this->jadwal->get_all();
@@ -115,9 +115,9 @@
                 'description'        => set_value('description'),
                 'wp_pelanggan_id'        => set_value('wp_pelanggan_id'),
                 'wp_karyawan_id_karyawan'        => set_value('wp_karyawan_id_karyawan'),
-              'aktif'      => 'Jadwal',
+              'aktif'      => 'manage',
               'content'    => 'form_jadwal',
-              'judul'      => 'Dashboard',
+              'judul'      => 'status-pelanggan',
               'sub_judul'  => 'Jadwal'
                );
                $data['colors']		= array(
@@ -177,11 +177,11 @@
                   'description'        => set_value('description', $row->description),
                   'wp_pelanggan_id'        => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
                   'wp_karyawan_id_karyawan'        => set_value('wp_karyawan_id_karyawan', $row->wp_karyawan_id_karyawan),
-                'aktif'      => 'Jadwal',
+                'aktif'      => 'manage',
                 'menu'       => $this->permit[0],
                 'submenu'	   => $this->permit[1],
                 'content'    => 'form_jadwal',
-                'judul'      => 'Dashboard',
+                'judul'      => 'status-pelanggan',
                 'sub_judul'  => 'Jadwal'
                 );
 

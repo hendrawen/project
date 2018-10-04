@@ -22,9 +22,9 @@ class Suplier extends CI_Controller
 
     public function index()
     {
-        $data['aktif']			='Supplier';
+        $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Supplier';
         $data['sub_judul']	='Suplier';
         $data['content']		='suplier_list';
         $data['suplier']    =$this->suplier_model->get_all();
@@ -43,9 +43,9 @@ class Suplier extends CI_Controller
 		'nama_suplier' => $row->nama_suplier,
 		'alamat' => $row->alamat,
 	    );
-            $data['aktif']			='Supplier';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Supplier';
             $data['sub_judul']	='Detail Suplier';
             $data['content']		='suplier_read';
             $data['menu']			= $this->permit[0];
@@ -67,9 +67,9 @@ class Suplier extends CI_Controller
 	    'nama_suplier' => set_value('nama_suplier'),
 	    'alamat' => set_value('alamat'),
 	);
-        $data['aktif']			='Supplier';
+        $data['aktif']			='Master';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Supplier';
         $data['sub_judul']	='Tambah Suplier';
         $data['content']		='suplier_form';
         $data['menu']			= $this->permit[0];
@@ -110,9 +110,9 @@ class Suplier extends CI_Controller
 		'nama_suplier' => set_value('nama_suplier', $row->nama_suplier),
 		'alamat' => set_value('alamat', $row->alamat),
 	    );
-            $data['aktif']			='Supplier';
+            $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
-            $data['judul']			='Dashboard';
+            $data['judul']			='Supplier';
             $data['sub_judul']	='Edit Suplier';
             $data['content']		='suplier_form';
             $data['menu']			= $this->permit[0];

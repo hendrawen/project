@@ -42,9 +42,9 @@ class Delivery extends CI_Controller
         $aset = $this->Aset_model->get_all();
         $data = array(
             'aset_data' => $aset,
-            'aktif'			=>'delivery',
+            'aktif'			=>'transaksi',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
+            'judul'			=>'Penarikan',
             'sub_judul'	    =>'Delivery',
             'content'		=>'tarik_aset',
             'gudang'         => $this->Aset_model->get_gudang(),

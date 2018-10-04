@@ -20,12 +20,10 @@ class Kategorikas extends CI_Controller {
 
     function index(){
         $data = array(
-            'aktif'      => 'Kategori Kas',
-            'menu'       => $this->permit[0],
-            'submenu'	   => $this->permit[1],
+            'aktif'      => 'data-kas',
             'content'    => 'kategorikas_list',
-            'judul'      => 'Dashboard',
-            'sub_judul'  => 'Kategori Kas',
+            'judul'      => 'Kategori Kas',
+            'sub_judul'  => 'List',
               'button'     => 'Tambah',
             'action'     => site_url('kas/kategorikas/create_action'),
             'id'  => set_value('id'),
@@ -43,12 +41,10 @@ class Kategorikas extends CI_Controller {
           'action'     => site_url('kas/kategorikas/create_action'),
           'id'  => set_value('id'),
           'nama'   => set_value('nama'),
-          'aktif'      => 'Kategori Kas',
-          'menu'       => $this->permit[0],
-          'submenu'	   => $this->permit[1],
+          'aktif'      => 'data-kas',
           'content'    => 'kategorikas_form',
-          'judul'      => 'Dashboard',
-          'sub_judul'  => 'Kategori kas',
+          'judul'      => 'Kategori Kas',
+          'sub_judul'  => 'Tambah',
           'kategorikas'   => $this->m_kas->get_all()
          );
 
@@ -76,12 +72,10 @@ class Kategorikas extends CI_Controller {
             'action'     => site_url('kas/kategorikas/update_action'),
             'id'  => set_value('id', $row->id),
             'nama'   => set_value('nama', $row->nama),
-            'aktif'      => 'Kategori Kas',
-            'menu'       => $this->permit[0],
-            'submenu'	   => $this->permit[1],
+            'aktif'      => 'data-kas',
             'content'    => 'kategorikas_list',
-            'judul'      => 'Dashboard',
-            'sub_judul'  => 'Kategori kas',
+            'judul'      => 'Kategori Kas',
+            'sub_judul'  => 'Ubah',
             'display'   => 'inline-block',
             'kategorikas'   => $this->m_kas->get_all()
            );

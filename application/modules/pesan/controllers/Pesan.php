@@ -20,9 +20,9 @@ class Pesan extends CI_Controller{
   public function index()
   {	
 		$this->cart->destroy();
-    $data['aktif']			='Kebutuhan';
+    $data['aktif']			='transaksi';
     $data['title']			='Transaksi';
-    $data['judul']			='Form Transaksi';
+    $data['judul']			='Penjualan';
 		$data['sub_judul']		='';
 		$data['menu']			= $this->permit[0];
     $data['submenu']		= $this->permit[1];
@@ -54,9 +54,9 @@ class Pesan extends CI_Controller{
 
   public function checkout()
   {	
-    $data['aktif']			='Kebutuhan';
+    $data['aktif']			='transaksi';
     $data['title']			='Transaksi';
-    $data['judul']			='Form Transaksi';
+    $data['judul']			='Penjualan';
 		$data['sub_judul']		='';
 		$data['menu']			= $this->permit[0];
     $data['submenu']		= $this->permit[1];

@@ -23,13 +23,11 @@ class Users extends CI_Controller
 
     public function index()
     {
-        $data['aktif']		  ='User';
-    		$data['judul']      ='Dashboard';
+        $data['aktif']		  ='setting';
+    		$data['judul']      ='User';
     		$data['sub_judul']	='User';
         $data['users']      = $this->user->get_all();
         $data['content']    = 'user/users';
-        $data['menu']			= $this->permit[0];
-		    $data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard',$data);
     }
 
@@ -132,9 +130,9 @@ class Users extends CI_Controller
                 'type'  => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
-						$this->data['aktif']		  ='User';
-						$this->data['judul']      ='Dashboard';
-						$this->data['sub_judul']	='User';
+						$this->data['aktif']		  ='setting';
+						$this->data['judul']      ='User';
+						$this->data['sub_judul']	='Tambah';
 						$this->data['content']    ='user/table_user_form';
 						$this->_render_page('panel/dashboard', $this->data);
             //$this->_render_page('user/table_user_form', $this->data);

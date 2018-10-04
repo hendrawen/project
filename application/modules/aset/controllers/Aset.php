@@ -22,9 +22,9 @@ class Aset extends CI_Controller
 
     public function index()
     {   
-		$data['aktif']			='Master';
+		$data['aktif']			='stok-aset';
         $data['title']			='Brajamarketindo';
-        $data['judul']			='Dashboard';
+        $data['judul']			='Aset';
         $data['sub_judul']	    ='Aset Awal';
         $data['content']		='list';
         $data['aset_data']    		= $this->aset->get_all();
@@ -45,10 +45,10 @@ class Aset extends CI_Controller
             'updated_at' => set_value('updated_at'),
             'updated_by' => set_value('updated_by'),
 	        );
-				$data['aktif']			='Master';
+				$data['aktif']			='stok-aset';
 				$data['title']			='Brajamarketindo';
-				$data['judul']			='Dashboard';
-                $data['sub_judul']	    ='Aset Awal';
+				$data['judul']			='Aset';
+                $data['sub_judul']	    ='Tambah Aset Awal';
 				$data['content']		='form';
 				$this->load->view('panel/dashboard', $data);
     }
@@ -86,9 +86,9 @@ class Aset extends CI_Controller
                 'aset_krat' => set_value('aset_krat', $row->aset_krat),
                 'aset_btl' => set_value('aset_btl', $row->aset_btl),
 	        );
-			$data['aktif']			='Master';
+			$data['aktif']			='stok-aset';
 			$data['title']			='Brajamarketindo';
-			$data['judul']			='Dashboard';
+			$data['judul']			='Aset';
             $data['sub_judul']	    ='Edit Aset Awal';
 			$data['content']		='form';
 			$this->load->view('panel/dashboard', $data);

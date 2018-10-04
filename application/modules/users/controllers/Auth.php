@@ -225,11 +225,9 @@ class Auth extends CI_Controller {
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
 			$this->permit = $this->ion_auth->permission($this->session->identity);
-			$this->data['menu']			= $this->permit[0];
-			$this->data['submenu']		= $this->permit[1];
-			$this->data['aktif']		  ='User';
-			$this->data['judul']      ='Dashboard';
-			$this->data['sub_judul']	='User';
+			$this->data['aktif']		  ='setting';
+			$this->data['judul']      ='User';
+			$this->data['sub_judul']	='Tambah';
 			$this->data['content']    ='user/table_user_form';
 			$this->_render_page('panel/dashboard', $this->data);
         }
@@ -396,9 +394,9 @@ class Auth extends CI_Controller {
 		$this->permit = $this->ion_auth->permission($this->session->identity);
 			$this->data['menu']			= $this->permit[0];
 			$this->data['submenu']		= $this->permit[1];
-		$this->data['aktif']		  ='User';
-		$this->data['judul']      ='Dashboard';
-		$this->data['sub_judul']	='User';
+		$this->data['aktif']		  ='setting';
+		$this->data['judul']      ='User';
+		$this->data['sub_judul']	='Edit';
 		$this->data['content']    ='user/table_edit_form';
 		$this->_render_page('panel/dashboard', $this->data);
 	}

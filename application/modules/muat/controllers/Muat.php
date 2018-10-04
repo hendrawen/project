@@ -21,10 +21,10 @@ class Muat extends CI_Controller
     public function index()
     {
         $data = array(
-            'aktif'			=>'delivery',
+            'aktif'			=>'stok-aset',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
-            'sub_judul'	=>'Muat',
+            'judul'			=>'Muat',
+            'sub_judul'	=>'Data Muat',
             'content'		=>'wp_debt_muat_list',
         );
         $this->load->view('panel/dashboard', $data);
@@ -95,10 +95,10 @@ class Muat extends CI_Controller
       	    'satuan_rusak' => set_value('satuan_rusak'),
             'username' => set_value('username'),
             'tanggal'    => set_value('tanggal'),
-            'aktif'			=>'delivery',
+            'aktif'			=>'stok-aset',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
-            'sub_judul'	=>'Muat',
+            'judul'			=>'Muat',
+            'sub_judul'	=>'Tambah Data Muat',
             'content'		=>'wp_debt_muat_form',
             'barang_list' => $this->muat_barang->get_barang(),
             'gudang_list' => $this->muat_barang->get_gudang(),
@@ -167,10 +167,10 @@ class Muat extends CI_Controller
                     'wp_gudang_id' => set_value('gudang', $row->wp_gudang_id),
                     'wp_barang_id' => set_value('barang', $row->wp_barang_id),
                     'id_karyawan' => set_value('debt', $row->id_karyawan),
-                    'aktif'			=>'delivery',
+                    'aktif'			=>'stok-aset',
                     'title'			=>'Brajamarketindo',
-                    'judul'			=>'Dashboard',
-                    'sub_judul'	=>'Muat',
+                    'judul'			=>'Muat',
+                    'sub_judul'	=>'Edit Data Muat',
                     'content'		=>'muat/wp_debt_muat_form',
                     'barang_list' => $this->muat_barang->get_barang(),
                     'gudang_list' => $this->muat_barang->get_gudang(),

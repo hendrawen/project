@@ -21,9 +21,9 @@ class Status_pelanggan extends CI_Controller {
     function index()
     {
         $data = array(
-            'aktif'			=>'Status Pelanggan',
+            'aktif'			=>'manage',
             'title'			=>'Status Pelanggan',
-            'judul'			=>'Dashboard',
+            'judul'			=>'status-pelanggan',
             'sub_judul'	=>'Status Pelanggan',
             'content'		=>'view',
             'bulan' => $this->model->get_month(),

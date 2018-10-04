@@ -26,14 +26,12 @@ class Pembayaranaset extends CI_Controller
         $aset = $this->Aset_model->get_all();
         $data = array(
             'aset_data' => $aset,
-            'aktif'			=>'delivery',
+            'aktif'			=>'transaksi',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
+            'judul'			=>'Pembayaran Aset',
             'sub_judul' 	=>'Delivery',
             'content'		=>'list',
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -42,15 +40,13 @@ class Pembayaranaset extends CI_Controller
         $aset = $this->Aset_model->get_all();
         $data = array(
             'aset_data' => $aset,
-            'aktif'			=>'delivery',
+            'aktif'			=>'transaksi',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
+            'judul'			=>'Pembayaran Aset',
             'sub_judul'	    =>'Pembayaran Aset',
             'content'		=>'tarik_aset',
             'gudang'    => $this->Aset_model->get_gudang()
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -133,15 +129,13 @@ class Pembayaranaset extends CI_Controller
       	    'keterangan' => set_value('keterangan'),
       	    'username' => set_value('username'),
       	    'wp_pelanggan_id' => set_value('wp_pelanggan_id'),
-            'aktif'			=>'aset',
+            'aktif'			=>'transaksi',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
+            'judul'			=>'Pembayaran Aset',
             'sub_judul'	=>'Aset',
             'content'		=>'form',
             'pelanggan_list' => $this->Aset_model->get_pelanggan(),
         );
-        $data['menu']			= $this->permit[0];
-		$data['submenu']		= $this->permit[1];
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -194,15 +188,13 @@ class Pembayaranaset extends CI_Controller
             		'keterangan' => set_value('keterangan', $row->keterangan),
             		'username' => set_value('username', $row->username),
             		'wp_pelanggan_id' => set_value('wp_pelanggan_id', $row->wp_pelanggan_id),
-                'aktif'			=>'aset',
+                'aktif'			=>'transaksi',
                 'title'			=>'Brajamarketindo',
-                'judul'			=>'Dashboard',
+                'judul'			=>'Pembayaran Aset',
                 'sub_judul'	=>'Aset',
                 'content'		=>'form',
                 'pelanggan_list' => $this->Aset_model->get_pelanggan(),
                 );
-            $data['menu']			= $this->permit[0];
-		    $data['submenu']		= $this->permit[1];
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');

@@ -20,13 +20,11 @@ class Effectifcall extends CI_Controller{
 
   function index()
   { 
-    $data['aktif']			='Active Call';
+    $data['aktif']			='manage';
 		$data['title']			='Brajamarketindo';
-		$data['judul']			='Dashboard';
+		$data['judul']			='effectif-call';
         $data['sub_judul']		='List Effectif Call';
         $data['judul_list']		='Effectif Call';
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
         $data['creator']        = $this->effectif->get_list_creator();
     $data['content']			= 'main';
     $statuse = $this->effectif->get_list_status();
@@ -41,13 +39,11 @@ class Effectifcall extends CI_Controller{
 
   function validator()
   { 
-    $data['aktif']			='Active Call';
+    $data['aktif']			='manage';
 		$data['title']			='Brajamarketindo';
-		$data['judul']			='Dashboard';
+		$data['judul']			='effectif-call';
         $data['sub_judul']		='List Validator';
         $data['judul_list']		='Validator';
-        $data['menu']			= $this->permit[0];
-        $data['submenu']		= $this->permit[1];
     $data['content']			= 'main';
     $statuse = $this->effectif->get_list_status();
 
@@ -115,12 +111,10 @@ class Effectifcall extends CI_Controller{
         	    'created_at' => set_value('created_at'),
         	    'updated_at' => set_value('updated_at'),
           );
-          $data['aktif']			='Active Call';
+          $data['aktif']			='manage';
       	  $data['title']			='Brajamarketindo';
-      	  $data['judul']			='Dashboard';
+      	  $data['judul']			='effectif-call';
           $data['sub_judul']		='List Effectif Call';
-          $data['menu']			    = $this->permit[0];
-          $data['submenu']		    = $this->permit[1];
           $data['content']			= 'form';
           $this->load->view('panel/dashboard', $data);
     }
@@ -173,12 +167,10 @@ class Effectifcall extends CI_Controller{
             		'wp_status_effectif_id' => set_value('wp_status_effectif_id', $row->wp_status_effectif_id),
                 'username' => $this->session->identity,
 	          );
-            $data['aktif']			='Active Call';
+            $data['aktif']			='manage';
         		$data['title']			='Brajamarketindo';
-        		$data['judul']			='Dashboard';
+        		$data['judul']			='effectif-call';
                 $data['sub_judul']		='List Effectif Call';
-                $data['menu']			= $this->permit[0];
-                $data['submenu']		= $this->permit[1];
             $data['content']			= 'form';
             $this->load->view('panel/dashboard', $data);
         } else {

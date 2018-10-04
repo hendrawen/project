@@ -21,9 +21,9 @@ class Kas extends CI_Controller {
     public function index()
     {
         $data = array(
-            'aktif'			=>'Kas',
+            'aktif'			=>'data-kas',
             'title'			=>'Brajamarketindo',
-            'judul'			=>'Dashboard',
+            'judul'			=>'Kas',
             'sub_judul'	    =>'Pendapatan Pengeluaran',
             'content'		=>'main',
             'list_kantor' => $this->model->get_kantor(),
@@ -198,103 +198,3 @@ class Kas extends CI_Controller {
 }
 
 /* End of file Kas.php */
-
-/*
-function load_kas_harian()
-    // {
-    //   $day = $this->input->post('day');
-    //   $kantor = $this->input->post('kantor');
-    //   $data = $this->model->laporan_kas_harian($day, $kantor);
-    //   $pesan = "";
-    //   $total = 0;
-    //   $no = 1;
-    //   if ($data) {
-    //     foreach ($data as $row) {
-    //       $pesan .= '<tr>
-    //       <td>'.$no++.'</td>
-    //       <td>'.tgl_indo($row->tanggal).'</td>
-    //       <td>'.$row->nama_gudang.'</td>
-    //       <td>'.$row->username.'</td>
-    //       <td>'.$row->nama.'</td>
-    //       <td>'.$row->nama_kategori.'</td>
-    //       <td>'.$row->pendapatan.'</td>
-    //       <td>'.$row->pengeluaran.'</td>
-    //       <td><a class="btn btn-xs btn-primary" href="javascript:void(0)" title="Edit" onclick="ubah('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-    //       <a class="btn btn-xs btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>
-    //       </td>
-    //       </tr>';
-    //     }
-    //   } else {
-    //     $pesan .= '<tr>
-    //       <td colspan=16>Record not found</td>
-    //     </tr>';
-    //   }
-    //   echo $pesan;
-    // }
-
-    // function load_kas_bulanan()
-    // {
-    //   $from = $this->input->post('from');
-    //   $to = $this->input->post('to');
-    //   $year = $this->input->post('year');
-    //   $id_barang = $this->input->post('kantor');
-    //   $data = $this->model->laporan_kas_bulanan($from, $to, $year, $id_barang);
-    //   $pesan = "";
-    //   $total = 0;
-    //   $no = 1;
-    //   if ($data) {
-    //     foreach ($data as $row) {
-    //       $pesan .= '<tr>
-    //       <td>'.$no++.'</td>
-    //       <td>'.tgl_indo($row->tanggal).'</td>
-    //       <td>'.$row->nama_gudang.'</td>
-    //       <td>'.$row->username.'</td>
-    //       <td>'.$row->nama.'</td>
-    //       <td>'.$row->nama_kategori.'</td>
-    //       <td>'.$row->pendapatan.'</td>
-    //       <td>'.$row->pengeluaran.'</td>
-    //       <td><a class="btn btn-xs btn-primary" href="javascript:void(0)" title="Edit" onclick="ubah('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-    //       <a class="btn btn-xs btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>
-    //       </td>
-    //       </tr>';
-    //     }
-    //   } else {
-    //     $pesan .= '<tr>
-    //       <td colspan=16>Record not found</td>
-    //     </tr>';
-    //   }
-    //   echo $pesan;
-    // }
-
-    // function load_kas_tahunan()
-    // {
-    //   $tahun = $this->input->post('tahun');
-    //   $kantor = $this->input->post('kantor');
-    //   $data = $this->model->laporan_kas_tahunan($tahun, $kantor);
-    //   $pesan = "";
-    //   $total = 0;
-    //   $no = 1;
-    //   if ($data) {
-    //     foreach ($data as $row) {
-    //       $pesan .= '<tr>
-    //       <td>'.$no++.'</td>
-    //       <td>'.tgl_indo($row->tanggal).'</td>
-    //       <td>'.$row->nama_gudang.'</td>
-    //       <td>'.$row->username.'</td>
-    //       <td>'.$row->nama.'</td>
-    //       <td>'.$row->nama_kategori.'</td>
-    //       <td>'.$row->pendapatan.'</td>
-    //       <td>'.$row->pengeluaran.'</td>
-    //       <td><a class="btn btn-xs btn-primary" href="javascript:void(0)" title="Edit" onclick="ubah('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-    //       <a class="btn btn-xs btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus('."'".$row->id_kas."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>
-    //       </td>
-    //       </tr>';
-    //     }
-    //   } else {
-    //     $pesan .= '<tr>
-    //       <td colspan=16>Record not found</td>
-    //     </tr>';
-    //   }
-    //   echo $pesan;
-    // }
-*/

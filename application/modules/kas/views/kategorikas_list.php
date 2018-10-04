@@ -97,7 +97,7 @@
                  showConfirmButton: true,
                  type: 'success' },
                  function(){
-                   location.reload();
+                  //  location.reload();
                  }
                );
          </script>
