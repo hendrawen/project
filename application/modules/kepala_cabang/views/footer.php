@@ -80,7 +80,7 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/market.js"></script>
     <?php endif; ?>
 
-		<?php if ($this->uri->segment(2) == 'produk' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+		<?php if ($this->uri->segment(2) == 'produk_share' && $this->uri->segment(1) == 'kepala_cabang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/produkshare.js"></script>
     <?php endif; ?>
 
@@ -122,6 +122,18 @@
 
     <?php if ($this->uri->segment(2) == 'marketing' && $this->uri->segment(1) == 'kepala_cabang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/laporan_marketing.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(3) == 'penjualan_debt' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/penjualan_debt_new.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(3) == 'pembayaran_debt' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/pembayaran_debt_new.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(3) == 'penarikan_debt' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/penarikan_debt_new.js"></script>
     <?php endif; ?>
 
 
