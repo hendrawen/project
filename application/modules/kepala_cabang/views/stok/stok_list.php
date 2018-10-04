@@ -28,7 +28,7 @@
            </script>
          </small>
     <?php endif; ?>
-<a class="btn btn-primary" href="<?php echo base_url('admin_gudang/stok/create'); ?>"><i class="fa fa-plus-square"></i> input stok awal</a>
+<a class="btn btn-primary" href="<?php echo base_url('kepala_cabang/stok/create'); ?>"><i class="fa fa-plus-square"></i> input stok awal</a>
 <div class="x_panel">
       <div class="x_title">
             <h2>Stok List</h2>
@@ -73,8 +73,8 @@
                             <td><?php echo tgl_indo($key->updated_at) ?></td>
                            <td style="text-align:center">
                               <!-- <a href="<?=base_url()?>barang/stok/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
-                              <a href="<?=base_url()?>admin_gudang/stok/update/<?=$key->id ?>" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-pencil"></i></a>
-                              <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>admin_gudang/stok/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
+                              <a href="<?=base_url()?>kepala_cabang/stok/update/<?=$key->id ?>" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-pencil"></i></a>
+                              <a onclick="javasciprt: return confirm('Are You Sure ?')" href="<?=base_url()?>kepala_cabang/stok/delete/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-trash"></i></a>
                               <!-- <a class="btn btn-danger btn-xs" onclick="return swal({
                                                       title: 'Yakin akan hapus data ini?',
                                                       text: 'Anda tidak akan melihat data ini lagi!',

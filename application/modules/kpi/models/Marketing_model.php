@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Marketing_model extends CI_Model {
@@ -81,7 +81,7 @@ class Marketing_model extends CI_Model {
     {
         if($id_karyawan != 'semua')
         {
-            $this->db->where('username', $id_karyawan);
+            $this->db->where('wp_transaksi.username', $id_karyawan);
         }
         $this->db->select('min(wp_transaksi.tgl_transaksi)');
         $this->db->from('wp_transaksi');

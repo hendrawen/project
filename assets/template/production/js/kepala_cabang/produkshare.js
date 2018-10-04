@@ -5,7 +5,7 @@ $(document).ready(function () {
   function get_all() {
     $("#loading").show();
     $.ajax({
-      url: base_url+'kepala_cabang/produk/load_kota',
+      url: base_url+'kepala_cabang/produk_share/load_kota',
       type: 'POST',
       dataType: 'html',
       success : function (data) {
@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
     });
     $.ajax({
-      url: base_url+'kepala_cabang/produk/load_filter/',
+      url: base_url+'kepala_cabang/produk_share/load_filter/',
       type: 'POST',
       dataType: 'html',
       data: {kota: kota, kecamatan: kecamatan, from: from, to : to, year : year},
@@ -52,7 +52,7 @@ $(document).ready(function () {
     fs = $("#bulan-share-from").val();
     fto = $("#bulan-share-to").val();
     ys = $("#tahun-share").val();
-    window.location = base_url + 'kepala_cabang/produk/excel_produk_share/'+ft+'/'+fk+'/'+fs+'/'+fto+'/'+ys;
+    window.location = base_url + 'kepala_cabang/produk_share/excel_produk_share/'+ft+'/'+fk+'/'+fs+'/'+fto+'/'+ys;
   });
 
   $("#btn-refresh-produk").click(function () { 
