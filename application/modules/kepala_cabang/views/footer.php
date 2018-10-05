@@ -136,6 +136,15 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/penarikan_debt_new.js"></script>
     <?php endif; ?>
 
+		<?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/muat.js"></script>
+    <?php endif; ?>
+
+		<?php if ($this->uri->segment(2) == 'stok_opname' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/stok_opname.js"></script>
+    <?php endif; ?>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?php echo base_url()?>assets/template/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
