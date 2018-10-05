@@ -18,7 +18,9 @@ class Gudang_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
+		
+		$this->db->select('wp_gudang.id, wp_gudang.nama_gudang, wp_gudang.alamat, wp_cabang.nama_cabang');
+		$this->db->join('wp_cabang', 'wp_cabang.id = wp_gudang.cabang', 'left');
         return $this->db->get($this->table)->result();
     }
 
@@ -104,7 +106,13 @@ class Gudang_model extends CI_Model
         if ($cek->num_rows() > 0) {
            return TRUE;
         } else return FALSE;
-    }
+	}
+	
+	function get_penempatan()
+	{
+		return $this->db->get('wp_cabang')->result();
+		;
+	}
 
     
 }

@@ -67,13 +67,13 @@
 
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/sumberdata">Sumber Data Effectif Call</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/sudavalidator">Sumber Data Validator</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/effectivecall">Activity Effectif Call</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/validator">Activity Validator</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/sumberdata">Sumber Data Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/sudavalidator">Sumber Data Validator</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/effectivecall">Activity Effectif Call</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/validator">Activity Validator</a></li>
 
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/debt">Debt & Delivery</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi/marketing">Marketing</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/debt">Debt & Delivery</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/marketing">Marketing</a></li>
                     </ul>
                   </li>
                 </ul>

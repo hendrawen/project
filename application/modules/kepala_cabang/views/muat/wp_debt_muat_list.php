@@ -32,7 +32,7 @@
   <div class="x_content">
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-12 text-right">
-            <a class="btn btn-success" href="<?php echo base_url('admin_gudang/muat/create') ?>">Tambah</a>
+            <a class="btn btn-success" href="<?php echo base_url('kepala_cabang/muat/create') ?>">Tambah</a>
         </div>
     </div>
     <div class="table-responsive">

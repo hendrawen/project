@@ -13,7 +13,7 @@ class Muat extends CI_Controller
         if (!$this->ion_auth->logged_in()) {//cek login ga?
 			redirect('login','refresh');
 			}else{
-					if (!$this->ion_auth->in_group('Bendahara')) {//cek admin ga?
+					if (!$this->ion_auth->in_group('Kepala Cabang')) {//cek admin ga?
 							redirect('login','refresh');
 					}
 		}
@@ -55,9 +55,9 @@ class Muat extends CI_Controller
             $row[] = $lists->aset_krat;
             $row[] = $lists->aset_btl;
             $row[] = $lists->keterangan;
-            $row[] = $lists->nama;
+            $row[] = $lists->nama_karyawan;
             $row[] = '
-            <a href="'.base_url('admin_gudang/muat/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+            <a href="'.base_url('kepala_cabang/muat/update/'.$lists->id).'" type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
             <a type="button" href="javascript:void(0)" title="Hapus" onclick="delete_call('."'".$lists->id."'".')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>
                      ';
 
@@ -78,8 +78,9 @@ class Muat extends CI_Controller
     {
         $data = array(
             'button' => 'Create',
-            'action' => site_url('admin_gudang/muat/create_action'),
-      	    'id' => set_value('id'),
+            'action' => site_url('kepala_cabang/muat/create_action'),
+			'id' => set_value('id'),
+			'tanggal' => set_Value('tanggal'),
       	    'muat' => set_value('muat',0),
       	    'terkirim' => set_value('terkirim',0),
       	    'return' => set_value('return',0),
@@ -132,7 +133,7 @@ class Muat extends CI_Controller
     	    );
             $this->Muat_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('admin_gudang/muat'));
+            redirect(site_url('kepala_cabang/muat'));
         }
     }
 
@@ -143,7 +144,7 @@ class Muat extends CI_Controller
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('admin_gudang/muat/update_action'),
+                'action' => site_url('kepala_cabang/muat/update_action'),
                     'id' => set_value('id', $row->id),
                     'tanggal' => set_value('tanggal', $row->tanggal),
             		'muat' => set_value('muat', $row->muat),
@@ -174,7 +175,7 @@ class Muat extends CI_Controller
             $this->load->view('dashboard', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('admin_gudang/muat'));
+            redirect(site_url('kepala_cabang/muat'));
         }
     }
 
@@ -209,7 +210,7 @@ class Muat extends CI_Controller
 
             $this->Muat_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('delivery/muat'));
+            redirect(site_url('kepala_cabang/muat'));
         }
     }
 

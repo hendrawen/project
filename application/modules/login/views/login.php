@@ -47,23 +47,18 @@
 		                <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"'); ?> <?php echo $this->lang->line('login_remember_label'); ?> Remember
 		           </label>
                <br><br>
-              <div>
-                <button class="btn btn-primary submit" type="submit"><i class="fa fa-lock"></i> Log in</button>
-                <a class="reset_pass" href="#">Lost your password?</a>
+              <div class="text-right">
+                <button class="btn btn-primary btn-block submit" type="submit"><i class="fa fa-lock"></i> Log in</button>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <!-- <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
-                </p> -->
 
                 <div class="clearfix"></div>
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Brajamarketindo!</h1>
-                  <p>©2016 All Rights Reserved. Brajamarketindo! Privacy and Terms</p>
+                  <p>©2018 All Rights Reserved. Brajamarketindo</p>
                 </div>
               </div>
             </form>

@@ -52,7 +52,8 @@ class Model_main extends CI_Model {
     function get_data()
     {
         # code...
-        $this->db->select('id, nama_gudang');
+		$this->db->select('id, nama_gudang');
+		$this->db->where('wp_gudang.cabang', $this->session->penempatan);
         return $this->db->get('wp_gudang');
     }
 

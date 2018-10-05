@@ -136,6 +136,7 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/penarikan_debt_new.js"></script>
     <?php endif; ?>
 
+<<<<<<< HEAD
 		<?php if ($this->uri->segment(2) == 'muat' && $this->uri->segment(1) == 'kepala_cabang'): ?>
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/muat.js"></script>
     <?php endif; ?>
@@ -144,6 +145,26 @@
       <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/stok_opname.js"></script>
     <?php endif; ?>
 
+=======
+    <?php if ($this->uri->segment(2) == 'sumberdata' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/sumberdata.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'sudavalidator' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/sudavalidator.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'effectivecall' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/kpieffectifecall.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'validator' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/kpivalidator.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'debt' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/kpi-debt.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) == 'marketing' && $this->uri->segment(1) == 'kepala_cabang'): ?>
+      <script src="<?php echo base_url()?>assets/template/production/js/kepala_cabang/kpimarketing.js"></script>
+    <?php endif; ?>
+>>>>>>> 03613234dfda43b9f4e1252e621f9add49a778d3
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
