@@ -37,7 +37,8 @@ class Gudang extends CI_Controller
       $data['content']		='gudang_list';
       $data['menu']			= $this->permit[0];
 	  $data['submenu']		= $this->permit[1];
-      $data['gudang']   = $this->gudang_model->get_all();
+	  $data['gudang']   = $this->gudang_model->get_all();
+	  $data['penempatan'] = $this->gudang_model->get_penempatan();
       $this->load->view('panel/dashboard', $data);
 
     }
@@ -74,7 +75,8 @@ class Gudang extends CI_Controller
         } else {
             $data = array(
                 'nama_gudang' => $this->input->post('nama_gudang',TRUE),
-                'alamat' => $this->input->post('alamat',TRUE),
+				'alamat' => $this->input->post('alamat',TRUE),
+				'cabang'	=> $this->input->post('cabang', true),
                 'username' => $this->session->identity,
         	    );
 
@@ -97,9 +99,10 @@ class Gudang extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('gudang/update_action'),
-		'id' => set_value('id', $row->id),
-        'nama_gudang' => set_value('nama_gudang', $row->nama_gudang),
-        'alamat' => set_value('alamat', $row->alamat),
+				'id' => set_value('id', $row->id),
+				'nama_gudang' => set_value('nama_gudang', $row->nama_gudang),
+				'alamat' => set_value('alamat', $row->alamat),
+				'cabang'	=> set_value('cabang', $row->cabang),
 	    );
             $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
@@ -108,7 +111,8 @@ class Gudang extends CI_Controller
             $data['content']		='gudang_list';
             $data['menu']			= $this->permit[0];
 		    $data['submenu']		= $this->permit[1];
-            $data['gudang']   = $this->gudang_model->get_all();
+			$data['gudang']   = $this->gudang_model->get_all();
+			$data['penempatan'] = $this->gudang_model->get_penempatan();
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
@@ -125,7 +129,8 @@ class Gudang extends CI_Controller
         } else {
             $data = array(
                   'nama_gudang' => $this->input->post('nama_gudang',TRUE),
-                  'alamat' => $this->input->post('alamat',TRUE),
+				  'alamat' => $this->input->post('alamat',TRUE),
+				  'cabang'	=> $this->input->post('cabang', true),
             );
 
             $this->gudang_model->update($this->input->post('id', TRUE), $data);

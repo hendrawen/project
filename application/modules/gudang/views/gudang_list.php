@@ -13,33 +13,72 @@
       </div>
 
 <!--Tambah Gudang-->
-      <?php echo form_open_multipart($action);?>
+      <?php echo form_open_multipart($action, array("class"=>"billing-form"));?>
         <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <?php if ($button == 'Tambah') { ?>
-        <div class="col-md-6">
-      	    <div class="form-group">
-                  <label for="varchar">Gudang <?php echo form_error('nama_gudang') ?></label>
-                  <input type="text" class="form-control" name="nama_gudang" id="nama_gudang" placeholder="Isi Nama Gudang Disini...!!!" required/>
+        <div class="row">
+      	    <div class="form-group col-md-3">
+                <label for="varchar">Gudang <?php echo form_error('nama_gudang') ?></label>
+                <input type="text" class="form-control" name="nama_gudang" id="nama_gudang" placeholder="Isi Nama Gudang Disini...!!!" required/>
             </div>
-            <div class="form-group">
-                  <label for="varchar">Alamat <?php echo form_error('alamat') ?></label>
-                  <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Isi Nama Alamat Disini...!!!" required/>
+            <div class="form-group  col-md-3">
+                <label for="varchar">Alamat <?php echo form_error('alamat') ?></label>
+                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Isi Nama Alamat Disini...!!!" required/>
             </div>
+						<div class="form-group col-md-3">
+								<label for="cabang">Cabang</label>
+								<select name="cabang" id="cabang" class="form-control">
+										<option value="">Pilih</option>
+												<?php
+														foreach($penempatan as $value){
+														$selected= '';
+														if($cabang == $value->id){
+															$selected = 'selected="selected"';
+														}
+														?>
+														<option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+														<?php echo $value->id; ?> - <?php echo $value->nama_cabang; ?>
+														</option>
+												<?php }?>
+								</select>
+						</div>
+						<div class="col-md-3 text-right">
+							<button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <?php echo $button; ?></button>
+						</div>
         </div>
-        <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> <?php echo $button; ?></button>
         <?php } elseif ($button == 'Update') { ?>
-          <div class="col-md-6">
-        	    <div class="form-group">
+          <div class="row">
+        	    <div class="form-group col-md-3">
                   <label for="varchar">Gudang <?php echo form_error('nama_gudang') ?></label>
                   <input type="text" class="form-control" name="nama_gudang" id="nama_gudang" placeholder="Isi Nama Gudang Disini...!!!" value="<?php echo $nama_gudang; ?>" required/>
               </div>
-              <div class="form-group">
+              <div class="form-group col-md-3">
                   <label for="varchar">Alamat <?php echo form_error('alamat') ?></label>
                   <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Isi Nama Alamat Disini...!!!" value="<?php echo $alamat; ?>" required/>
             </div>
+						<div class="form-group col-md-3">
+								<label for="cabang">Cabang</label>
+								<select name="cabang" id="cabang" class="form-control">
+										<option value="">Pilih</option>
+												<?php
+														foreach($penempatan as $value){
+														$selected= '';
+														if($cabang == $value->id){
+															$selected = 'selected="selected"';
+														}
+														?>
+														<option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+														<?php echo $value->id; ?> - <?php echo $value->nama_cabang; ?>
+														</option>
+												<?php }?>
+								</select>
+						</div>
+						<div class="col-md-3 text-right">
+								<button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button; ?></button>
+								<a style="margin-top:24px;" href="<?php echo site_url('gudang') ?>" class="btn btn-danger">Batal</a>
+						</div>
           </div>
-          <button style="margin-top:24px;" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button; ?></button>
-          <a style="margin-top:24px;" href="<?php echo site_url('gudang') ?>" class="btn btn-danger">Batal</a>
+          
         <?php } ?>
     	</form>
 <!--akhir-->
@@ -63,6 +102,7 @@
                               <th>#</th>
                               <th>Nama Gudang</th>
                               <th>Alamat</th>
+                              <th>Cabang</th>
                               <th style="text-align:center">Aksi</th>
                           </tr>
                       </thead>
@@ -74,6 +114,7 @@
                             <td><?php echo $no++ ?></td>
                             <td><?php echo $key->nama_gudang ?></td>
                             <td><?php echo $key->alamat ?></td>
+                            <td><?php echo $key->nama_cabang ?></td>
                             <td style="text-align:center">
                               <!-- <a href="<?=base_url()?>karyawan/jabatan/read/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></a> -->
                               <a href="<?=base_url()?>gudang/update/<?=$key->id ?>" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -96,6 +137,7 @@
                         <th>#</th>
                         <th>Nama Gudang</th>
                         <th>Alamat</th>
+                        <th>Cabang</th>
                         <th style="text-align:center">Aksi</th>
                       </tr>
                     </tfoot>

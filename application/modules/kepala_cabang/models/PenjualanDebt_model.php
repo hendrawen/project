@@ -37,7 +37,9 @@ class PenjualanDebt_model extends CI_Model {
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
 
         if ($this->input->post('tanggal')) {
@@ -147,7 +149,8 @@ class PenjualanDebt_model extends CI_Model {
         $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
         $this->db->join('wp_jabatan','wp_jabatan.id=wp_karyawan.wp_jabatan_id');
         $this->db->where('wp_jabatan.nama_jabatan','Debt & Delivery');
-        $this->db->select('id_karyawan, nama');
+		$this->db->select('id_karyawan, nama');
+		$this->db->where('wp_karyawan.penempatan', $this->session->penempatan);
         return $this->db->get('wp_karyawan')->result();
     }
 
@@ -187,7 +190,8 @@ class PenjualanDebt_model extends CI_Model {
         if ($status != 'semua') {
             $this->db->where('wp_status_id', $status);
         }
-        
+        $this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         return $this->db->get($this->table)->result();
         
@@ -219,7 +223,9 @@ class PenjualanDebt_model extends CI_Model {
         }
         if ($status != 'semua') {
             $this->db->where('wp_status_id', $status);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         return $this->db->get()->result();
@@ -245,7 +251,9 @@ class PenjualanDebt_model extends CI_Model {
         }
         if ($debt != 'semua') {
             $this->db->where('wp_transaksi.username', $debt);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         return $this->db->get()->result();

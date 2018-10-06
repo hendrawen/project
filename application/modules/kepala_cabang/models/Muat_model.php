@@ -24,7 +24,9 @@ class Muat_model extends CI_Model
         $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
         $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_debt_muat.username', 'inner');
-        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_debt_muat.id_karyawan', 'inner');
+		$this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_debt_muat.id_karyawan', 'inner');
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->from($this->table);
         $i = 0;
 
@@ -71,14 +73,16 @@ class Muat_model extends CI_Model
 
     public function count_filtered()
     {
-        $this->_get_datatables_query();
+		$this->_get_datatables_query();
         $query = $this->db->get();
         return $query->num_rows();
     }
 
     public function count_all()
     {
-        $this->db->from($this->table);
+		$this->db->from($this->table);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         return $this->db->count_all_results();
     }
 
@@ -88,7 +92,9 @@ class Muat_model extends CI_Model
         $this->db->where('wp_debt_muat.id', $id);
         $this->db->select('wp_debt_muat.*, wp_barang.id_barang, wp_barang.nama_barang, wp_gudang.nama_gudang');
         $this->db->join('wp_barang', 'wp_barang.id = wp_debt_muat.wp_barang_id', 'inner');
-        $this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
+		$this->db->join('wp_gudang', 'wp_gudang.id = wp_debt_muat.wp_gudang_id', 'inner');
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         return $this->db->get($this->table)->row();
     }
 
@@ -101,14 +107,14 @@ class Muat_model extends CI_Model
     // update data
     function update($id, $data)
     {
-        $this->db->where($this->id, $id);
+		$this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }
 
     // delete data
     function delete($id)
     {
-        $this->db->where($this->id, $id);
+		$this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
 

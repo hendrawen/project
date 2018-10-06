@@ -63,7 +63,7 @@
                       </ul>
                   </li>
 
-                  <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
+                  <li><a <?php echo ($aktif == 'Faktur')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/faktur2"><i class="fa fa-file-text-o"></i> Faktur </a></li>
 
                   <li><a><i class="fa fa-sort-alpha-asc"></i> KPI <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -73,7 +73,7 @@
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/validator">Activity Validator</a></li>
 
                       <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/debt">Debt & Delivery</a></li>
-                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/marketing">Marketing</a></li>
+                      <li><a <?php echo ($aktif == 'Master')?'class="active"':"";?> href="<?php echo base_url();?>kepala_cabang/kpi_marketing">Marketing</a></li>
                     </ul>
                   </li>
                 </ul>

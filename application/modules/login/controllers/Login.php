@@ -38,8 +38,8 @@ class Login extends CI_Controller
 								redirect('kepala_cabang','refresh');
 						} elseif ($this->ion_auth->in_group('Asisten Debt')) {
 								redirect('asdebt','refresh');
-			      } elseif ($this->ion_auth->in_group('Bendahara')) {
-								redirect('bendahara','refresh');
+			      } elseif ($this->ion_auth->in_group('HRD')) {
+								redirect('hrd','refresh');
 						} else{
                 redirect('login','refresh');
             }

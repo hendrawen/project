@@ -29,7 +29,7 @@ function get() {
     }
     $("#loading").show();
     $.ajax({
-        url: base_url+'kepala_cabang/marketing/list_kpimarketing',
+        url: base_url+'kepala_cabang/kpi_marketing/list_marketing',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -51,7 +51,7 @@ function get_now() {
 
     $("#loading").show();
     $.ajax({
-        url: base_url+'kepala_cabang/marketing/list_kpimarketing',
+        url: base_url+'kepala_cabang/kpi_marketing/list_marketing',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -89,5 +89,5 @@ $(btn_excel).click(function (e) {
         kecamatan = 'all';
     }
     
-    window.location = base_url + 'market/download_excel/'+tahun+'/'+kota+'/'+kecamatan;
+    window.location = base_url + 'kepala_cabang/kpi_marketing/download_excel/'+tahun+'/'+kota+'/'+kecamatan;
 });

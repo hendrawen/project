@@ -29,7 +29,9 @@ class Effective_model extends CI_Model {
             # code...
             $this->db->where('wp_list_effectif.username', $nama);
         }
-        $this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id');
+		$this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id');
+		$this->db->join('wp_karyawan as c', 'wp_list_effectif.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result =  $this->db->get()->row();
         if ($result) {
             return $result->jumlah;
@@ -50,7 +52,9 @@ class Effective_model extends CI_Model {
             # code...
             $this->db->where('wp_list_effectif.username', $nama);
         }
-        $this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id');
+		$this->db->join('wp_status_effectif', 'wp_status_effectif.id = wp_list_effectif.wp_status_effectif_id');
+		$this->db->join('wp_karyawan as c', 'wp_list_effectif.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result =  $this->db->get()->row();
         if ($result) {
             return $result->jumlah;
@@ -71,7 +75,9 @@ class Effective_model extends CI_Model {
             # code...
             $this->db->where('wp_list_effectif.username', $nama);
         }
-        $this->db->join('wp_barang', 'wp_barang.nama_barang = wp_list_effectif.barang');
+		$this->db->join('wp_barang', 'wp_barang.nama_barang = wp_list_effectif.barang');
+		$this->db->join('wp_karyawan as c', 'wp_list_effectif.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result =  $this->db->get()->row();
         if ($result) {
             return $result->jumlah;
@@ -90,7 +96,9 @@ class Effective_model extends CI_Model {
             # code...
             $this->db->where('wp_list_effectif.username', $nama);
         }
-        $this->db->join('wp_barang', 'wp_barang.nama_barang = wp_list_effectif.barang');
+		$this->db->join('wp_barang', 'wp_barang.nama_barang = wp_list_effectif.barang');
+		$this->db->join('wp_karyawan as c', 'wp_list_effectif.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result =  $this->db->get()->row();
         if ($result) {
             return $result->jumlah;
