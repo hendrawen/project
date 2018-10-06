@@ -83,4 +83,19 @@ class Panel extends CI_Controller {
 		}
 		echo json_encode($result);
 	}
+
+	public function chart_pembayaran()
+	{
+		$month = get_list_month();
+		$value = array();
+		foreach ($month as $row) {
+			$value[] = $this->model->get_chart_pembayaran($this->input->post('tahun'), $row['key']);
+			$bulan[] = $row['month'];
+		}
+		$hasil = array(
+			'bulan' => $bulan,
+			'value' => $value,
+		);
+		echo json_encode($hasil);
+	}
 }
