@@ -25,8 +25,10 @@ class Models_laporan extends CI_Model {
         $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
         $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+		$this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_karyawan as c', 'wp_pembayaran.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
+		$this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $data = $this->db->get();
         return $data->result();
     }
@@ -42,9 +44,11 @@ class Models_laporan extends CI_Model {
         $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
         $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
-        $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_karyawan as c', 'wp_pembayaran.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->group_by('wp_pembayaran.id_transaksi, wp_barang.nama_barang');
-        $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
+		$this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $data = $this->db->get();
         return $data->result();
     }
@@ -63,7 +67,9 @@ class Models_laporan extends CI_Model {
         $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id');
         $this->db->join('wp_karyawan', 'wp_karyawan.id_karyawan = wp_pelanggan.wp_karyawan_id_karyawan');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
-        $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
+		$this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
+		$this->db->join('wp_karyawan as c', 'wp_pembayaran.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $data = $this->db->get();
         return $data->result();
@@ -82,6 +88,8 @@ class Models_laporan extends CI_Model {
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
         $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_karyawan as c', 'wp_pembayaran.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $data = $this->db->get();
         return $data->result();
@@ -100,6 +108,8 @@ class Models_laporan extends CI_Model {
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
         $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_karyawan as c', 'wp_pembayaran.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $data = $this->db->get();
         return $data->result();
@@ -116,6 +126,8 @@ class Models_laporan extends CI_Model {
         $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan');
         $this->db->join('wp_detail_transaksi', 'wp_pembayaran.id_transaksi = wp_detail_transaksi.id_transaksi');
         $this->db->join('wp_status', 'wp_status.id = wp_transaksi.wp_status_id');
+		$this->db->join('wp_karyawan as c', 'wp_pembayaran.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $data = $this->db->get();
         return $data->result();

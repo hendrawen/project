@@ -5,12 +5,12 @@ $(document).ready(function() {
     $('#filter-bulan').select2();
     $('#filter-tahun').select2();
     $('#filter-karyawan').select2();
-    // $('#table-kpi-marketing').DataTable();
+    // $('#table-kpi-debt').DataTable();
     get_now();
     
 });
 
-$('#btn-filter-kpi-marketing').click(function () { 
+$('#btn-filter-kpi-debt').click(function () { 
     get();        
 });
 
@@ -29,7 +29,7 @@ function get() {
     }
     $("#loading").show();
     $.ajax({
-        url: base_url+'kepala_cabang/kpi_marketing/list_marketing',
+        url: base_url+'hrd/debt/list_kpidebt',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -39,7 +39,7 @@ function get() {
         },
         success : function (data) {
             $("#loading").hide();
-            $("#tbody-kpi-marketing").html(data);
+            $("#tbody-kpi-debt").html(data);
         }
     });
 }
@@ -51,7 +51,7 @@ function get_now() {
 
     $("#loading").show();
     $.ajax({
-        url: base_url+'kepala_cabang/kpi_marketing/list_marketing',
+        url: base_url+'hrd/debt/list_kpidebt',
         type: 'POST',
         dataType: 'html',
         data : {
@@ -61,12 +61,12 @@ function get_now() {
         },
         success : function (data) {
             $("#loading").hide();
-            $("#tbody-kpi-marketing").html(data);
+            $("#tbody-kpi-debt").html(data);
         }
     });
 }
 
-$("#btn-reset-kpi-marketing").click(function () { 
+$("#btn-reset-kpi-debt").click(function () { 
     month = (new Date).getMonth() + 1;
     year = (new Date).getFullYear();
     $("#filter-bulan").val(month).trigger('change');;
@@ -89,5 +89,5 @@ $(btn_excel).click(function (e) {
         kecamatan = 'all';
     }
     
-    window.location = base_url + 'kepala_cabang/kpi_marketing/download_excel/'+tahun+'/'+kota+'/'+kecamatan;
+    window.location = base_url + 'market/download_excel/'+tahun+'/'+kota+'/'+kecamatan;
 });

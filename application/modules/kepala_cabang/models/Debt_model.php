@@ -35,7 +35,9 @@ class Debt_model extends CI_Model {
         if($id_karyawan != 'semua')
         {
             $this->db->where('wp_karyawan_id_karyawan', $id_karyawan);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_jadwal.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->from('wp_jadwal');
         $count = $this->db->get()->row();
         return $count->t;
@@ -51,7 +53,9 @@ class Debt_model extends CI_Model {
             $this->db->where('wp_pelanggan.wp_karyawan_id_karyawan', $id_karyawan);
         }
         $this->db->where('DATE(wp_transaksi.tgl_transaksi)', $date);
-        $this->db->from('wp_transaksi');
+		$this->db->from('wp_transaksi');
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $count = $this->db->get()->row();
         return $count->t;
     }
@@ -63,7 +67,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(tanggal)', $date);
+		$this->db->where('DATE(tanggal)', $date);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.id_karyawan = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $pesan = "";
         $size = sizeof($result) -1;
@@ -84,7 +90,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(tanggal)', $date);
+		$this->db->where('DATE(tanggal)', $date);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $pesan = "";
         $size = sizeof($result) -1;
@@ -105,7 +113,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(tanggal)', $date);
+		$this->db->where('DATE(tanggal)', $date);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $pesan = "";
         $size = sizeof($result) -1;
@@ -126,7 +136,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(tanggal)', $date);
+		$this->db->where('DATE(tanggal)', $date);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $pesan = "";
         $size = sizeof($result) -1;
@@ -147,7 +159,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(tanggal)', $date);
+		$this->db->where('DATE(tanggal)', $date);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $pesan = "";
         $size = sizeof($result) -1;
@@ -173,7 +187,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('DATE(tanggal)', $date);
+		$this->db->where('DATE(tanggal)', $date);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->row();
         $resArray = array();
         if ($result) {
@@ -214,7 +230,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
             $this->db->where('wp_pelanggan.wp_karyawan_id_karyawan', $id_karyawan);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->from('wp_transaksi');
         $count = $this->db->get()->row();
         return $count->t;
@@ -230,7 +248,7 @@ class Debt_model extends CI_Model {
             $this->db->where('wp_asis_debt.username', $id_karyawan);
         }
         $this->db->group_by('wp_asis_debt.tanggal');
-        $this->db->from('wp_asis_debt');
+		$this->db->from('wp_asis_debt');
         $result = $this->db->get()->row();
         $resArray = array();
         if ($result) {
@@ -263,7 +281,9 @@ class Debt_model extends CI_Model {
         {
             $this->db->where('username', $id_karyawan);
         }
-        $this->db->where('tanggal', $date);
+		$this->db->where('tanggal', $date);
+		$this->db->join('wp_karyawan as c', 'wp_kas.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_kas')->row();
         $resArray = array();
         if ($result) {
@@ -291,7 +311,9 @@ class Debt_model extends CI_Model {
             $this->db->where('username', $id_karyawan);
         }
         $this->db->where('year(tanggal)', $tahun);
-        $this->db->where('month(tanggal)', $bulan);
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.id_karyawan = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $total_krat = 0; $total_dus = 0;
         foreach ($result as $key) {
@@ -313,7 +335,9 @@ class Debt_model extends CI_Model {
             $this->db->where('username', $id_karyawan);
         }
         $this->db->where('year(tanggal)', $tahun);
-        $this->db->where('month(tanggal)', $bulan);
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.id_karyawan = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $total_krat = 0; $total_dus = 0;
         foreach ($result as $key) {
@@ -335,7 +359,9 @@ class Debt_model extends CI_Model {
             $this->db->where('username', $id_karyawan);
         }
         $this->db->where('year(tanggal)', $tahun);
-        $this->db->where('month(tanggal)', $bulan);
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.id_karyawan = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $total_krat = 0; $total_dus = 0;
         foreach ($result as $key) {
@@ -357,7 +383,9 @@ class Debt_model extends CI_Model {
             $this->db->where('username', $id_karyawan);
         }
         $this->db->where('year(tanggal)', $tahun);
-        $this->db->where('month(tanggal)', $bulan);
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.id_karyawan = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $total_krat = 0; $total_dus = 0;
         foreach ($result as $key) {
@@ -379,7 +407,9 @@ class Debt_model extends CI_Model {
             $this->db->where('username', $id_karyawan);
         }
         $this->db->where('year(tanggal)', $tahun);
-        $this->db->where('month(tanggal)', $bulan);
+		$this->db->where('month(tanggal)', $bulan);
+		$this->db->join('wp_karyawan as c', 'wp_debt_muat.id_karyawan = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $result = $this->db->get('wp_debt_muat')->result();
         $total_krat = 0; $total_dus = 0;
         foreach ($result as $key) {

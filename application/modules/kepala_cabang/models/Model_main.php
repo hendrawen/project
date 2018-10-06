@@ -19,7 +19,7 @@ class Model_main extends CI_Model {
         # code...
         $this->db->select('id,nama_barang, satuan');
         $this->db->order_by('nama_barang', 'asc');
-        return $this->db->get('wp_barang')->result();   
+		return $this->db->get('wp_barang')->result();
     }
 
     function get_satuan()

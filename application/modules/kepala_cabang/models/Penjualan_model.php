@@ -65,7 +65,9 @@ class Penjualan_model extends CI_Model {
         }
         if ($this->input->post('tahun2')) {
             $this->db->where('year(wp_transaksi.tgl_transaksi)', $this->input->post('tahun2'));
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         
@@ -164,7 +166,9 @@ class Penjualan_model extends CI_Model {
         }
         if ($status != 'semua') {
             $this->db->where('wp_status_id', $status);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         return $this->db->get($this->table)->result();
         
@@ -193,7 +197,9 @@ class Penjualan_model extends CI_Model {
         }
         if ($status != 'semua') {
             $this->db->where('wp_status_id', $status);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         return $this->db->get()->result();
@@ -219,7 +225,9 @@ class Penjualan_model extends CI_Model {
         }
         if ($status != 'semua') {
             $this->db->where('wp_status_id', $status);
-        }
+		}
+		$this->db->join('wp_karyawan as c', 'wp_transaksi.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
         return $this->db->get()->result();

@@ -123,7 +123,8 @@ class PenarikanDebt_model extends CI_Model {
         $this->db->select('wp_karyawan.id_karyawan, wp_karyawan.nama');
         $this->db->join('wp_jabatan','wp_jabatan.id=wp_karyawan.wp_jabatan_id');
         $this->db->where('wp_jabatan.nama_jabatan','Debt & Delivery');
-        $this->db->select('id_karyawan, nama');
+		$this->db->select('id_karyawan, nama');
+		$this->db->where('wp_karyawan.penempatan', $this->session->penempatan);
         return $this->db->get('wp_karyawan')->result();
     }
 
