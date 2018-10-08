@@ -58,4 +58,14 @@ class Main_model extends CI_Model{
         }   
     }
 
+    public function get_top_area($year)
+    {
+        $this->db->select('sum(wp_transaksi.subtotal) as total, wp_pelanggan.kecamatan');
+        $this->db->group_by('wp_pelanggan.kecamatan');
+        $this->db->order_by('total', 'desc');
+        $this->db->where('year(tgl_transaksi)', $year);
+        $this->db->join('wp_pelanggan', 'wp_pelanggan.id = wp_transaksi.wp_pelanggan_id', 'inner');
+        return $this->db->get('wp_transaksi', 5, 0)->result();
+    }
+
 }

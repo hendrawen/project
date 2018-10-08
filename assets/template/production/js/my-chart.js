@@ -7,6 +7,7 @@ $(document).ready(function () {
     penjualan_chart(n);
     produk_chart(n);
     pembayaran_chart(n);
+    area_chart(n);
 });
 
 $("#tahun-penjualan").change(function () {
@@ -20,7 +21,9 @@ $("#tahun-produk").change(function () {
 $("#tahun-pembayaran").change(function () {
     pembayaran_chart($(this).val());
 });
-
+$("#tahun-area").change(function () {
+    area_chart($(this).val());
+});
 
 function produk_chart(n) {
     $.ajax({
@@ -134,6 +137,40 @@ function pembayaran_chart(n) {
                             }
                         ]
                     }
+                }
+            });
+        }
+    });
+}
+
+function area_chart(n) {
+
+                  
+    $.ajax({
+        type: "POST",
+        url: base_url + "panel/chart_area",
+        data: {
+            tahun: n
+        },
+        dataType: "json",
+        success: function (response) {
+            var ctx = document.getElementById("area_chart");
+            var data = {
+                datasets: [
+                    {
+                        data: response.value,
+                        backgroundColor: response.color,
+                        label: 'My dataset' // for legend
+                    }
+                ],
+                labels: response.label
+            };
+
+            var pieChart = new Chart(ctx, {
+                data: data,
+                type: 'pie',
+                otpions: {
+                    legend: false
                 }
             });
         }

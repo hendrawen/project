@@ -128,6 +128,29 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Area
+                    <small>Chart</small>
+                </h2>
+                <div class="nav navbar-right panel_toolbox">
+                    <select class="form-control" name="tahun-area" id="tahun-area">
+                        <?php for ($tahun=(date('Y')-5); $tahun <= date('Y'); $tahun++) {
+                    echo '<option selected value="'.$tahun.'">'.$tahun.'</option>';
+                    } ?>
+                    </select>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+            <canvas id="area_chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    
+
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
