@@ -17,7 +17,7 @@ class Users extends CI_Controller
         $this->load->model('modeluser','user');
         $this->load->library('form_validation');
         $this->load->helper(array('url', 'language'));
-        $this->load->model('Ion_auth_model');
+		$this->load->model('Ion_auth_model');
         $this->permit = $this->Ion_auth_model->permission($this->session->identity);
     }
 
@@ -65,7 +65,8 @@ class Users extends CI_Controller
                 'last_name'  		=> $this->input->post('last_name'),
                 'company'    		=> $this->input->post('company'),
                 //'alamat'      		=> $this->input->post('alamat'),
-                'phone'      		=> $this->input->post('phone'),
+				'phone'      		=> $this->input->post('phone'),
+				'penempatan'		=> $this->input->post('cabang'),
                 //'jatuh_tempo'      => $this->input->post('jatuh_tempo'),
             );
         }

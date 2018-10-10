@@ -41,6 +41,24 @@
             <label for="varchar">Phone <?php echo form_error('phone') ?></label>
             <input type="text" class="form-control" name="phone" id="phone" placeholder="phone"  <?php echo form_input($phone);?>
         </div>
+		<div class="form-group">
+			<label for="cabang">Cabang</label>
+				<select name="cabang" id="cabang" class="form-control">
+					<option value="">Pilih</option>
+					<?php
+					$penempatan = $this->db->get('wp_cabang')->result();
+					foreach($penempatan as $value){
+						$selected= '';
+						if($cabang == $value->id){
+							$selected = 'selected="selected"';
+						}
+						?>
+						<option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+						<?php echo $value->id; ?> - <?php echo $value->nama_cabang; ?>
+						</option>
+					<?php }?>
+				</select>
+		</div>
         <!-- <div class="form-group">
             <label for="varchar">Jatuh Tempo <?php echo form_error('jatuh_tempo') ?></label>
             <input type="text" class="form-control daterange-single" name="jatuh_tempo" id="jatuh_tempo" placeholder="phone"  <?php echo form_input($jatuh_tempo);?>

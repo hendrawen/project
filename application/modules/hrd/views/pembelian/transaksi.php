@@ -54,7 +54,7 @@
 </form>
 </div>
 
-<form class="" action="<?php echo site_url('bendahara/pembelian/checkout');?>" method="post">
+<form class="" action="<?php echo site_url('hrd/pembelian/checkout');?>" method="post">
   <?php $i = 1; ?>
   <?php foreach($this->cart->contents() as $items): ?>
 
@@ -136,7 +136,7 @@
                   <div class="col-md-8 col-sm-8 col-xs-12">
                     <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Checkout</button>
                     <button type="button" class="hapus_cart btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-upload"></i> Hapus Semua</button>
-                    <a href="<?php echo site_url('bendahara/pembelian') ?>" class="btn btn-danger pull-right">Kembali</a>
+                    <a href="<?php echo site_url('hrd/pembelian') ?>" class="btn btn-danger pull-right">Kembali</a>
                   </div>
                 </div>
               </section>

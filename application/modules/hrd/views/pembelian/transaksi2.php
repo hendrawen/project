@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-md-6">
                 <!-- <?php echo anchor(site_url('barang/create'),'Tambah', 'class="btn btn-primary"'); ?> -->
-                <a href="<?php echo site_url('bendahara/pembelian/barang'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo site_url('hrd/pembelian/barang'); ?>" type="button" class="btn btn-primary" > <i class="fa fa-plus"></i> Tambah</a>
             </div>
           </div>
             <div class="col-md-6 text-right">
@@ -68,7 +68,7 @@
                                                       showCancelButton: true,
                                                       confirmButtonColor: '#d9534f',
                                                          }, function(){
-                                                            window.location.href ='<?=base_url()?>bendahara/pembelian/delete/<?=$key->id ?>';
+                                                            window.location.href ='<?=base_url()?>hrd/pembelian/delete/<?=$key->id ?>';
                                                                        });"><i class="fa fa-folder"></i> Delete</a>
                            </td>
                       </tr>
@@ -80,8 +80,8 @@
               <div class="row">
                   <div class="col-md-6">
                       <a></a>
-                      <!-- <?php echo anchor(site_url('bendahara/pembelian/excel'), 'Excel', 'class="btn btn-primary"'); ?>
-                      <?php echo anchor(site_url('bendahara/pembelian/word'), 'Word', 'class="btn btn-primary"'); ?>  -->
+                      <!-- <?php echo anchor(site_url('hrd/pembelian/excel'), 'Excel', 'class="btn btn-primary"'); ?>
+                      <?php echo anchor(site_url('hrd/pembelian/word'), 'Word', 'class="btn btn-primary"'); ?>  -->
                 </div>
               </div>
             </div>

@@ -31,7 +31,9 @@ class Penarikan_model extends CI_Model {
         $this->db->join('wp_barang', ' wp_asis_debt.wp_barang_id = wp_barang.id', 'left');
         $this->db->join('wp_karyawan as b', 'b.id_karyawan = wp_transaksi.username', 'left');
         $this->db->join('wp_karyawan', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan', 'left');
-        $this->db->join('wp_krat_kosong', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan', 'left');
+		$this->db->join('wp_krat_kosong', 'wp_pelanggan.wp_karyawan_id_karyawan = wp_karyawan.id_karyawan', 'left');
+		$this->db->join('wp_karyawan as c', 'wp_asis_debt.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $this->db->order_by('wp_transaksi.id_transaksi', 'DESC');
         $this->db->from($this->table);
 
@@ -125,15 +127,17 @@ class Penarikan_model extends CI_Model {
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
-        $this->db->limit($_POST['length'], $_POST['start']);
+		$this->db->limit($_POST['length'], $_POST['start']);
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $query = $this->db->get();
         return $query->result();
     }
  
     function count_filtered()
     {
-        $this->_get_datatables_query();
-        $this->db->select('kota, kecamatan, kelurahan');
+		$this->_get_datatables_query();
+		$this->db->select('kota, kecamatan, kelurahan');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         $query = $this->db->get();
 
         return $query->num_rows();
@@ -142,7 +146,9 @@ class Penarikan_model extends CI_Model {
     public function count_all()
     {
         $this->db->from($this->table);
-        $this->db->select('kota, kecamatan, kelurahan');
+		$this->db->select('kota, kecamatan, kelurahan');
+		$this->db->join('wp_karyawan as c', 'wp_asis_debt.username = c.id_karyawan', 'inner');
+		$this->db->where('c.penempatan', $this->session->penempatan);
         return $this->db->count_all_results();
     }
 
