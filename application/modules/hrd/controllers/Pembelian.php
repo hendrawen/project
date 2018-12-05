@@ -152,7 +152,7 @@ class Pembelian extends CI_Controller{
   { 
     $data = array(
       'button' => 'Simpan',
-      'action' => site_url('admin_gudang/pembelian/create_action'),
+      'action' => site_url('hrd/pembelian/create_action'),
       'id' => set_value('id'),
       'id_transaksi' => set_value('id_transaksi'),
       'wp_barang_id' => set_value('wp_barang_id'),

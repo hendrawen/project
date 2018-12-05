@@ -272,7 +272,8 @@ class Auth extends CI_Controller {
 	                'last_name'  		=> $this->input->post('last_name'),
 	                'company'    		=> $this->input->post('company'),
 	                //'alamat'      		=> $this->input->post('alamat'),
-	                'phone'      		=> $this->input->post('phone'),
+					'phone'      		=> $this->input->post('phone'),
+					'penempatan'		=> $this->input->post('cabang'),
 	                //'jatuh_tempo'      => $this->input->post('jatuh_tempo'),
 				);
 
@@ -369,6 +370,7 @@ class Auth extends CI_Controller {
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('phone', $user->phone),
 		);
+		$this->data['cabang'] = set_value('cabang', $user->penempatan);
 		// $this->data['alamat'] = array(
 		// 	'name' => 'alamat',
 		// 	'id'   => 'alamat',
@@ -398,6 +400,7 @@ class Auth extends CI_Controller {
 		$this->data['judul']      ='User';
 		$this->data['sub_judul']	='Edit';
 		$this->data['content']    ='user/table_edit_form';
+		
 		$this->_render_page('panel/dashboard', $this->data);
 	}
 

@@ -75,6 +75,23 @@
                 <?php } ?>
                 </select>
             </div>
+			<div class="form-group">
+								<label for="cabang">Cabang</label>
+								<select name="cabang" id="cabang" class="form-control">
+										<option value="">Pilih</option>
+												<?php
+														foreach($penempatan as $value){
+														$selected= '';
+														if($cabang == $value->id){
+															$selected = 'selected="selected"';
+														}
+														?>
+														<option  value="<?php echo $value->id; ?>"  <?php echo $selected;?> >
+														<?php echo $value->id; ?> - <?php echo $value->nama_cabang; ?>
+														</option>
+												<?php }?>
+								</select>
+						</div>
     	    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $button ?></button>
     	    <a href="<?php echo site_url('karyawan') ?>" class="btn btn-danger">Kembali</a>
     	</form>

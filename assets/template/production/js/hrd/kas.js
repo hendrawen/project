@@ -111,7 +111,7 @@ function ubah(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : base_url+"kas/ajax_edit/" + id,
+        url : base_url+"hrd/kas/ajax_edit/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)

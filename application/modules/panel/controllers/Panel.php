@@ -83,4 +83,48 @@ class Panel extends CI_Controller {
 		}
 		echo json_encode($result);
 	}
+<<<<<<< HEAD
 }
+=======
+
+	public function chart_pembayaran()
+	{
+		$month = get_list_month();
+		$value = array();
+		foreach ($month as $row) {
+			$value[] = $this->model->get_chart_pembayaran($this->input->post('tahun'), $row['key']);
+			$bulan[] = $row['month'];
+		}
+		$hasil = array(
+			'bulan' => $bulan,
+			'value' => $value,
+		);
+		echo json_encode($hasil);
+	}
+
+	public function chart_area()
+	{
+		$color = array("#455C73", "#9B59B6", "#BDC3C7", "#26B99A", "#3498DB");
+		$area = $this->model->get_top_area($this->input->post('tahun'));
+		$result = array();
+		$i = 0;
+		$tabel = "";
+		if ($area) {
+			foreach ($area as $key) {
+				$result['color'][] = $color[$i];
+				$result['label'][] = $key->kecamatan;
+				$result['value'][] = $key->total;
+				$i++;
+			}
+		} else {
+			$result['color'][] = "#BDC3C7";
+			$result['label'][] = 'null';
+			$result['value'][] = 0;
+		}
+		echo json_encode($result);
+		
+		
+		
+	}
+}
+>>>>>>> a369fb0f8d7b9021bafb218bc3f73c4a766547b4

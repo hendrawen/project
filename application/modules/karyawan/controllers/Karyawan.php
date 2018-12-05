@@ -20,7 +20,8 @@ class Karyawan extends CI_Controller
         //         redirect('login','refresh');
         //     }
         // }
-        $this->load->model('karyawan_model');
+		$this->load->model('karyawan_model');
+		$this->load->model('gudang/Gudang_model', 'gudang_model');
         $this->load->library('form_validation');
     }
 
@@ -103,7 +104,8 @@ class Karyawan extends CI_Controller
         $data['title']			='Brajamarketindo';
         $data['judul']			='Karyawan';
         $data['sub_judul']	='Tambah Karyawan';
-        $data['content']		='karyawan_form';
+		$data['content']		='karyawan_form';
+		$data['penempatan'] = $this->gudang_model->get_penempatan();
         $this->load->view('panel/dashboard', $data);
     }
 
@@ -143,7 +145,8 @@ class Karyawan extends CI_Controller
         		'no_telp' => $this->input->post('no_telp',TRUE),
         		'photo' => $photo,
         		'status' => $this->input->post('status',TRUE),
-        		'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+				'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+				'penempatan'	=> $this->input->post('cabang', true),
         	    );
 
             $this->karyawan_model->insert($data);
@@ -166,13 +169,16 @@ class Karyawan extends CI_Controller
 		'no_telp' => set_value('no_telp', $row->no_telp),
 		'photo' => set_value('photo', $row->photo),
 		'status' => set_value('status', $row->status),
+		'cabang' => set_value('cabang', $row->penempatan),
 		'wp_jabatan_id' => set_value('wp_jabatan_id', $row->wp_jabatan_id),
 	    );
             $data['aktif']			='Master';
             $data['title']			='Brajamarketindo';
             $data['judul']			='Karyawan';
             $data['sub_judul']	    ='Edit Karyawan';
-            $data['content']		='karyawan_form_edit';
+			$data['content']		='karyawan_form_edit';
+			$data['karya']   = $this->karyawan_model->get_data();
+			$data['penempatan'] = $this->gudang_model->get_penempatan();
             $this->load->view('panel/dashboard', $data);
         } else {
             $this->session->set_flashdata('msg', 'Data Tidak Ada');
@@ -199,15 +205,15 @@ class Karyawan extends CI_Controller
 
         $result = $this->upload->data();
         //compress image
-        $config['image_library']    ='gd2';
-        $config['source_image']     ='./assets/uploads/'.$result['file_name'];
-        $config['create_thumb']     = false;
-        $config['maintain_ratio']   = false;
-        $config['width']            = 100;
-        $config['height']           = 100;
-        $config['new_image']        = './assets/uploads/'.$result['file_name'];
-        $this->load->library('image_lib', $config);
-        $this->image_lib->resize();
+        // $config['image_library']    ='gd2';
+        // $config['source_image']     ='./assets/uploads/'.$result['file_name'];
+        // $config['create_thumb']     = false;
+        // $config['maintain_ratio']   = false;
+        // $config['width']            = 100;
+        // $config['height']           = 100;
+        // $config['new_image']        = './assets/uploads/'.$result['file_name'];
+        // $this->load->library('image_lib', $config);
+        // $this->image_lib->resize();
         $photo = $result['file_name'];
 
         if ($photo != '') {
@@ -224,7 +230,8 @@ class Karyawan extends CI_Controller
         		'no_telp' => $this->input->post('no_telp',TRUE),
         		'photo' => $photo,
         		'status' => $this->input->post('status',TRUE),
-        		'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+				'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+				'penempatan'	=> $this->input->post('cabang', true),
         	    );
 
             } elseif ($photo == '') {
@@ -234,7 +241,8 @@ class Karyawan extends CI_Controller
                 'no_telp' => $this->input->post('no_telp',TRUE),
                 //'photo' => $photo,
                 'status' => $this->input->post('status',TRUE),
-                'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+				'wp_jabatan_id' => $this->input->post('wp_jabatan_id',TRUE),
+				'penempatan'	=> $this->input->post('cabang', true),
                     );
             }
 
