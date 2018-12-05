@@ -77,7 +77,6 @@ class Stok_opname extends CI_Controller {
                 ';
         } 
         echo $pesan;
-
     }
 
 }

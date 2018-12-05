@@ -215,7 +215,7 @@
                                     <i class="fa fa-clone"></i>
                                     Data Kas
                                     <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu" 
+                                <ul class="nav child_menu"
                                 <?= ($aktif == 'data-kas')?'style="display:block"':"";?>>
                                     <li <?= ($judul == 'kas')?'class="current-page"':'' ?>>
                                         <a href="<?php echo base_url();?>kas">Kas</a>

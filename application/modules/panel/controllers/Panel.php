@@ -57,7 +57,7 @@ class Panel extends CI_Controller {
 				$result['hc'][] = $hoverColor[$i];
 				$result['label'][] = $key->nama_barang;
 				$result['value'][] = $key->qtys;
-				
+
 				$tabel .= '<tr>
 				<td>
 				<p>
@@ -74,7 +74,7 @@ class Panel extends CI_Controller {
 			$result['hc'][] = '#CFD4D8';
 			$result['label'][] = 'null';
 			$result['value'][] = 0;
-			
+
 			$tabel .= '<tr>
 			<td>Tidak Ada Data</td>
 			<td></td>
